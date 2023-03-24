@@ -14,6 +14,9 @@ builder.Configuration.GetConnectionString("DefaultConnection")));
 builder.Services.AddScoped< IRegistartionRepository, RegistrationRepository> ();
 builder.Services.AddScoped<ILoginRepository, LoginRepository> ();
 builder.Services.AddScoped<IForgotRepository, ForgotRepository> ();
+builder.Services.AddScoped<IResetPasswordRepository, ResetPasswordRepository> ();
+builder.Services.AddScoped<ILoginRepository, LoginRepository> ();
+builder.Services.AddScoped<ILandingPage, LandingPageRepository> ();
 /*builder.Services.AddCloudscribePagination();*/
 builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).
     AddCookie(option =>
@@ -51,6 +54,6 @@ app.UseAuthorization();
 
 app.MapControllerRoute(
 	name: "default",
-	pattern: "{controller=Registration}/{action=Registration}/{id?}");
+	pattern: "{controller=Home}/{action=LandingPage}/{id?}");
 
 app.Run();

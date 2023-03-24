@@ -1,4 +1,4 @@
-// Javascript for Grid and List View button
+﻿// Javascript for Grid and List View button
 
 if (localStorage.getItem('vp') === 'list') {
     showList();
@@ -17,7 +17,7 @@ function gridList() {
     $gridCont.removeClass("list-view");
 }
 
-  
+
 $(document).on('click', '.btn-grid', gridList);
 $(document).on('click', '.btn-list', showList);
 
@@ -49,14 +49,14 @@ for (var checkbox of checkboxes) {
 
             removeElement(this.value);
             console.log("unchecked");
-            loadMissions(pg=1);
+            loadMissions(pg = 1);
         }
     })
 }
 
 
 function addElement(current, value) {
-    loadMissions(pg=1);
+    loadMissions(pg = 1);
     let filtersSection = document.querySelector(".filters-section");
 
     let createdTag = document.createElement('span');
@@ -98,7 +98,7 @@ function addElement(current, value) {
 }
 
 function removeElement(value) {
-    loadMissions(pg=1);
+    loadMissions(pg = 1);
     let filtersSection = document.querySelector(".filters-section");
 
     let elementToBeRemoved = document.getElementById(value);
