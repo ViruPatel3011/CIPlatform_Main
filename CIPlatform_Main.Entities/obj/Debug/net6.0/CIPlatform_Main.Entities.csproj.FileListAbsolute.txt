@@ -1,0 +1,14 @@
+E:\CIPlatform_Main\CIPlatform_Main.Entities\bin\Debug\net6.0\CIPlatform_Main.Entities.deps.json
+E:\CIPlatform_Main\CIPlatform_Main.Entities\bin\Debug\net6.0\CIPlatform_Main.Entities.runtimeconfig.json
+E:\CIPlatform_Main\CIPlatform_Main.Entities\bin\Debug\net6.0\CIPlatform_Main.Entities.dll
+E:\CIPlatform_Main\CIPlatform_Main.Entities\bin\Debug\net6.0\CIPlatform_Main.Entities.pdb
+E:\CIPlatform_Main\CIPlatform_Main.Entities\obj\Debug\net6.0\CIPlatform_Main.Entities.csproj.AssemblyReference.cache
+E:\CIPlatform_Main\CIPlatform_Main.Entities\obj\Debug\net6.0\CIPlatform_Main.Entities.GeneratedMSBuildEditorConfig.editorconfig
+E:\CIPlatform_Main\CIPlatform_Main.Entities\obj\Debug\net6.0\CIPlatform_Main.Entities.AssemblyInfoInputs.cache
+E:\CIPlatform_Main\CIPlatform_Main.Entities\obj\Debug\net6.0\CIPlatform_Main.Entities.AssemblyInfo.cs
+E:\CIPlatform_Main\CIPlatform_Main.Entities\obj\Debug\net6.0\CIPlatform_Main.Entities.csproj.CoreCompileInputs.cache
+E:\CIPlatform_Main\CIPlatform_Main.Entities\obj\Debug\net6.0\CIPlatform_Main.Entities.dll
+E:\CIPlatform_Main\CIPlatform_Main.Entities\obj\Debug\net6.0\refint\CIPlatform_Main.Entities.dll
+E:\CIPlatform_Main\CIPlatform_Main.Entities\obj\Debug\net6.0\CIPlatform_Main.Entities.pdb
+E:\CIPlatform_Main\CIPlatform_Main.Entities\obj\Debug\net6.0\CIPlatform_Main.Entities.genruntimeconfig.cache
+E:\CIPlatform_Main\CIPlatform_Main.Entities\obj\Debug\net6.0\ref\CIPlatform_Main.Entities.dll
