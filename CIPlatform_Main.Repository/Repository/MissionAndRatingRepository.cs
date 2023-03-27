@@ -204,7 +204,7 @@ namespace CIPlatform_Main.Repository.Repository
 
 		//-------------------- comment ----------------------
 
-		//[HttpPost]
+	
 		public string commentOnMission(int mId, string commentText, string uid)
 		{
 
@@ -239,7 +239,7 @@ namespace CIPlatform_Main.Repository.Repository
 
 		//---------------------------------- favourite--------------------------
 
-		//[HttpPost]
+		
 		public string favouriteMission(int mId, string uid)
 		{
 			var userId = Convert.ToInt32(uid);

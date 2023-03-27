@@ -115,6 +115,7 @@ namespace CIPlatform_Main.Controllers
 		}
 
 
+
 		public IActionResult Privacy()
 		{
 			return View();
