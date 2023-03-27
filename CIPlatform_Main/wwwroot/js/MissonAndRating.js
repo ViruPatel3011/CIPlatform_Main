@@ -1,5 +1,5 @@
 
-
+/*
 function showList(e) {
     var $gridCont = $('.grid-container');
     e.preventDefault();
@@ -15,7 +15,7 @@ $(document).on('click', '.btn-grid', gridList);
 $(document).on('click', '.btn-list', showList);
 
 
-/*below js is for filter start*/
+*//*below js is for filter start*//*
 var checkboxes = document.querySelectorAll(".checkbox");
 
 
@@ -90,10 +90,10 @@ function removeElement(value) {
     filtersSection.removeChild(elementToBeRemoved);
 
 }
-/*below js is for filter end*/
+*//*below js is for filter end*//*
 
 
-
+*/
 
 
 

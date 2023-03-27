@@ -1,5 +1,4 @@
-﻿// Javascript for Grid and List View button
-
+﻿
 if (localStorage.getItem('vp') === 'list') {
     showList();
 }
