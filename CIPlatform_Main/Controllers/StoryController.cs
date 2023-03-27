@@ -32,9 +32,9 @@ namespace CIPlatform_Main.Controllers
 
 
 		[HttpPost]
-		public IActionResult shareYourStoryPage(int MissionId, string StoryTitle, string StoryText, DateTime StoryDate, int userId)
+		public IActionResult shareYourStoryPage(int MissionId, string StoryTitle, string StoryText, DateTime StoryDate, int userId, string[] images, string videourl)
 		{
-			var dataToFillStroyTable = _storyRepository.getDataForStoryTable(MissionId, StoryTitle, StoryText, StoryDate, userId);
+			var dataToFillStroyTable = _storyRepository.getDataForStoryTable(MissionId, StoryTitle, StoryText, StoryDate, userId,images,videourl);
 			return RedirectToAction("StoryListingPage", "Story");
 
 		}

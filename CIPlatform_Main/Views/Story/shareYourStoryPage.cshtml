@@ -132,7 +132,7 @@
         <div class="row mx-2 mt-1">
             <div class="col-12">
                 <label for="inputEmail4 ">Enter Video URL</label>
-                <input class="form-control mt-1" type="text" placeholder="Enter video url">
+                <input class="form-control mt-1" id="videoURL" type="text" placeholder="Enter video url">
             </div>
         </div>
         <div class="row mx-2 mt-1">
@@ -199,6 +199,18 @@
             var Description = $("#storytext").val();
             var PublishedAt = $("#date").val();
 
+            const video = $("#videoURL").val();
+
+            const imagePaths = [];
+            const images = document.getElementById('image-preview');
+            const image_tag = images.getElementsByTagName("img");
+            console.log(image_tag);
+
+            for (let i = 0; i < image_tag.length; i++) {
+                const image = image_tag[i].getAttribute("src");
+                imagePaths.push(image);
+            }
+
             $.ajax({
                 url: "/Story/shareYourStoryPage",
                 type: "POST",
@@ -209,9 +221,12 @@
                     'StoryText': Description,
                     'StoryDate': PublishedAt,
                     'userId': @uid,
+                    'images': imagePaths,
+                    'videoUrl': video,
                 },
                 success: function (result) {
                     console.log(result);
+                   @* $('#storyPartialView').html($(result).find('#storyPartialView').html());*@
                     location.reload();
                     //$('.xyz').html($(result).find('.xyz').html());
                 },
@@ -225,7 +240,7 @@
 
     </script>
 
-    @*<script src="https://cdn.tiny.cloud/1/no-api-key/tinymce/5/tinymce.min.js"></script>*@
+    <script src="https://cdn.tiny.cloud/1/no-api-key/tinymce/5/tinymce.min.js"></script>
     <script>
         tinymce.init({
             selector: '#storytext',

@@ -11,6 +11,6 @@ namespace CIPlatform_Main.Repository.Interface
 	public interface IStoryRepository
 	{
 		public storyListingVM getStoryDetail(storyListingVM svm);
-		public bool getDataForStoryTable(int MissionId, string StoryTitle, string StoryText, DateTime StoryDate, int userId);
+		public bool getDataForStoryTable(int MissionId, string StoryTitle, string StoryText, DateTime StoryDate, int userId, string[] images, string videourl);
 	}
 }

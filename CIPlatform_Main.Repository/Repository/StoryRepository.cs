@@ -5,6 +5,7 @@ using CIPlatform_Main.Repository.Interface;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -34,7 +35,7 @@ namespace CIPlatform_Main.Repository.Repository
 			return tsm;
 		}
 
-		public bool getDataForStoryTable(int MissionId, string StoryTitle, string StoryText, DateTime StoryDate, int userId)
+		public bool getDataForStoryTable(int MissionId, string StoryTitle, string StoryText, DateTime StoryDate, int userId, string[] images, string videourl)
 		{
 			Story str = new Story();
 
@@ -43,11 +44,37 @@ namespace CIPlatform_Main.Repository.Repository
 			str.PublishedAt = StoryDate;
 			str.Description = StoryText;
 			str.UserId = userId;
+			str.Status = "DRAFT";
 
 			_ciPlatformContext.Stories.Add(str);
-			_ciPlatformContext.SaveChanges();
-			return true;
-		}
+
+
+            var story = _ciPlatformContext.Stories.Where(s => s.MissionId == MissionId && s.UserId == userId).FirstOrDefault();
+
+            foreach (var image in images)
+            {
+                var model1 = new StoryMedium
+                {
+                    StoryId = story.StoryId,
+                    StoryType = "image",
+                    StoryPath = image
+
+                };
+                _ciPlatformContext.Add(model1);
+
+            }
+            var model2 = new StoryMedium
+            {
+                StoryId = story.StoryId,
+                StoryType = "video",
+                StoryPath = videourl
+
+            };
+            _ciPlatformContext.StoryMedia.Add(model2);
+            _ciPlatformContext.SaveChanges();
+            return true;
+
+        }
 
 
 	}

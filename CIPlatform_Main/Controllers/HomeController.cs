@@ -1,4 +1,5 @@
 ﻿using CIPlatform_Main.Entities.Data;
+using CIPlatform_Main.Entities.Models;
 using CIPlatform_Main.Entities.ViewModel;
 using CIPlatform_Main.Models;
 using CIPlatform_Main.Repository.Interface;
@@ -48,11 +49,69 @@ namespace CIPlatform_Main.Controllers
 
 			};
 
-			
+			List<Mission> missions = new List<Mission>();
+
+			if (search != null)
+			{
+				missions = missions.Where(m => m.Title.ToLower().Contains(search.ToLower())).ToList();
+			}
+
+			if (country.Length > 0 || city.Length > 0 || themes.Length > 0 || skills.Length > 0)
+			{
+				missions = FilterMission(missions, country, city, themes, skills);
+			}
+
+			missions = SortingData(sortVal, missions);
+
+
+
+
 			return PartialView("_cardsPartialView", landVM);
 		
 	}
 
+		public List<Mission> SortingData(string sortVal, List<Mission> missions)
+		{
+			switch (sortVal)
+			{
+				case "Newest":
+					return missions.OrderByDescending(p => p.StartDate).ToList();
+				case "Oldest":
+					return missions.OrderBy(p => p.StartDate).ToList();
+				case "LAS":
+					return missions.OrderBy(p => p.Availability).ToList();
+				case "HAS":
+					return missions.OrderByDescending(p => p.Availability).ToList();
+				case "Goal":
+					return missions.Where(m => m.MissionType.Equals("Goal")).ToList();
+				case "Time":
+					return missions.Where(m => m.MissionType.Equals("Time")).ToList();
+				default:
+					return missions.ToList();
+			}
+		}
+
+
+		public List<Mission> FilterMission(List<Mission> missions, string[]? country, string[]? city, string[]? themes, string[]? skills)
+		{
+			if (country.Length > 0)
+			{
+				missions = missions.Where(s => country.Contains(s.Country.Name)).ToList();
+			}
+			if (city.Length > 0)
+			{
+				missions = missions.Where(s => city.Contains(s.City.Name)).ToList();
+			}
+			if (themes.Length > 0)
+			{
+				missions = missions.Where(s => themes.Contains(s.Theme.Title)).ToList();
+			}
+			/*	if (skills.Length > 0)
+				{
+					missions = missions.Where(s => skills.Contains(s.MissionSkills.)).ToList();
+				}*/
+			return missions;
+		}
 
 
 		public IActionResult MissionAndRating(int id)
@@ -81,11 +140,12 @@ namespace CIPlatform_Main.Controllers
 
 		//add to favourite mission
 		[HttpPost]
-		public IActionResult favunfav(int mId)
+		public IActionResult doFavouriteMission(int mId)
 		{
 
 			var identity = User.Identity as ClaimsIdentity;
 			var uid = identity?.FindFirst(ClaimTypes.Sid)?.Value;
+
 			var missionRating = _missionAndRating.favouriteMission(mId, uid);
 			return RedirectToAction("MissionAndRating", new { id = mId });
 		}

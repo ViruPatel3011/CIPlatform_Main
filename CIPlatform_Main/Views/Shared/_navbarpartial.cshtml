@@ -56,8 +56,6 @@
 					<li class="nav-item dropdown">
 						<a class="nav-link dropdown-toggle" href="#" id="navbarScrollingDropdown" role="button"
 						   data-bs-toggle="dropdown" aria-expanded="false">
-
-
 							<img src="~/Assets/user-img.png" class="rounded-circle" height="35" width="35" alt="Profile pic"
 			loading="lazy" />
 							@name @surname
@@ -89,7 +87,8 @@
 		<div class="col-10 col-md-5 py-2">
 			<form class="d-flex mx-5">
 				<img src="~/Assets/search.png" id="search-icon" height="20" width="20" class="mt-2">
-				<input class="form-control me-2 border-0 bg-light" type="text" placeholder="Search mission by title..." id="search-field" aria-label="Search" asp-for="search">
+				<input class="form-control me-2 border-0 bg-light" type="search" asp-for="search" placeholder="Search mission by title..."
+		aria-label="Search" id="search-field" onchange="this.form.submit()">
 			</form>
 		</div>
 		<button class="col-auto navbar-toggler border-0 text-end" href="#filters" role="button"
@@ -110,24 +109,24 @@
 					<ul class="navbar-nav" style="--bs-scroll-height: 100px;">
 						<li class="nav-item dropdown">
 
-
-							<a class="btn btn-secondary dropdown-toggle bg-transparent text-dark border-0 "
-							   href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-								Country Name
-							</a>
-							<ul class="dropdown-menu scrollable-menu ps-2" aria-labelledby="navbarScrollingDropdown" id="countryDropdown">
-								@*@foreach (var countryList in Model.Countries)
-								{
-									<li class="dropdown-item">
-										<input class="form-check-input checkbox" type="checkbox" value="@countryList.Name"
-											   id="filter">
-
-										@countryList.Name
-
-									</li>
-								}*@
-							</ul>
-						</li>
+							<div class="dropdown">
+								<a class="btn btn-secondary dropdown-toggle bg-transparent text-dark border-0 "
+								   href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+									Country Name
+								</a>
+								<ul class="dropdown-menu scrollable-menu ps-2" id="countryDropdown">
+									@*@foreach (var countryList in Model.Countries)
+									{
+										<li class="form-check">
+											<input class="form-check-input checkbox" type="checkbox" value="@countryList.Name"
+												   id="Country">
+											<label class="form-check-label" for="flexCheckDefault">
+												@countryList.Name
+											</label>
+										</li>
+									}*@
+								</ul>
+							</div>
 
 
 					</ul>
@@ -137,29 +136,31 @@
 				<div class="col-auto py-2 px-2 mx-auto searchByFilter">
 					<ul class="navbar-nav" style="--bs-scroll-height: 100px;">
 						<li class="nav-item dropdown">
-							<a class="btn btn-secondary dropdown-toggle bg-transparent text-dark border-0 "
-							   href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-								City Name
-							</a>
-							<ul class="dropdown-menu scrollable-menu ps-2" aria-labelledby="navbarScrollingDropdown" id="cityDropdown">
-							@*	@foreach (var cityList in Model.Cities)
-								{
-									<li class="dropdown-item">
-										<input class="form-check-input checkbox" type="checkbox" value="@cityList.Name"
-											   id="filter">
 
-										@cityList.Name
-
-									</li>
-								}*@
-							</ul>
-
-						</li>
-
+							<div class="dropdown">
+								<a class="btn btn-secondary dropdown-toggle bg-transparent text-dark border-0 "
+								   href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+									City Name
+								</a>
+								<ul class="dropdown-menu scrollable-menu ps-2" id="cityDropdown">
+									@*@foreach (var cityList in Model.Cities)
+									{
+										<li class="form-check">
+											<input class="form-check-input checkbox" type="checkbox" value="@cityList.Name"
+												   id="flexCheckDefault">
+											<label class="form-check-label" for="flexCheckDefault">
+												@cityList.Name
+											</label>
+										</li>
+									}*@
+								</ul>
+							</div>
 
 
 					</ul>
 
+					</li>
+					</ul>
 				</div>
 
 				<!-- Theme Section  -->
@@ -172,14 +173,14 @@
 							</a>
 
 							<ul class="dropdown-menu scrollable-menu" aria-labelledby="navbarScrollingDropdown" id="themesDropdown">
-								@*@foreach (var themeList in Model.MissionThemes)
+							@*	@foreach (var themeList in Model.MissionThemes)
 								{
 									<li class="form-check ms-1">
-										<input class="checkbox" type="checkbox" value="@themeList.Title"
-											   id="filter">
-
-										@themeList.Title
-
+										<input class="form-check-input checkbox" type="checkbox" value="@themeList.Title"
+											   id="flexCheckDefault">
+										<label class="form-check-label" for="flexCheckDefault">
+											@themeList.Title
+										</label>
 									</li>
 								}*@
 							</ul>
@@ -198,14 +199,14 @@
 							</a>
 
 							<ul class="dropdown-menu scrollable-menu" aria-labelledby="navbarScrollingDropdown" id="skillsDropdown">
-							@*	@foreach (var skillsList in Model.Skills)
+								@*@foreach (var skillsList in Model.Skills)
 								{
 									<li class="form-check ms-1">
-										<input class="checkbox" type="checkbox" value="@skillsList.SkillName"
-											   id="filter">
-
-										@skillsList.SkillName
-
+										<input class="form-check-input checkbox" type="checkbox" value="@skillsList.SkillName"
+											   id="flexCheckDefault">
+										<label class="form-check-label" for="flexCheckDefault">
+											@skillsList.SkillName
+										</label>
 									</li>
 								}*@
 							</ul>
@@ -219,6 +220,7 @@
 		</div>
 	</div>
 </div>
+
 
 @*<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
 		integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
