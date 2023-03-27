@@ -1,4 +1,5 @@
-﻿using CIPlatform_Main.Entities.ViewModel;
+﻿using CIPlatform_Main.Entities.Models;
+using CIPlatform_Main.Entities.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,5 +17,10 @@ namespace CIPlatform_Main.Repository.Interface
 
 		//public bool isFavourite(int id);
 		public string favouriteMission(int mId, string uid);
+
+
+		//recomandation to co-worker ;
+		public string userWithId(int[] ids, int missionid, string url);
+		public List<User> getUsersForRecomandateToCoWorker(string uid);
 	}
 }

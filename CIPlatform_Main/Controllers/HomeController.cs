@@ -90,7 +90,29 @@ namespace CIPlatform_Main.Controllers
 			return RedirectToAction("RelatedMission", new { id = mId });
 		}
 
+		// recomandation to co-worker
+		public JsonResult GetUsers()
+		{
+			var identity = User.Identity as ClaimsIdentity;
+			var uid = identity?.FindFirst(ClaimTypes.Sid)?.Value;
 
+			var userData = _missionAndRating.getUsersForRecomandateToCoWorker(uid);
+
+			return Json(userData);
+		}
+		public string SentUserMail(int[] ids, int missionid)
+		{
+			string url = Url.Action("MissionAndRating", "Home", new { id = missionid }, Request.Scheme);
+			var emailForReco = _missionAndRating.userWithId(ids, missionid, url);
+			if (emailForReco != null)
+			{
+				return "success";
+			}
+			else
+			{
+				return "failure";
+			}
+		}
 
 
 		public IActionResult Privacy()

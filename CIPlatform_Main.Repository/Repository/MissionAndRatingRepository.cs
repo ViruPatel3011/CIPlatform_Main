@@ -6,6 +6,8 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Mail;
+using System.Net;
 using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
@@ -19,6 +21,8 @@ namespace CIPlatform_Main.Repository.Repository
 		{
 			_ciPlatformContext = ciPlatformContext;
 		}
+
+
 		public MissionAndRatingVM GetDataForRelatedMission(int missionId)
 		{
 			MissionAndRatingVM mrv = new MissionAndRatingVM();
@@ -157,12 +161,53 @@ namespace CIPlatform_Main.Repository.Repository
 		}
 
 
+		// recomendation to co-worker
+		public List<User> getUsersForRecomandateToCoWorker(string uid)
+		{
+			var userId = Convert.ToInt32(uid);
+			List<User> users = _ciPlatformContext.Users.Where(x => x.UserId != userId).ToList();
+			return users;
+		}
+
+
+		public string userWithId(int[] ids, int missionid, string url)
+		{
+
+			foreach (var id in ids)
+			{
+
+				var user = _ciPlatformContext.Users.SingleOrDefault(m => m.UserId == id);
+				var resetLink = url;
+
+				var from = new MailAddress("virupatel6048@gmail.com", "Mail From Viral Patel");
+
+				var to = new MailAddress(user.Email);
+				var subject = "Volunteer mission recommend";
+				var body = $"Hi,<br /><br />Please click on the following to apply on mission:<br /><br /><a href='{resetLink}'>{resetLink}</a>";
+				var message = new MailMessage(from, to)
+				{
+					Subject = subject,
+					Body = body,
+					IsBodyHtml = true
+				};
+				var smtpClient = new SmtpClient("smtp.gmail.com", 587)
+				{
+					UseDefaultCredentials = false,
+					Credentials = new NetworkCredential("virupatel6048@gmail.com", "zwsgqrwabnvhmpfg"),
+					EnableSsl = true
+				};
+				smtpClient.Send(message);
+			}
+
+			return "true";
+		}
 
 		//-------------------- comment ----------------------
 
 		//[HttpPost]
-		public string commentOnMission(int mId, string commentText1, string uid)
+		public string commentOnMission(int mId, string commentText, string uid)
 		{
+
 
 			var userId = Convert.ToInt32(uid);
 
@@ -172,9 +217,9 @@ namespace CIPlatform_Main.Repository.Repository
 				{
 					MissionId = mId,
 					UserId = Convert.ToInt32(userId),
-					ApprovalStatus = commentText1,
+					ApprovalStatus = commentText,
 				};
-				if (commentText1 != null)
+				if (commentText != null)
 				{
 					_ciPlatformContext.Comments.Add(comment);
 					_ciPlatformContext.SaveChanges();

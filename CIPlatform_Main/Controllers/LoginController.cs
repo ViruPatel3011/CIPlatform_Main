@@ -77,5 +77,13 @@ namespace CIPlatform_Main.Controllers
             TempData["Error Message"] = "Enter Valid username Or Password!";
             return View();
         }
-    }
+
+		public IActionResult Logout()
+		{
+			HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+			HttpContext.Session.Clear();
+			return RedirectToAction("LandingPage", "Home");
+		}
+
+	}
 }
