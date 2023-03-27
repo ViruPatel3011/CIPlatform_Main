@@ -205,7 +205,7 @@ namespace CIPlatform_Main.Repository.Repository
 		//-------------------- comment ----------------------
 
 	
-		public string commentOnMission(int mId, string commentText, string uid)
+		public string commentOnMission(int mId, string commentText1, string uid)
 		{
 
 
@@ -216,10 +216,10 @@ namespace CIPlatform_Main.Repository.Repository
 				var comment = new Comment()
 				{
 					MissionId = mId,
-					UserId = Convert.ToInt32(userId),
-					ApprovalStatus = commentText,
+					UserId =userId,
+					ApprovalStatus = commentText1,
 				};
-				if (commentText != null)
+				if (commentText1 != null)
 				{
 					_ciPlatformContext.Comments.Add(comment);
 					_ciPlatformContext.SaveChanges();
@@ -235,11 +235,11 @@ namespace CIPlatform_Main.Repository.Repository
 			//return RedirectToAction("RelatedMission", new { id = mId });
 		}
 
-
+	
 
 		//---------------------------------- favourite--------------------------
 
-		
+
 		public string favouriteMission(int mId, string uid)
 		{
 			var userId = Convert.ToInt32(uid);
@@ -265,6 +265,32 @@ namespace CIPlatform_Main.Repository.Repository
 			return "Failure";
 		}
 
+
+		// applied mission
+		public bool alreadyApplied(int mId, string uid)
+		{
+			var userId = Convert.ToInt32(uid);
+			var alreadyApplied = _ciPlatformContext.MissionApplications.Where(x => x.MissionId == mId && x.UserId == userId).FirstOrDefault();
+			if (alreadyApplied == null)
+			{
+				MissionApplication maapp = new MissionApplication()
+				{
+					MissionId = mId,
+					UserId = Convert.ToInt32(uid),
+					AppliedAt = DateTime.Now,
+				};
+				_ciPlatformContext.Add(maapp);
+				_ciPlatformContext.SaveChanges();
+				return false;
+			}
+			else
+			{
+				var deletRecord = _ciPlatformContext.MissionApplications.Where(x => x.MissionId == mId && x.UserId == userId).FirstOrDefault();
+				_ciPlatformContext.Remove(deletRecord);
+				_ciPlatformContext.SaveChanges();
+				return true;
+			}
+		}
 
 
 	}

@@ -48,7 +48,7 @@
 						</div>
 						<div class="offcanvas-body">
 							<li class="navbar-nav nav-item">
-								<a class="nav-link" aria-current="page" asp-controller="Home" asp-action="StoryListing">Stories</a>
+								<a class="nav-link" aria-current="page" asp-controller="Story" asp-action="StoryListingPage">Stories</a>
 							</li>
 							<li class="navbar-nav nav-item dropdown">
 								<a class="nav-link dropdown-toggle" href="#" id="navbarScrollingDropdown" role="button"
@@ -1133,10 +1133,10 @@
 			// alert(commentdetail);
 			$.ajax({
 				type: "POST",
-				url: "/Home/commentOnMission",
+				url: "/Home/CommentOnMission",
 				data: {
 					mId: @Model.MissionDetail.MissionId,
-					commentText: commentdetail
+					commentText1: commentdetail
 				},
 				success: function (result) {
 					// alert("comment successfully submited");
@@ -1213,7 +1213,7 @@
 				type: 'POST',
 				url: '/Home/appliedForMission',
 				data: {
-					id: @Model.MissionDetail.MissionId,
+					mId: @Model.MissionDetail.MissionId,
 
 				},
 				success: function (response) {

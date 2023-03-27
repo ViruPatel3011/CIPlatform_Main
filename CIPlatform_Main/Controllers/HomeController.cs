@@ -66,17 +66,17 @@ namespace CIPlatform_Main.Controllers
 		public IActionResult UpdateAndRate(int missionid, int rating, string Email)
 		{
 			var missionRating = _missionAndRating.UpdateAndRate(missionid, rating, Email);
-			return RedirectToAction("RelatedMission", new { id = missionid });
+			return RedirectToAction("MissionAndRating", new { id = missionid });
 		}
 
 		// Comment
 		[HttpPost]
-		public IActionResult commentOnMission(int mId, string commentText1)
+		public IActionResult CommentOnMission(int mId, string commentText1)
 		{
 			var identity = User.Identity as ClaimsIdentity;
 			var uid = identity?.FindFirst(ClaimTypes.Sid)?.Value;
 			var commentOnMission = _missionAndRating.commentOnMission(mId, commentText1, uid);
-			return RedirectToAction("RelatedMission", new { id = mId });
+			return RedirectToAction("MissionAndRating", new { id = mId });
 		}
 
 		//add to favourite mission
@@ -87,7 +87,7 @@ namespace CIPlatform_Main.Controllers
 			var identity = User.Identity as ClaimsIdentity;
 			var uid = identity?.FindFirst(ClaimTypes.Sid)?.Value;
 			var missionRating = _missionAndRating.favouriteMission(mId, uid);
-			return RedirectToAction("RelatedMission", new { id = mId });
+			return RedirectToAction("MissionAndRating", new { id = mId });
 		}
 
 		// recomandation to co-worker
@@ -114,6 +114,17 @@ namespace CIPlatform_Main.Controllers
 			}
 		}
 
+
+		public IActionResult appliedForMission(int mId)
+		{
+			var identity = User.Identity as ClaimsIdentity;
+			var uid = identity?.FindFirst(ClaimTypes.Sid)?.Value;
+
+			//var alreadyApplied = _ciPlatformContext.MissionApplications.Where(x => x.MissionId == mId && x.UserId == Convert.ToInt32(uid)).FirstOrDefault();
+			var alreadyApplied = _missionAndRating.alreadyApplied(mId, uid);
+
+			return RedirectToAction("MissionAndRating", new { id = mId });
+		}
 
 
 		public IActionResult Privacy()

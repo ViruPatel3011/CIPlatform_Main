@@ -22,5 +22,9 @@ namespace CIPlatform_Main.Repository.Interface
 		//recomandation to co-worker ;
 		public string userWithId(int[] ids, int missionid, string url);
 		public List<User> getUsersForRecomandateToCoWorker(string uid);
+
+		public bool alreadyApplied(int mId, string uid);
+
+
 	}
 }

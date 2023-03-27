@@ -2,6 +2,7 @@
 using CIPlatform_Main.Repository.Interface;
 using CIPlatform_Main.Repository.Repository;
 using Microsoft.AspNetCore.Mvc;
+using IActionResult = Microsoft.AspNetCore.Mvc.IActionResult;
 
 namespace CIPlatform_Main.Controllers
 {
