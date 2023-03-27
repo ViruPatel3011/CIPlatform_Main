@@ -28,7 +28,10 @@
 <body>
 	<section class="main">
 
-		<partial name="Shared/_navbarpartial.cshtml">
+	@*	<partial name="Shared/_navbarpartial.cshtml">*@
+		@{
+			Html.RenderPartial("_navbarpartial");
+		}
 
 		<div class="filters-section d-flex align-items-center flex-wrap justify-content-start" style="padding-left: 130px ;">
 		</div>

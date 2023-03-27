@@ -17,6 +17,7 @@ builder.Services.AddScoped<IForgotRepository, ForgotRepository> ();
 builder.Services.AddScoped<IResetPasswordRepository, ResetPasswordRepository> ();
 builder.Services.AddScoped<ILoginRepository, LoginRepository> ();
 builder.Services.AddScoped<ILandingPage, LandingPageRepository> ();
+builder.Services.AddScoped<IMissionAndRating, MissionAndRatingRepository> ();
 /*builder.Services.AddCloudscribePagination();*/
 builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).
     AddCookie(option =>

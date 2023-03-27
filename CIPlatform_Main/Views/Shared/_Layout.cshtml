@@ -15,6 +15,7 @@
 </head>
 <body>
 
+   
     <div class="container">
         <main role="main" class="pb-3">
             @RenderBody()
@@ -23,6 +24,7 @@
 
 
 
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
     <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>  
@@ -41,7 +43,6 @@
     <script src="~/lib/jquery/dist/jquery.js"></script>
 
 
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 
     @await RenderSectionAsync("Scripts", required: false)
 </body>

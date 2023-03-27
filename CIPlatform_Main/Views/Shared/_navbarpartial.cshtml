@@ -1,6 +1,10 @@
 ﻿@*@model IEnumerable<CIPlatformWeb.Entities.DataModels.Mission>*@
 @model LandingPageVM	
 
+@{
+	ViewData["Title"] = "Home Page";
+	Layout = "~/Views/Shared/_Layout.cshtml";
+}
 @using System.Security.Claims;
 @{
 	var identity = User.Identity as ClaimsIdentity;
@@ -112,7 +116,7 @@
 								Country Name
 							</a>
 							<ul class="dropdown-menu scrollable-menu ps-2" aria-labelledby="navbarScrollingDropdown" id="countryDropdown">
-								@foreach (var countryList in Model.Countries)
+								@*@foreach (var countryList in Model.Countries)
 								{
 									<li class="dropdown-item">
 										<input class="form-check-input checkbox" type="checkbox" value="@countryList.Name"
@@ -121,7 +125,7 @@
 										@countryList.Name
 
 									</li>
-								}
+								}*@
 							</ul>
 						</li>
 
@@ -138,7 +142,7 @@
 								City Name
 							</a>
 							<ul class="dropdown-menu scrollable-menu ps-2" aria-labelledby="navbarScrollingDropdown" id="cityDropdown">
-								@foreach (var cityList in Model.Cities)
+							@*	@foreach (var cityList in Model.Cities)
 								{
 									<li class="dropdown-item">
 										<input class="form-check-input checkbox" type="checkbox" value="@cityList.Name"
@@ -147,7 +151,7 @@
 										@cityList.Name
 
 									</li>
-								}
+								}*@
 							</ul>
 
 						</li>
@@ -168,7 +172,7 @@
 							</a>
 
 							<ul class="dropdown-menu scrollable-menu" aria-labelledby="navbarScrollingDropdown" id="themesDropdown">
-								@foreach (var themeList in Model.MissionThemes)
+								@*@foreach (var themeList in Model.MissionThemes)
 								{
 									<li class="form-check ms-1">
 										<input class="checkbox" type="checkbox" value="@themeList.Title"
@@ -177,7 +181,7 @@
 										@themeList.Title
 
 									</li>
-								}
+								}*@
 							</ul>
 
 						</li>
@@ -194,7 +198,7 @@
 							</a>
 
 							<ul class="dropdown-menu scrollable-menu" aria-labelledby="navbarScrollingDropdown" id="skillsDropdown">
-								@foreach (var skillsList in Model.Skills)
+							@*	@foreach (var skillsList in Model.Skills)
 								{
 									<li class="form-check ms-1">
 										<input class="checkbox" type="checkbox" value="@skillsList.SkillName"
@@ -203,7 +207,7 @@
 										@skillsList.SkillName
 
 									</li>
-								}
+								}*@
 							</ul>
 
 						</li>
@@ -240,7 +244,7 @@
 
 
 
-	function loadMissions(pg = 1, sortVal) {
+	function loadMissions(pg , sortVal) {
 		var country = [];
 		$('#countryDropdown').find("input:checked").each(function (i, ob) {
 			country.push($(ob).val());
@@ -270,7 +274,7 @@
 
 
 		$.ajax({
-			url: "/Home/CardData",
+			url: "/Home/LandingPage",
 			method: "POST",
 			dataType: "html",
 			data: { "sortVal": sortBy, "search": missionToSearch, "country": country, "city": city, "themes": themes, "skills": skills },

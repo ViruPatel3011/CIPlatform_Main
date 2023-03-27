@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Security.Claims;
 
 namespace CIPlatform_Main.Entities.Models;
 
 public partial class User
 {
-    public long UserId { get; set; }
+	public static ClaimsIdentity Identity { get; set; }
+	public long UserId { get; set; }
 
     public string? FirstName { get; set; }
 
