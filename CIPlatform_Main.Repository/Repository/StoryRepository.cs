@@ -47,6 +47,7 @@ namespace CIPlatform_Main.Repository.Repository
 			str.Status = "DRAFT";
 
 			_ciPlatformContext.Stories.Add(str);
+            _ciPlatformContext.SaveChanges();
 
 
             var story = _ciPlatformContext.Stories.Where(s => s.MissionId == MissionId && s.UserId == userId).FirstOrDefault();
