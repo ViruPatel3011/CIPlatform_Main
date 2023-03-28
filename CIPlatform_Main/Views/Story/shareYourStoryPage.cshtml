@@ -196,7 +196,9 @@
 
             var id = $("#mId").val();
             var Title = $("#title").val();
-            var Description = $("#storytext").val();
+           // var Description = $("#storytext").val();
+            var textarea = tinymce.get("storytext").getContent();
+            var Description = textarea.substring(3, textarea.length - 4);
             var PublishedAt = $("#date").val();
 
             const video = $("#videoURL").val();
@@ -222,7 +224,7 @@
                     'StoryDate': PublishedAt,
                     'userId': @uid,
                     'images': imagePaths,
-                    'videoUrl': video,
+                    'videourl': video,
                 },
                 success: function (result) {
                     console.log(result);

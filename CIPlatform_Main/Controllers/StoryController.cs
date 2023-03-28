@@ -3,6 +3,7 @@ using CIPlatform_Main.Entities.ViewModel;
 using CIPlatform_Main.Repository.Interface;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
 
 namespace CIPlatform_Main.Controllers
 {
@@ -37,6 +38,38 @@ namespace CIPlatform_Main.Controllers
 			var dataToFillStroyTable = _storyRepository.getDataForStoryTable(MissionId, StoryTitle, StoryText, StoryDate, userId,images,videourl);
 			return RedirectToAction("StoryListingPage", "Story");
 
+		}
+
+		
+		public IActionResult storyDetail(long userId , int missionId)
+        {
+            var getStoryDetail = _storyRepository.GetStoryDetail(userId, missionId);
+            return View(getStoryDetail);
+        }
+
+
+		// recomandation to co-worker
+		public JsonResult GetUsers()
+		{
+			var identity = User.Identity as ClaimsIdentity;
+			var uid = identity?.FindFirst(ClaimTypes.Sid)?.Value;
+
+			var userData = _storyRepository.getUsersForRecomandateToCoWorker(uid);
+
+			return Json(userData);
+		}
+		public string SentUserMail(int[] ids, int missionid)
+		{
+			string url = Url.Action("MissionAndRating", "Home", new { id = missionid }, Request.Scheme);
+			var emailForReco = _storyRepository.userWithId(ids, missionid, url);
+			if (emailForReco != null)
+			{
+				return "success";
+			}
+			else
+			{
+				return "failure";
+			}
 		}
 
 		public IActionResult Index()

@@ -282,9 +282,9 @@
 							<img class="card-img-top" src="~/Assets/Grow-Trees-On-the-path-to-environment-sustainability-1.png" alt="Card image cap">
 
 							<div class="details position-absolute">
-								<button type="button" class="btn btn-outline-light detailsButton">
+								<a asp-controller="Story" asp-action="storyDetail" asp-route-userId="@story.UserId" asp-route-missionId="@story.MissionId" class="btn btn-outline-light detailsButton">
 									View Details <i class="bi bi-arrow-right"></i>
-								</button>
+								</a>
 							</div>
 
 

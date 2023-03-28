@@ -44,8 +44,8 @@
 </head>
 <body>
 
-   
-    <div class="container">
+    @*Remove class container in _layout.cshtml div because it will take extra space both side *@   
+    <div class="">
         <main role="main" class="pb-3">
             @RenderBody()
         </main>
@@ -90,7 +90,24 @@
    @* <script src="~/js/ShareYourStory.js"></script>*@
 
 
-
+    <script>
+        function notloggedin() {
+            // trigger the alert message using Swal.fires
+            Swal.fire({
+                icon: 'error',
+                showCloseButton: true,
+                title: 'Please Login',
+                showConfirmButton: false,
+                text: 'Press the below button to login or Register',
+                footer: '<div class="btn-group">' +
+                    '<a href="' + '@Url.Action("Login", "Login")"' + ' class="btn btn-success">Login</a>' +
+                    '<a href="' + '@Url.Action("Registration", "Registration")"' + ' class="btn btn-dark">Register</a>' +
+                    '</div>',
+            });
+            //console.log(footer);
+        };
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
     @await RenderSectionAsync("Scripts", required: false)
 </body>

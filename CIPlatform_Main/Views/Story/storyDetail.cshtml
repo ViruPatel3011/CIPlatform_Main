@@ -1,0 +1,512 @@
+﻿@model storyDetailVM
+
+@using System.Security.Claims;
+@{
+    var identity = User.Identity as ClaimsIdentity;
+    var name = identity?.FindFirst(ClaimTypes.Name)?.Value;
+    var surname = identity?.FindFirst(ClaimTypes.Surname)?.Value;
+    var Email = identity?.FindFirst(ClaimTypes.Email)?.Value;
+    var uid = identity?.FindFirst(ClaimTypes.Sid)?.Value;
+
+}
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+    <link rel="stylesheet" href="~/css/MissonAndRating.css">
+
+
+    <title>Related Mission & Rating</title>
+</head>
+
+<body>
+
+	<!-- First navbar  -->
+	<nav class="navbar navbar-expand-md navbar-light bg-light">
+		<div class="container">
+			<div id="navigation-bar">
+				<button class="navbar-toggler border-0" href="#menubar" role="button" data-bs-toggle="offcanvas"
+						aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"
+						id="navbar-toggler-btn">
+					<span class="navbar-toggler-icon"></span>
+				</button>
+				<div class="offcanvas offcanvas-start" tabindex="-1" id="menubar" aria-labelledby="offcanvasExampleLabel">
+					<div class="offcanvas-header">
+						<h5 class="offcanvas-title" id="offcanvasExampleLabel">Menu</h5>
+						<button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+					</div>
+					<div class="offcanvas-body">
+						<li class="navbar-nav nav-item">
+							<a class="nav-link" aria-current="page" asp-controller="Story" asp-action="StoryListingPage">Stories</a>
+						</li>
+						<li class="navbar-nav nav-item dropdown">
+							<a class="nav-link dropdown-toggle" href="#" id="navbarScrollingDropdown" role="button"
+							   data-bs-toggle="dropdown" aria-expanded="false">
+								Privacy
+							</a>
+							<ul class="dropdown-menu" aria-labelledby="navbarScrollingDropdown">
+								<li><a class="dropdown-item" href="#">Volunteering</a></li>
+								<li><a class="dropdown-item" href="#">Sponsered</a></li>
+
+							</ul>
+						</li>
+					</div>
+				</div>
+				</ul>
+			</div>
+
+			<div id="navigation-bar">
+				<ul class="navbar-nav d-flex">
+					@if (User.Identity.IsAuthenticated)
+					{
+
+
+						<li class="nav-item dropdown">
+							<a class="nav-link dropdown-toggle" href="#" id="navbarScrollingDropdown" role="button"
+							   data-bs-toggle="dropdown" aria-expanded="false">
+								<img src="~/Assets/user-img.png" class="rounded-circle" height="35" width="35" alt="Profile pic"
+			 loading="lazy" />
+								@name @surname
+							</a>
+							<ul class="dropdown-menu" aria-labelledby="navbarScrollingDropdown">
+								<li><a class="dropdown-item" href="#">Dashboard</a></li>
+								<li><a class="dropdown-item" href="#">My Account</a></li>
+								<li><a class="dropdown-item" href="#">Help Center</a></li>
+								<li><a class="dropdown-item" asp-controller="Login" asp-action="Logout">LogOut</a></li>
+							</ul>
+						</li>
+					}
+					else
+					{
+						<ul class="navbar-nav d-flex">
+							<li class="btn-primary me-2 pe-1"><a class="dropdown-item btn p-1" asp-controller="Login" asp-action="Login">Login</a></li>
+							<li class="btn-primary me-2 pe-1"><a class="dropdown-item btn p-1" asp-controller="Registration" asp-action="Registration">Register</a></li>
+						</ul>
+					}
+				</ul>
+			</div>
+		</div>
+	</nav>
+
+
+	<!-- Second Row for Search mission  -->
+	<div class="navbar-expand-md container-fluid border-top border-bottom bg-light px-0">
+		<div class="row container mx-auto px-0">
+			<div class="col-10 col-md-5 py-2">
+				<form class="d-flex mx-5">
+					<img src="~/Assets/search.png" id="search-icon" height="20" width="20" class="mt-2">
+					<input class="form-control me-2 border-0 bg-light" type="search" asp-for="search" placeholder="Search mission by title..."
+		 aria-label="Search" id="search-field" onchange="this.form.submit()">
+				</form>
+			</div>
+			<button class="col-auto navbar-toggler border-0 text-end" href="#filters" role="button"
+					data-bs-toggle="offcanvas" aria-controls="navbarSupportedContent" aria-expanded="false"
+					aria-label="Toggle navigation" id="navbar-toggler-btn">
+				<img src="~/Assets/filter.png" alt="">
+			</button>
+			<div class="offcanvas offcanvas-start" tabindex="-1" id="filters" aria-labelledby="offcanvasExampleLabel">
+				<div class="offcanvas-header">
+					<h5 class="offcanvas-title" id="offcanvasExampleLabel">Filters</h5>
+					<button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+				</div>
+				<div class="offcanvas-body">
+
+
+					<!-- Country Section  -->
+					<div class="col-auto py-2 px-2 mx-auto searchByFilter">
+						<ul class="navbar-nav" style="--bs-scroll-height: 100px;">
+							<li class="nav-item dropdown">
+
+								<div class="dropdown">
+									<a class="btn btn-secondary dropdown-toggle bg-transparent text-dark border-0 "
+									   href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+										Country Name
+									</a>
+									<ul class="dropdown-menu scrollable-menu ps-2" id="countryDropdown">
+										@foreach (var countryList in Model.CountryList)
+										{
+											<li class="form-check">
+												<input class="form-check-input checkbox" type="checkbox" value="@countryList.Name"
+													   id="Country">
+												<label class="form-check-label" for="flexCheckDefault">
+													@countryList.Name
+												</label>
+											</li>
+										}
+									</ul>
+								</div>
+
+
+						</ul>
+					</div>
+
+					<!-- City Section  -->
+					<div class="col-auto py-2 px-2 mx-auto searchByFilter">
+						<ul class="navbar-nav" style="--bs-scroll-height: 100px;">
+							<li class="nav-item dropdown">
+
+								<div class="dropdown">
+									<a class="btn btn-secondary dropdown-toggle bg-transparent text-dark border-0 "
+									   href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+										City Name
+									</a>
+									<ul class="dropdown-menu scrollable-menu ps-2" id="cityDropdown">
+										@foreach (var cityList in Model.CityList)
+										{
+											<li class="form-check">
+												<input class="form-check-input checkbox" type="checkbox" value="@cityList.Name"
+													   id="flexCheckDefault">
+												<label class="form-check-label" for="flexCheckDefault">
+													@cityList.Name
+												</label>
+											</li>
+										}
+									</ul>
+								</div>
+
+
+						</ul>
+
+						</li>
+						</ul>
+					</div>
+
+					<!-- Theme Section  -->
+					<div class="col-auto py-2 px-2 mx-auto searchByFilter">
+						<ul class="navbar-nav" style="--bs-scroll-height: 100px;">
+							<li class="nav-item dropdown">
+								<a class="nav-link dropdown-toggle" href="#" id="navbarScrollingDropdown" role="button"
+								   data-bs-toggle="dropdown" aria-expanded="false">
+									Theme
+								</a>
+
+								<ul class="dropdown-menu scrollable-menu" aria-labelledby="navbarScrollingDropdown" id="themesDropdown">
+									@foreach (var themeList in Model.MissionThemes)
+									{
+										<li class="form-check ms-1">
+											<input class="form-check-input checkbox" type="checkbox" value="@themeList.Title"
+												   id="flexCheckDefault">
+											<label class="form-check-label" for="flexCheckDefault">
+												@themeList.Title
+											</label>
+										</li>
+									}
+								</ul>
+
+							</li>
+						</ul>
+					</div>
+
+					<!-- Skills Section  -->
+					<div class="col-auto py-2 px-2 mx-auto searchByFilter">
+						<ul class="navbar-nav" style="--bs-scroll-height: 100px;">
+							<li class="nav-item dropdown">
+								<a class="nav-link dropdown-toggle" href="#" id="navbarScrollingDropdown" role="button"
+								   data-bs-toggle="dropdown" aria-expanded="false">
+									Skills
+								</a>
+
+								<ul class="dropdown-menu scrollable-menu" aria-labelledby="navbarScrollingDropdown" id="skillsDropdown">
+									@foreach (var skillsList in Model.SkillList)
+									{
+										<li class="form-check ms-1">
+											<input class="form-check-input checkbox" type="checkbox" value="@skillsList.SkillName"
+												   id="flexCheckDefault">
+											<label class="form-check-label" for="flexCheckDefault">
+												@skillsList.SkillName
+											</label>
+										</li>
+									}
+								</ul>
+
+							</li>
+						</ul>
+					</div>
+
+
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+
+
+    <!--Fourth row for mission slider and mission tab with volunteer start -->
+    <div class="container mt-2">
+
+        <!-- First Row for slider and details part start  -->
+        <div class="row ">
+
+            <!-- Column for left part  -->
+            <div class="col-lg-6">
+
+                <!-- Container for the image gallery carousel start -->
+                <div class="container h-100">
+
+                    <!-- Full-width images with number text -->
+
+                    <div style="height: 80%;">
+                        <div class="mySlides h-100 ">
+                            <img src="~/Assets/CSR-initiative-stands-for-Coffee--and-Farmer-Equity-4.png" style="width:100%" class="h-100">
+                        </div>
+
+                        <div class="mySlides h-100">
+                            <img src="~/Assets/img1.png" style="width:100%" class="h-100">
+                        </div>
+
+                        <div class="mySlides h-100">
+                            <img src="~/Assets/Grow-Trees-On-the-path-to-environment-sustainability-login.png" style="width:100%" class="h-100">
+                        </div>
+
+                        <div class="mySlides  h-100">
+                            <img src="~/Assets/img11.png" style="width:100%" class="h-100">
+                        </div>
+
+                        <div class="mySlides h-100">
+                            <img src="~/Assets/img11.png" style="width:100%" class="h-100">
+                        </div>
+
+                        <div class="mySlides h-100">
+                            <img src="~/Assets/image1.png" style="width:100%" class="h-100">
+                        </div>
+
+                        <!-- Next and previous buttons -->
+                        <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
+                        <a class="next" onclick="plusSlides(1)">&#10095;</a>
+                    </div>
+
+                    <!-- Thumbnail images -->
+                    <div class="row mt-2 w-100 mx-auto my-auto" style="height: 15%;">
+                        <div class="column pe-0 ps-0">
+                            <img class="demo cursor h-100" src="~/Assets/CSR-initiative-stands-for-Coffee--and-Farmer-Equity-5.png"
+                                 style="width:100%" onclick="currentSlide(1)" alt="The Woods">
+                        </div>
+                        <div class="column pe-0">
+                            <img class="demo cursor h-100" src="~/Assets/img2.png" style="width:100%" onclick="currentSlide(2)"
+                                 alt="Cinque Terre">
+                        </div>
+                        <div class="column pe-0">
+                            <img class="demo cursor h-100" src="~/Assets/Grow-Trees-On-the-path-to-environment-sustainability-4.png"
+                                 style="width:100%" onclick="currentSlide(3)" alt="Mountains and fjords">
+                        </div>
+                        <div class="column pe-0">
+                            <img class="demo cursor h-100" src="~/Assets/img22.png" style="width:100%" onclick="currentSlide(4)"
+                                 alt="Northern Lights">
+                        </div>
+                        <div class="column pe-0">
+                            <img class="demo cursor h-100" src="~/Assets/img.png" style="width:100%" onclick="currentSlide(5)"
+                                 alt="Nature and sunrise">
+                        </div>
+                        <div class="column pe-0">
+                            <img class="demo cursor h-100" src="~/Assets/image.png" style="width:100%" onclick="currentSlide(6)"
+                                 alt="Snowy Mountains">
+                        </div>
+                    </div>
+                </div>
+                <!-- Container for the image gallery carousel end -->
+
+            </div>
+
+
+
+            <!-- Column for Right part  -->
+            <div class="col-lg-6 mt-2">
+
+                <div class="row">
+                    <div class="col-lg-8">
+                        <img src="~/Assets/volunteer3.png" class="volImg" width="70px" height="70px" alt="">
+                        <p style="font-size: 13px;">
+							@Model.FirstName @Model.Lastname
+
+						</p>
+                    </div>
+                    <div class="col-lg-4 d-flex align-items-end">
+                        <p class="mb-0">12000 view</p>
+                    </div>
+                </div>
+
+                <div class="description">
+                    @Model.WhyIVolunteered
+                </div>
+
+                <!--no of seats section inside description start-->
+                <!--Button Section start-->
+                <div class="mt-4 d-flex justify-content-between">
+
+					@{
+						@if (uid != null)
+						{
+							<div style=" border:2px solid #757575; border-radius: 50px;">
+								<button type="button" class="btn btn-Secondary" data-bs-toggle="modal" data-bs-target="#staticBackdrop" onclick="getUser();" style="border: 1px solid; border-radius: 50px;">
+									<img src="~/Assets/add1.png" /> Recommended to co-worker
+								</button>
+
+								<!-- Modal -->
+								<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+									<div class="modal-dialog">
+										<div class="modal-content">
+											<div class="modal-header">
+												<h1 class="modal-title fs-5" id="staticBackdropLabel">Modal title</h1>
+												<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" onclick="getUser();"></button>
+											</div>
+											<div class="modal-body">
+											</div>
+											<div class="modal-footer">
+												<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+												<button type="button" class="btn btn-primary" id="sendmail">Send Mail</button>
+											</div>
+										</div>
+									</div>
+								</div>
+
+							</div>
+						}
+						else
+						{
+							<div style=" border:2px solid #757575; border-radius: 50px;">
+							<button type="button" class="btn btn-Secondary" data-bs-toggle="modal" data-bs-target="#staticBackdrop" onclick="getUser();" style="border: 1px solid; border-radius: 50px;">
+								<img src="~/Assets/add1.png" /> Recommended to co-worker
+							</button>
+							</div>
+						}
+					}
+					
+					<a asp-controller="Home" asp-action="MissionAndRating" asp-route-id="@Model.MissionId" class="btn  descBtn px-2" style="width:41%; border:2px solid #757575">
+                        Open Mission<img src="~/Assets/right-arrow.png" alt="">
+                    </a>
+
+                </div>
+                <!--Button Section end-->
+
+
+
+
+
+
+            </div>
+            <!--no of seats section inside description end-->
+
+        </div>
+        <!-- First Row for slider and details part end  -->
+
+        <div>
+            <h5 class="ms-2">@Model.storyTitle</h5>
+            <div>
+                <p class="ms-2">
+					@Model.storyDescription
+                </p>
+            </div>
+        </div>
+
+
+
+    </div>
+
+
+
+
+
+    <!--footer satrt-->
+    <div class="copyright mt-5">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="copyright-menu">
+                        <ul>
+                            <li>
+                                <a href="#">Privacy Policy</a>
+                            </li>
+                            <li>
+                                <a href="#">Cookie Policy</a>
+                            </li>
+                            <li>
+                                <a href="#">Terms of Use</a>
+                            </li>
+
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-md-6 rights">
+                    <span> © 2019 Optimy.com. All Right Reserved</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--footer end-->
+
+
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+            integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+            crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN"
+            crossorigin="anonymous"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js"
+            integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+            crossorigin="anonymous"></script>
+
+    <script src="~/js/MissonAndRating.js"></script>
+
+	<script type="text/javascript">
+		
+
+		// Function for sending mail to user
+		function senduser() {
+			var selecteduserid = [];
+			$('.modal-body input[type="checkbox"]:checked').each(function () {
+				selecteduserid.push($(this).attr("id"));
+			});
+			console.log(selecteduserid);
+
+			$.ajax({
+				type: "POST",
+				url: '/Story/SentUserMail',
+				data: {
+					ids: selecteduserid,
+					missionid: @Model.MissionId,
+				},
+				traditional: true,
+				success: function (response) {
+					alert('Mail Sent Successfully.. Now you can close Model...');
+				}
+			});
+		}
+
+
+	// Get Users-List for Recommendation
+		function getUser() {
+			var div = $('.modal-body');
+			//alert("inside getusers");
+			$.ajax({
+				type: "GET",
+				url: "/Story/GetUsers ",
+				data: {},
+				dataType: "json",
+				success: function (result) {
+					div.empty();
+					$.each(result, function (i, data) {
+						div.append('<div class="form-check ms-3"><input class="form-check-input checkbox" type="checkbox" value="' + data.firstName + " " + data.lastName + '" id=' + data.userId + '><label class="form-check-label" for=' + data.userId + '>' + data.firstName + " " + data.lastName + '</label></div>')
+					})
+
+				}
+			});
+
+			$('#sendmail').click(function () {
+				senduser();
+			})
+		}
+
+</script>
+</body>
+
+</html>
