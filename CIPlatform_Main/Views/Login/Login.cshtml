@@ -20,25 +20,31 @@
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" />
 
 
-    @if (TempData["Error Message"] != null)
-    {
-        <script src="~/lib/jquery/dist/jquery.min.js"></script>
-        <script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
-        <script type="text/javascript">
-            toastr.error('@TempData["Error Message"]')
-        </script>
-    }
-    @*  @if (TempData["Success Message"] != null)
-    {
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
-    <script type="text/javascript">
-    toastr.success('@TempData["Success Message"]')
-    </script>
-    }*@
+
 </head>
 
 <body>
+        <div>
+        @if (TempData["success"] != null)
+        {
+            <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css" />
+            <script src="~/lib/jquery/dist/jquery.min.js"></script>
+            <script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+            <script type="text/javascript">
+                toastr.success('@TempData["success"]');
+            </script>
+        }
+        @if (TempData["Error"] != null)
+        {
+            <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css" />
+            <script src="~/lib/jquery/dist/jquery.min.js"></script>
+            <script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+            <script type="text/javascript">
+                toastr.warning('@TempData["Error"]');
+            </script>
+        }
+    </div>
+
     <div class="container-fluid">
         <div class="row ">
             <div class="col-lg-8 col-md-12 col-sm-12 mt-2 mb-2 pe-0">

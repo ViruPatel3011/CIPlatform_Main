@@ -24,7 +24,8 @@ namespace CIPlatform_Main.Controllers
 		}
         public IActionResult LandingPage()
         {
-				
+
+         
             return View();
         }
 

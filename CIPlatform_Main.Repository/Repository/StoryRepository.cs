@@ -71,7 +71,7 @@ namespace CIPlatform_Main.Repository.Repository
 
             };
             _ciPlatformContext.StoryMedia.Add(model2);
-            _ciPlatformContext.SaveChanges();
+				_ciPlatformContext.SaveChanges();
             return true;
 
         }

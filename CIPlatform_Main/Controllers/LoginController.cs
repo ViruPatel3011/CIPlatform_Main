@@ -64,9 +64,10 @@ namespace CIPlatform_Main.Controllers
                         var principal = new ClaimsPrincipal(identity);
                         HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, principal);
                         HttpContext.Session.SetString("EmailId", status.Email);
-                        /*	TempData["Success Message"] = "Successfully Login!";*/
 
+                       /* TempData["success"] = "Successfully Login!";*/
                         return RedirectToAction("LandingPage", "Home");
+
                     }
 
 
@@ -74,7 +75,7 @@ namespace CIPlatform_Main.Controllers
             }
 
 
-            TempData["Error Message"] = "Enter Valid username Or Password!";
+            TempData["Error"] = "Enter Valid username Or Password!";
             return View();
         }
 

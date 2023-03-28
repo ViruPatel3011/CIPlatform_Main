@@ -10,14 +10,14 @@
     }
 }
 
-/Scrollable css for dropdown start/
+/*Scrollable css for dropdown start*/
 .dropdown-menu {
     height: auto;
     max-height: 200px;
     overflow-x: hidden;
 }
 
-/Scrollable css for dropdown end/
+/*Scrollable css for dropdown end*/
 /* Drag and drop image */
 #drop-zone {
     width: 300px;
@@ -73,7 +73,11 @@
         color: #fff;
     }
 
-/image drag and drop end/
+.dragImage {
+    border:1px solid dotted;
+}
+/*
+/image drag and drop end/*/
 /* footer css start */
 .copyright {
     padding: 28px 0;
