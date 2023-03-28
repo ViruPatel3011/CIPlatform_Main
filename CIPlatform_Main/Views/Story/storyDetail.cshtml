@@ -322,6 +322,10 @@
 
                 <div class="row">
                     <div class="col-lg-8">
+						@*@{
+									var userImage = Model.UserData.Where(x => x.UserId ==Model.UserId).Select(x => x.Avatar).FirstOrDefault();
+							<img src="@Url.Content(userImage)" class="volImg" width="70px" height="70px" alt="">
+								}*@
                         <img src="~/Assets/volunteer3.png" class="volImg" width="70px" height="70px" alt="">
                         <p style="font-size: 13px;">
 							@Model.FirstName @Model.Lastname

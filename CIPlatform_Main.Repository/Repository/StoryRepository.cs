@@ -93,6 +93,7 @@ namespace CIPlatform_Main.Repository.Repository
             sdv.SkillList = _ciPlatformContext.Skills.ToList();
             sdv.MissionThemes = _ciPlatformContext.MissionThemes.ToList();
             sdv.MissionId = missionId;
+			sdv.UserData = _ciPlatformContext.Users.ToList();
             return sdv;
         }
 

@@ -26,6 +26,7 @@ namespace CIPlatform_Main.Entities.ViewModel
         public string Lastname { get; set; }
 
         public int MissionId { get; set; }
+        public int UserId { get; set; }
 
         public string WhyIVolunteered { get; set; }   
         public DateTime dateAndTime { get; set; }
