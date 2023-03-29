@@ -10,6 +10,7 @@ using System.Net;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 
 namespace CIPlatform_Main.Repository.Repository
 {
@@ -94,6 +95,7 @@ namespace CIPlatform_Main.Repository.Repository
             sdv.MissionThemes = _ciPlatformContext.MissionThemes.ToList();
             sdv.MissionId = missionId;
 			sdv.UserData = _ciPlatformContext.Users.ToList();
+			sdv.Avatar = _ciPlatformContext.Users.Where(x => x.UserId == userId).Select(x => x.Avatar).FirstOrDefault();
             return sdv;
         }
 
@@ -116,7 +118,7 @@ namespace CIPlatform_Main.Repository.Repository
 				var user = _ciPlatformContext.Users.SingleOrDefault(m => m.UserId == id);
 				var resetLink = url;
 
-				var from = new MailAddress("virupatel6048@gmail.com", "Mail From Viral Patel");
+				var from = new MailAddress("patelviral0232@gmail.com", "Mail From Viral Patel");
 
 				var to = new MailAddress(user.Email);
 				var subject = "Volunteer mission recommend";
@@ -130,7 +132,7 @@ namespace CIPlatform_Main.Repository.Repository
 				var smtpClient = new SmtpClient("smtp.gmail.com", 587)
 				{
 					UseDefaultCredentials = false,
-					Credentials = new NetworkCredential("virupatel6048@gmail.com", "zwsgqrwabnvhmpfg"),
+					Credentials = new NetworkCredential("patelviral0232@gmail.com", "jnyrrywmzslgcfap"),
 					EnableSsl = true
 				};
 				smtpClient.Send(message);

@@ -62,7 +62,7 @@ namespace CIPlatform_Main.Repository.Repository
 
             var resetLink = url.Replace("{token}", token);
 
-            var fromAddress = new MailAddress("virupatel6048@gmail.com", "Viral Patel");
+            var fromAddress = new MailAddress("patelviral0232@gmail.com", "Viral Patel");
             var toAddress = new MailAddress(forgotVM.Email);
             var subject = "Password reset request";
             var body = $"Hi,<br /><br />Please click on the following link to reset your password:<br /><br /><a href='{resetLink}'>{resetLink}</a>";
@@ -78,7 +78,7 @@ namespace CIPlatform_Main.Repository.Repository
             var smtpClient = new SmtpClient("smtp.gmail.com", 587)
             {
                 UseDefaultCredentials = false,
-                Credentials = new NetworkCredential("virupatel6048@gmail.com", "zwsgqrwabnvhmpfg"),
+                Credentials = new NetworkCredential("patelviral0232@gmail.com", "jnyrrywmzslgcfap"),
                 EnableSsl = true
             };
             smtpClient.Send(message);

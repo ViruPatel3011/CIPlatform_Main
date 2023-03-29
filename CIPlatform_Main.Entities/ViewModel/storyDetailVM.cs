@@ -17,6 +17,7 @@ namespace CIPlatform_Main.Entities.ViewModel
         public IEnumerable<Skill>? SkillList { get; set; }
 
         public IEnumerable<Story>? Stories { get; set; }
+      
         public IEnumerable<StoryMedium>? storyMedia { get; set; }
         public string search { get; set; }
         public string missionName { get; set; }
@@ -24,10 +25,15 @@ namespace CIPlatform_Main.Entities.ViewModel
         public string storyDescription { get; set; }
         public string FirstName { get; set; }
         public string Lastname { get; set; }
+       
+        public string Avatar { get; set; }
+
+
 
         public int MissionId { get; set; }
         public int UserId { get; set; }
 
+        
         public string WhyIVolunteered { get; set; }   
         public DateTime dateAndTime { get; set; }
     }

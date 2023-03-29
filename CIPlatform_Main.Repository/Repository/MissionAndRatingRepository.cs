@@ -193,7 +193,7 @@ namespace CIPlatform_Main.Repository.Repository
 				var smtpClient = new SmtpClient("smtp.gmail.com", 587)
 				{
 					UseDefaultCredentials = false,
-					Credentials = new NetworkCredential("virupatel6048@gmail.com", "zwsgqrwabnvhmpfg"),
+					Credentials = new NetworkCredential("patelviral0232@gmail.com", "jnyrrywmzslgcfap"),
 					EnableSsl = true
 				};
 				smtpClient.Send(message);

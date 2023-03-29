@@ -60,7 +60,7 @@ namespace CIPlatform_Main.Controllers
 		}
 		public string SentUserMail(int[] ids, int missionid)
 		{
-			string url = Url.Action("MissionAndRating", "Home", new { id = missionid }, Request.Scheme);
+			string url = Url.Action("storyDetail", "Story", new { id = missionid }, Request.Scheme);
 			var emailForReco = _storyRepository.userWithId(ids, missionid, url);
 			if (emailForReco != null)
 			{
