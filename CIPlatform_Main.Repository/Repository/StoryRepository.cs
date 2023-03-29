@@ -38,7 +38,7 @@ namespace CIPlatform_Main.Repository.Repository
 			return tsm;
 		}
 
-		public bool getDataForStoryTable(int MissionId, string StoryTitle, string StoryText, DateTime StoryDate, int userId, string[] images, string videourl)
+		/*public bool getDataForStoryTable(int MissionId, string StoryTitle, string StoryText, DateTime StoryDate, int userId, string[] images, string videourl)
 		{
 			Story str = new Story();
 
@@ -78,7 +78,7 @@ namespace CIPlatform_Main.Repository.Repository
 			_ciPlatformContext.SaveChanges();
             return true;
 
-        }
+        }*/
 
 
         public storyDetailVM GetStoryDetail(long userId, int missionId)
@@ -140,5 +140,105 @@ namespace CIPlatform_Main.Repository.Repository
 
 			return "true";
 		}
-	}
+
+
+        //below 2 method is for edit story
+        public List<Mission> getMissions(long userid)
+        {
+            var missionApplication = _ciPlatformContext.MissionApplications.Where(u => u.UserId == userid).Select(u => u.MissionId);
+            return _ciPlatformContext.Missions.Where(u => missionApplication.Contains(u.MissionId)).OrderBy(m => m.Title).ToList();
+        }
+        public shareYourStoryVM getDataForShareYourStory(string missionid, string uid)
+        {
+
+            if (missionid == null)
+            {
+
+                return new shareYourStoryVM();
+
+            }
+            else
+            {
+                var story = _ciPlatformContext.Stories.SingleOrDefault(u => u.UserId == long.Parse(uid) && u.MissionId == long.Parse(missionid));
+
+                if (story != null)
+                {
+                    var storyMedia = _ciPlatformContext.StoryMedia.Where(u => u.StoryId == story.StoryId);
+                    var images = storyMedia.Where(m => m.StoryType == "Image").Select(s => s.StoryPath).ToList();
+                    var video = storyMedia.SingleOrDefault(m => m.StoryType == "video");
+                    var missionTitle = _ciPlatformContext.Missions.SingleOrDefault(m => m.MissionId == story.MissionId);
+                    shareYourStoryVM model = new shareYourStoryVM()
+                    {
+                        missionName = missionTitle.Title,
+                        storyId = story.StoryId,
+                        missionId = story.MissionId,
+                        storyTitle = story.Title,
+                        storyDescription = story.Description,
+                        dateAndTime = story.CreatedAt,
+                        videoURL = video.StoryPath,
+                        imagepaths = images,
+                    };
+                    return model;
+                }
+                var missionTitle1 = _ciPlatformContext.Missions.SingleOrDefault(m => m.MissionId == long.Parse(missionid));
+                shareYourStoryVM model1 = new shareYourStoryVM()
+                {
+                    missionId = missionTitle1.MissionId,
+                    missionName = missionTitle1.Title
+                };
+                return model1;  
+            }
+        }
+
+        public bool getDataForStoryTable(int mid, string sTitle, DateTime sDateAndTime, string sDesc, int userId, string[] images, string videourl)
+        {
+            var alreadyPosteStory = _ciPlatformContext.Stories.Where(x => x.UserId == userId && x.MissionId == mid).FirstOrDefault();
+            if (alreadyPosteStory != null)
+            {
+                return false;
+            }
+            else
+            {
+                var model = new Story
+                {
+                    MissionId = mid,
+                    Title = sTitle,
+                    Description = sDesc,
+                    Status = "DRAFT",
+                    UserId = userId
+                };
+
+                _ciPlatformContext.Stories.Add(model);
+                _ciPlatformContext.SaveChanges();
+            }
+
+
+            var story = _ciPlatformContext.Stories.Where(s => s.MissionId == mid && s.UserId == userId).FirstOrDefault();
+
+            foreach (var image in images)
+            {
+                var model1 = new StoryMedium
+                {
+                    StoryId = story.StoryId,
+                    StoryType = "image",
+                    StoryPath = image
+
+                };
+                _ciPlatformContext.Add(model1);
+
+            }
+            var model2 = new StoryMedium
+            {
+                StoryId = story.StoryId,
+                StoryType = "video",
+                StoryPath = videourl
+
+            };
+            _ciPlatformContext.StoryMedia.Add(model2);
+            _ciPlatformContext.SaveChanges();
+            return true;
+        }
+
+
+    }
 }

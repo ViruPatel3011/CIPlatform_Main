@@ -254,9 +254,21 @@
 					esse.
 					Repellat asperiores debitis eligendi.
 				</p>
-				<a type="button" class="btn btn-outline-light sharYourStoryBtn" asp-controller="Story" asp-action="shareYourStoryPage">
-					Share your Story <i class="bi bi-arrow-right"></i>
-				</a>
+				@{
+					if (uid != null)
+					{
+						<a type="button" class="btn btn-outline-light sharYourStoryBtn" asp-controller="Story" asp-action="shareYourStoryPage">
+							Share your Story <i class="bi bi-arrow-right"></i>
+						</a>
+					}
+					else
+					{
+						<a type="button" class="btn btn-outline-light sharYourStoryBtn" asp-controller="Login" asp-action="Login">
+							Login First to Share your Story <i class="bi bi-arrow-right"></i>
+						</a>
+					}
+				}
+				
 			</div>
 		</div>
 	</div>

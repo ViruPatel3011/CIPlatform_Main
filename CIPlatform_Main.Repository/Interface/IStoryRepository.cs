@@ -11,12 +11,19 @@ namespace CIPlatform_Main.Repository.Interface
 	public interface IStoryRepository
 	{
 		public storyListingVM getStoryDetail(storyListingVM svm);
-		public bool getDataForStoryTable(int MissionId, string StoryTitle, string StoryText, DateTime StoryDate, int userId, string[] images, string videourl);
+
+		/*public bool getDataForStoryTable(int MissionId, string StoryTitle, string StoryText, DateTime StoryDate, int userId, string[] images, string videourl);*/
 
         public storyDetailVM GetStoryDetail(long userId, int missionId);
 
 		public string userWithId(int[] ids, int missionid, string url);
 		public List<User> getUsersForRecomandateToCoWorker(string uid);
 
-	}
+        public shareYourStoryVM getDataForShareYourStory(string missionid, string uid);
+        public List<Mission> getMissions(long uid);
+
+        public bool getDataForStoryTable(int mid, string sTitle, DateTime sDateAndTime, string sDesc, int userId, string[] images, string videourl);
+
+
+    }
 }

@@ -23,25 +23,49 @@ namespace CIPlatform_Main.Controllers
 			return View(allStoryData);
 		}
 
-		[Authorize]
-		public IActionResult shareYourStoryPage(storyListingVM svm)
-		{
-			var detailRelatedStory = _storyRepository.getStoryDetail(svm);
+        [Authorize]
+        public IActionResult shareYourStoryPage(string missionid)
+        {
+            var identity = User.Identity as ClaimsIdentity;
+            var uid = identity?.FindFirst(ClaimTypes.Sid)?.Value;
+            var detailRelatedStory = _storyRepository.getDataForShareYourStory(missionid, uid);
 
-			return View(detailRelatedStory);
-		}
+            return View(detailRelatedStory);
+        }
+        public JsonResult getAllMissions()
+        {
+            var identity = User.Identity as ClaimsIdentity;
+            var uid = identity?.FindFirst(ClaimTypes.Sid)?.Value;
+            var missions = _storyRepository.getMissions(long.Parse(uid));
+            return Json(missions);
+        }
+        [HttpPost]
+        public IActionResult shareYourStoryPage(int mid, string sTitle, DateTime sDateAndTime, string sDesc, int userId, string[] images, string videoUrl)
+        {
+            var dataToFillStroyTable = _storyRepository.getDataForStoryTable(mid, sTitle, sDateAndTime, sDesc, userId, images, videoUrl);
+            if (dataToFillStroyTable)
+            {
+                return RedirectToAction("StoryListingPage", "Story");
+            }
+            else
+            {
+                TempData["Error"] = "Alredy Post Story";
+                return RedirectToAction("StoryListingPage", "Story");
+            }
 
 
-		[HttpPost]
-		public IActionResult shareYourStoryPage(int MissionId, string StoryTitle, string StoryText, DateTime StoryDate, int userId, string[] images, string videourl)
-		{
-			var dataToFillStroyTable = _storyRepository.getDataForStoryTable(MissionId, StoryTitle, StoryText, StoryDate, userId,images,videourl);
-			return RedirectToAction("StoryListingPage", "Story");
+        }
 
-		}
 
-		
-		public IActionResult storyDetail(long userId , int missionId)
+
+        //method for edit story
+        public IActionResult editStory(string missionid)
+        {
+            return Json(new { redirectUrl = Url.Action("shareYourStoryPage", "Story", new { missionid = missionid }) });
+        }
+
+
+        public IActionResult storyDetail(long userId , int missionId)
         {
             var getStoryDetail = _storyRepository.GetStoryDetail(userId, missionId);
             return View(getStoryDetail);
@@ -60,7 +84,7 @@ namespace CIPlatform_Main.Controllers
 		}
 		public string SentUserMail(int[] ids, int missionid)
 		{
-			string url = Url.Action("storyDetail", "Story", new { id = missionid }, Request.Scheme);
+			string url = Url.Action("MissionAndRating", "Home", new { id = missionid }, Request.Scheme);
 			var emailForReco = _storyRepository.userWithId(ids, missionid, url);
 			if (emailForReco != null)
 			{

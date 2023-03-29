@@ -1,4 +1,4 @@
-﻿@model storyListingVM
+﻿@model shareYourStoryVM
 
 @using System.Security.Claims;
 @{
@@ -101,49 +101,72 @@
     <h1 style="font-weight:200" class="ps-3 mt-4">Share your story</h1>
     <!--Second row is all about static text end-->
     <!--Formsectioni start-->
+
+
     <form>
         <div class="row mx-2 mt-3">
             <div class="col-md-4 mt-1">
                 <label for="inputEmail4">Select Mission</label>
-                <select class="form-control mt-1" id="mId">
-                    @foreach (var storyDropdown in Model.allMissionList)
+                <select class="form-control mt-1" id="mId" onchange="editStory()">
+                    <option>Select your mission</option>
+                    @if (Model.missionName != null)
                     {
-
-                        <option value="@storyDropdown.MissionId">@storyDropdown.Title</option>
+                        <option value="@Model.missionId" id="@Model.missionId" selected>@Model.missionName</option>
                     }
-
                 </select>
             </div>
+
             <div class="col-md-4 mt-1">
                 <label for="inputEmail4">My Story Title</label>
-                <input type="text" class="form-control mt-1" placeholder="Last name" id="title">
+                <input type="text" class="form-control mt-1" placeholder="Last name" id="title" value="@Model.storyTitle">
             </div>
             <div class="col-md-4 mt-1">
                 <label for="inputEmail4">Date</label>
-                <input type="date" class="form-control mt-1" id="date">
+                <input type="date" class="form-control mt-1" placeholder="Last name" id="dataAndTime" value="@Model.dateAndTime">
             </div>
         </div>
-        <div class="row mx-2 mt-3">
+          
+        </div>
+       
+        
+        
+        
+        
+       
+        <div class="row mx-2 mt-2">
             <div class="col-12 my-3">
-                <label for="inputEmail4">My Story</label>
-                <textarea id="storytext" placeholder="Enter story details..."></textarea>
+                <label for="inputEmail4">Story Description</label>
+                <textarea id="storytext" placeholder="I loved this mission because...">@Model.storyDescription</textarea>
             </div>
         </div>
         <div class="row mx-2 mt-1">
             <div class="col-12">
                 <label for="inputEmail4 ">Enter Video URL</label>
-                <input class="form-control mt-1" id="videoURL" type="text" placeholder="Enter video url">
+                <input class="form-control mt-1" id="videoURL" type="text" placeholder="Enter video url" value="@Model.videoURL">
             </div>
         </div>
         <div class="row mx-2 mt-1">
             <div class="col-12">
-                <div id="drop-zone" class="w-100" style="border:1px dotted">
-                    <img src="~/Assets/drag-and-drop.png"/>
-                    
-                    <input type="file" id="file-input" multiple accept="image/,video/" style="display: none;">
+                <div id="drop-zone" class="w-100">
+                    <i class="bi bi-plus-lg" style="font-size: 50px;"></i>
+                    <span class="drop-text">Drag and drop images here or click to select</span>
+                    <input type="file" id="file-input" multiple accept="image/*,video/*" style="display: none;">
                 </div>
 
-                <div id="image-preview"></div>
+                <div id="image-preview">
+                    @{
+                        if (Model.imagepaths != null)
+                        {
+                            foreach (var data in Model.imagepaths)
+                            {
+                                <div class="image-container">
+                                    <img class="image-preview" src="@data">
+                                    <div class="remove-image">&#10006</div>
+                                </div>
+                            }
+                        }
+                    }
+                </div>
             </div>
         </div>
         <div class="row mx-2 mt-2">
@@ -152,14 +175,13 @@
                     <button type="button" class="btn btn-outline-warning" style="border-radius: 50px;">Cancel</button>
                 </div>
                 <div>
-                    <button class="btn btn-outline-warning me-2" style="border-radius: 50px;">Save</button>
-                    <button class="btn btn-outline-warning" style="border-radius: 50px;" onclick="submitYourData()">Submit</button>
+                    <button class="btn btn-outline-warning me-2" style="border-radius: 50px;" onclick="submitData()">Save</button>
+                    <button class="btn btn-outline-warning" style="border-radius: 50px;">Submit</button>
                 </div>
             </div>
         </div>
 
     </form>
-
     <!--Formsectioni end-->
     <!-- footer start  -->
     <div class="copyright mt-5">
@@ -190,57 +212,7 @@
     <!--footer end-->
 
 
-    <script>
-
-        function submitYourData() {
-
-            var id = $("#mId").val();
-            var Title = $("#title").val();
-           // var Description = $("#storytext").val();
-            var textarea = tinymce.get("storytext").getContent();
-            var Description = textarea.substring(3, textarea.length - 4);
-            var PublishedAt = $("#date").val();
-
-            const video = $("#videoURL").val();
-
-            const imagePaths = [];
-            const images = document.getElementById('image-preview');
-            const image_tag = images.getElementsByTagName("img");
-            console.log(image_tag);
-
-            for (let i = 0; i < image_tag.length; i++) {
-                const image = image_tag[i].getAttribute("src");
-                imagePaths.push(image);
-            }
-
-            $.ajax({
-                url: "/Story/shareYourStoryPage",
-                type: "POST",
-                data: {
-
-                    'MissionId': id,
-                    'StoryTitle': Title,
-                    'StoryText': Description,
-                    'StoryDate': PublishedAt,
-                    'userId': @uid,
-                    'images': imagePaths,
-                    'videourl': video,
-                },
-                success: function (result) {
-                    console.log(result);
-                   
-                    location.reload();
-                    //$('.xyz').html($(result).find('.xyz').html());
-                },
-                error: function (result) {
-                    alert("Error from storySending");
-                }
-            });
-        }
-
-
-
-    </script>
+ 
 
     <script src="https://cdn.tiny.cloud/1/no-api-key/tinymce/5/tinymce.min.js"></script>
     <script>
@@ -262,6 +234,93 @@
 
     <script src="~/js/ShareYourStory.js"></script>
 
+
+    <script>
+
+        getallmissions();
+        function submitData() {
+            var missionId = document.getElementById("mId").value;
+            //alert(missionId);
+            var storyTitle = $("#title").val();
+            //alert(storyTitle);
+            var dateAndTime = $("#dataAndTime").val();
+            //alert(dateAndTime);
+            var textarea = tinymce.get("storytext").getContent();
+            var description = textarea.substring(3, textarea.length - 4);
+            console.log("desc", description);
+
+            const video = $("#videoURL").val();
+            //alert(video);
+            const imagePaths = [];
+            const images = document.getElementById('image-preview');
+            const image_tag = images.getElementsByTagName("img");
+            console.log(image_tag)
+
+            for (let i = 0; i < image_tag.length; i++) {
+                const image = image_tag[i].getAttribute("src");
+                imagePaths.push(image);
+            }
+            //alert(imagePaths);
+            $.ajax({
+                url: "/Story/shareYourStoryPage",
+                type: "POST",
+                data: {
+                    'mid': missionId,
+                    'sTitle': storyTitle,
+                    'sDateAndTime': dateAndTime,
+                    'sDesc': description,
+                    'userId': @uid,
+                    'images': imagePaths,
+                    'videoUrl': video,
+                },
+                success: function (result) {
+                    alert("Story Add successfully");
+                },
+                error: function (result) {
+                    alert("error occur in story");
+                }
+            });
+        }
+
+
+        function getallmissions() {
+            $.ajax({
+                url: '/Story/getAllMissions',
+                success: function (result) {
+                    //alert("success");
+                    if (result.length === 0) {
+                        $('#mId').html('<option>No Mission Found</option>');
+                    } else {
+                        $.each(result, function (i, data) {
+                            $('#mId').append('<option value="' + data.missionId + '" id="' + data.missionId + '">' + data.title + '</option>')
+                        })
+                    }
+                }
+            })
+        }
+
+        function editStory() {
+            //alert("inside edit function");
+            const missionid = document.getElementById("mId").value;
+            //alert(missionid);
+            $.ajax({
+                url: '/Story/editStory',
+                type: "GET",
+                data: {
+                    missionid: missionid,
+                },
+                success: function (result) {
+
+                    console.log(result);
+                    window.location = result.redirectUrl;
+
+                }
+            })
+        }
+
+
+
+    </script>
 
 </body>
 
