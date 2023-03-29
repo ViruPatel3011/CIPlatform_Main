@@ -224,7 +224,7 @@ namespace CIPlatform_Main.Repository.Repository
                     StoryPath = image
 
                 };
-                _ciPlatformContext.Add(model1);
+                _ciPlatformContext.StoryMedia.Add(model1);
 
             }
             var model2 = new StoryMedium

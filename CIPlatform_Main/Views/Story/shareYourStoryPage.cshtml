@@ -2,11 +2,11 @@
 
 @using System.Security.Claims;
 @{
-    var identity = User.Identity as ClaimsIdentity;
-    var name = identity?.FindFirst(ClaimTypes.Name)?.Value;
-    var surname = identity?.FindFirst(ClaimTypes.Surname)?.Value;
-    var Email = identity?.FindFirst(ClaimTypes.Email)?.Value;
-    var uid = identity?.FindFirst(ClaimTypes.Sid)?.Value;
+	var identity = User.Identity as ClaimsIdentity;
+	var name = identity?.FindFirst(ClaimTypes.Name)?.Value;
+	var surname = identity?.FindFirst(ClaimTypes.Surname)?.Value;
+	var Email = identity?.FindFirst(ClaimTypes.Email)?.Value;
+	var uid = identity?.FindFirst(ClaimTypes.Sid)?.Value;
 
 }
 
@@ -15,312 +15,319 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"
-          integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
-    <link rel="stylesheet" href="~/css/storyDetails.css">
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css">
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"
+		  integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+	<link rel="stylesheet" href="~/css/storyDetails.css">
 
-    <title>Story Details</title>
+	<title>Story Details</title>
 </head>
 
 <body>
 
-    <!-- First navbar  -->
-    <nav class="navbar navbar-expand-md navbar-light bg-light">
-        <div class="container">
-            <div id="navigation-bar">
-                <button class="navbar-toggler border-0" href="#menubar" role="button" data-bs-toggle="offcanvas"
-                        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"
-                        id="navbar-toggler-btn">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="offcanvas offcanvas-start" tabindex="-1" id="menubar" aria-labelledby="offcanvasExampleLabel">
-                    <div class="offcanvas-header">
-                        <h5 class="offcanvas-title" id="offcanvasExampleLabel">Menu</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-                    </div>
-                    <div class="offcanvas-body">
-                        <li class="navbar-nav nav-item">
-                            <a class="nav-link" aria-current="page" asp-controller="Story" asp-action="StoryListing">Stories</a>
-                        </li>
-                        <li class="navbar-nav nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" id="navbarScrollingDropdown" role="button"
-                               data-bs-toggle="dropdown" aria-expanded="false">
-                                Privacy
-                            </a>
-                            <ul class="dropdown-menu" aria-labelledby="navbarScrollingDropdown">
-                                <li><a class="dropdown-item" href="#">Volunteering</a></li>
-                                <li><a class="dropdown-item" href="#">Sponsered</a></li>
+	<!-- First navbar  -->
+	<nav class="navbar navbar-expand-md navbar-light bg-light">
+		<div class="container">
+			<div id="navigation-bar">
+				<button class="navbar-toggler border-0" href="#menubar" role="button" data-bs-toggle="offcanvas"
+						aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"
+						id="navbar-toggler-btn">
+					<span class="navbar-toggler-icon"></span>
+				</button>
+				<div class="offcanvas offcanvas-start" tabindex="-1" id="menubar" aria-labelledby="offcanvasExampleLabel">
+					<div class="offcanvas-header">
+						<h5 class="offcanvas-title" id="offcanvasExampleLabel">Menu</h5>
+						<button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+					</div>
+					<div class="offcanvas-body">
+						<li class="navbar-nav nav-item">
+							<a class="nav-link" aria-current="page" asp-controller="Story" asp-action="StoryListing">Stories</a>
+						</li>
+						<li class="navbar-nav nav-item dropdown">
+							<a class="nav-link dropdown-toggle" href="#" id="navbarScrollingDropdown" role="button"
+							   data-bs-toggle="dropdown" aria-expanded="false">
+								Privacy
+							</a>
+							<ul class="dropdown-menu" aria-labelledby="navbarScrollingDropdown">
+								<li><a class="dropdown-item" href="#">Volunteering</a></li>
+								<li><a class="dropdown-item" href="#">Sponsered</a></li>
 
-                            </ul>
-                        </li>
-                    </div>
-                </div>
-                </ul>
-            </div>
+							</ul>
+						</li>
+					</div>
+				</div>
+				</ul>
+			</div>
 
-            <div id="navigation-bar">
-                <ul class="navbar-nav d-flex">
-                    @if (User.Identity.IsAuthenticated)
-                    {
-
-
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" id="navbarScrollingDropdown" role="button"
-                               data-bs-toggle="dropdown" aria-expanded="false">
-                                <img src="~/Assets/user-img.png" class="rounded-circle" height="35" width="35" alt="Profile pic"
-                                     loading="lazy" />
-                                @name @surname
-                            </a>
-                            <ul class="dropdown-menu" aria-labelledby="navbarScrollingDropdown">
-                                <li><a class="dropdown-item" href="#">Dashboard</a></li>
-                                <li><a class="dropdown-item" href="#">My Account</a></li>
-                                <li><a class="dropdown-item" href="#">Help Center</a></li>
-                                <li><a class="dropdown-item" asp-controller="Login" asp-action="Logout">LogOut</a></li>
-                            </ul>
-                        </li>
-                    }
-                    else
-                    {
-                        <ul class="navbar-nav d-flex">
-                            <li class="btn-primary me-2 pe-1"><a class="dropdown-item btn p-1" asp-controller="Login" asp-action="Login">Login</a></li>
-                            <li class="btn-primary me-2 pe-1"><a class="dropdown-item btn p-1" asp-controller="Registration" asp-action="Registration">Register</a></li>
-                        </ul>
-                    }
-                </ul>
-            </div>
-        </div>
-    </nav>
+			<div id="navigation-bar">
+				<ul class="navbar-nav d-flex">
+					@if (User.Identity.IsAuthenticated)
+					{
 
 
-
-    <!--Second row is all about static text start-->
-    <h1 style="font-weight:200" class="ps-3 mt-4">Share your story</h1>
-    <!--Second row is all about static text end-->
-    <!--Formsectioni start-->
-
-
-    <form>
-        <div class="row mx-2 mt-3">
-            <div class="col-md-4 mt-1">
-                <label for="inputEmail4">Select Mission</label>
-                <select class="form-control mt-1" id="mId" onchange="editStory()">
-                    <option>Select your mission</option>
-                    @if (Model.missionName != null)
-                    {
-                        <option value="@Model.missionId" id="@Model.missionId" selected>@Model.missionName</option>
-                    }
-                </select>
-            </div>
-
-            <div class="col-md-4 mt-1">
-                <label for="inputEmail4">My Story Title</label>
-                <input type="text" class="form-control mt-1" placeholder="Last name" id="title" value="@Model.storyTitle">
-            </div>
-            <div class="col-md-4 mt-1">
-                <label for="inputEmail4">Date</label>
-                <input type="date" class="form-control mt-1" placeholder="Last name" id="dataAndTime" value="@Model.dateAndTime">
-            </div>
-        </div>
-          
-        </div>
-       
-        
-        
-        
-        
-       
-        <div class="row mx-2 mt-2">
-            <div class="col-12 my-3">
-                <label for="inputEmail4">Story Description</label>
-                <textarea id="storytext" placeholder="I loved this mission because...">@Model.storyDescription</textarea>
-            </div>
-        </div>
-        <div class="row mx-2 mt-1">
-            <div class="col-12">
-                <label for="inputEmail4 ">Enter Video URL</label>
-                <input class="form-control mt-1" id="videoURL" type="text" placeholder="Enter video url" value="@Model.videoURL">
-            </div>
-        </div>
-        <div class="row mx-2 mt-1">
-            <div class="col-12">
-                <div id="drop-zone" class="w-100">
-                    <i class="bi bi-plus-lg" style="font-size: 50px;"></i>
-                    <span class="drop-text">Drag and drop images here or click to select</span>
-                    <input type="file" id="file-input" multiple accept="image/*,video/*" style="display: none;">
-                </div>
-
-                <div id="image-preview">
-                    @{
-                        if (Model.imagepaths != null)
-                        {
-                            foreach (var data in Model.imagepaths)
-                            {
-                                <div class="image-container">
-                                    <img class="image-preview" src="@data">
-                                    <div class="remove-image">&#10006</div>
-                                </div>
-                            }
-                        }
-                    }
-                </div>
-            </div>
-        </div>
-        <div class="row mx-2 mt-2">
-            <div class="col-12 d-flex justify-content-between">
-                <div>
-                    <button type="button" class="btn btn-outline-warning" style="border-radius: 50px;">Cancel</button>
-                </div>
-                <div>
-                    <button class="btn btn-outline-warning me-2" style="border-radius: 50px;" onclick="submitData()">Save</button>
-                    <button class="btn btn-outline-warning" style="border-radius: 50px;">Submit</button>
-                </div>
-            </div>
-        </div>
-
-    </form>
-    <!--Formsectioni end-->
-    <!-- footer start  -->
-    <div class="copyright mt-5">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-6">
-                    <div class="copyright-menu">
-                        <ul>
-                            <li>
-                                <a href="#">Privacy Policy</a>
-                            </li>
-                            <li>
-                                <a href="#">Cookie Policy</a>
-                            </li>
-                            <li>
-                                <a href="#">Terms of Use</a>
-                            </li>
-
-                        </ul>
-                    </div>
-                </div>
-                <div class="col-md-6 rights">
-                    <span> © 2019 Optimy.com. All Right Reserved</span>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!--footer end-->
-
-
- 
-
-    <script src="https://cdn.tiny.cloud/1/no-api-key/tinymce/5/tinymce.min.js"></script>
-    <script>
-        tinymce.init({
-            selector: '#storytext',
-            plugins: 'link image code',
-            toolbar: 'undo redo | bold italic | fontsizeselect | alignleft aligncenter alignright alignjustify | superscript subscript ',
-            height: 300
-        });
-    </script>
-
-
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
-            integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
-            crossorigin="anonymous"></script>
-    <a href="~/lib/jquery/dist/jquery.min.map"></a>
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="~/lib/jquery/dist/jquery.js"></script>
-
-    <script src="~/js/ShareYourStory.js"></script>
-
-
-    <script>
-
-        getallmissions();
-        function submitData() {
-            var missionId = document.getElementById("mId").value;
-            //alert(missionId);
-            var storyTitle = $("#title").val();
-            //alert(storyTitle);
-            var dateAndTime = $("#dataAndTime").val();
-            //alert(dateAndTime);
-            var textarea = tinymce.get("storytext").getContent();
-            var description = textarea.substring(3, textarea.length - 4);
-            console.log("desc", description);
-
-            const video = $("#videoURL").val();
-            //alert(video);
-            const imagePaths = [];
-            const images = document.getElementById('image-preview');
-            const image_tag = images.getElementsByTagName("img");
-            console.log(image_tag)
-
-            for (let i = 0; i < image_tag.length; i++) {
-                const image = image_tag[i].getAttribute("src");
-                imagePaths.push(image);
-            }
-            //alert(imagePaths);
-            $.ajax({
-                url: "/Story/shareYourStoryPage",
-                type: "POST",
-                data: {
-                    'mid': missionId,
-                    'sTitle': storyTitle,
-                    'sDateAndTime': dateAndTime,
-                    'sDesc': description,
-                    'userId': @uid,
-                    'images': imagePaths,
-                    'videoUrl': video,
-                },
-                success: function (result) {
-                    alert("Story Add successfully");
-                },
-                error: function (result) {
-                    alert("error occur in story");
-                }
-            });
-        }
-
-
-        function getallmissions() {
-            $.ajax({
-                url: '/Story/getAllMissions',
-                success: function (result) {
-                    //alert("success");
-                    if (result.length === 0) {
-                        $('#mId').html('<option>No Mission Found</option>');
-                    } else {
-                        $.each(result, function (i, data) {
-                            $('#mId').append('<option value="' + data.missionId + '" id="' + data.missionId + '">' + data.title + '</option>')
-                        })
-                    }
-                }
-            })
-        }
-
-        function editStory() {
-            //alert("inside edit function");
-            const missionid = document.getElementById("mId").value;
-            //alert(missionid);
-            $.ajax({
-                url: '/Story/editStory',
-                type: "GET",
-                data: {
-                    missionid: missionid,
-                },
-                success: function (result) {
-
-                    console.log(result);
-                    window.location = result.redirectUrl;
-
-                }
-            })
-        }
+						<li class="nav-item dropdown">
+							<a class="nav-link dropdown-toggle" href="#" id="navbarScrollingDropdown" role="button"
+							   data-bs-toggle="dropdown" aria-expanded="false">
+								<img src="~/Assets/user-img.png" class="rounded-circle" height="35" width="35" alt="Profile pic"
+			 loading="lazy" />
+								@name @surname
+							</a>
+							<ul class="dropdown-menu" aria-labelledby="navbarScrollingDropdown">
+								<li><a class="dropdown-item" href="#">Dashboard</a></li>
+								<li><a class="dropdown-item" href="#">My Account</a></li>
+								<li><a class="dropdown-item" href="#">Help Center</a></li>
+								<li><a class="dropdown-item" asp-controller="Login" asp-action="Logout">LogOut</a></li>
+							</ul>
+						</li>
+					}
+					else
+					{
+						<ul class="navbar-nav d-flex">
+							<li class="btn-primary me-2 pe-1"><a class="dropdown-item btn p-1" asp-controller="Login" asp-action="Login">Login</a></li>
+							<li class="btn-primary me-2 pe-1"><a class="dropdown-item btn p-1" asp-controller="Registration" asp-action="Registration">Register</a></li>
+						</ul>
+					}
+				</ul>
+			</div>
+		</div>
+	</nav>
 
 
 
-    </script>
+	<!--Second row is all about static text start-->
+	<h1 style="font-weight:200" class="ps-3 mt-4">Share your story</h1>
+	<!--Second row is all about static text end-->
+	<!--Formsectioni start-->
+
+
+	<form>
+		<div class="row mx-2 mt-3">
+			<div class="col-md-4 mt-1">
+				<label for="inputEmail4">Select Mission</label>
+				<select class="form-control mt-1" id="mId" onchange="editStory()">
+					<option>Select your mission</option>
+					@if (Model.missionName != null)
+					{
+						<option value="@Model.missionId" id="@Model.missionId" selected>@Model.missionName</option>
+					}
+				</select>
+			</div>
+
+			<div class="col-md-4 mt-1">
+				<label for="inputEmail4">My Story Title</label>
+				<input type="text" class="form-control mt-1" placeholder="Last name" id="title" value="@Model.storyTitle">
+			</div>
+			<div class="col-md-4 mt-1">
+				<label for="inputEmail4">Date</label>
+				<input type="date" class="form-control mt-1" placeholder="Last name" id="dataAndTime" value="@Model.dateAndTime">
+			</div>
+		</div>
+
+		</div>
+
+
+
+
+
+
+		<div class="row mx-2 mt-2">
+			<div class="col-12 my-3">
+				<label for="inputEmail4">Story Description</label>
+				<textarea id="storytext" placeholder="I loved this mission because...">@Model.storyDescription</textarea>
+			</div>
+		</div>
+		<div class="row mx-2 mt-1">
+			<div class="col-12">
+				<label for="inputEmail4 ">Enter Video URL</label>
+				<input class="form-control mt-1" id="videoURL" type="text" placeholder="Enter video url" value="@Model.videoURL">
+			</div>
+		</div>
+		<div class="row mx-2 mt-1">
+			<div class="col-12">
+				<div id="drop-zone" class="w-100">
+					<i class="bi bi-plus-lg" style="font-size: 50px;"></i>
+					<span class="drop-text">Drag and drop images here or click to select</span>
+					<input type="file" id="file-input" multiple accept="image/*,video/*" style="display: none;">
+				</div>
+
+				<div id="image-preview">
+					@{
+						if (Model.imagepaths != null)
+						{
+							foreach (var data in Model.imagepaths)
+							{
+								<div class="image-container">
+									<img class="image-preview" src="@data">
+									<div class="remove-image">&#10006</div>
+								</div>
+							}
+						}
+					}
+				</div>
+			</div>
+		</div>
+		<div class="row mx-2 mt-2">
+			<div class="col-12 d-flex justify-content-between">
+				<div>
+					<button type="button" class="btn btn-outline-warning" style="border-radius: 50px;">Cancel</button>
+				</div>
+				<div>
+					<button class="btn btn-outline-warning me-2" style="border-radius: 50px;" onclick="submitData()">Save</button>
+					<button class="btn btn-outline-warning" style="border-radius: 50px;">Submit</button>
+				</div>
+			</div>
+		</div>
+
+	</form>
+	<!--Formsectioni end-->
+	<!-- footer start  -->
+	<div class="copyright mt-5">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-6">
+					<div class="copyright-menu">
+						<ul>
+							<li>
+								<a href="#">Privacy Policy</a>
+							</li>
+							<li>
+								<a href="#">Cookie Policy</a>
+							</li>
+							<li>
+								<a href="#">Terms of Use</a>
+							</li>
+
+						</ul>
+					</div>
+				</div>
+				<div class="col-md-6 rights">
+					<span> © 2019 Optimy.com. All Right Reserved</span>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!--footer end-->
+
+
+
+
+	<script src="https://cdn.tiny.cloud/1/no-api-key/tinymce/5/tinymce.min.js"></script>
+	<script>
+		tinymce.init({
+			selector: '#storytext',
+			plugins: 'link image code',
+			toolbar: 'undo redo | bold italic | fontsizeselect | alignleft aligncenter alignright alignjustify | superscript subscript ',
+			height: 300
+		});
+	</script>
+
+
+	@*If this is removed mission dropdown not work*@
+	<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+			integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+			crossorigin="anonymous"></script>
+
+	@*If This Link is enabled , dropdown not work in landing page*@
+	@*<script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>*@
+
+
+	<script src="~/lib/jquery/dist/jquery.js"></script>
+	<script src="~/lib/jquery/dist/jquery.min.js"></script>
+	<script src="~/js/ShareYourStory.js"></script>
+
+
+	<script>
+
+		getallmissions();
+
+
+		function submitData() {
+			var missionId = document.getElementById("mId").value;
+			alert(missionId);
+			var storyTitle = $("#title").val();
+			alert(storyTitle);
+			var dateAndTime = $("#dataAndTime").val();
+			alert(dateAndTime);
+			var textarea = tinymce.get("storytext").getContent();
+			var description = textarea.substring(3, textarea.length - 4);
+			console.log("desc", description);
+
+			const video = $("#videoURL").val();
+			alert(video);
+			const imagePaths = [];
+			const images = document.getElementById('image-preview');
+			const image_tag = images.getElementsByTagName("img");
+			console.log(image_tag)
+
+			for (let i = 0; i < image_tag.length; i++) {
+				const image = image_tag[i].getAttribute("src");
+				imagePaths.push(image);
+			}
+			alert(imagePaths);
+			$.ajax({
+				url: "/Story/shareYourStoryPage/",
+				type: "POST",
+				contentType:'application/json',
+				data: {
+					mid: missionId,
+					sTitle: storyTitle,
+					sDateAndTime: dateAndTime,
+				sDesc: description,
+				userId: @uid,
+					images: imagePaths,
+					videoUrl: video
+				},
+				success: function (result) {
+					alert("Story Add successfully");
+				},
+				error: function (result) {
+					alert("error occur in story");
+				}
+			});
+		}
+
+
+		function getallmissions() {
+			$.ajax({
+				url: '/Story/getAllMissions',
+				success: function (result) {
+					//alert("success");
+					if (result.length === 0) {
+						$('#mId').html('<option>No Mission Found</option>');
+					} else {
+						$.each(result, function (i, data) {
+							$('#mId').append('<option value="' + data.missionId + '" id="' + data.missionId + '">' + data.title + '</option>')
+						})
+					}
+				}
+			})
+		}
+
+		function editStory() {
+			//alert("inside edit function");
+			const missionid = document.getElementById("mId").value;
+			//alert(missionid);
+			$.ajax({
+				url: '/Story/editStory',
+				type: "GET",
+				data: {
+					missionid: missionid,
+				},
+				success: function (result) {
+
+					console.log(result);
+					window.location = result.redirectUrl;
+
+				}
+			})
+		}
+
+
+
+	</script>
 
 </body>
 
