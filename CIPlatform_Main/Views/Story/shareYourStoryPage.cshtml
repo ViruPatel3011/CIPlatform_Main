@@ -268,17 +268,16 @@
 			}
 			alert(imagePaths);
 			$.ajax({
-				url: "/Story/shareYourStoryPage/",
+				url: "/Story/shareYourStoryPage",
 				type: "POST",
-				contentType:'application/json',
 				data: {
-					mid: missionId,
-					sTitle: storyTitle,
-					sDateAndTime: dateAndTime,
-				sDesc: description,
-				userId: @uid,
-					images: imagePaths,
-					videoUrl: video
+					"mid" : missionId,
+					"sTitle" : storyTitle,
+					"sDateAndTime" : dateAndTime,
+				"sDesc" : description,
+				"userId" : @uid,
+					"images" : imagePaths,
+					"videoUrl" : video
 				},
 				success: function (result) {
 					alert("Story Add successfully");

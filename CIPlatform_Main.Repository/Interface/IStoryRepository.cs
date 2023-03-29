@@ -22,7 +22,7 @@ namespace CIPlatform_Main.Repository.Interface
         public shareYourStoryVM getDataForShareYourStory(string missionid, string uid);
         public List<Mission> getMissions(long uid);
 
-        public bool getDataForStoryTable(int mid, string sTitle, DateTime sDateAndTime, string sDesc, int userId, string[] images, string videourl);
+        public bool getDataForStoryTable(int mid, string sTitle, string sDateAndTime, string sDesc, int userId, string[] images, string videourl);
 
 
     }

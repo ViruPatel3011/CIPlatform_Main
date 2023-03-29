@@ -40,7 +40,7 @@ namespace CIPlatform_Main.Controllers
             return Json(missions);
         }
         [HttpPost]
-        public IActionResult shareYourStoryPage(int mid, string sTitle, DateTime sDateAndTime, string sDesc, int userId, string[] images, string videoUrl)
+        public IActionResult shareYourStoryPage(int mid, string sTitle, string? sDateAndTime, string sDesc, int userId, string[] images, string videoUrl)
         {
             var dataToFillStroyTable = _storyRepository.getDataForStoryTable(mid, sTitle, sDateAndTime, sDesc, userId, images, videoUrl);
             if (dataToFillStroyTable)
