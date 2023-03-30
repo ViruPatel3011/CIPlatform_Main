@@ -714,7 +714,7 @@
 	<!--Fourth row all about description and photos about mission start -->
 	<!--fifth row all about related card start -->
 
-	<div class="container-fluid">
+	<div class="container">
 		<div class="row">
 			<div class="fs-3 text-center mb-4 mt-4" style=" font-family: NotoSans-Light,; color: #414141;">
 				Related Missions
@@ -792,7 +792,7 @@
 														<img src="~/Assets/Seats-left.png" width="25px" height="25px" alt="">
 													</div>
 													<div class=" px-0">
-														<h5 class="mb-0 mt-1">10</h5>
+														<h6 class="mb-0 mt-1">10</h6>
 														<p class="mb-0">Seats left</p>
 													</div>
 												</div>
@@ -801,7 +801,7 @@
 														<img src="~/Assets/Seats-left.png" alt="" width="25px" height="25px">
 													</div>
 													<div class="px-0 ">
-														<h5 class="mb-0 mt-1">Skills</h5>
+														<h6 class="mb-0 mt-1">Skills</h6>
 														<p class="mb-0">
 															@foreach (var skill in Model.MissionSkills)
 															{
@@ -815,7 +815,7 @@
 														<img src="~/Assets/deadline.png" width="25px" height="25px" alt="">
 													</div>
 													<div class=" px-0">
-														<h5 class="mb-0 mt-1">09/01/2019</h5>
+														<h6 class="mb-0 mt-1">09/01/2019</h6>
 														<p class="mb-0">Deadline</p>
 													</div>
 												</div>
@@ -823,12 +823,12 @@
 
 											<!-- Time based mission button-->
 											<div class="card-footer text-center">
-												<a>
-													<button type="submit" asp-controller="Home" asp-action="MissionAndRating" asp-route-id="@item.MissionId" class="btn  rounded-pill" style="border: 2px solid #F88634;
+											
+													<a type="submit" asp-controller="Home" asp-action="MissionAndRating" asp-route-id="@item.MissionId" class="btn  rounded-pill" style="border: 2px solid #F88634;
 										  	color: #F88634;">
 														Explore Now <img src="~/Assets/right-arrow.png" alt="">
-													</button>
-												</a>
+													</a>
+											
 											</div>
 										</div>
 										@*</div>*@
@@ -896,7 +896,7 @@
 														<img src="~/Assets/Seats-left.png" width="25px" height="25px" alt="">
 													</div>
 													<div class=" px-0">
-														<h5 class="mb-0 mt-1">@item.Availability</h5>
+														<h6 class="mb-0 mt-1">@item.Availability</h6>
 														<p class="mb-0">Seats left</p>
 													</div>
 												</div>
@@ -906,7 +906,7 @@
 														<img src="~/Assets/Seats-left.png" alt="" width="25px" height="25px">
 													</div>
 													<div class="px-0 ">
-														<h5 class="mb-0 mt-1">Skills</h5>
+														<h6 class="mb-0 mt-1">Skills</h6>
 														<p class="mb-0">
 															@foreach (var skill in Model.MissionSkills)
 															{
@@ -934,12 +934,12 @@
 											<!--  Goal based Mission Button-->
 											<div class="card-footer text-center">
 
-												<a>
-													<button type="submit" asp-controller="Home" asp-action="MissionAndRating" asp-route-id="@item.MissionId" class="btn  rounded-pill" style="border: 2px solid #F88634;
+												
+													<a type="submit" asp-controller="Home" asp-action="MissionAndRating" asp-route-id="@item.MissionId" class="btn  rounded-pill" style="border: 2px solid #F88634;
 										  	color: #F88634;">
 														Explore Now <img src="~/Assets/right-arrow.png" alt="">
-													</button>
-												</a>
+													</a>
+												
 											</div>
 										</div>
 										@*</div>*@

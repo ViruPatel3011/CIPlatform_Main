@@ -103,7 +103,7 @@
 	<!--Formsectioni start-->
 
 
-	<form enctype="multipart/form-data" method="post">
+	@*<form enctype="multipart/form-data" method="post" >*@
 		<div class="row mx-2 mt-3">
 			<div class="col-md-4 mt-1">
 				<label for="inputEmail4">Select Mission</label>
@@ -118,31 +118,25 @@
 
 			<div class="col-md-4 mt-1">
 				<label for="inputEmail4">My Story Title</label>
-				<input type="text" class="form-control mt-1" placeholder="Last name" id="title" value="@Model.storyTitle">
+				<input type="text" class="form-control mt-1" placeholder="Last name" id="title"  value="@Model.storyTitle">
 			</div>
 			<div class="col-md-4 mt-1">
 				<label for="inputEmail4">Date</label>
-				<input type="date" class="form-control mt-1" placeholder="Last name" id="dataAndTime" value="@Model.dateAndTime">
+				<input type="date" class="form-control mt-1" placeholder="Last name" id="dataAndTime"  value="@Model.dateAndTime">
 			</div>
 		</div>
 
-		</div>
-
-
-
-
-
-
+		
 		<div class="row mx-2 mt-2">
 			<div class="col-12 my-3">
 				<label for="inputEmail4">Story Description</label>
-				<textarea id="storytext" placeholder="I loved this mission because...">@Model.storyDescription</textarea>
+				<textarea id="storytext"  placeholder="I loved this mission because...">@Model.storyDescription</textarea>
 			</div>
 		</div>
 		<div class="row mx-2 mt-1">
 			<div class="col-12">
 				<label for="inputEmail4 ">Enter Video URL</label>
-				<input class="form-control mt-1" id="videoURL" type="text" placeholder="Enter video url" value="@Model.videoURL">
+				<input class="form-control mt-1" id="videoURL" type="text" placeholder="Enter video url"  value="@Model.videoURL">
 			</div>
 		</div>
 		<div class="row mx-2 mt-1">
@@ -172,17 +166,37 @@
 		<div class="row mx-2 mt-2">
 			<div class="col-12 d-flex justify-content-between">
 				<div>
-					<button type="button" class="btn btn-outline-warning" style="border-radius: 50px;">Cancel</button>
+					<button asp-controller="Story" asp-action="StoryListingPage" type="button" class="btn btn-outline-warning" style="border-radius: 50px;">Cancel</button>
 				</div>
+
+
 				<div>
-					<button class="btn btn-outline-warning me-2" style="border-radius: 50px;" onclick="submitData()">Save</button>
-					<button class="btn btn-outline-warning" style="border-radius: 50px;">Submit</button>
+					@{
+						if (@Model.storyStatus == "Draft" || @Model.storyStatus == "DRAFT")
+						{
+							<button class="btn btn-outline-warning me-2" style="border-radius: 50px;">Save</button>
+							<button class="btn btn-outline-warning" style="border-radius: 50px;" onclick="submit(@Model.storyId)">Submit</button>
+						}
+						else if (@Model.storyStatus == "PUBLISHED" || @Model.storyStatus == "Published")
+						{
+							<button class="btn btn-outline-warning" style="border-radius: 50px;" onclick="editData()">Edit</button>
+
+						}
+						else
+						{
+							<button class="apply btn" onclick="submitData()">Save</button>
+							<button class="apply btn btn-outline-warning bg-secondary" disabled>Submit</button>
+						}
+					}
+
 				</div>
 			</div>
 		</div>
 
-	</form>
+@*	</form>*@
 	<!--Formsectioni end-->
+
+
 	<!-- footer start  -->
 	<div class="copyright mt-5">
 		<div class="container">
@@ -306,9 +320,9 @@
 		}
 
 		function editStory() {
-			//alert("inside edit function");
+			alert("inside edit function");
 			const missionid = document.getElementById("mId").value;
-			//alert(missionid);
+			alert(missionid);
 			$.ajax({
 				url: '/Story/editStory',
 				type: "GET",
@@ -323,9 +337,68 @@
 				}
 			})
 		}
+		
 
 
+		function submit(storyid) {
+			$.ajax({
+				url: "/Story/submit",
+				type: "POST",
+				data: {
+					storyid: storyid,
+				},
+				success: function (result) {
+					window.location = result.redirectUrl;
+					console.log("data saved")
+				}
+			})
+		}
 
+
+		function editData() {
+			var missionId = document.getElementById("mId").value;
+			alert(missionId);
+			var storyTitle = $("#title").val();
+			alert(storyTitle);
+			var dateAndTime = $("#dataAndTime").val();
+			alert(dateAndTime);
+			var textarea = tinymce.get("storytext").getContent();
+			var description = textarea.substring(3, textarea.length - 4);
+			console.log("desc", description);
+
+			const video = $("#videoURL").val();
+			alert(video);
+			const imagePaths = [];
+			const images = document.getElementById('image-preview');
+			const image_tag = images.getElementsByTagName("img");
+			console.log(image_tag)
+
+			for (let i = 0; i < image_tag.length; i++) {
+				const image = image_tag[i].getAttribute("src");
+				imagePaths.push(image);
+			}
+			//alert(imagePaths);
+			$.ajax({
+				url: "/Story/EditShareStory",
+				type: "POST",
+				data: {
+					'mid': missionId,
+					'sTitle': storyTitle,
+					//'sDateAndTime': dateAndTime,
+					'sDesc': description,
+					'userId': @uid,
+					'images': imagePaths,
+					'videoUrl': video,
+				},
+				success: function (result) {
+					alert("Story Add successfully");
+					window.location = result.redirectUrl;
+				},
+				error: function (result) {
+					alert("error occur in story");
+				}
+			});
+		}
 	</script>
 
 </body>

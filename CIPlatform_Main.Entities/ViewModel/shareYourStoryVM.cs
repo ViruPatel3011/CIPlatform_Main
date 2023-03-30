@@ -1,13 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿
+
+using Microsoft.AspNetCore.Http;
 
 namespace CIPlatform_Main.Entities.ViewModel
 {
 	public class shareYourStoryVM
 	{
+
+		public long userId { get; set; }	
 		public string missionName { get; set; }
 		public long storyId { get; set; }
 		public long missionId { get; set; }
@@ -15,6 +15,10 @@ namespace CIPlatform_Main.Entities.ViewModel
 		public string storyDescription { get; set; }
 		public DateTime dateAndTime { get; set; }
 		public string videoURL { get; set; }
+
+		public string storyStatus { get; set; }	
 		public List<string> imagepaths { get; set; }
+
+		public List<IFormFile>? ImageFiles { get; set; }
 	}
 }

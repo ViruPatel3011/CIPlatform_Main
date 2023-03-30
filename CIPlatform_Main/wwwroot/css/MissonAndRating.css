@@ -345,3 +345,14 @@
  }
 
  
+
+ /*Loading for Sending Mail*/
+#volPageLoader{
+    height:40vh;
+}
+
+#volPageLoader div{
+    width:3rem;
+    height:3rem;
+    margin-top:15%;
+}

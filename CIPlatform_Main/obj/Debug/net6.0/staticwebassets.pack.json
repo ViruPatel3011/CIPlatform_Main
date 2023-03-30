@@ -441,6 +441,46 @@
       "PackagePath": "staticwebassets\\Assets\\xlsx.png"
     },
     {
+      "Id": "E:\\CIPlatform_Main\\CIPlatform_Main\\wwwroot\\StoryMedia\\0Home.jpg",
+      "PackagePath": "staticwebassets\\StoryMedia\\0Home.jpg"
+    },
+    {
+      "Id": "E:\\CIPlatform_Main\\CIPlatform_Main\\wwwroot\\StoryMedia\\0Screenshot (217).png",
+      "PackagePath": "staticwebassets\\StoryMedia\\0Screenshot (217).png"
+    },
+    {
+      "Id": "E:\\CIPlatform_Main\\CIPlatform_Main\\wwwroot\\StoryMedia\\0WhatsApp Image 2023-03-22 at 9.20.32 PM.jpeg",
+      "PackagePath": "staticwebassets\\StoryMedia\\0WhatsApp Image 2023-03-22 at 9.20.32 PM.jpeg"
+    },
+    {
+      "Id": "E:\\CIPlatform_Main\\CIPlatform_Main\\wwwroot\\StoryMedia\\0WhatsApp Image 2023-03-22 at 9.25.12 PM.jpeg",
+      "PackagePath": "staticwebassets\\StoryMedia\\0WhatsApp Image 2023-03-22 at 9.25.12 PM.jpeg"
+    },
+    {
+      "Id": "E:\\CIPlatform_Main\\CIPlatform_Main\\wwwroot\\StoryMedia\\0WhatsApp Image 2023-03-22 at 9.36.12 PM.jpeg",
+      "PackagePath": "staticwebassets\\StoryMedia\\0WhatsApp Image 2023-03-22 at 9.36.12 PM.jpeg"
+    },
+    {
+      "Id": "E:\\CIPlatform_Main\\CIPlatform_Main\\wwwroot\\StoryMedia\\0WhatsApp Image 2023-03-22 at 9.54.13 PM.jpeg",
+      "PackagePath": "staticwebassets\\StoryMedia\\0WhatsApp Image 2023-03-22 at 9.54.13 PM.jpeg"
+    },
+    {
+      "Id": "E:\\CIPlatform_Main\\CIPlatform_Main\\wwwroot\\StoryMedia\\0WhatsApp Image 2023-03-24 at 1.44.45 PM (1).jpeg",
+      "PackagePath": "staticwebassets\\StoryMedia\\0WhatsApp Image 2023-03-24 at 1.44.45 PM (1).jpeg"
+    },
+    {
+      "Id": "E:\\CIPlatform_Main\\CIPlatform_Main\\wwwroot\\StoryMedia\\0WhatsApp Image 2023-03-24 at 1.44.45 PM (2).jpeg",
+      "PackagePath": "staticwebassets\\StoryMedia\\0WhatsApp Image 2023-03-24 at 1.44.45 PM (2).jpeg"
+    },
+    {
+      "Id": "E:\\CIPlatform_Main\\CIPlatform_Main\\wwwroot\\StoryMedia\\0WhatsApp Image 2023-03-24 at 1.44.46 PM.jpeg",
+      "PackagePath": "staticwebassets\\StoryMedia\\0WhatsApp Image 2023-03-24 at 1.44.46 PM.jpeg"
+    },
+    {
+      "Id": "E:\\CIPlatform_Main\\CIPlatform_Main\\wwwroot\\StoryMedia\\0pexels-kien-virak-7197266.jpg",
+      "PackagePath": "staticwebassets\\StoryMedia\\0pexels-kien-virak-7197266.jpg"
+    },
+    {
       "Id": "E:\\CIPlatform_Main\\CIPlatform_Main\\wwwroot\\css\\LandingPage.css",
       "PackagePath": "staticwebassets\\css\\LandingPage.css"
     },

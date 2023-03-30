@@ -24,4 +24,8 @@
     <ProjectReference Include="..\CIPlatform_Main.Repository\CIPlatform_Main.Repository.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="wwwroot\StoryMedia\" />
+  </ItemGroup>
+
 </Project>

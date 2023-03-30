@@ -23,7 +23,7 @@ namespace CIPlatform_Main.Repository.Repository
 			_ciPlatformContext = ciPlatformContext;
 		}
 
-		public storyListingVM getStoryDetail(storyListingVM svm)
+		public storyListingVM getStoryDetail()
 		{
 			storyListingVM tsm = new storyListingVM()
 			{
@@ -177,6 +177,7 @@ namespace CIPlatform_Main.Repository.Repository
                         dateAndTime = story.CreatedAt,
                         videoURL = video.StoryPath,
                         imagepaths = images,
+						storyStatus=story.Status
                     };
                     return model;
                 }
@@ -192,13 +193,13 @@ namespace CIPlatform_Main.Repository.Repository
 
         public bool getDataForStoryTable(int mid, string sTitle, string sDateAndTime, string sDesc, int userId, string[] images, string videourl)
         {
-            var alreadyPosteStory = _ciPlatformContext.Stories.Where(x => x.UserId == userId && x.MissionId == mid).FirstOrDefault();
+           /* var alreadyPosteStory = _ciPlatformContext.Stories.Where(x => x.UserId == userId && x.MissionId == mid).FirstOrDefault();
             if (alreadyPosteStory != null)
             {
                 return false;
             }
             else
-            {
+            {*/
                 var model = new Story
                 {
                     MissionId = mid,
@@ -210,7 +211,7 @@ namespace CIPlatform_Main.Repository.Repository
 
                 _ciPlatformContext.Stories.Add(model);
                 _ciPlatformContext.SaveChanges();
-            }
+           /* }*/
 
 
             var story = _ciPlatformContext.Stories.Where(s => s.MissionId == mid && s.UserId == userId).FirstOrDefault();
@@ -240,5 +241,120 @@ namespace CIPlatform_Main.Repository.Repository
         }
 
 
-    }
+
+		//press on submit button to change status in the databases;
+		public void submit(long storyId)
+		{
+			var story = _ciPlatformContext.Stories.SingleOrDefault(m => m.StoryId == storyId);
+			story.Status = "Published";
+			_ciPlatformContext.Update(story);
+			_ciPlatformContext.SaveChanges();
+
+		}
+
+
+		public void editStory(int mid, string sTitle, string sDesc, int userId, string[] images, string videourl)
+		{
+			var entity = _ciPlatformContext.Stories.SingleOrDefault(m => m.UserId == userId && m.MissionId == mid);
+			entity.UserId = userId;
+			entity.MissionId = mid;
+			entity.Title = sTitle;
+			entity.Description = sDesc;
+			entity.Status = "Published";
+			//entity.PublishedAt = sDateAndTime;
+			//  entity.PublishedAt = date ;
+			var mediaentity = _ciPlatformContext.StoryMedia.Where(u => u.StoryId == entity.StoryId);
+			_ciPlatformContext.StoryMedia.RemoveRange(mediaentity);
+			foreach (var s in images)
+			{
+				StoryMedium storyMedia = new StoryMedium()
+				{
+					StoryId = entity.StoryId,
+					StoryType = "Image",
+					StoryPath = s,
+				};
+				_ciPlatformContext.StoryMedia.Add(storyMedia);
+			}
+			if (videourl != null)
+			{
+				StoryMedium storyvideo = new StoryMedium()
+				{
+					StoryId = entity.StoryId,
+					StoryType = "Video",
+					StoryPath = videourl,
+				};
+				_ciPlatformContext.StoryMedia.Add(storyvideo);
+			}
+			_ciPlatformContext.SaveChanges();
+		}
+
+
+		//  Method for store images in wwwroot folder
+		/*   public bool saveStory(shareYourStoryVM storyVM, long userId)
+		   {
+
+			   var story = _ciPlatformContext.Stories.Where(s => s.MissionId ==storyVM.missionId  && s.UserId ==userId).FirstOrDefault();
+			   if (story != null)
+			   {
+				   story.Title = storyVM.storyTitle;
+				   story.Description = storyVM.storyDescription;
+				   story.MissionId = storyVM.missionId;
+				   story.UpdatedAt = DateTime.Now;
+				   story.Status = "DRAFT";
+				   _ciPlatformContext.Stories.Update(story);
+				   _ciPlatformContext.SaveChanges();
+			   }
+			   else
+			   {
+				   Story str = new()
+				   {
+					   UserId =userId,
+					   MissionId = storyVM.missionId,
+					   Title = storyVM.storyTitle,
+					   Description = storyVM.storyDescription,
+				   };
+				   _ciPlatformContext.Stories.Add(str);
+				   _ciPlatformContext.SaveChanges();
+			   }
+
+			   var storyImages = _ciPlatformContext.Stories.Where(m => m.UserId ==userId && m.MissionId == storyVM.missionId).FirstOrDefault();
+
+			   if (storyVM?.ImageFiles?.Count > 0)
+			   {
+				   foreach (var image in storyVM.ImageFiles)
+				   {
+					   string path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/StoryMedia");
+					   string imagepath = Path.Combine("/StoryMedia/", storyVM.userId.ToString() + image.FileName);
+					   string fileNameWithPath = Path.Combine(path, storyVM.userId.ToString() + image.FileName);
+					   FileInfo file = new FileInfo(fileNameWithPath);
+					   if (!file.Exists)
+					   {
+						   using (var stream = new FileStream(fileNameWithPath, FileMode.Create))
+						   {
+							   image.CopyTo(stream);
+						   }
+						   StoryMedium strMed = new()
+						   {
+							   StoryId = story.StoryId,
+							   StoryType = "img",
+							   StoryPath = imagepath,
+						   };
+						   _ciPlatformContext.StoryMedia.Add(strMed);
+						   _ciPlatformContext.SaveChanges();
+					   }
+
+				   }
+			   }
+				   return true;
+
+
+
+		   }
+   */
+
+
+
+
+
+	}
 }

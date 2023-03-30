@@ -3,7 +3,10 @@ using CIPlatform_Main.Entities.ViewModel;
 using CIPlatform_Main.Repository.Interface;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.VisualBasic;
 using System.Security.Claims;
+using static System.Net.Mime.MediaTypeNames;
+using System.Security.Cryptography;
 
 namespace CIPlatform_Main.Controllers
 {
@@ -17,9 +20,9 @@ namespace CIPlatform_Main.Controllers
 			_storyRepository = storyRepository;
 		}
 
-		public IActionResult StoryListingPage(storyListingVM svm)
+		public IActionResult StoryListingPage()
 		{
-			var allStoryData = _storyRepository.getStoryDetail(svm);
+			var allStoryData = _storyRepository.getStoryDetail();
 			return View(allStoryData);
 		}
 
@@ -39,33 +42,70 @@ namespace CIPlatform_Main.Controllers
             var missions = _storyRepository.getMissions(long.Parse(uid));
             return Json(missions);
         }
-        [HttpPost]
-        public IActionResult shareYourStoryPage(int mid, string sTitle, string? sDateAndTime, string sDesc, int userId, string[] images, string videoUrl)
-        {
-            var dataToFillStroyTable = _storyRepository.getDataForStoryTable(mid, sTitle, sDateAndTime, sDesc, userId, images, videoUrl);
-            if (dataToFillStroyTable)
-            {
-                return RedirectToAction("StoryListingPage", "Story");
-            }
-            else
-            {
-                TempData["Error"] = "Alredy Post Story";
-                return RedirectToAction("StoryListingPage", "Story");
-            }
 
 
-        }
+		[HttpPost]
+		public IActionResult shareYourStoryPage(int mid, string sTitle, string? sDateAndTime, string sDesc, int userId, string[] images, string videoUrl)
+		{
+			var dataToFillStroyTable = _storyRepository.getDataForStoryTable(mid, sTitle, sDateAndTime, sDesc, userId, images, videoUrl);
+			
+				return RedirectToAction("StoryListingPage", "Story");
+		
+		}
 
 
 
-        //method for edit story
-        public IActionResult editStory(string missionid)
-        {
-            return Json(new { redirectUrl = Url.Action("shareYourStoryPage", "Story", new { missionid = missionid }) });
-        }
+		// Method for store images in WWWRoot folder 
+		/*	[HttpPost]*/
+		/*public IActionResult SaveYourStory(shareYourStoryVM storyVM )
+		{
+
+			var identity = User.Identity as ClaimsIdentity;
+			var uid = identity?.FindFirst(ClaimTypes.Sid)?.Value;
+			var userId = Convert.ToInt32(uid);
+
+			var checkStoryData = _storyRepository.saveStory( storyVM, userId);
+			if (checkStoryData)
+			{
+				return RedirectToAction("StoryListingPage", "Story");
+			}
+			else
+			{
+				TempData["Error"] = "Alredy Post Story";
+				return RedirectToAction("StoryListingPage", "Story");
+			}
+
+		}*/
 
 
-        public IActionResult storyDetail(long userId , int missionId)
+
+		//press on submit button
+		public IActionResult submit(long storyid)
+		{
+			_storyRepository.submit(storyid);
+			return Json(new { redirectUrl = Url.Action("StoryListingPage", "Story") });
+		}
+
+
+		// Edit Data method
+		public IActionResult EditShareStory(int mid, string sTitle, string sDesc, int userId, string[] images, string videoUrl)
+		{
+			var mission_id = mid;
+
+			_storyRepository.editStory(mission_id, sTitle, sDesc, userId, images, videoUrl);
+
+			return Json(new { redirectUrl = Url.Action("StoryListingPage", "Story") });
+
+		}
+
+		//method for edit story
+		public IActionResult editStory(string missionid)
+		{
+			return Json(new { redirectUrl = Url.Action("shareYourStoryPage", "Story", new { missionid = missionid }) });
+		}
+
+
+		public IActionResult storyDetail(long userId , int missionId)
         {
             var getStoryDetail = _storyRepository.GetStoryDetail(userId, missionId);
             return View(getStoryDetail);
@@ -95,6 +135,7 @@ namespace CIPlatform_Main.Controllers
 				return "failure";
 			}
 		}
+
 
 		public IActionResult Index()
 		{

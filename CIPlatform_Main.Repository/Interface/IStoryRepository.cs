@@ -10,7 +10,7 @@ namespace CIPlatform_Main.Repository.Interface
 {
 	public interface IStoryRepository
 	{
-		public storyListingVM getStoryDetail(storyListingVM svm);
+		public storyListingVM getStoryDetail();
 
 		/*public bool getDataForStoryTable(int MissionId, string StoryTitle, string StoryText, DateTime StoryDate, int userId, string[] images, string videourl);*/
 
@@ -24,6 +24,13 @@ namespace CIPlatform_Main.Repository.Interface
 
         public bool getDataForStoryTable(int mid, string sTitle, string sDateAndTime, string sDesc, int userId, string[] images, string videourl);
 
+		/*	public bool saveStory(shareYourStoryVM storyVM, long  userId);*/
 
-    }
+		public void submit(long storyId);
+
+		public void editStory(int mid, string sTitle, string sDesc, int userId, string[] images, string videourl);
+
+
+
+	}
 }
