@@ -179,7 +179,7 @@ namespace CIPlatform_Main.Repository.Repository
 				var user = _ciPlatformContext.Users.SingleOrDefault(m => m.UserId == id);
 				var resetLink = url;
 
-				var from = new MailAddress("virupatel6048@gmail.com", "Mail From Viral Patel");
+				var from = new MailAddress("patelviral0232@gmail.com", "Mail From Viral Patel");
 
 				var to = new MailAddress(user.Email);
 				var subject = "Volunteer mission recommend";

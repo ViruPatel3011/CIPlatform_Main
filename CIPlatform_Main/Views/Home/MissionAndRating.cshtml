@@ -253,48 +253,48 @@
 				</div>
 
 				<!--no of seats section inside description start-->
-
 				<!--Button Section start-->
 				<div class="mt-4 d-flex justify-content-between">
 
 					@*@if (uid != null)
 					{
-						<a href="" class="btn  descBtn px-2" style="width:45%; border:2px solid #757575" onclick="AddtoFav(@Model.MissionDetail.MissionId)">
-							@if (Model.FavoriteMissionList.Where(m => m.UserId.ToString() == uid && m.MissionId == Model.MissionDetail.MissionId).Count() == 1)
-							{
-								<i class="bi bi-heart-fill text-danger pe-2"></i>
-								<small class="mb-0 h6">Remove From Favourite</small>
-							}
-							else
-							{
-								<i class="bi bi-heart pe-2"></i>
-								<small class="mb-0 h6">Add to Favourite</small>
-							}
-						</a>
+					<a href="" class="btn  descBtn px-2" style="width:45%; border:2px solid #757575" onclick="AddtoFav(@Model.MissionDetail.MissionId)">
+					@if (Model.FavoriteMissionList.Where(m => m.UserId.ToString() == uid && m.MissionId == Model.MissionDetail.MissionId).Count() == 1)
+					{
+					<i class="bi bi-heart-fill text-danger pe-2"></i>
+					<small class="mb-0 h6">Remove From Favourite</small>
+					}
+					else
+					{
+					<i class="bi bi-heart pe-2"></i>
+					<small class="mb-0 h6">Add to Favourite</small>
+					}
+					</a>
 					}
 
 					else
 					{
-						<a class="btn  descBtn px-2" style="width:45%; border:2px solid #757575" onclick="loginToPage()">
-							<i class="bi bi-heart pe-2"></i>
-							<small class="mb-0 h6">Add to Favourite</small>
-						</a>
+					<a class="btn  descBtn px-2" style="width:45%; border:2px solid #757575" onclick="loginToPage()">
+					<i class="bi bi-heart pe-2"></i>
+					<small class="mb-0 h6">Add to Favourite</small>
+					</a>
 
 
 					}*@
 
 					@if (Model.Favourite)
 					{
-						<button class=" favorite added favBtn"  style=" border:2px solid #757575; border-radius: 50px;" onclick="addFavourite(@Model.MissionDetail.MissionId);">
-							  <img src="~/Assets/favourite.png" alt="" class="ms-2 " style="width: 30px;height: 30px;">
+						<button class=" favorite added favBtn" style=" border:2px solid #757575; border-radius: 50px;" onclick="addFavourite(@Model.MissionDetail.MissionId);">
+							<img src="~/Assets/favourite.png" alt="" class="ms-2 " style="width: 30px;height: 30px;">
 							Add to Favourite
 						</button>
 					}
-					else{
+					else
+					{
 
-						<button class=" favorite favBtn"  style=" border:2px solid #757575; border-radius: 50px;" onclick="addFavourite(@Model.MissionDetail.MissionId);">
-                            <img src="~/Assets/heart1.png" alt=""  class="ms-2 " style="width: 30px; height: 30px;"> Add to Favourite
-                        </button>
+						<button class=" favorite favBtn" style=" border:2px solid #757575; border-radius: 50px;" onclick="addFavourite(@Model.MissionDetail.MissionId);">
+							<img src="~/Assets/heart1.png" alt="" class="ms-2 " style="width: 30px; height: 30px;"> Add to Favourite
+						</button>
 					}
 
 					@*<a href="" class="btn  descBtn px-2" style="width:45%; border:2px solid #757575">	<img src="~/Assets/add1.png" alt=""> Recommended to
@@ -310,15 +310,23 @@
 						<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
 							<div class="modal-dialog">
 								<div class="modal-content">
-									<div class="modal-header">
-										<h1 class="modal-title fs-5" id="staticBackdropLabel">Modal title</h1>
-										<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" onclick="getUser();"></button>
+									<div id="model-content">
+
+										<div class="modal-header">
+											<h1 class="modal-title fs-5" id="staticBackdropLabel">Modal title</h1>
+											<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" onclick="getUser();"></button>
+										</div>
+										<div class="modal-body">
+										</div>
+										<div class="modal-footer">
+											<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+											<button type="button" class="btn btn-primary" id="sendmail">Send Mail</button>
+										</div>
 									</div>
-									<div class="modal-body">
-									</div>
-									<div class="modal-footer">
-										<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-										<button type="button" class="btn btn-primary" id="sendmail">Send Mail</button>
+									<div class="d-none w-100 text-center" id="volPageLoader">
+										<div class="spinner-border text-warning" role="status">
+										</div>
+										<p>Sending Mail...</p>
 									</div>
 								</div>
 							</div>
@@ -372,7 +380,7 @@
 							<input type="hidden" id="lblRating" />
 						</div>
 
-					
+
 
 
 					</div>
@@ -414,13 +422,13 @@
 							if (alreadyAppliedUser == null)
 							{
 								<a href="" class="btn  py-2 px-3 " id="applyBtn" style="border: 2px solid #F88634;
-									color: #F88634;" onclick="applyMission()">Apply Now <img src="~/Assets/right-arrow.png" class="ps-3" alt=""></a>
+										color: #F88634;" onclick="applyMission()">Apply Now <img src="~/Assets/right-arrow.png" class="ps-3" alt=""></a>
 							}
 
 							else
 							{
 								<a href="" class="btn  py-2 px-3 " id="applyBtn" style="border: 2px solid #F88634;
-								color: #F88634;" onclick="applyMission()" disabled>Already Applied <img src="~/Assets/right-arrow.png" class="ps-3" alt=""></a>
+									color: #F88634;" onclick="applyMission()" disabled>Already Applied <img src="~/Assets/right-arrow.png" class="ps-3" alt=""></a>
 							}
 
 						}
@@ -436,7 +444,6 @@
 
 		</div>
 		<!-- First Row for slider and details part end  -->
-
 		<!--second row for tabs and information about volunteers start-->
 		<div class="row mt-3">
 
@@ -512,7 +519,6 @@
 						</div>
 					</div>
 					<!--First Tab end-->
-
 					<!--Second Tab Start-->
 					<div class="tab-pane fade ms-4" id="ex1-tabs-2" role="tabpanel" aria-labelledby="ex1-tab-2">
 						<p>
@@ -539,10 +545,10 @@
 								{
 									<div class="d-flex mt-2 ms-2 bg-light rounded-2 me-2">
 										<div class="my-auto">
-										
+
 
 											@{
-												var commentUserImage = Model.UserForRecommendation.Where(x => x.UserId ==commentByUser.UserId).Select(x => x.Avatar).FirstOrDefault();
+												var commentUserImage = Model.UserForRecommendation.Where(x => x.UserId == commentByUser.UserId).Select(x => x.Avatar).FirstOrDefault();
 												<img src="@Url.Content(@commentUserImage)" width="50px" height="50px" class="volImg ms-2" alt="">
 											}
 										</div>
@@ -603,7 +609,7 @@
 							<div class="d-flex  border-bottom">
 								<p class="mb-1 mt-2">Rating </p>
 								<div class="d-flex ms-4 ps-2 mt-2">
-									
+
 									@for (int i = 0; i < Model.missionRate; i++)
 									{
 										<span>
@@ -646,15 +652,15 @@
 									foreach (var volunteer in Model.missionApplications.Where(x => x.MissionId == userApplied1))
 									{
 										<div class="text-center">
-										@*
-										@{
-												var commentUserImage = Model.UserForRecommendation.Where(x => x.UserId ==commentByUser.UserId).Select(x => x.Avatar).FirstOrDefault();
-												<img src="@Url.Content(@commentUserImage)" width="50px" height="50px" class="volImg ms-2" alt="">
-											}*@
+											@*
+									@{
+									var commentUserImage = Model.UserForRecommendation.Where(x => x.UserId ==commentByUser.UserId).Select(x => x.Avatar).FirstOrDefault();
+									<img src="@Url.Content(@commentUserImage)" width="50px" height="50px" class="volImg ms-2" alt="">
+									}*@
 											@{
 
-											var volunteerImage = Model.UserForRecommendation.Where(x => x.UserId ==volunteer.UserId).Select(x => x.Avatar).FirstOrDefault();
-											<img src="@Url.Content(@volunteerImage)" class="volImg" width="70px" height="70px" alt="">
+												var volunteerImage = Model.UserForRecommendation.Where(x => x.UserId == volunteer.UserId).Select(x => x.Avatar).FirstOrDefault();
+												<img src="@Url.Content(@volunteerImage)" class="volImg" width="70px" height="70px" alt="">
 											}
 
 											@{
@@ -672,7 +678,7 @@
 
 
 							</div>
-						
+
 							<nav aria-label="Page navigation example">
 								<ul class="pagination">
 									<li class="page-item ms-2">
@@ -747,7 +753,7 @@
 												<img src="~/Assets/user.png" alt="">
 											</div>
 											<div class="text-center position-absolute" id="mission-theme" style=" left: 50%;
-										transform: translateX(-50%); bottom: -27px;">
+											transform: translateX(-50%); bottom: -27px;">
 												<p class="ps-1 pe-1" style="border-radius: 20px; background-color: white;">
 													@item.Theme.Title
 												</p>
@@ -819,7 +825,7 @@
 											<div class="card-footer text-center">
 												<a>
 													<button type="submit" asp-controller="Home" asp-action="MissionAndRating" asp-route-id="@item.MissionId" class="btn  rounded-pill" style="border: 2px solid #F88634;
-									  	color: #F88634;">
+										  	color: #F88634;">
 														Explore Now <img src="~/Assets/right-arrow.png" alt="">
 													</button>
 												</a>
@@ -849,7 +855,7 @@
 												<img src="~/Assets/user.png" alt="">
 											</div>
 											<div class="text-center position-absolute" id="mission-theme" style=" left: 50%;
-									transform: translateX(-50%); bottom: -27px;">
+										transform: translateX(-50%); bottom: -27px;">
 												<p class="ps-1 pe-1" style="border-radius: 20px; background-color: white;">
 													@item.Theme.Title
 												</p>
@@ -879,9 +885,9 @@
 											</div>
 											<div class="d-flex justify-content-between position-relative border-top border-bottom py-4">
 												<div class="text-center position-absolute" id="mission-deadline" style=" top: -15px;
-							left: 50%;
-							transform: translateX(-50%);">
-													<p style="border: 1px solid gray;border-radius: 20px; font-size:15px" class="ps-1 pe-1" >
+								left: 50%;
+								transform: translateX(-50%);">
+													<p style="border: 1px solid gray;border-radius: 20px; font-size:15px" class="ps-1 pe-1">
 														Ongoing Oppurtunity
 													</p>
 												</div>
@@ -930,7 +936,7 @@
 
 												<a>
 													<button type="submit" asp-controller="Home" asp-action="MissionAndRating" asp-route-id="@item.MissionId" class="btn  rounded-pill" style="border: 2px solid #F88634;
-									  	color: #F88634;">
+										  	color: #F88634;">
 														Explore Now <img src="~/Assets/right-arrow.png" alt="">
 													</button>
 												</a>
@@ -1078,49 +1084,49 @@
 
 		// Function for Add to favourite button
 		@*
-		function AddtoFav(mId) {
+			function AddtoFav(mId) {
 			$.ajax({
-				type: "POST",
-				url: "/Home/favouriteMission",
-				data: {
-					'id': mId
-				},
-				success: function (result) {
-					console.log(rating);
-					console.log("rating is updated succesfully");
-					location.href = "Home/MissionAndRating/" + result;
+			type: "POST",
+			url: "/Home/favouriteMission",
+			data: {
+			'id': mId
+			},
+			success: function (result) {
+			console.log(rating);
+			console.log("rating is updated succesfully");
+			location.href = "Home/MissionAndRating/" + result;
 
-				},
-				error: function () {
-					alert("Error from addFav");
-				}
-			});
-		}
-		*@
-
-		function addFavourite(missionId){
-			var button = $('.favorite')
-			if(button.hasClass("added")){
-				$('.favorite img').attr("src", "/Assets/heart1.png");
-				button.removeClass("added")
-			}	else{
-				button.addClass("added");
-						$('.favorite img').attr("src", "/Assets/favourite.png");
+			},
+			error: function () {
+			alert("Error from addFav");
 			}
+			});
+			}
+			*@
+
+			function addFavourite(missionId) {
+				var button = $('.favorite')
+				if (button.hasClass("added")) {
+					$('.favorite img').attr("src", "/Assets/heart1.png");
+					button.removeClass("added")
+				} else {
+					button.addClass("added");
+					$('.favorite img').attr("src", "/Assets/favourite.png");
+				}
 				$.ajax({
 					url: "/Home/doFavouriteMission",
-						type: "POST",
-						data: {
+					type: "POST",
+					data: {
 						mId: missionId
 					},
 					success: function (result) {
-					console.log(result);
-					//$('.xyz').html($(result).find('.xyz').html());
-				}
-			})
+						console.log(result);
+						//$('.xyz').html($(result).find('.xyz').html());
+					}
+				})
 
 
-}
+			}
 
 		// Comments
 
@@ -1164,8 +1170,10 @@
 				selecteduserid.push($(this).attr("id"));
 			});
 			console.log(selecteduserid);
-
-			$.ajax({
+			$('#volPageLoader').removeClass('d-none');
+			$('#model-content').addClass('d-none');
+			if(selecteduserid.length != 0) {
+				$.ajax({
 				type: "POST",
 				url: '/Home/SentUserMail',
 				data: {
@@ -1175,8 +1183,16 @@
 				traditional: true,
 				success: function (response) {
 					alert('Mail Sent Successfully.. Now you can close Model...');
+						$('#volPageLoader').addClass('d-none');
+						$('#model-content').removeClass('d-none');
 				}
 			});
+			}
+			else {
+				alert('Select at least one user!');
+						$('#volPageLoader').addClass('d-none');
+						$('#model-content').removeClass('d-none');
+			}
 		}
 
 
@@ -1224,7 +1240,7 @@
 				}
 			});
 		}
-						/*function recommendattion(mId){
+								/*function recommendattion(mId){
 		var userids = [];
 		$('.modal-body input:checked').each(function () {
 		userids.push($(this).attr("id"));

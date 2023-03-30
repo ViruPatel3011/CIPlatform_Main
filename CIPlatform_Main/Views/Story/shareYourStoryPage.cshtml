@@ -103,7 +103,7 @@
 	<!--Formsectioni start-->
 
 
-	<form>
+	<form enctype="multipart/form-data" method="post">
 		<div class="row mx-2 mt-3">
 			<div class="col-md-4 mt-1">
 				<label for="inputEmail4">Select Mission</label>
@@ -274,8 +274,8 @@
 					"mid" : missionId,
 					"sTitle" : storyTitle,
 					"sDateAndTime" : dateAndTime,
-				"sDesc" : description,
-				"userId" : @uid,
+					"sDesc" : description,
+					"userId" : @uid,
 					"images" : imagePaths,
 					"videoUrl" : video
 				},
