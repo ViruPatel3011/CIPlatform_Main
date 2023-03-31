@@ -61,8 +61,6 @@ public partial class User
 
     public virtual ICollection<MissionRating> MissionRatings { get; } = new List<MissionRating>();
 
-    public virtual ICollection<Story> Stories { get; } = new List<Story>();
-
     public virtual ICollection<StoryInvite> StoryInviteFromUsers { get; } = new List<StoryInvite>();
 
     public virtual ICollection<StoryInvite> StoryInviteToUsers { get; } = new List<StoryInvite>();

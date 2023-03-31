@@ -310,7 +310,12 @@
 
 						<div class="card-body  position-relative">
 							<div class="position-absolute text-center" id="theme">
-								<p class="" style="border-radius: 20px; background-color: white;">@story.Mission.Theme.Title</p>
+								<p class="" style="border-radius: 20px; background-color: white;">
+									@{
+										var missionTheme = Model.missionTheme.Where(x => x.MissionThemeId == story.MissionId).Select(x => x.Title).FirstOrDefault();
+										@missionTheme
+									}
+									</p>
 							</div>
 							<h5 class="card-title">@story.Title </h5>
 							<p class="card-text">@Html.Raw(@story.Description)</p>
@@ -321,7 +326,16 @@
 									<img src="@Url.Content(userImage)" alt="" class="footerProfile">
 								}
 
-								<p class="mb-0 mt-2 ms-2">@story.User.FirstName @story.User.LastName</p>
+							
+
+									@{
+										var fName = Model.users.Where(x => x.UserId == story.UserId).Select(x => x.FirstName).FirstOrDefault();
+										var lName = Model.users.Where(x => x.UserId == story.UserId).Select(x => x.LastName).FirstOrDefault();
+									<p class="mb-0 ms-3">
+											@fName @lName
+									</p>
+									}
+								
 							</div>
 						</div>
 					</div>

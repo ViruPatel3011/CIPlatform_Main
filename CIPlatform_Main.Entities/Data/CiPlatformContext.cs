@@ -713,16 +713,7 @@ public partial class CiPlatformContext : DbContext
                 .HasColumnType("datetime")
                 .HasColumnName("updated_at");
             entity.Property(e => e.UserId).HasColumnName("user_id");
-
-            entity.HasOne(d => d.Mission).WithMany(p => p.Stories)
-                .HasForeignKey(d => d.MissionId)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK__story__mission_i__2B0A656D");
-
-            entity.HasOne(d => d.User).WithMany(p => p.Stories)
-                .HasForeignKey(d => d.UserId)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK__story__user_id__2BFE89A6");
+            entity.Property(e => e.Views).HasColumnName("views");
         });
 
         modelBuilder.Entity<StoryInvite>(entity =>
