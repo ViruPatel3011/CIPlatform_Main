@@ -115,7 +115,7 @@
 									Country Name
 								</a>
 								<ul class="dropdown-menu scrollable-menu ps-2" id="countryDropdown">
-									@*@foreach (var countryList in Model.Countries)
+									@foreach (var countryList in Model.Countries)
 									{
 										<li class="form-check">
 											<input class="form-check-input checkbox" type="checkbox" value="@countryList.Name"
@@ -124,7 +124,7 @@
 												@countryList.Name
 											</label>
 										</li>
-									}*@
+									}
 								</ul>
 							</div>
 
@@ -143,7 +143,7 @@
 									City Name
 								</a>
 								<ul class="dropdown-menu scrollable-menu ps-2" id="cityDropdown">
-									@*@foreach (var cityList in Model.Cities)
+									@foreach (var cityList in Model.Cities)
 									{
 										<li class="form-check">
 											<input class="form-check-input checkbox" type="checkbox" value="@cityList.Name"
@@ -152,7 +152,7 @@
 												@cityList.Name
 											</label>
 										</li>
-									}*@
+									}
 								</ul>
 							</div>
 
@@ -173,7 +173,7 @@
 							</a>
 
 							<ul class="dropdown-menu scrollable-menu" aria-labelledby="navbarScrollingDropdown" id="themesDropdown">
-							@*	@foreach (var themeList in Model.MissionThemes)
+								@foreach (var themeList in Model.MissionThemes)
 								{
 									<li class="form-check ms-1">
 										<input class="form-check-input checkbox" type="checkbox" value="@themeList.Title"
@@ -182,7 +182,7 @@
 											@themeList.Title
 										</label>
 									</li>
-								}*@
+								}
 							</ul>
 
 						</li>
@@ -199,7 +199,7 @@
 							</a>
 
 							<ul class="dropdown-menu scrollable-menu" aria-labelledby="navbarScrollingDropdown" id="skillsDropdown">
-								@*@foreach (var skillsList in Model.Skills)
+								@foreach (var skillsList in Model.Skills)
 								{
 									<li class="form-check ms-1">
 										<input class="form-check-input checkbox" type="checkbox" value="@skillsList.SkillName"
@@ -208,7 +208,7 @@
 											@skillsList.SkillName
 										</label>
 									</li>
-								}*@
+								}
 							</ul>
 
 						</li>

@@ -19,6 +19,33 @@ namespace CIPlatform_Main.Repository.Repository
 			_ciPlatformContext = ciPlatformContext;
 		}
 
+		public LandingPageVM LandingPageList()
+		{
+			LandingPageVM landingPageData= new LandingPageVM();
+
+			List<Country> countries = GetCountries();
+			landingPageData.Countries = countries;
+
+			List<City> cities = GetCities();
+			landingPageData.Cities = cities;
+
+			List<Mission> missions = GetMissions();
+			landingPageData.Missions = missions;
+
+			List<MissionTheme> missionTheme = GetMissionThemes();
+			landingPageData.MissionThemes = missionTheme;
+
+			List<MissionSkill> missionSkills = GetMissionSkills();
+			landingPageData.MissionSkills = missionSkills;
+
+			List<Skill> skill = GetSkills();
+			landingPageData.Skills = skill;
+
+			return landingPageData;
+
+
+			
+		}
 		public LandingPageVM LandingPage(string[]? country, string[]? city, string[]? themes, string[]? skills, string? sortVal, string? search, int pg = 1)
 		{
 			LandingPageVM landingPage = new LandingPageVM();

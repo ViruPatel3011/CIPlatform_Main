@@ -35,12 +35,12 @@ namespace CIPlatform_Main.Controllers
                 var isValid = _registartionRepository.GetUsers(registrationVM);
                 if (isValid)
                 {
-                    TempData["success"] = "Register is succesful.";
+                    TempData["Success Message"] = "Register is succesful.";
                     return RedirectToAction("Login", "Login");
                 }
                 else
                 {
-                    TempData["Error"] = "Email is Already Exist";
+                    TempData["Error Message"] = "Email is Already Exist";
                     return RedirectToAction("Register", "Register");
                 }
             }

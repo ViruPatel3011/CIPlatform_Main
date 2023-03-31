@@ -29,12 +29,35 @@
 </head>
 
 <body>
+	<div style="background-color:red !important;">
+		@if (TempData["Success Message"] != null)
+		{
+			<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css" />
+			<script src="~/lib/jquery/dist/jquery.min.js"></script>
+			<script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+			<script type="text/javascript">
+				toastr.success('@TempData["Success Message"]');
+			</script>
+		}
+		@if (TempData["Error Message"] != null)
+		{
+			<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css" />
+			<script src="~/lib/jquery/dist/jquery.min.js"></script>
+			<script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+			<script type="text/javascript">
+				toastr.warning('@TempData["Error"]');
+			</script>
+		}
+	</div>
 	<section class="main">
 
+		
 	@*	<partial name="Shared/_navbarpartial.cshtml">*@
 		@{
 			Html.RenderPartial("_navbarpartial");
 		}
+
+
 
 		<div class="filters-section d-flex align-items-center flex-wrap justify-content-start" style="padding-left: 130px ;">
 		</div>

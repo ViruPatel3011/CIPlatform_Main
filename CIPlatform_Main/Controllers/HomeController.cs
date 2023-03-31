@@ -24,9 +24,8 @@ namespace CIPlatform_Main.Controllers
 		}
         public IActionResult LandingPage()
         {
-
-         
-            return View();
+			var navBarData=_landingPage.LandingPageList();
+			return View(navBarData);
         }
 
 		[HttpPost]

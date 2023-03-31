@@ -125,8 +125,6 @@
 				<input type="date" class="form-control mt-1" placeholder="Last name" id="dataAndTime"  value="@Model.dateAndTime">
 			</div>
 		</div>
-
-		
 		<div class="row mx-2 mt-2">
 			<div class="col-12 my-3">
 				<label for="inputEmail4">Story Description</label>
@@ -163,10 +161,11 @@
 				</div>
 			</div>
 		</div>
+
 		<div class="row mx-2 mt-2">
 			<div class="col-12 d-flex justify-content-between">
 				<div>
-					<button asp-controller="Story" asp-action="StoryListingPage" type="button" class="btn btn-outline-warning" style="border-radius: 50px;">Cancel</button>
+					<a asp-controller="Story" asp-action="StoryListingPage" type="button" class="btn btn-outline-warning" style="border-radius: 50px;">Cancel</a>
 				</div>
 
 
@@ -257,20 +256,20 @@
 
 		getallmissions();
 
-
+		// function for Save new story first time in database
 		function submitData() {
 			var missionId = document.getElementById("mId").value;
-			alert(missionId);
+			//alert(missionId);
 			var storyTitle = $("#title").val();
-			alert(storyTitle);
+			//alert(storyTitle);
 			var dateAndTime = $("#dataAndTime").val();
-			alert(dateAndTime);
+		//	alert(dateAndTime);
 			var textarea = tinymce.get("storytext").getContent();
 			var description = textarea.substring(3, textarea.length - 4);
 			console.log("desc", description);
 
 			const video = $("#videoURL").val();
-			alert(video);
+			//alert(video);
 			const imagePaths = [];
 			const images = document.getElementById('image-preview');
 			const image_tag = images.getElementsByTagName("img");
@@ -280,7 +279,7 @@
 				const image = image_tag[i].getAttribute("src");
 				imagePaths.push(image);
 			}
-			alert(imagePaths);
+			//alert(imagePaths);
 			$.ajax({
 				url: "/Story/shareYourStoryPage",
 				type: "POST",
@@ -302,7 +301,7 @@
 			});
 		}
 
-
+		// Function for getting all data for draft story
 		function getallmissions() {
 			$.ajax({
 				url: '/Story/getAllMissions',
@@ -319,6 +318,8 @@
 			})
 		}
 
+
+		// Function for editing story when it was published
 		function editStory() {
 			alert("inside edit function");
 			const missionid = document.getElementById("mId").value;
@@ -337,9 +338,10 @@
 				}
 			})
 		}
-		
 
 
+
+		// Function for submitting story when it was Saved(Draft)
 		function submit(storyid) {
 			$.ajax({
 				url: "/Story/submit",
@@ -357,17 +359,17 @@
 
 		function editData() {
 			var missionId = document.getElementById("mId").value;
-			alert(missionId);
+			//alert(missionId);
 			var storyTitle = $("#title").val();
-			alert(storyTitle);
+			//alert(storyTitle);
 			var dateAndTime = $("#dataAndTime").val();
-			alert(dateAndTime);
+			//alert(dateAndTime);
 			var textarea = tinymce.get("storytext").getContent();
 			var description = textarea.substring(3, textarea.length - 4);
 			console.log("desc", description);
 
 			const video = $("#videoURL").val();
-			alert(video);
+			//alert(video);
 			const imagePaths = [];
 			const images = document.getElementById('image-preview');
 			const image_tag = images.getElementsByTagName("img");

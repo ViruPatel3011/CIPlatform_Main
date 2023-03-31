@@ -23,9 +23,33 @@
             toastr.error('@TempData["EmailAlreadyExist"]')
         </script>
     }
+
 </head>
 
 <body>
+      <div style="background-color:red !important;">
+        @if (TempData["Success Message"] != null)
+        {
+            <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css" />
+            <script src="~/lib/jquery/dist/jquery.min.js"></script>
+            <script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+            <script type="text/javascript">
+                toastr.success('@TempData["Success Message"]');
+            </script>
+        }
+        @if (TempData["Error Message"] != null)
+        {
+            <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css" />
+            <script src="~/lib/jquery/dist/jquery.min.js"></script>
+            <script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+            <script type="text/javascript">
+                toastr.error('@TempData["Error"]');
+            </script>
+        }
+
+     
+    </div>
+
     <form method="post" asp-controller="Registration" asp-action="Registration">
         <div class="container-fluid">
             <div class="row">

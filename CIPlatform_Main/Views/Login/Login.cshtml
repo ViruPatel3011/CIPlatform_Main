@@ -24,23 +24,23 @@
 </head>
 
 <body>
-        <div>
-        @if (TempData["success"] != null)
+        <div style="background-color:red !important;">
+        @if (TempData["Success Message"] != null)
         {
             <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css" />
             <script src="~/lib/jquery/dist/jquery.min.js"></script>
             <script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
             <script type="text/javascript">
-                toastr.success('@TempData["success"]');
+                toastr.success('@TempData["Success Message"]');
             </script>
         }
-        @if (TempData["Error"] != null)
+        @if (TempData["Error Message"] != null)
         {
             <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css" />
             <script src="~/lib/jquery/dist/jquery.min.js"></script>
             <script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
             <script type="text/javascript">
-                toastr.warning('@TempData["Error"]');
+                toastr.error('@TempData["Error"]');
             </script>
         }
     </div>
