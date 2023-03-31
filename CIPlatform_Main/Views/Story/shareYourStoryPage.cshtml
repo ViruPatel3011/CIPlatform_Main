@@ -294,6 +294,12 @@
 				},
 				success: function (result) {
 					alert("Story Add successfully");
+					const image = document.getElementById('image-preview');
+					const closeButton = document.getElementById('remove-image');
+
+					closeButton.addEventListener('click', function () {
+						image.style.display = 'none';
+					});
 				},
 				error: function (result) {
 					alert("error occur in story");
@@ -393,7 +399,7 @@
 					'videoUrl': video,
 				},
 				success: function (result) {
-					alert("Story Add successfully");
+					alert("Story Edited successfully");
 					window.location = result.redirectUrl;
 				},
 				error: function (result) {

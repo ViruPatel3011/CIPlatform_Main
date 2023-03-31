@@ -254,29 +254,40 @@
 					<!-- Full-width images with number text -->
 
 					<div style="height: 80%;">
-						<div class="mySlides h-100 ">
-							<img src="~/Assets/CSR-initiative-stands-for-Coffee--and-Farmer-Equity-4.png" style="width:100%" class="h-100">
+
+						@{
+							var selectedStoryId = Model.Stories.Where(x => x.UserId == long.Parse(uid) && x.MissionId == Model.MissionId).Select(x => x.StoryId).FirstOrDefault();
+							var slidingImage = Model.storyMedia.Where(x => x.StoryId == selectedStoryId).Select(x => x.StoryPath);
+							
+
+							@foreach (var img in slidingImage)
+							{
+								<div class="mySlides h-100 ">
+									<img src="@img" style="width:100%" class="h-100">
+								</div>
+							}
+						}
+
+
+						@*<div class="mySlides h-100">
+						<img src="~/Assets/img1.png" style="width:100%" class="h-100">
 						</div>
 
 						<div class="mySlides h-100">
-							<img src="~/Assets/img1.png" style="width:100%" class="h-100">
-						</div>
-
-						<div class="mySlides h-100">
-							<img src="~/Assets/Grow-Trees-On-the-path-to-environment-sustainability-login.png" style="width:100%" class="h-100">
+						<img src="~/Assets/Grow-Trees-On-the-path-to-environment-sustainability-login.png" style="width:100%" class="h-100">
 						</div>
 
 						<div class="mySlides  h-100">
-							<img src="~/Assets/img11.png" style="width:100%" class="h-100">
+						<img src="~/Assets/img11.png" style="width:100%" class="h-100">
 						</div>
 
 						<div class="mySlides h-100">
-							<img src="~/Assets/img11.png" style="width:100%" class="h-100">
+						<img src="~/Assets/img11.png" style="width:100%" class="h-100">
 						</div>
 
 						<div class="mySlides h-100">
-							<img src="~/Assets/image1.png" style="width:100%" class="h-100">
-						</div>
+						<img src="~/Assets/image1.png" style="width:100%" class="h-100">
+						</div>*@
 
 						<!-- Next and previous buttons -->
 						<a class="prev" onclick="plusSlides(-1)">&#10094;</a>
@@ -285,11 +296,25 @@
 
 					<!-- Thumbnail images -->
 					<div class="row mt-2 w-100 mx-auto my-auto" style="height: 15%;">
-						<div class="column pe-0 ps-0">
-							<img class="demo cursor h-100" src="~/Assets/CSR-initiative-stands-for-Coffee--and-Farmer-Equity-5.png"
-		 style="width:100%" onclick="currentSlide(1)" alt="The Woods">
-						</div>
-						<div class="column pe-0">
+
+
+						@{
+							var smallImageId = Model.Stories.Where(x => x.UserId == long.Parse(uid) && x.MissionId == Model.MissionId).Select(x => x.StoryId).FirstOrDefault();
+							var LowerSlider = Model.storyMedia.Where(x => x.StoryId == smallImageId).Select(x => x.StoryPath);
+
+							@foreach (var image in LowerSlider)
+							{
+								<div class="column pe-0 ps-0">
+									<img class="demo cursor h-100" src="@image" style="width:100%" onclick="currentSlide(1)" alt="The Woods">
+								</div>
+							}
+
+
+						}
+						
+
+
+						@*<div class="column pe-0">
 							<img class="demo cursor h-100" src="~/Assets/img2.png" style="width:100%" onclick="currentSlide(2)"
 		 alt="Cinque Terre">
 						</div>
@@ -308,7 +333,7 @@
 						<div class="column pe-0">
 							<img class="demo cursor h-100" src="~/Assets/image.png" style="width:100%" onclick="currentSlide(6)"
 		 alt="Snowy Mountains">
-						</div>
+						</div>*@
 					</div>
 				</div>
 				<!-- Container for the image gallery carousel end -->
@@ -482,21 +507,21 @@
 			$('#model-content').addClass('d-none');
 			if (selecteduserid.length != 0) {
 
-			$.ajax({
-				type: "POST",
-				url: '/Story/SentUserMail',
-				data: {
-					ids: selecteduserid,
-					missionid: @Model.MissionId,
-				},
-				traditional: true,
-				success: function (response) {
-					alert('Mail Sent Successfully.. Now you can close Model...');
+				$.ajax({
+					type: "POST",
+					url: '/Story/SentUserMail',
+					data: {
+						ids: selecteduserid,
+						missionid: @Model.MissionId,
+					},
+					traditional: true,
+					success: function (response) {
+						alert('Mail Sent Successfully.. Now you can close Model...');
 						$('#volPageLoader').addClass('d-none');
 						$('#model-content').removeClass('d-none');
-				}
-			});
-		}
+					}
+				});
+			}
 
 			else {
 				alert('Select at least one user!');

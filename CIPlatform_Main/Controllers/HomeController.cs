@@ -42,14 +42,14 @@ namespace CIPlatform_Main.Controllers
 				GoalMissions = landingPageData.GoalMissions,
 				FavoriteMissionList = landingPageData.FavoriteMissionList,
 				UserData = landingPageData.UserData,
-				Missions = landingPageData.Missions,
+				//Missions = landingPageData.Missions,
 				MissionSkills = landingPageData.MissionSkills,
 				Countries =landingPageData.Countries,
 				Cities=landingPageData.Cities,
 
 			};
 
-			List<Mission> missions = new List<Mission>();
+			List<Mission> missions = (List<Mission>)landingPageData.Missions;
 
 			if (search != null)
 			{
@@ -63,6 +63,7 @@ namespace CIPlatform_Main.Controllers
 
 			missions = SortingData(sortVal, missions);
 
+			landVM.Missions = missions;
 
 
 

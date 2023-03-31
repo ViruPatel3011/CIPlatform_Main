@@ -48,14 +48,14 @@ for (var checkbox of checkboxes) {
 
             removeElement(this.value);
             console.log("unchecked");
-            loadMissions(pg = 1);
+            /*loadMissions();*/
         }
     })
 }
 
 
 function addElement(current, value) {
-    loadMissions(pg = 1);
+    loadMissions();
     let filtersSection = document.querySelector(".filters-section");
 
     let createdTag = document.createElement('span');
@@ -80,7 +80,7 @@ function addElement(current, value) {
         elementToBeRemoved.remove();
 
         current.checked = false;
-
+        loadMissions();
 
 
 
@@ -97,7 +97,7 @@ function addElement(current, value) {
 }
 
 function removeElement(value) {
-    loadMissions(pg = 1);
+    loadMissions();
     let filtersSection = document.querySelector(".filters-section");
 
     let elementToBeRemoved = document.getElementById(value);

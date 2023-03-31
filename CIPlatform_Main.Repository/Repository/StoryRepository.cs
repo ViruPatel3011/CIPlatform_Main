@@ -34,6 +34,7 @@ namespace CIPlatform_Main.Repository.Repository
 				allCountries = _ciPlatformContext.Countries.ToList(),
 				skills = _ciPlatformContext.Skills.ToList(),
 				allMissionList = _ciPlatformContext.Missions.ToList(),
+				storyMedia=_ciPlatformContext.StoryMedia.ToList(),
 			};
 			return tsm;
 		}
@@ -96,6 +97,9 @@ namespace CIPlatform_Main.Repository.Repository
             sdv.MissionId = missionId;
 			sdv.UserData = _ciPlatformContext.Users.ToList();
 			sdv.Avatar = _ciPlatformContext.Users.Where(x => x.UserId == userId).Select(x => x.Avatar).FirstOrDefault();
+			sdv.Stories = _ciPlatformContext.Stories.ToList();
+			sdv.storyMedia = _ciPlatformContext.StoryMedia.ToList();
+			
             return sdv;
         }
 

@@ -89,3 +89,6 @@ E:\CIPlatform_Main\CIPlatform_Main\obj\Debug\net6.0\refint\CIPlatform_Main.dll
 E:\CIPlatform_Main\CIPlatform_Main\obj\Debug\net6.0\CIPlatform_Main.pdb
 E:\CIPlatform_Main\CIPlatform_Main\obj\Debug\net6.0\CIPlatform_Main.genruntimeconfig.cache
 E:\CIPlatform_Main\CIPlatform_Main\obj\Debug\net6.0\ref\CIPlatform_Main.dll
+E:\CIPlatform_Main\CIPlatform_Main\bin\Debug\net6.0\cloudscribe.Pagination.Models.dll
+E:\CIPlatform_Main\CIPlatform_Main\bin\Debug\net6.0\cloudscribe.Web.Pagination.dll
+E:\CIPlatform_Main\CIPlatform_Main\obj\Debug\net6.0\CIPlatform_Main.MvcApplicationPartsAssemblyInfo.cs
