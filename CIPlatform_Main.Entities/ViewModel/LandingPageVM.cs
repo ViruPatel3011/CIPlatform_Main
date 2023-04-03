@@ -37,6 +37,7 @@ namespace CIPlatform_Main.Entities.ViewModel
         public IEnumerable<Country>? Countries { get; set; }
         public IEnumerable<City>? Cities { get; set; }
         public IEnumerable<Mission>? Missions { get; set; }
+        public IEnumerable<MissionMedium>? MissionMedia { get; set; }
         public IEnumerable<MissionDocument>? MissionDocuments { get; set; }
         public IEnumerable<MissionTheme>? MissionThemes { get; set; }
         public IEnumerable<MissionSkill>? MissionSkills { get; set; }

@@ -46,6 +46,7 @@ namespace CIPlatform_Main.Controllers
 				MissionSkills = landingPageData.MissionSkills,
 				Countries =landingPageData.Countries,
 				Cities=landingPageData.Cities,
+				MissionMedia=landingPageData.MissionMedia
 
 			};
 

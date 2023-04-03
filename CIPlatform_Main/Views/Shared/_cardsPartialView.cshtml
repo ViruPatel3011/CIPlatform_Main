@@ -101,7 +101,10 @@
 
 								<!-- Time based mission  Upper Body  -->
 								<div class="position-relative">
-									<img src="~/Assets/Nourish-the-Children-in--African-country.png" class="card-img-top" alt="...">
+									@{
+										var cardsImage = item.MissionMedia.FirstOrDefault();
+										<img src="@Url.Content(cardsImage.MediaPath)" class="card-img-top" alt="...">
+									}
 
 									<div class="position-absolute c1-location px-2 py-1">
 										<img src="~/Assets/pin.png" alt="">
@@ -319,7 +322,10 @@
 
 								<!-- Goal based Mission Upper Body  -->
 								<div class="position-relative">
-									<img src="~/Assets/Animal-welfare-&-save-birds-campaign.png" class="card-img-top" alt="...">
+									@{
+										var cardsImage = item.MissionMedia.FirstOrDefault();
+										<img src="@Url.Content(cardsImage.MediaPath)" class="card-img-top" alt="...">
+									}
 
 									<div class="position-absolute c1-location px-2 py-1">
 										<img src="~/Assets/pin.png" alt="">

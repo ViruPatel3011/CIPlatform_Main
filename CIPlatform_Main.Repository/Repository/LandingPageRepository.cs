@@ -79,6 +79,9 @@ namespace CIPlatform_Main.Repository.Repository
 
 			List<User> userData = GetUserData();
 			landingPage.UserData = userData;
+			
+			List<MissionMedium> missionMedia = GetMissionMedia();
+			landingPage.MissionMedia = missionMedia;
 
 			return landingPage;
 
@@ -99,6 +102,12 @@ namespace CIPlatform_Main.Repository.Repository
 		public List<Mission> GetMissions()
 		{
 			List<Mission> missions = _ciPlatformContext.Missions.ToList();
+
+			return missions;
+		}
+		public List<MissionMedium> GetMissionMedia()
+		{
+			List<MissionMedium> missions = _ciPlatformContext.MissionMedia.ToList();
 
 			return missions;
 		}
