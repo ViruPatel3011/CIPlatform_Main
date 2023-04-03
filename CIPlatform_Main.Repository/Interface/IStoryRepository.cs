@@ -19,7 +19,7 @@ namespace CIPlatform_Main.Repository.Interface
 		public string userWithId(int[] ids, int missionid, string url);
 		public List<User> getUsersForRecomandateToCoWorker(string uid);
 
-        public shareYourStoryVM getDataForShareYourStory(string missionid, string uid);
+        public shareYourStoryVM getDataForShareYourStory(string missionid, string uid);	
         public List<Mission> getMissions(long uid);
 
         public bool getDataForStoryTable(int mid, string sTitle, string sDateAndTime, string sDesc, int userId, string[] images, string videourl);
