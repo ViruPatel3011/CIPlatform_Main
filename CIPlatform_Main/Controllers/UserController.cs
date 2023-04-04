@@ -45,6 +45,14 @@ namespace CIPlatform_Main.Controllers
 
 		}
 
+		public bool changeProfile(string image)
+		{
+			var identity = User.Identity as ClaimsIdentity;
+			var uid = identity?.FindFirst(ClaimTypes.Sid)?.Value;
+			var x = _userRepository.changeAvatar(image, Convert.ToInt32(uid));
+			return true;
+		}
+
 		public JsonResult getCountryList()
 		{
 			var countryList = _userRepository.GetCountryList();

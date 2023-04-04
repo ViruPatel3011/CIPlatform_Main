@@ -77,9 +77,9 @@
 								@name @surname
 							</a>
 							<ul class="dropdown-menu" aria-labelledby="navbarScrollingDropdown">
-								<li><a class="dropdown-item" >Dashboard</a></li>
+								<li><a class="dropdown-item">Dashboard</a></li>
 								<li><a class="dropdown-item" asp-controller="User" asp-action="UserProfile">My Account</a></li>
-								<li><a class="dropdown-item" >Help Center</a></li>
+								<li><a class="dropdown-item">Help Center</a></li>
 								<li><a class="dropdown-item" asp-controller="Login" asp-action="Logout">LogOut</a></li>
 							</ul>
 						</li>
@@ -102,49 +102,60 @@
 		<div class="row">
 			<div class="col-md-4 mt-3 text-center mt-5">
 				<div class="userProfileImg">
-					<img src="/Assets/volunteer1.png" alt=""
-						 style="width: 150px; height: 150px; border-radius: 50%;">
+					@{
+
+					<img src="@Model.Avatar" alt="" style="width: 150px; height: 150px; border-radius: 50%;" id="show">
+					<dialog id="myDialog" class="align-content-center">
+						<center><h4 class="m-3">Change my Avatar</h4></center>
+						<input type="file" asp-for="Avatar" accept="image/*" id="file-input" />
+						<div id="image-preview"></div>
+						<div class="d-flex mt-2 justify-content-center">
+							<button class="btn btn-outline-primary m-2" onclick="changePic()">Upload</button>
+							<button class="btn btn-outline-danger m-2" id="hide">Close</button>
+						</div>
+					</dialog>
+					}
 				</div>
 				<div class="userName">
 					<h3>@Model.FirstName @Model.LastName</h3>
 				</div>
 				<div>
 					<form method="post" asp-controller="User" asp-action="changePassword">
-					<button type="button" class="btn btn-outline-warning" data-bs-toggle="modal" data-bs-target="#exampleModal" style="border-radius: 50px;">
-						Change Password
-					</button>
+						<button type="button" class="btn btn-outline-warning" data-bs-toggle="modal" data-bs-target="#exampleModal" style="border-radius: 50px;">
+							Change Password
+						</button>
 
-					<!-- Modal -->
-					<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-						<div class="modal-dialog modal-dialog-centered">
-							<div class="modal-content">
-								<div class="modal-header">
-									<h5 class="modal-title" id="exampleModalLabel">Select Your Skills</h5>
-									<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-								</div>
-								<div class="modal-body">
+						<!-- Modal -->
+						<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+							<div class="modal-dialog modal-dialog-centered">
+								<div class="modal-content">
+									<div class="modal-header">
+										<h5 class="modal-title" id="exampleModalLabel">Select Your Skills</h5>
+										<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+									</div>
+									<div class="modal-body">
 
-									<div class="mb-3">
-										<label for="exampleInputPassword1" class="form-label">Enter your old password</label>
-										<input type="password" class="form-control" id="exampleInputPassword1" asp-for="OldPassword">
+										<div class="mb-3">
+											<label for="exampleInputPassword1" class="form-label">Enter your old password</label>
+											<input type="password" class="form-control" id="exampleInputPassword1" asp-for="OldPassword">
+										</div>
+										<div class="mb-3">
+											<label for="exampleInputPassword1" class="form-label">Enter your new password</label>
+											<input type="password" class="form-control" id="exampleInputPassword1" asp-for="Password">
+										</div>
+										<div class="mb-3">
+											<label for="exampleInputPassword1" class="form-label">Enter confirm password</label>
+											<input type="password" class="form-control" id="exampleInputPassword1" asp-for="ConfirmPassword">
+										</div>
 									</div>
-									<div class="mb-3">
-										<label for="exampleInputPassword1" class="form-label">Enter your new password</label>
-										<input type="password" class="form-control" id="exampleInputPassword1"  asp-for="Password">
+									<div class="modal-footer">
+										<button type="button" class="btn btn-outline-dark" style="border-radius:50px" data-bs-dismiss="modal">Cancel</button>
+										<button type="submit" class="btn btn-outline-warning" style="border-radius:50px">Save</button>
 									</div>
-									<div class="mb-3">
-										<label for="exampleInputPassword1" class="form-label">Enter confirm password</label>
-										<input type="password" class="form-control" id="exampleInputPassword1" asp-for="ConfirmPassword">
-									</div>
-								</div>
-								<div class="modal-footer">
-									<button type="button" class="btn btn-outline-dark" style="border-radius:50px" data-bs-dismiss="modal">Cancel</button>
-									<button type="submit" class="btn btn-outline-warning" style="border-radius:50px">Save</button>
 								</div>
 							</div>
 						</div>
-					</div>
-				</form>
+					</form>
 				</div>
 			</div>
 			<div class="col-md-8 mt-3">
@@ -162,7 +173,7 @@
 							<input type="text" asp-for="LastName" class="form-control" placeholder="Enter Your Surname" aria-label="Last name">
 						</div>
 						<div class="col">
-							
+
 							<input type="email" asp-route-Email="@Model.Email" class="form-control" placeholder="Enter Your Email" aria-label="Email" hidden>
 						</div>
 					</div>
@@ -170,7 +181,7 @@
 						<div class="col">
 							<label for="inputEmail4" class="form-label">Employee Id</label>
 							<input type="text" class="form-control" asp-for="EmployeeId" placeholder="Enter Your Employee Id"
-								   aria-label="Enter your employee Id">
+		   aria-label="Enter your employee Id">
 						</div>
 						<div class="col">
 							<label for="inputEmail4" class="form-label">Manager</label>
@@ -182,12 +193,12 @@
 						<div class="col">
 							<label for="inputEmail4" class="form-label">Title</label>
 							<input type="text" class="form-control" asp-for="Title" placeholder="Enter Title"
-								   aria-label="Enter your title">
+		   aria-label="Enter your title">
 						</div>
 						<div class="col">
 							<label for="inputEmail4" class="form-label">Department</label>
 							<input type="text" class="form-control" asp-for="Department" placeholder="Enter Department name"
-								   aria-label="Enter your department">
+		   aria-label="Enter your department">
 						</div>
 					</div>
 					<div class="row mt-4">
@@ -208,19 +219,19 @@
 						</div>
 					</div>
 					<div class="row">
-						
+
 						<div class="col-md-6">
 							<label for="inputState" class="form-label">Country</label>
 							<select id="Country" class="form-select" asp-for="countryId">
 								<option selected>Select Your Country</option>
-								
+
 							</select>
 						</div>
 						<div class="col-md-6">
 							<label for="inputState" class="form-label">City</label>
 							<select id="City" class="form-select" asp-for="cityId">
 								<option selected>Enter Your City</option>
-								
+
 							</select>
 						</div>
 					</div>
@@ -369,6 +380,7 @@
 	<a href="~/lib/jquery/dist/jquery.min.map"></a>
 	<script src="~/lib/jquery/dist/jquery.min.js"></script>
 	<script src="~/lib/jquery/dist/jquery.js"></script>
+	<script src="~/js/UserProfile.js"></script>
 
 
 	<script>
@@ -403,6 +415,35 @@
 						$('#Country').append('<option value=' + data.countryId + '>' + data.name + '</option>');
 					})
 				},
+			})
+		}
+
+		
+		// Ajax for chang user Profile image
+		var dialog = document.getElementById('myDialog');
+		document.getElementById('show').onclick = function () { dialog.showModal(); };
+		document.getElementById('hide').onclick = function () { dialog.close(); };
+
+		function changePic() {
+			const imagePaths = [];
+			const images = document.getElementById('image-preview');
+			const image_tag = images.getElementsByTagName("img");
+			console.log(image_tag)
+
+			for (let i = 0; i < image_tag.length; i++) {
+				const image = image_tag[i].getAttribute("src");
+				imagePaths.push(image);
+			}
+			$.ajax({
+				url: "/User/changeProfile",
+				type: "POST",
+				data: {
+					image: imagePaths
+				},
+				success: function () {
+					alert("Profile picture updated");
+					location.reload();
+				}
 			})
 		}
 	</script>

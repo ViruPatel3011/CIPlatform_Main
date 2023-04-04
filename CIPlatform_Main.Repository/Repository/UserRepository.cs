@@ -66,6 +66,14 @@ namespace CIPlatform_Main.Repository.Repository
 
 		}
 
+		public string changeAvatar(string image, int uid)
+		{
+			var userdetail = _ciPlatformContext.Users.Where(x => x.UserId == uid).FirstOrDefault();
+			userdetail.Avatar = image;
+			_ciPlatformContext.Update(userdetail);
+			_ciPlatformContext.SaveChanges();
+			return "Success";
+		}
 
 		public void ChangeUserPassword(int uid, UserViewModel userViewModel)
 		{

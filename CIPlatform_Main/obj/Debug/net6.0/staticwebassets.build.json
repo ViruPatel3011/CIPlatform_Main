@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "HUa5t46Yi3qMf+eBD7Eg2B0DHJYuoMZX2PcSrTP2Dao=",
+  "Hash": "fqeyxWPf008kPAYlrWLldchXCb/G5PxBBwSIMf3rBbY=",
   "Source": "CIPlatform_Main",
   "BasePath": "_content/CIPlatform_Main",
   "Mode": "Default",
@@ -2718,6 +2718,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\js\\site.js"
+    },
+    {
+      "Identity": "E:\\CIPlatform_Main\\CIPlatform_Main\\wwwroot\\js\\UserProfile.js",
+      "SourceId": "CIPlatform_Main",
+      "SourceType": "Discovered",
+      "ContentRoot": "E:\\CIPlatform_Main\\CIPlatform_Main\\wwwroot\\",
+      "BasePath": "_content/CIPlatform_Main",
+      "RelativePath": "js/UserProfile.js",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\js\\UserProfile.js"
     },
     {
       "Identity": "E:\\CIPlatform_Main\\CIPlatform_Main\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.css",

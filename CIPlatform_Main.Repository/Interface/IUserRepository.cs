@@ -16,6 +16,7 @@ namespace CIPlatform_Main.Repository.Interface
 
 		public void ChangeUserPassword(int uid, UserViewModel userViewModel);
 
+		public string changeAvatar(string image, int uid);
 		public List<Country> GetCountryList();
 		public List<City> GetCityList(int id);
 	}

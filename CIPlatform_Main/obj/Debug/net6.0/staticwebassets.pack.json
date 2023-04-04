@@ -661,6 +661,10 @@
       "PackagePath": "staticwebassets\\js\\ShareYourStory.js"
     },
     {
+      "Id": "E:\\CIPlatform_Main\\CIPlatform_Main\\wwwroot\\js\\UserProfile.js",
+      "PackagePath": "staticwebassets\\js\\UserProfile.js"
+    },
+    {
       "Id": "E:\\CIPlatform_Main\\CIPlatform_Main\\wwwroot\\js\\cascade.js",
       "PackagePath": "staticwebassets\\js\\cascade.js"
     },

@@ -36,7 +36,7 @@ namespace CIPlatform_Main.Entities.ViewModel
 		[Compare("Password")]
 		public string? ConfirmPassword { get; set; }
 
-
+		public string Avatar { get; set; }
 		public long cityId { get; set; }
 
 		public long countryId { get; set; }
