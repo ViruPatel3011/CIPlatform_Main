@@ -23,7 +23,7 @@ namespace CIPlatform_Main.Repository.Repository
 			_ciPlatformContext = ciPlatformContext;
 		}
 
-		public storyListingVM getStoryDetail()
+		public storyListingVM getStoryDetail(int pageIndex = 1, int pageSize = 1)
 		{
 			storyListingVM tsm = new storyListingVM()
 			{
@@ -36,6 +36,10 @@ namespace CIPlatform_Main.Repository.Repository
 				allMissionList = _ciPlatformContext.Missions.ToList(),
 				storyMedia=_ciPlatformContext.StoryMedia.ToList(),
 			};
+			tsm.totalRecord = tsm.stories.Count();
+			tsm.currentPage = pageIndex;
+			tsm.stories = tsm.stories.Skip((pageIndex - 1) * pageSize).Take(pageSize).ToList();
+
 			return tsm;
 		}
 

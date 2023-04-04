@@ -10,7 +10,7 @@ namespace CIPlatform_Main.Repository.Interface
 {
 	public interface IStoryRepository
 	{
-		public storyListingVM getStoryDetail();
+		public storyListingVM getStoryDetail(int pageIndex, int pageSize );
 
 		/*public bool getDataForStoryTable(int MissionId, string StoryTitle, string StoryText, DateTime StoryDate, int userId, string[] images, string videourl);*/
 

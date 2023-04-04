@@ -43,12 +43,11 @@ namespace CIPlatform_Main.Repository.Repository
 			return userViewModel;
 		}
 
-		public bool SaveUserProfile(UserViewModel userView, int uid)
+		public void SaveUserProfile(UserViewModel userView, int uid)
 		{
 
 			var alreadyExitUser = _ciPlatformContext.Users.Where(x => x.UserId == Convert.ToInt32(uid)).FirstOrDefault();
-			if (alreadyExitUser != null)
-			{
+		
 
 				alreadyExitUser.FirstName = userView.FirstName;
 				alreadyExitUser.LastName = userView.LastName;
@@ -59,13 +58,20 @@ namespace CIPlatform_Main.Repository.Repository
 				alreadyExitUser.WhyIVolunteer = userView.WhyIVolunteer;
 				alreadyExitUser.LinkedInUrl = userView.LinkedInUrl;
 
-				_ciPlatformContext.Update(alreadyExitUser);
+				
 				_ciPlatformContext.SaveChanges();
-				return true;
-			}
-			return false;
+				
+		
 
 
+		}
+
+
+		public void ChangeUserPassword(int uid, UserViewModel userViewModel)
+		{
+			var checkUser = _ciPlatformContext.Users.Where(x => x.UserId == uid).FirstOrDefault();
+			checkUser.Password = userViewModel.Password;
+			_ciPlatformContext.SaveChanges();
 		}
 
 		public List<Country> GetCountryList()

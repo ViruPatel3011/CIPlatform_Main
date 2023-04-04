@@ -30,8 +30,18 @@ namespace CIPlatform_Main.Controllers
 		public IActionResult SaveUserData(UserViewModel userView) {
 			var identity = User.Identity as ClaimsIdentity;
 			var uid = identity?.FindFirst(ClaimTypes.Sid)?.Value;
-			var userData = _userRepository.SaveUserProfile(userView,Convert.ToInt32(uid));
+			_userRepository.SaveUserProfile(userView,Convert.ToInt32(uid));
 			return RedirectToAction("UserProfile", "User");
+
+		}
+
+		[HttpPost]
+		public IActionResult changePassword(UserViewModel userView)
+		{
+			var identity = User.Identity as ClaimsIdentity;
+			var uid = identity?.FindFirst(ClaimTypes.Sid)?.Value;
+			_userRepository.ChangeUserPassword(Convert.ToInt32(uid), userView);
+			return RedirectToAction("User", "UserProfile");
 
 		}
 

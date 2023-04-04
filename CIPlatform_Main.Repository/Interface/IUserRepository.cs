@@ -12,7 +12,9 @@ namespace CIPlatform_Main.Repository.Interface
 	{
 		public UserViewModel getUserData(int uid);
 
-		public bool SaveUserProfile(UserViewModel userView,int uid);
+		public void SaveUserProfile(UserViewModel userView,int uid);
+
+		public void ChangeUserPassword(int uid, UserViewModel userViewModel);
 
 		public List<Country> GetCountryList();
 		public List<City> GetCityList(int id);

@@ -1,6 +1,9 @@
 ﻿using CIPlatform_Main.Entities.Models;
+using Microsoft.Win32.SafeHandles;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -19,7 +22,19 @@ namespace CIPlatform_Main.Entities.ViewModel
 		public string? EmployeeId { get; set; }
 
 		public string? Department { get; set; }
-		public string Password { get; set; } = null!;
+
+		[Required(ErrorMessage = "Old Password is Required")]
+		public string? OldPassword { get; set; }
+
+		[Required(ErrorMessage = "Password is Required")]
+		[DataType(DataType.Password)]
+		[StringLength(10,MinimumLength =5)]
+		public string? Password { get; set; }
+
+		[Required(ErrorMessage = "Confirm Password is Required")]
+		[NotMapped]
+		[Compare("Password")]
+		public string? ConfirmPassword { get; set; }
 
 
 		public long cityId { get; set; }

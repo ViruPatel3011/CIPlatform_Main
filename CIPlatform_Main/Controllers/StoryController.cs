@@ -20,9 +20,9 @@ namespace CIPlatform_Main.Controllers
 			_storyRepository = storyRepository;
 		}
 
-		public IActionResult StoryListingPage()
+		public IActionResult StoryListingPage(int pageIndex = 1, int pageSize=1)
 		{
-			var allStoryData = _storyRepository.getStoryDetail();
+			var allStoryData = _storyRepository.getStoryDetail(pageIndex,pageSize);
 			return View(allStoryData);
 		}
 
