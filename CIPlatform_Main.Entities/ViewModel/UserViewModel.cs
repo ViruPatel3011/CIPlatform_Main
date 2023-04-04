@@ -22,9 +22,9 @@ namespace CIPlatform_Main.Entities.ViewModel
 		public string Password { get; set; } = null!;
 
 
-		public long CityId { get; set; }
+		public long cityId { get; set; }
 
-		public long CountryId { get; set; }
+		public long countryId { get; set; }
 
 		public string? ProfileText { get; set; }
 

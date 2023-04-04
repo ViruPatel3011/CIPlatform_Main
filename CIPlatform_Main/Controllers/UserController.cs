@@ -34,6 +34,17 @@ namespace CIPlatform_Main.Controllers
 			return RedirectToAction("UserProfile", "User");
 
 		}
+
+		public JsonResult getCountryList()
+		{
+			var countryList = _userRepository.GetCountryList();
+			return Json(countryList);
+		}
+		public JsonResult getCityList(int id)
+		{
+			var cityList = _userRepository.GetCityList(id);
+			return Json(cityList);
+		}
 		public IActionResult Index()
 		{
 			return View();

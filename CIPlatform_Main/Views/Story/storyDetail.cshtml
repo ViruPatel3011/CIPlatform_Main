@@ -256,7 +256,7 @@
 					<div style="height: 80%;">
 
 						@{
-							var selectedStoryId = Model.Stories.Where(x => x.UserId == long.Parse(uid) && x.MissionId == Model.MissionId).Select(x => x.StoryId).FirstOrDefault();
+							var selectedStoryId = Model.Stories.Where(x => x.MissionId == Model.MissionId).Select(x => x.StoryId).FirstOrDefault();
 							var slidingImage = Model.storyMedia.Where(x => x.StoryId == selectedStoryId).Select(x => x.StoryPath);
 							
 
@@ -299,7 +299,7 @@
 
 
 						@{
-							var smallImageId = Model.Stories.Where(x => x.UserId == long.Parse(uid) && x.MissionId == Model.MissionId).Select(x => x.StoryId).FirstOrDefault();
+							var smallImageId = Model.Stories.Where(x => x.MissionId == Model.MissionId).Select(x => x.StoryId).FirstOrDefault();
 							var LowerSlider = Model.storyMedia.Where(x => x.StoryId == smallImageId).Select(x => x.StoryPath);
 
 							@foreach (var image in LowerSlider)

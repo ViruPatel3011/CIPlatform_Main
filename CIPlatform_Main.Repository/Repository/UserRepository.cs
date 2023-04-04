@@ -67,5 +67,16 @@ namespace CIPlatform_Main.Repository.Repository
 
 
 		}
+
+		public List<Country> GetCountryList()
+		{
+			var countryList = _ciPlatformContext.Countries.ToList();
+			return countryList;
+		}
+		public List<City> GetCityList(int id)
+		{
+			var cityList = _ciPlatformContext.Cities.Where(x=>x.CountryId==id).ToList();
+			return cityList;
+		}
 	}
 }

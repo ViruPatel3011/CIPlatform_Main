@@ -207,22 +207,19 @@
 						</div>
 					</div>
 					<div class="row">
+						
 						<div class="col-md-6">
-							<label for="inputState" class="form-label">City</label>
-							<select id="inputState" class="form-select">
-								<option selected>Enter Your City</option>
-								<option>Surat</option>
-								<option>Ahmedabad</option>
-								<option>Rajkot</option>
+							<label for="inputState" class="form-label">Country</label>
+							<select id="Country" class="form-select" asp-for="countryId">
+								<option selected>Select Your Country</option>
+								
 							</select>
 						</div>
 						<div class="col-md-6">
-							<label for="inputState" class="form-label">Country</label>
-							<select id="inputState" class="form-select">
-								<option selected>Select Your Country</option>
-								<option>India</option>
-								<option>Japan</option>
-								<option>Newzeland</option>
+							<label for="inputState" class="form-label">City</label>
+							<select id="City" class="form-select" asp-for="cityId">
+								<option selected>Enter Your City</option>
+								
 							</select>
 						</div>
 					</div>
@@ -371,5 +368,42 @@
 	<a href="~/lib/jquery/dist/jquery.min.map"></a>
 	<script src="~/lib/jquery/dist/jquery.min.js"></script>
 	<script src="~/lib/jquery/dist/jquery.js"></script>
+
+
+	<script>
+		getCountry();
+		$('#City').attr('disabled', true);
+		$('#Country').change(function () {
+			$('#City').empty();
+			$('#City').append('<option>Select City</option>')
+			$('#City').attr('disabled', false);
+			var countryId = $('#Country	').val();
+			$.ajax({
+				url: '/User/getCityList',
+				data: {
+					id: countryId,
+				},
+				type: "POST",
+				success: function (result) {
+					$.each(result, function (i, data) {
+						$('#City').append('<option value=' + data.cityId + '>' + data.name + '</option>')
+					})
+
+				}
+			})
+		})
+
+		function getCountry() {
+			$.ajax({
+				url: '/User/getCountryList',
+				type: 'POST',
+				success: function (result) {
+					$.each(result, function (i, data) {
+						$('#Country').append('<option value=' + data.countryId + '>' + data.name + '</option>');
+					})
+				},
+			})
+		}
+	</script>
 </body>
 </html>
