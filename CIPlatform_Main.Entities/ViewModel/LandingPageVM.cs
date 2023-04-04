@@ -19,10 +19,10 @@ namespace CIPlatform_Main.Entities.ViewModel
         public int missionId { get; set; }
 
 
-        public int currentPage { get; set; }
-        public int totalrecord { get; set; }
+		public int currentPage { get; set; }
+		public int totalRecord { get; set; }
 
-        public int missionRate { get; set; }
+		public int missionRate { get; set; }
 
         public int RatedVolunteers { get; set; }
 

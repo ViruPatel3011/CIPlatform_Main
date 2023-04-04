@@ -41,7 +41,7 @@ namespace CIPlatform_Main.Controllers
 			var identity = User.Identity as ClaimsIdentity;
 			var uid = identity?.FindFirst(ClaimTypes.Sid)?.Value;
 			_userRepository.ChangeUserPassword(Convert.ToInt32(uid), userView);
-			return RedirectToAction("User", "UserProfile");
+			return RedirectToAction("UserProfile");
 
 		}
 

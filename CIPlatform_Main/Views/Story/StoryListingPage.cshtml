@@ -103,7 +103,6 @@
 	<div class="filters-section d-flex align-items-center flex-wrap justify-content-start ps-2">
 	</div>
 	<!--Third Row For Filter end-->
-
 	<!-- Forth row for first image with transition  -->
 	<div class="container-fluid p-0 mt-4">
 		<div class="box position-relative  ">
@@ -131,7 +130,7 @@
 						</a>
 					}
 				}
-				
+
 			</div>
 		</div>
 	</div>
@@ -151,22 +150,32 @@
 						<div class="box1 position-relative">
 
 							@*@{
-				//var storyImage = Model.storyMedia.FirstOrDefault(m => m.StoryId == story.StoryId);
-								<img class="card-img-top" src="@Model.storyMedia.Where(x=>x.StoryId == story.StoryId).Select(x=>x.StoryPath).FirstOrDefault()" alt="Card image cap">
-							}*@
+						//var storyImage = Model.storyMedia.FirstOrDefault(m => m.StoryId == story.StoryId);
+						<img class="card-img-top" src="@Model.storyMedia.Where(x=>x.StoryId == story.StoryId).Select(x=>x.StoryPath).FirstOrDefault()" alt="Card image cap">
+						}*@
 							<img class="card-img-top" src="~/Assets/Grow-Trees-On-the-path-to-environment-sustainability-1.png" alt="Card image cap">
 							@{
-								
-								
 
-								<div class="details position-absolute">
-									<a asp-controller="Story" asp-action="storyDetail"  asp-route-userId="@story.UserId" asp-route-missionId="@story.MissionId" class="btn btn-outline-light detailsButton">
-										View Details <i class="bi bi-arrow-right"></i>
-									</a>
-								</div>
 
+								@if (uid != null)
+								{
+
+									<div class="details position-absolute">
+										<a asp-controller="Story" asp-action="storyDetail" asp-route-userId="@story.UserId" asp-route-missionId="@story.MissionId" class="btn btn-outline-light detailsButton">
+											View Details <i class="bi bi-arrow-right"></i>
+										</a>
+									</div>
+								}
+								else
+								{
+									<div class="details position-absolute">
+										<button class="btn btn-outline-light detailsButton" onclick="notloggedin();">
+											View Details <i class="bi bi-arrow-right"></i>
+										</button>
+									</div>
+								}
 							}
-							
+
 
 
 						</div>
@@ -178,7 +187,7 @@
 										var missionTheme = Model.missionTheme.Where(x => x.MissionThemeId == story.MissionId).Select(x => x.Title).FirstOrDefault();
 										@missionTheme
 									}
-									</p>
+								</p>
 							</div>
 							<h5 class="card-title">@story.Title </h5>
 							<p class="card-text">@Html.Raw(@story.Description)</p>
@@ -189,16 +198,16 @@
 									<img src="@Url.Content(userImage)" alt="" class="footerProfile">
 								}
 
-							
 
-									@{
-										var fName = Model.users.Where(x => x.UserId == story.UserId).Select(x => x.FirstName).FirstOrDefault();
-										var lName = Model.users.Where(x => x.UserId == story.UserId).Select(x => x.LastName).FirstOrDefault();
+
+								@{
+									var fName = Model.users.Where(x => x.UserId == story.UserId).Select(x => x.FirstName).FirstOrDefault();
+									var lName = Model.users.Where(x => x.UserId == story.UserId).Select(x => x.LastName).FirstOrDefault();
 									<p class="mb-0 ms-3">
-											@fName @lName
+										@fName @lName
 									</p>
-									}
-								
+								}
+
 							</div>
 						</div>
 					</div>
@@ -215,20 +224,20 @@
 
 
 
-	<div class="row justify-content-center align-items-center" style="margin-left:50%">
+	<div class=" justify-content-center align-items-center" style="margin-left:50%">
 
-	<cs-pager cs-paging-pagenumber="@Model.currentPage"
-			  cs-paging-totalitems="@Model.totalRecord"
-			  cs-paging-pagesize="1"
-			  cs-pagenumber-param="pageIndex"
-			  asp-controller="Story"
-			  asp-action="StoryListingPage"
-			  cs-pager-li-current-class="page-item active"
-			  cs-pager-li-other-class="page-item"
-			  cs-pager-li-non-active-class="page-item disabled"
-			  cs-pager-link-current-class="page-link"
-			  cs-pager-link-other-class="page-link">
-	</cs-pager>
+		<cs-pager cs-paging-pagenumber="@Model.currentPage"
+				  cs-paging-totalitems="@Model.totalRecord"
+				  cs-paging-pagesize="1"
+				  cs-pagenumber-param="pageIndex"
+				  asp-controller="Story"
+				  asp-action="StoryListingPage"
+				  cs-pager-li-current-class="page-item active"
+				  cs-pager-li-other-class="page-item"
+				  cs-pager-li-non-active-class="page-item disabled"
+				  cs-pager-link-current-class="page-link"
+				  cs-pager-link-other-class="page-link">
+		</cs-pager>
 
 	</div>
 

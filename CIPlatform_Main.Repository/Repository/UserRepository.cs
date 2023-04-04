@@ -72,6 +72,7 @@ namespace CIPlatform_Main.Repository.Repository
 			var checkUser = _ciPlatformContext.Users.Where(x => x.UserId == uid).FirstOrDefault();
 			checkUser.Password = userViewModel.Password;
 			_ciPlatformContext.SaveChanges();
+			
 		}
 
 		public List<Country> GetCountryList()
