@@ -14,7 +14,7 @@ namespace CIPlatform_Main.Repository.Interface
 
 		public void SaveUserProfile(UserViewModel userView,int uid);
 
-		public void ChangeUserPassword(int uid, UserViewModel userViewModel);
+		public int ChangeUserPassword(int uid, UserViewModel userViewModel);
 
 		public string changeAvatar(string image, int uid);
 		public List<Country> GetCountryList();

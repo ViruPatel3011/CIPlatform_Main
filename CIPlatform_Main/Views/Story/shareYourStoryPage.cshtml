@@ -76,9 +76,9 @@
 								@name @surname
 							</a>
 							<ul class="dropdown-menu" aria-labelledby="navbarScrollingDropdown">
-								<li><a class="dropdown-item" href="#">Dashboard</a></li>
-								<li><a class="dropdown-item" asp-controller="User" asp-action="UserProfile">My Account</a></li>
-								<li><a class="dropdown-item" href="#">Help Center</a></li>
+								<li><a class="dropdown-item" asp-controller="User" asp-action="UserProfile">Add Profile</a></li>
+								<li><a class="dropdown-item" asp-controller="User" asp-action="VolTimeSheet">Volunteering TimeSheet</a></li>
+								@*	<li><a class="dropdown-item" href="#">Help Center</a></li>*@
 								<li><a class="dropdown-item" asp-controller="Login" asp-action="Logout">LogOut</a></li>
 							</ul>
 						</li>
@@ -195,9 +195,8 @@
 @*	</form>*@
 	<!--Formsectioni end-->
 
-
-	<!-- footer start  -->
-	<div class="copyright mt-5">
+	<!--footer satrt-->
+	<div class="copyright mt-5 " style=" position: fixed; bottom: 0px; width: 100%;">
 		<div class="container">
 			<div class="row">
 				<div class="col-md-6">

@@ -83,6 +83,7 @@ namespace CIPlatform_Main.Controllers
 		{
 			HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
 			HttpContext.Session.Clear();
+            TempData["Success Message"] = "LogOut Successfully";
 			return RedirectToAction("LandingPage", "Home");
 		}
 

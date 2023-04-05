@@ -42,8 +42,21 @@ namespace CIPlatform_Main.Controllers
 		{
 			var identity = User.Identity as ClaimsIdentity;
 			var uid = identity?.FindFirst(ClaimTypes.Sid)?.Value;
-			_userRepository.ChangeUserPassword(Convert.ToInt32(uid), userView);
-			return RedirectToAction("UserProfile");
+			var userPasswordChanged=_userRepository.ChangeUserPassword(Convert.ToInt32(uid), userView);
+			if (userPasswordChanged==1)
+			{
+				TempData["Success Message"] = "Password Changed Successfully";
+				return RedirectToAction("UserProfile");
+
+			}else if(userPasswordChanged==0){
+				TempData["Error Message"] = "Old and New Password can't be Same...";
+				return RedirectToAction("UserProfile");
+			}
+			else
+			{
+				TempData["Error Message"] = "Old Password may be wrong..";
+				return RedirectToAction("UserProfile");
+			}
 
 		}
 
@@ -52,6 +65,7 @@ namespace CIPlatform_Main.Controllers
 			var identity = User.Identity as ClaimsIdentity;
 			var uid = identity?.FindFirst(ClaimTypes.Sid)?.Value;
 			var avtar= _userRepository.changeAvatar(image, Convert.ToInt32(uid));
+			TempData["Success Message"] = "Profile Updated Successfully";
 			return true;
 		}
 
@@ -65,6 +79,14 @@ namespace CIPlatform_Main.Controllers
 			var cityList = _userRepository.GetCityList(id);
 			return Json(cityList);
 		}
+
+		public IActionResult VolTimeSheet()
+		{
+			
+			return View();
+
+		}
+
 		public IActionResult Index()
 		{
 			return View();

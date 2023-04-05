@@ -78,11 +78,28 @@ namespace CIPlatform_Main.Repository.Repository
 			return "Success";
 		}
 
-		public void ChangeUserPassword(int uid, UserViewModel userViewModel)
+		public int ChangeUserPassword(int uid, UserViewModel userViewModel)
 		{
 			var checkUser = _ciPlatformContext.Users.Where(x => x.UserId == uid).FirstOrDefault();
-			checkUser.Password = userViewModel.Password;
-			_ciPlatformContext.SaveChanges();
+			if (checkUser.Password == userViewModel.OldPassword)
+			{
+				if (userViewModel.OldPassword == userViewModel.Password)
+				{
+					return 0;
+				}
+				else
+				{
+					checkUser.Password = userViewModel.ConfirmPassword;
+					_ciPlatformContext.SaveChanges();
+					return 1;
+				}
+
+
+			}
+			else
+			{
+				return -1;
+			}
 			
 		}
 

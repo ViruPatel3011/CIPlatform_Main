@@ -80,9 +80,9 @@
 									@name @surname
 								</a>
 								<ul class="dropdown-menu" aria-labelledby="navbarScrollingDropdown">
-									<li><a class="dropdown-item" href="#">Dashboard</a></li>
-									<li><a class="dropdown-item" asp-controller="User" asp-action="UserProfile">My Account</a></li>
-									<li><a class="dropdown-item" href="#">Help Center</a></li>
+									<li><a class="dropdown-item" asp-controller="User" asp-action="UserProfile">Add Profile</a></li>
+									<li><a class="dropdown-item" asp-controller="User" asp-action="VolTimeSheet">Volunteering TimeSheet</a></li>
+									@*	<li><a class="dropdown-item" href="#">Help Center</a></li>*@
 									<li><a class="dropdown-item" asp-controller="Login" asp-action="Logout">LogOut</a></li>
 								</ul>
 							</li>
@@ -988,32 +988,31 @@
 	-
 
 	<!--footer satrt-->
-	<div class="copyright mt-5">
-		<div class="container-fluid">
+	<div class="copyright mt-5 bg-dark " style=" position: fixed; bottom: 0px; width: 100%;">
+		<div class="container">
 			<div class="row">
 				<div class="col-md-6">
 					<div class="copyright-menu">
 						<ul>
 							<li>
-								<a href="#">Privacy Policy</a>
+								<a href="#" style="color:#acacac">Privacy Policy</a>
 							</li>
 							<li>
-								<a href="#">Cookie Policy</a>
+								<a href="#" style="color:#acacac">Cookie Policy</a>
 							</li>
 							<li>
-								<a href="#">Terms of Use</a>
+								<a href="#" style="color:#acacac">Terms of Use</a>
 							</li>
 
 						</ul>
 					</div>
 				</div>
 				<div class="col-md-6 rights">
-					<span> © 2019 Optimy.com. All Right Reserved</span>
+					<span style="color:#acacac"> © 2019 Optimy.com. All Right Reserved</span>
 				</div>
 			</div>
 		</div>
 	</div>
-
 	<!--footer end-->
 
 

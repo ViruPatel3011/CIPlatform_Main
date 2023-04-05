@@ -12,7 +12,26 @@
 	var surname = identity?.FindFirst(ClaimTypes.Surname)?.Value;
 	var uid = identity?.FindFirst(ClaimTypes.Sid)?.Value;
 }
-
+<div style="background-color:red !important;">
+	@if (TempData["Success Message"] != null)
+	{
+		<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css" />
+		<script src="~/lib/jquery/dist/jquery.min.js"></script>
+		<script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+		<script type="text/javascript">
+			toastr.success('@TempData["Success Message"]');
+		</script>
+	}
+	@if (TempData["Error Message"] != null)
+	{
+		<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css" />
+		<script src="~/lib/jquery/dist/jquery.min.js"></script>
+		<script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+		<script type="text/javascript">
+			toastr.warning('@TempData["Error"]');
+		</script>
+	}
+</div>
 <!-- First navbar  -->
 <nav class="navbar navbar-expand-md navbar-light bg-light">
 	<div class="container">
@@ -61,9 +80,10 @@
 							@name @surname
 						</a>
 						<ul class="dropdown-menu" aria-labelledby="navbarScrollingDropdown">
-							<li><a class="dropdown-item" href="#">Dashboard</a></li>
-							<li><a class="dropdown-item" asp-controller="User" asp-action="UserProfile">My Account</a></li>
-							<li><a class="dropdown-item" href="#">Help Center</a></li>
+							@*<li><a class="dropdown-item" href="#">Dashboard</a></li>*@
+							<li><a class="dropdown-item" asp-controller="User" asp-action="UserProfile">Add Profile</a></li>
+							<li><a class="dropdown-item" asp-controller="User" asp-action="VolTimeSheet">Volunteering TimeSheet</a></li>
+						@*	<li><a class="dropdown-item" href="#">Help Center</a></li>*@
 							<li><a class="dropdown-item" asp-controller="Login" asp-action="Logout">LogOut</a></li>
 						</ul>
 					</li>

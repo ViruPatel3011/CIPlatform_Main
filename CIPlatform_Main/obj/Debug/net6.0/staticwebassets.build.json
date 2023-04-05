@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "Eqm633HlN4V49CjeqOUHbi9GhN1wFP/7kRFlFxY3/n4=",
+  "Hash": "Ygb2mN5TddOATIMJllRdvbpjFCN/DrX0O4fZxUxSDTc=",
   "Source": "CIPlatform_Main",
   "BasePath": "_content/CIPlatform_Main",
   "Mode": "Default",
@@ -2616,6 +2616,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\css\\UserProfile.css"
+    },
+    {
+      "Identity": "E:\\CIPlatform_Main\\CIPlatform_Main\\wwwroot\\css\\VolTimeSheet.css",
+      "SourceId": "CIPlatform_Main",
+      "SourceType": "Discovered",
+      "ContentRoot": "E:\\CIPlatform_Main\\CIPlatform_Main\\wwwroot\\",
+      "BasePath": "_content/CIPlatform_Main",
+      "RelativePath": "css/VolTimeSheet.css",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\css\\VolTimeSheet.css"
     },
     {
       "Identity": "E:\\CIPlatform_Main\\CIPlatform_Main\\wwwroot\\favicon.ico",

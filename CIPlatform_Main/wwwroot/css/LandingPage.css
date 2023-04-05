@@ -261,7 +261,7 @@ li > p {
 
     .copyright span,
     .copyright a {
-        color: #414141;
+        color: white;
     }
 
         .copyright a:hover {
@@ -273,9 +273,11 @@ li > p {
     margin: 0;
 }
 
-    .copyright-menu ul li a {
-        text-decoration: none;
-    }
+.copyright-menu ul li a {
+      text-decoration: none;
+      color:white;
+      
+}
 
 .rights {
     text-align: right;

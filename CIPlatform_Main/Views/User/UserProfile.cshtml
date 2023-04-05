@@ -29,7 +29,26 @@
 </head>
 <body>
 
-
+	<div style="background-color:red !important;">
+		@if (TempData["Success Message"] != null)
+		{
+			<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css" />
+			<script src="~/lib/jquery/dist/jquery.min.js"></script>
+			<script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+			<script type="text/javascript">
+				toastr.success('@TempData["Success Message"]');
+			</script>
+		}
+		@if (TempData["Error Message"] != null)
+		{
+			<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css" />
+			<script src="~/lib/jquery/dist/jquery.min.js"></script>
+			<script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+			<script type="text/javascript">
+				toastr.error('@TempData["Error Message"]');
+			</script>
+		}
+	</div>
 	<!-- First navbar  -->
 	<nav class="navbar navbar-expand-md navbar-light bg-light">
 		<div class="container">
@@ -78,9 +97,9 @@
 								@name @surname
 							</a>
 							<ul class="dropdown-menu" aria-labelledby="navbarScrollingDropdown">
-								<li><a class="dropdown-item">Dashboard</a></li>
-								<li><a class="dropdown-item" asp-controller="User" asp-action="UserProfile">My Account</a></li>
-								<li><a class="dropdown-item">Help Center</a></li>
+								<li><a class="dropdown-item" asp-controller="User" asp-action="UserProfile">Add Profile</a></li>
+								<li><a class="dropdown-item" asp-controller="User" asp-action="VolTimeSheet">Volunteering TimeSheet</a></li>
+								@*	<li><a class="dropdown-item" href="#">Help Center</a></li>*@
 								<li><a class="dropdown-item" asp-controller="Login" asp-action="Logout">LogOut</a></li>
 							</ul>
 						</li>
@@ -143,14 +162,17 @@
 										<div class="mb-3">
 											<label for="exampleInputPassword1" class="form-label">Enter your old password</label>
 											<input type="password" class="form-control" id="exampleInputPassword1" asp-for="OldPassword">
+											<span asp-validation-for="OldPassword" class="text-danger"></span>
 										</div>
 										<div class="mb-3">
 											<label for="exampleInputPassword1" class="form-label">Enter your new password</label>
 											<input type="password" class="form-control" id="exampleInputPassword1" asp-for="Password">
+											<span asp-validation-for="Password" class="text-danger"></span>
 										</div>
 										<div class="mb-3">
 											<label for="exampleInputPassword1" class="form-label">Enter confirm password</label>
 											<input type="password" class="form-control" id="exampleInputPassword1" asp-for="ConfirmPassword">
+											<span asp-validation-for="ConfirmPassword" class="text-danger"></span>
 										</div>
 									</div>
 									<div class="modal-footer">
@@ -298,8 +320,7 @@
 																{
 																	<li class="list-group-item" value="@skills.SkillId">@skills.SkillName</li>
 																}
-																	
-																
+																																
 															</ul>
 														</div>
 													</div>
@@ -359,28 +380,29 @@
 		</div>
 	</div>
 	<!--Second row is all about user profile photo and profile detail end-->
+
 	<!--footer satrt-->
-	<div class="copyright mt-5 bg-dark">
+	<div class="copyright mt-5 " style=" position: fixed; bottom: 0px; width: 100%;">
 		<div class="container">
 			<div class="row">
 				<div class="col-md-6">
 					<div class="copyright-menu">
 						<ul>
 							<li>
-								<a href="#" class="text-light">Privacy Policy</a>
+								<a href="#">Privacy Policy</a>
 							</li>
 							<li>
-								<a href="#" class="text-light">Cookie Policy</a>
+								<a href="#">Cookie Policy</a>
 							</li>
 							<li>
-								<a href="#" class="text-light">Terms of Use</a>
+								<a href="#">Terms of Use</a>
 							</li>
 
 						</ul>
 					</div>
 				</div>
 				<div class="col-md-6 rights">
-					<span class="text-light"> © 2019 Optimy.com. All Right Reserved</span>
+					<span> © 2019 Optimy.com. All Right Reserved</span>
 				</div>
 			</div>
 		</div>
@@ -390,12 +412,12 @@
 
 
 
-
-	<script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js"
+	@*<script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js"
 			integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
 			crossorigin="anonymous"></script>
-
-	<a href="~/lib/jquery/dist/jquery.min.map"></a>
+	<a href="~/lib/jquery/dist/jquery.min.map"></a>*@
+	   <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
 	<script src="~/lib/jquery/dist/jquery.min.js"></script>
 	<script src="~/lib/jquery/dist/jquery.js"></script>
 	<script src="~/js/UserProfile.js"></script>
@@ -460,7 +482,7 @@
 					image: imagePaths
 				},
 				success: function () {
-					alert("Profile picture updated");
+					//alert("Profile picture updated");
 					location.reload();
 				}
 			})

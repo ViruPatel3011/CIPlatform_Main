@@ -29,26 +29,7 @@
 </head>
 
 <body>
-	<div style="background-color:red !important;">
-		@if (TempData["Success Message"] != null)
-		{
-			<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css" />
-			<script src="~/lib/jquery/dist/jquery.min.js"></script>
-			<script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
-			<script type="text/javascript">
-				toastr.success('@TempData["Success Message"]');
-			</script>
-		}
-		@if (TempData["Error Message"] != null)
-		{
-			<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css" />
-			<script src="~/lib/jquery/dist/jquery.min.js"></script>
-			<script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
-			<script type="text/javascript">
-				toastr.warning('@TempData["Error"]');
-			</script>
-		}
-	</div>
+	
 	<section class="main">
 
 		
@@ -72,33 +53,33 @@
 
 
 
-
-	<!-- footer start  -->
-	<div class="copyright mt-5">
+	<!--footer satrt-->
+	<div class="copyright mt-5 bg-dark " style=" position: fixed; bottom: 0px; width: 100%;">
 		<div class="container">
 			<div class="row">
 				<div class="col-md-6">
 					<div class="copyright-menu">
 						<ul>
 							<li>
-								<a href="#">Privacy Policy</a>
+								<a href="#" style="color:#acacac">Privacy Policy</a>
 							</li>
 							<li>
-								<a href="#">Cookie Policy</a>
+								<a href="#" style="color:#acacac">Cookie Policy</a>
 							</li>
 							<li>
-								<a href="#">Terms of Use</a>
+								<a href="#" style="color:#acacac">Terms of Use</a>
 							</li>
 
 						</ul>
 					</div>
 				</div>
 				<div class="col-md-6 rights">
-					<span> © 2019 Optimy.com. All Right Reserved</span>
+					<span style="color:#acacac"> © 2019 Optimy.com. All Right Reserved</span>
 				</div>
 			</div>
 		</div>
 	</div>
+	<!--footer end-->
 
 
 
