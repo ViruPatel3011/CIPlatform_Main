@@ -107,8 +107,8 @@
 					else
 					{
 						<ul class="navbar-nav d-flex">
-							<li class="btn-primary me-2 pe-1"><a class="dropdown-item btn p-1" asp-controller="Login" asp-action="Login">Login</a></li>
-							<li class="btn-primary me-2 pe-1"><a class="dropdown-item btn p-1" asp-controller="Registration" asp-action="Registration">Register</a></li>
+							<li class="btn-info me-2 pe-1" style="border-radius: 4px;width: 70px;"><a class="dropdown-item btn p-1 text-center" asp-controller="Login" asp-action="Login">Login</a></li>
+							<li class="btn-info me-2 pe-1" style="border-radius: 4px;width: 70px;"><a class="dropdown-item btn p-1 text-center" asp-controller="Registration" asp-action="Registration">Register</a></li>
 						</ul>
 					}
 				</ul>
@@ -120,6 +120,9 @@
 	<!--Second row is all about user profile photo and profile detail start-->
 	<div class="container-fluid">
 		<div class="row">
+
+
+		@*	Col for User (Left) Part*@
 			<div class="col-md-4 mt-3 text-center mt-5">
 				<div class="userProfileImg">
 					@{
@@ -149,7 +152,7 @@
 							Change Password
 						</button>
 
-						<!-- Modal -->
+						<!-- Modal for Change Password field -->
 						<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
 							<div class="modal-dialog modal-dialog-centered">
 								<div class="modal-content">
@@ -185,6 +188,10 @@
 					</form>
 				</div>
 			</div>
+
+
+
+			@*Right Part For User Information*@
 			<div class="col-md-8 mt-3">
 				<div class="title">
 					<h2 class="fs-3">Basic Information</h2>
@@ -194,10 +201,12 @@
 						<div class="col">
 							<label for="inputEmail4" class="form-label">First Name</label>
 							<input type="text" asp-for="FirstName" class="form-control" placeholder="Enter Your First name" aria-label="First name">
+							<span asp-validation-for="FirstName" class="text-danger"></span>
 						</div>
 						<div class="col">
 							<label for="inputEmail4" class="form-label">Surname</label>
 							<input type="text" asp-for="LastName" class="form-control" placeholder="Enter Your Surname" aria-label="Last name">
+							<span asp-validation-for="LastName" class="text-danger"></span>
 						</div>
 						<div class="col">
 
@@ -207,37 +216,40 @@
 					<div class="row mt-4">
 						<div class="col">
 							<label for="inputEmail4" class="form-label">Employee Id</label>
-							<input type="text" class="form-control" asp-for="EmployeeId" placeholder="Enter Your Employee Id"
-		   aria-label="Enter your employee Id">
+							<input type="text" class="form-control" asp-for="EmployeeId" placeholder="Enter Your Employee Id"aria-label="Enter your employee Id">
+							<span asp-validation-for="EmployeeId" class="text-danger"></span>
 						</div>
 						<div class="col">
 							<label for="inputEmail4" class="form-label">Manager</label>
-							<input type="text" class="form-control" placeholder="Enter your manager detail"
+							<input type="text" class="form-control" asp-for="ManagerDetail" placeholder="Enter your manager detail"
 								   aria-label="Enter your manager detail">
+							<span asp-validation-for="ManagerDetail" class="text-danger"></span>
 						</div>
 					</div>
 					<div class="row mt-4">
 						<div class="col">
 							<label for="inputEmail4" class="form-label">Title</label>
-							<input type="text" class="form-control" asp-for="Title" placeholder="Enter Title"
-		   aria-label="Enter your title">
+							<input type="text" class="form-control" asp-for="Title" placeholder="Enter Title" aria-label="Enter your title">
+							<span asp-validation-for="Title" class="text-danger"></span>
 						</div>
 						<div class="col">
 							<label for="inputEmail4" class="form-label">Department</label>
-							<input type="text" class="form-control" asp-for="Department" placeholder="Enter Department name"
-		   aria-label="Enter your department">
+							<input type="text" class="form-control" asp-for="Department" placeholder="Enter Department name" aria-label="Enter your department">
+							<span asp-validation-for="Department" class="text-danger"></span>
 						</div>
 					</div>
 					<div class="row mt-4">
 						<div class="mb-3">
 							<label for="exampleFormControlTextarea1" class="form-label">My Profile</label>
 							<textarea class="form-control" asp-for="ProfileText" placeholder="Enter Your comments" id="exampleFormControlTextarea1" rows="3"></textarea>
+							<span asp-validation-for="ProfileText" class="text-danger"></span>
 						</div>
 					</div>
 					<div class="row mt-2">
 						<div class="mb-3">
 							<label for="exampleFormControlTextarea1" class="form-label">Why I Volunteer??</label>
 							<textarea class="form-control" asp-for="WhyIVolunteer" placeholder="Enter Your comments" id="exampleFormControlTextarea1" rows="3"></textarea>
+							<span asp-validation-for="WhyIVolunteer" class="text-danger"></span>
 						</div>
 					</div>
 					<div class="row">
@@ -272,9 +284,9 @@
 							<label for="inputState" class="form-label">Availabilty</label>
 							<select id="inputState" class="form-select">
 								<option selected>Select Your Availability</option>
-								<option>India</option>
-								<option>Japan</option>
-								<option>Newzeland</option>
+								<option>Daily</option>
+								<option>Weekly</option>
+								<option>Monthly</option>
 							</select>
 						</div>
 						<div class="col-md-6">

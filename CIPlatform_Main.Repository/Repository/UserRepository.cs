@@ -41,7 +41,8 @@ namespace CIPlatform_Main.Repository.Repository
 				Cities = cityList,
 				Countries = countryList,
 				SkillList=skiilsList,
-				Avatar=loginUser.Avatar
+				Avatar=loginUser.Avatar,
+				ManagerDetail=loginUser.Manager
 			};
 			return userViewModel;
 		}
@@ -60,6 +61,7 @@ namespace CIPlatform_Main.Repository.Repository
 				alreadyExitUser.ProfileText = userView.ProfileText;
 				alreadyExitUser.WhyIVolunteer = userView.WhyIVolunteer;
 				alreadyExitUser.LinkedInUrl = userView.LinkedInUrl;
+				alreadyExitUser.Manager = userView.ManagerDetail;
 
 				
 				_ciPlatformContext.SaveChanges();

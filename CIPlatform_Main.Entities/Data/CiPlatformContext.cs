@@ -834,10 +834,7 @@ public partial class CiPlatformContext : DbContext
             entity.ToTable("users");
 
             entity.Property(e => e.UserId).HasColumnName("user_id");
-            entity.Property(e => e.Avatar)
-                .HasMaxLength(2048)
-                .IsUnicode(false)
-                .HasColumnName("avatar");
+            entity.Property(e => e.Avatar).HasColumnName("avatar");
             entity.Property(e => e.CityId).HasColumnName("city_id");
             entity.Property(e => e.CountryId).HasColumnName("country_id");
             entity.Property(e => e.CreatedAt)
@@ -871,6 +868,10 @@ public partial class CiPlatformContext : DbContext
                 .HasMaxLength(255)
                 .IsUnicode(false)
                 .HasColumnName("linked_in_url");
+            entity.Property(e => e.Manager)
+                .HasMaxLength(255)
+                .IsUnicode(false)
+                .HasColumnName("manager");
             entity.Property(e => e.Password)
                 .HasMaxLength(255)
                 .IsUnicode(false)

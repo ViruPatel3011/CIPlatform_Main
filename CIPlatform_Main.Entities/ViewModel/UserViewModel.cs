@@ -12,15 +12,24 @@ namespace CIPlatform_Main.Entities.ViewModel
 {
 	public class UserViewModel
 	{
+		[Required(ErrorMessage = "FirstName is Required")]
 		public string? FirstName { get; set; }
 
+		[Required(ErrorMessage = "FirstName is Required")]
 		public string? LastName { get; set; }
 
-		public string Email { get; set; } 
+		public string Email { get; set; }
+
+		[Required(ErrorMessage = "You Should Enter This Filed")]
 		public string? WhyIVolunteer { get; set; }
 
+		[Required(ErrorMessage = "EmployeeId is Required")]
 		public string? EmployeeId { get; set; }
 
+		[Required(ErrorMessage = "ManagerDetail is Required")]
+		public string? ManagerDetail { get; set; }
+
+		[Required(ErrorMessage = "Department is Required")]
 		public string? Department { get; set; }
 
 		[Required(ErrorMessage = "Old Password is Required")]
@@ -41,10 +50,15 @@ namespace CIPlatform_Main.Entities.ViewModel
 
 		public long countryId { get; set; }
 
+		[Required(ErrorMessage = "ProfileText is Required")]
 		public string? ProfileText { get; set; }
 
+
+		[Required(ErrorMessage = "LinkedInUrl is Required")]
 		public string? LinkedInUrl { get; set; }
 
+
+		[Required(ErrorMessage = "Title is Required")]
 		public string? Title { get; set; }
 
 		public IEnumerable<City>? Cities { get; set; }

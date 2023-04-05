@@ -33,6 +33,7 @@ namespace CIPlatform_Main.Controllers
 			var identity = User.Identity as ClaimsIdentity;
 			var uid = identity?.FindFirst(ClaimTypes.Sid)?.Value;
 			_userRepository.SaveUserProfile(userView,Convert.ToInt32(uid));
+			TempData["Success Message"] = "Data Added Successfully";
 			return RedirectToAction("UserProfile", "User");
 
 		}
