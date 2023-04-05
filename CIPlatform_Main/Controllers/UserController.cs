@@ -1,4 +1,5 @@
-﻿using CIPlatform_Main.Entities.ViewModel;
+﻿using CIPlatform_Main.Entities.Models;
+using CIPlatform_Main.Entities.ViewModel;
 using CIPlatform_Main.Repository.Interface;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
@@ -22,6 +23,7 @@ namespace CIPlatform_Main.Controllers
 			var identity = User.Identity as ClaimsIdentity;
 			var uid = identity?.FindFirst(ClaimTypes.Sid)?.Value;
 			var userData = _userRepository.getUserData(Convert.ToInt32(uid));
+			
 			return View(userData);
 		
 		}
@@ -49,7 +51,7 @@ namespace CIPlatform_Main.Controllers
 		{
 			var identity = User.Identity as ClaimsIdentity;
 			var uid = identity?.FindFirst(ClaimTypes.Sid)?.Value;
-			var x = _userRepository.changeAvatar(image, Convert.ToInt32(uid));
+			var avtar= _userRepository.changeAvatar(image, Convert.ToInt32(uid));
 			return true;
 		}
 

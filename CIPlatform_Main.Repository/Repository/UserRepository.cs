@@ -25,6 +25,7 @@ namespace CIPlatform_Main.Repository.Repository
 			var loginUser = _ciPlatformContext.Users.Where(x => x.UserId == uid).FirstOrDefault();
 			var cityList = _ciPlatformContext.Cities.ToList();
 			var countryList = _ciPlatformContext.Countries.ToList();
+			var skiilsList = _ciPlatformContext.Skills.ToList();
 
 			UserViewModel userViewModel = new UserViewModel()
 			{
@@ -39,6 +40,8 @@ namespace CIPlatform_Main.Repository.Repository
 				LinkedInUrl = loginUser.LinkedInUrl,
 				Cities = cityList,
 				Countries = countryList,
+				SkillList=skiilsList,
+				Avatar=loginUser.Avatar
 			};
 			return userViewModel;
 		}
