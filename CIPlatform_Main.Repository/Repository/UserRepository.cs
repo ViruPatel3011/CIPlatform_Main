@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
+using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -104,6 +105,93 @@ namespace CIPlatform_Main.Repository.Repository
 			}
 			
 		}
+
+		public List<Mission> getTimeBaseMission(int uid)
+		{
+
+			var missionApplied = _ciPlatformContext.MissionApplications.Where(x => x.UserId == uid).Select(x => x.MissionId);
+			
+			return _ciPlatformContext.Missions.Where(x => missionApplied.Contains(x.MissionId) && x.MissionType == "Time").OrderBy(x => x.Title).ToList(); ;
+		}
+		public List<Mission> getGoalBaseMission(int uid)
+		{
+
+			var missionApplied = _ciPlatformContext.MissionApplications.Where(x => x.UserId == uid).Select(x => x.MissionId);
+			return _ciPlatformContext.Missions.Where(x => missionApplied.Contains(x.MissionId) && x.MissionType == "Goal").OrderBy(x => x.Title).ToList(); ;
+		}
+
+		public List<Timesheet> getTimeBasedSheet(int uid)
+		{
+			var sheetList=_ciPlatformContext.Timesheets.Where(x=>x.Mission.MissionType=="Time" && x.UserId == uid).ToList();
+			return sheetList;
+
+		}
+		public List<Timesheet> getGoalBasedSheet(int uid)
+		{
+			var sheetList=_ciPlatformContext.Timesheets.Where(x=>x.Mission.MissionType=="Goal" && x.UserId == uid).ToList();
+			return sheetList;
+
+		}
+
+		public void AddTimeSheetData(VolTimeSheetVM volTime,int uid)
+		{
+			DateTime dateTime=DateTime.Now;
+			var userVolunteeredDate = _ciPlatformContext.MissionApplications.Where(x => x.UserId == uid && x.MissionId == volTime.MissionId).Select(x => x.AppliedAt).FirstOrDefault();
+
+			var hour = volTime.Hours;
+			var minute = volTime.Minutes;
+			var time = new TimeOnly(hour, minute, 0);
+
+			Timesheet timesheet = new Timesheet()
+			{ 
+				MissionId = volTime.MissionId,
+				UserId=uid,
+				DateVolunteered= userVolunteeredDate,
+				Status="Pending",
+				CreatedAt=DateTime.Now,
+				TimesheetTime=time,
+				Notes=volTime.Notes,
+				//Action=volTime.Action
+
+
+			};
+			_ciPlatformContext.Add(timesheet);
+			_ciPlatformContext.SaveChanges();
+
+
+		}
+		
+		public void AddGoalBaseData(VolTimeSheetVM volTime,int uid)
+		{
+			DateTime dateTime=DateTime.Now;
+			var userVolunteeredDate = _ciPlatformContext.MissionApplications.Where(x => x.UserId == uid && x.MissionId == volTime.MissionId).Select(x => x.AppliedAt).FirstOrDefault();
+
+			//var hour = volTime.Hours;
+			//var minute = volTime.Minutes;
+			//var time = new TimeOnly(hour, minute, 0);
+
+			Timesheet timesheet = new Timesheet()
+			{ 
+				MissionId = volTime.MissionId,
+				UserId=uid,
+				DateVolunteered= userVolunteeredDate,
+				Status="Pending",
+				CreatedAt=DateTime.Now,
+				//TimesheetTime=time,
+				Notes=volTime.Notes,
+				Action = volTime.Action
+
+
+			};
+			_ciPlatformContext.Add(timesheet);
+			_ciPlatformContext.SaveChanges();
+
+
+		}
+
+
+
+
 
 		public List<Country> GetCountryList()
 		{

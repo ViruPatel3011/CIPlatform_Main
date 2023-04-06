@@ -83,8 +83,38 @@ namespace CIPlatform_Main.Controllers
 
 		public IActionResult VolTimeSheet()
 		{
+
+			var identity = User.Identity as ClaimsIdentity;
+			var uid = identity?.FindFirst(ClaimTypes.Sid)?.Value;
+
+			VolTimeSheetVM volTime = new();
+			volTime.TimeBasedSheet = _userRepository.getTimeBasedSheet(Convert.ToInt32(uid));
+			volTime.GoalBasedSheet = _userRepository.getGoalBasedSheet(Convert.ToInt32(uid));
+			volTime.MissionListTime = _userRepository.getTimeBaseMission(Convert.ToInt32(uid));
+			volTime.MissionListGoal = _userRepository.getGoalBaseMission(Convert.ToInt32(uid));
 			
-			return View();
+			return View(volTime);
+
+		}
+
+		public IActionResult storeTimeSheetData(VolTimeSheetVM volTime)
+		{
+			var identity = User.Identity as ClaimsIdentity;
+			var uid = identity?.FindFirst(ClaimTypes.Sid)?.Value;
+			_userRepository.AddTimeSheetData(volTime, Convert.ToInt32(uid));
+			return RedirectToAction("VolTimeSheet", "User");
+
+
+
+		}
+		public IActionResult storeGoalData(VolTimeSheetVM volTime)
+		{
+			var identity = User.Identity as ClaimsIdentity;
+			var uid = identity?.FindFirst(ClaimTypes.Sid)?.Value;
+			_userRepository.AddGoalBaseData(volTime, Convert.ToInt32(uid));
+			return RedirectToAction("VolTimeSheet", "User");
+
+
 
 		}
 

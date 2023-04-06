@@ -17,6 +17,14 @@ namespace CIPlatform_Main.Repository.Interface
 		public int ChangeUserPassword(int uid, UserViewModel userViewModel);
 
 		public string changeAvatar(string image, int uid);
+
+		public void AddTimeSheetData(VolTimeSheetVM volTime, int uid);
+		public void AddGoalBaseData(VolTimeSheetVM volTime, int uid);
+
+		public List<Timesheet> getTimeBasedSheet(int uid);
+		public List<Timesheet> getGoalBasedSheet(int uid);
+		public List<Mission> getTimeBaseMission(int uid);
+		public List<Mission> getGoalBaseMission(int uid);
 		public List<Country> GetCountryList();
 		public List<City> GetCityList(int id);
 	}

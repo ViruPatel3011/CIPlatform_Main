@@ -20,7 +20,7 @@ namespace CIPlatform_Main.Entities.ViewModel
 
 		public string Email { get; set; }
 
-		[Required(ErrorMessage = "You Should Enter This Filed")]
+		[Required(ErrorMessage = "You Should Fill This Filed")]
 		public string? WhyIVolunteer { get; set; }
 
 		[Required(ErrorMessage = "EmployeeId is Required")]
