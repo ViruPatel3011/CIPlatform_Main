@@ -49,8 +49,6 @@ public partial class Mission
 
     public virtual ICollection<FavoriteMission> FavoriteMissions { get; } = new List<FavoriteMission>();
 
-    public virtual ICollection<GoalMission> GoalMissions { get; } = new List<GoalMission>();
-
     public virtual ICollection<MissionApplication> MissionApplications { get; } = new List<MissionApplication>();
 
     public virtual ICollection<MissionDocument> MissionDocuments { get; } = new List<MissionDocument>();

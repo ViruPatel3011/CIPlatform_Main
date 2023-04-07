@@ -64,5 +64,7 @@ namespace CIPlatform_Main.Entities.ViewModel
 		public IEnumerable<City>? Cities { get; set; }
 		public IEnumerable<Country>? Countries { get; set; }
 		public IEnumerable<Skill>? SkillList { get; set; }
+
+		public Country? CountryName { get; set; }
 	}
 }

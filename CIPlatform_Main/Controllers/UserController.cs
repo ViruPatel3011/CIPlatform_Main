@@ -102,6 +102,7 @@ namespace CIPlatform_Main.Controllers
 			var identity = User.Identity as ClaimsIdentity;
 			var uid = identity?.FindFirst(ClaimTypes.Sid)?.Value;
 			_userRepository.AddTimeSheetData(volTime, Convert.ToInt32(uid));
+			TempData["Success Message"] = "Data Added Successfully";
 			return RedirectToAction("VolTimeSheet", "User");
 
 
@@ -112,6 +113,7 @@ namespace CIPlatform_Main.Controllers
 			var identity = User.Identity as ClaimsIdentity;
 			var uid = identity?.FindFirst(ClaimTypes.Sid)?.Value;
 			_userRepository.AddGoalBaseData(volTime, Convert.ToInt32(uid));
+			TempData["Success Message"] = "Data Added Successfully";
 			return RedirectToAction("VolTimeSheet", "User");
 
 

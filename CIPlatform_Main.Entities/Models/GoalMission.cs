@@ -11,7 +11,7 @@ public partial class GoalMission
 
     public string? GoalObjectiveText { get; set; }
 
-    public string GoalValue { get; set; } = null!;
+    public int GoalValue { get; set; }
 
     public DateTime CreatedAt { get; set; }
 
@@ -19,5 +19,5 @@ public partial class GoalMission
 
     public DateTime? DeletedAt { get; set; }
 
-    public virtual Mission Mission { get; set; } = null!;
+    public int? Aimed { get; set; }
 }

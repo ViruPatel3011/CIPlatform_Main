@@ -27,6 +27,7 @@ namespace CIPlatform_Main.Repository.Repository
 			var cityList = _ciPlatformContext.Cities.ToList();
 			var countryList = _ciPlatformContext.Countries.ToList();
 			var skiilsList = _ciPlatformContext.Skills.ToList();
+			Country countryName= _ciPlatformContext.Countries.Where(c => c.CountryId ==loginUser.CountryId).FirstOrDefault();
 
 			UserViewModel userViewModel = new UserViewModel()
 			{
@@ -43,8 +44,10 @@ namespace CIPlatform_Main.Repository.Repository
 				Countries = countryList,
 				SkillList=skiilsList,
 				Avatar=loginUser.Avatar,
-				ManagerDetail=loginUser.Manager
-			};
+				ManagerDetail=loginUser.Manager,
+				CountryName = countryName
+
+		};
 			return userViewModel;
 		}
 
@@ -63,6 +66,8 @@ namespace CIPlatform_Main.Repository.Repository
 				alreadyExitUser.WhyIVolunteer = userView.WhyIVolunteer;
 				alreadyExitUser.LinkedInUrl = userView.LinkedInUrl;
 				alreadyExitUser.Manager = userView.ManagerDetail;
+				alreadyExitUser.CityId = userView.cityId;
+				alreadyExitUser.CountryId = userView.countryId;
 
 				
 				_ciPlatformContext.SaveChanges();

@@ -31,6 +31,9 @@ namespace CIPlatform_Main.Entities.ViewModel
 
 		public bool Favourite { get; set; }
 		public City City { get; set; }
+
+		public int? Aimed { get; set; }
+		public int GoalValue { get; set; }
 		public GoalMission GoalMission { get; set; }
 
 		/* public int currentPage { get; set; }

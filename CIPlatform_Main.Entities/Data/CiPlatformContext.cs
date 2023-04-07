@@ -307,19 +307,11 @@ public partial class CiPlatformContext : DbContext
                 .HasMaxLength(255)
                 .IsUnicode(false)
                 .HasColumnName("goal_objective_text");
-            entity.Property(e => e.GoalValue)
-                .HasMaxLength(50)
-                .IsUnicode(false)
-                .HasColumnName("goal_value");
+            entity.Property(e => e.GoalValue).HasColumnName("goal_value");
             entity.Property(e => e.MissionId).HasColumnName("mission_id");
             entity.Property(e => e.UpdatedAt)
                 .HasColumnType("datetime")
                 .HasColumnName("updated_at");
-
-            entity.HasOne(d => d.Mission).WithMany(p => p.GoalMissions)
-                .HasForeignKey(d => d.MissionId)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK__goal_miss__missi__72C60C4A");
         });
 
         modelBuilder.Entity<Mission>(entity =>

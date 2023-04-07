@@ -40,6 +40,12 @@ namespace CIPlatform_Main.Repository.Repository
 
 			List<Skill> skill = GetSkills();
 			landingPageData.Skills = skill;
+			
+			List<MissionApplication> mApp = GetMissionApplication();
+			landingPageData.missionApplications = mApp;
+			
+			List<GoalMission> goalMission = GetGoalMission();
+			landingPageData.GoalMissions = goalMission;
 
 			return landingPageData;
 
@@ -61,12 +67,18 @@ namespace CIPlatform_Main.Repository.Repository
 
 			List<MissionTheme> missionTheme = GetMissionThemes();
 			landingPage.MissionThemes = missionTheme;
+			
+			List<MissionApplication> missionApp = GetMissionApplication();
+			landingPage.missionApplications = missionApp;
 
 			List<MissionSkill> missionSkills = GetMissionSkills();
 			landingPage.MissionSkills = missionSkills;
 
 			List<Skill> skill = GetSkills();
 			landingPage.Skills = skill;
+			
+			List<GoalMission> goalMissionList = GetGoalMission();
+			landingPage.GoalMissions = goalMissionList;
 
 			List<GoalMission> goalMission = GetGoalValue();
 			landingPage.GoalMissions = goalMission;
@@ -116,6 +128,12 @@ namespace CIPlatform_Main.Repository.Repository
 			List<MissionTheme> missionThemes = _ciPlatformContext.MissionThemes.ToList();
 			return missionThemes;
 		}
+		
+		public List<MissionApplication> GetMissionApplication()
+		{
+			List<MissionApplication> missionApp = _ciPlatformContext.MissionApplications.ToList();
+			return missionApp;
+		}
 		public List<MissionSkill> GetMissionSkills()
 		{
 			List<MissionSkill> missionSkiils = _ciPlatformContext.MissionSkills.ToList();
@@ -125,6 +143,12 @@ namespace CIPlatform_Main.Repository.Repository
 		{
 			List<Skill> skils = _ciPlatformContext.Skills.ToList();
 			return skils;
+		}
+		
+		public List<GoalMission> GetGoalMission()
+		{
+			List<GoalMission> goalMissions = _ciPlatformContext.GoalMissions.ToList();
+			return goalMissions;
 		}
 		public List<GoalMission> GetGoalValue()
 		{
