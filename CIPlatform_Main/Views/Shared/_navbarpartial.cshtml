@@ -74,8 +74,11 @@
 
 					<li class="nav-item dropdown">
 						<a class="nav-link dropdown-toggle" href="#" id="navbarScrollingDropdown" role="button"
-						   data-bs-toggle="dropdown" aria-expanded="false">
-							<img src="~/Assets/user-img.png" class="rounded-circle" height="35" width="35" alt="Profile pic"
+						data-bs-toggle="dropdown" aria-expanded="false">
+							@{
+								var profilePic = Model.UserData.Where(x => x.UserId == Convert.ToInt32(uid)).Select(x => x.Avatar).FirstOrDefault();
+							}
+							<img src="@Url.Content(profilePic)" class="rounded-circle" height="35" width="35" alt="Profile pic"
 			loading="lazy" />
 							@name @surname
 						</a>

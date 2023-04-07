@@ -25,6 +25,9 @@ namespace CIPlatform_Main.Repository.Repository
 
 		public MissionAndRatingVM GetDataForRelatedMission(int missionId)
 		{
+			var identity = User.Identity as ClaimsIdentity;
+			var uid = identity?.FindFirst(ClaimTypes.Sid)?.Value;
+
 			MissionAndRatingVM mrv = new MissionAndRatingVM();
 
 			var missionDetail = _ciPlatformContext.Missions.Where(x => x.MissionId == missionId).FirstOrDefault();
@@ -68,6 +71,11 @@ namespace CIPlatform_Main.Repository.Repository
 
 			var missionDoc = _ciPlatformContext.MissionDocuments.ToList();
 			mrv.MissionDocuments = missionDoc;
+			
+			var userData = _ciPlatformContext.Users.ToList();
+			mrv.UserData = userData;
+
+			
 
 
 			//the below code is to check that mission is already favourite by user or not

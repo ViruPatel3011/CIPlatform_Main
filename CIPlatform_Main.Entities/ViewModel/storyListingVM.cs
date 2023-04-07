@@ -9,6 +9,7 @@ namespace CIPlatform_Main.Entities.ViewModel
 {
 	public class storyListingVM
 	{
+		public string Avatar {  get; set; }
 		public IEnumerable<User>? users { get; set; }
 		public IEnumerable<MissionTheme>? missionTheme { get; set; }
 		public IEnumerable<Mission>? allMissionList { get; set; }

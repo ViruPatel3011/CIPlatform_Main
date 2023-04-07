@@ -18,7 +18,7 @@ namespace CIPlatform_Main.Entities.ViewModel
 		public int userId { get; set; }
 		public int missionId { get; set; }
 
-
+		public string Avatar { get; set; }
 		public int currentPage { get; set; }
 		public int totalrecord { get; set; }
 

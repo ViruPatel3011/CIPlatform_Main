@@ -23,6 +23,9 @@ namespace CIPlatform_Main.Repository.Repository
 		{
 			LandingPageVM landingPageData= new LandingPageVM();
 
+			List<User> users = GetUsers();
+			landingPageData.UserData = users;
+			
 			List<Country> countries = GetCountries();
 			landingPageData.Countries = countries;
 
@@ -56,6 +59,9 @@ namespace CIPlatform_Main.Repository.Repository
 		{
 			LandingPageVM landingPage = new LandingPageVM();
 
+			List<User> users = GetUsers();
+			landingPage.UserData = users;
+			
 			List<Country> countries = GetCountries();
 			landingPage.Countries = countries;
 
@@ -100,6 +106,12 @@ namespace CIPlatform_Main.Repository.Repository
 
 		}
 
+		public List<User> GetUsers()
+		{
+			List<User> users = _ciPlatformContext.Users.ToList();
+			return users;
+		}
+		
 		public List<Country> GetCountries()
 		{
 			List<Country> countries = _ciPlatformContext.Countries.ToList();

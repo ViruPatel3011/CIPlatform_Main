@@ -35,6 +35,8 @@ namespace CIPlatform_Main.Repository.Repository
 				skills = _ciPlatformContext.Skills.ToList(),
 				allMissionList = _ciPlatformContext.Missions.ToList(),
 				storyMedia=_ciPlatformContext.StoryMedia.ToList(),
+				
+				
 			};
 			tsm.totalRecord = tsm.stories.Count();
 			tsm.currentPage = pageIndex;
@@ -157,9 +159,10 @@ namespace CIPlatform_Main.Repository.Repository
             return _ciPlatformContext.Missions.Where(u => missionApplication.Contains(u.MissionId)).OrderBy(m => m.Title).ToList();
         }
         public shareYourStoryVM getDataForShareYourStory(string missionid, string uid)
-        {
+		{
+				
 
-            if (missionid == null)
+			if (missionid == null)
             {
 
                 return new shareYourStoryVM();
@@ -171,7 +174,8 @@ namespace CIPlatform_Main.Repository.Repository
 
                 if (story != null)
                 {
-                    var storyMedia = _ciPlatformContext.StoryMedia.Where(u => u.StoryId == story.StoryId);
+					var userImage = _ciPlatformContext.Users.Where(x => x.UserId == Convert.ToInt32(uid)).Select(x => x.Avatar).FirstOrDefault();
+					var storyMedia = _ciPlatformContext.StoryMedia.Where(u => u.StoryId == story.StoryId);
                     var images = storyMedia.Where(m => m.StoryType == "Image").Select(s => s.StoryPath).ToList();
                     var video = storyMedia.SingleOrDefault(m => m.StoryType == "video");
                     var missionTitle = _ciPlatformContext.Missions.SingleOrDefault(m => m.MissionId == story.MissionId);
@@ -185,15 +189,17 @@ namespace CIPlatform_Main.Repository.Repository
                         dateAndTime = story.CreatedAt,
                         videoURL = video.StoryPath,
                         imagepaths = images,
-						storyStatus=story.Status
-                    };
+						storyStatus=story.Status,
+						Avatar= userImage
+					};
                     return model;
                 }
                 var missionTitle1 = _ciPlatformContext.Missions.SingleOrDefault(m => m.MissionId == long.Parse(missionid));
-                shareYourStoryVM model1 = new shareYourStoryVM()
-                {
-                    missionId = missionTitle1.MissionId,
-                    missionName = missionTitle1.Title
+				shareYourStoryVM model1 = new shareYourStoryVM()
+				{
+					missionId = missionTitle1.MissionId,
+					missionName = missionTitle1.Title,
+					
                 };
                 return model1;  
             }

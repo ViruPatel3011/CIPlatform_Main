@@ -61,6 +61,9 @@ namespace CIPlatform_Main.Entities.ViewModel
 		[Required(ErrorMessage = "Title is Required")]
 		public string? Title { get; set; }
 
+
+		
+		public IEnumerable<User>? UserData { get; set; }
 		public IEnumerable<City>? Cities { get; set; }
 		public IEnumerable<Country>? Countries { get; set; }
 		public IEnumerable<Skill>? SkillList { get; set; }

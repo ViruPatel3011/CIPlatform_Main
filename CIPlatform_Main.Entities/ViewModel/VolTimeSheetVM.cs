@@ -44,6 +44,7 @@ namespace CIPlatform_Main.Entities.ViewModel
 
 		public string Status { get; set; } = null!;
 
+		public IEnumerable<User>? UserData { get; set; }
 		public IEnumerable<Mission>? MissionListTime { get; set; }
 		public IEnumerable<Mission>? MissionListGoal { get; set; }
 		public IEnumerable<Timesheet>? TimeBasedSheet { get; set; }

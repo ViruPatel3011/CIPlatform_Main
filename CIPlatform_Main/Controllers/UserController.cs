@@ -120,6 +120,8 @@ namespace CIPlatform_Main.Controllers
 
 		}
 
+
+	
 		public IActionResult Index()
 		{
 			return View();

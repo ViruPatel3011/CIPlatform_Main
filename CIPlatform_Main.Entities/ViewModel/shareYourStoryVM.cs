@@ -1,5 +1,6 @@
 ﻿
 
+using CIPlatform_Main.Entities.Models;
 using Microsoft.AspNetCore.Http;
 
 namespace CIPlatform_Main.Entities.ViewModel
@@ -7,6 +8,7 @@ namespace CIPlatform_Main.Entities.ViewModel
 	public class shareYourStoryVM
 	{
 
+		public string Avatar { get; set; }
 		public long userId { get; set; }	
 		public string missionName { get; set; }
 		public long storyId { get; set; }
@@ -18,6 +20,8 @@ namespace CIPlatform_Main.Entities.ViewModel
 
 		public string storyStatus { get; set; }	
 		public List<string> imagepaths { get; set; }
+
+		public List<User> UserData { get; set; }	
 
 		public List<IFormFile>? ImageFiles { get; set; }
 	}

@@ -2,6 +2,7 @@
 using CIPlatform_Main.Entities.Models;
 using CIPlatform_Main.Entities.ViewModel;
 using CIPlatform_Main.Repository.Interface;
+using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -27,6 +28,7 @@ namespace CIPlatform_Main.Repository.Repository
 			var cityList = _ciPlatformContext.Cities.ToList();
 			var countryList = _ciPlatformContext.Countries.ToList();
 			var skiilsList = _ciPlatformContext.Skills.ToList();
+			var userList=_ciPlatformContext.Users.ToList();
 			Country countryName= _ciPlatformContext.Countries.Where(c => c.CountryId ==loginUser.CountryId).FirstOrDefault();
 
 			UserViewModel userViewModel = new UserViewModel()
@@ -45,7 +47,8 @@ namespace CIPlatform_Main.Repository.Repository
 				SkillList=skiilsList,
 				Avatar=loginUser.Avatar,
 				ManagerDetail=loginUser.Manager,
-				CountryName = countryName
+				CountryName = countryName,
+				UserData=userList
 
 		};
 			return userViewModel;
@@ -208,5 +211,9 @@ namespace CIPlatform_Main.Repository.Repository
 			var cityList = _ciPlatformContext.Cities.Where(x=>x.CountryId==id).ToList();
 			return cityList;
 		}
+
+
+
+		
 	}
 }

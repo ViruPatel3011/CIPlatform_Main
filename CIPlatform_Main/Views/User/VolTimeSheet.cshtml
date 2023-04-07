@@ -143,7 +143,7 @@
 
 												<div class="mb-3">
 													<label for="exampleFormControlInput1" class="form-label">Mission</label>
-													<select id="inputState" class="form-select" asp-for="@Model.MissionId" itemid="mId">
+													<select id="inputState" class="form-select" asp-for="@Model.MissionId" itemid="mId" id="MissionTime">
 														<option selected>Select Your Mission</option>
 														@foreach (var missions in Model.MissionListTime)
 														{
@@ -154,24 +154,24 @@
 												</div>
 												<div class="mb-3">
 													<label for="exampleFormControlInput1" class="form-label">Date Volunteerd</label>
-													<input type="date" class="form-control" asp-for="DateVolunteered" id="exampleFormControlInput1" placeholder="select date">
+													<input type="date" class="form-control" asp-for="DateVolunteered" id="dateVolunteeredT" placeholder="select date">
 													<span asp-validation-for="DateVolunteered" class="text-danger"></span>
 												</div>
 												<div class="row">
 													<div class="col">
 														<label for="exampleFormControlInput1" class="form-label">Hours</label>
-														<input type="number" class="form-control" asp-for="Hours" placeholder="Enter Hours Detail" >
+														<input type="number" class="form-control" id="hoursT" asp-for="Hours" placeholder="Enter Hours Detail">
 														<span asp-validation-for="Hours" class="text-danger"></span>
 													</div>
 													<div class="col">
 														<label for="exampleFormControlInput1" class="form-label">Minutes</label>
-														<input type="number" class="form-control" asp-for="Minutes" placeholder="Enter Minutes Detail">
+														<input type="number" class="form-control" id="minutesT" asp-for="Minutes" placeholder="Enter Minutes Detail">
 														<span asp-validation-for="Minutes" class="text-danger"></span>
 													</div>
 												</div>
 												<div class="mb-3">
 													<label for="exampleFormControlTextarea1" class="form-label">Message</label>
-													<textarea class="form-control" asp-for="Notes" id="exampleFormControlTextarea1" rows="3">Enter your Message</textarea>
+													<textarea class="form-control" id="notesT" asp-for="Notes"  rows="3">Enter your Message</textarea>
 													<span asp-validation-for="Notes" class="text-danger"></span>
 												</div>
 											</div>
@@ -217,7 +217,7 @@
 										<td>@tSheet.TimesheetTime</td>
 										<td>@tSheet.TimesheetTime</td>
 										<td class="p-0 pt-2 px-1">
-											<button type="button" data-bs-toggle="modal" data-bs-target="#exampleModal" class="border-0 bg-transparent" onclick="loadTimeBasedData(@tSheet.MissionId)">
+											<button type="button" data-bs-toggle="modal" data-bs-target="#exampleModal" class="border-0 bg-transparent" >
 												<i class="bi bi-pencil-square text-warning"></i>
 											</button>
 
@@ -233,7 +233,7 @@
 
 															<div class="mb-3">
 																<label for="exampleFormControlInput1" class="form-label">Mission</label>
-																<input type="email" class="form-control" id="exampleFormControlInput1" placeholder="Enter your experience	">
+																<input type="email" class="form-control" id="exampleFormControlInput1" placeholder="">
 															</div>
 															<div class="mb-3">
 																<label for="exampleFormControlInput1" class="form-label">Date Volunteerd</label>
@@ -461,10 +461,26 @@
 				},
 				dataType:'json',
 				success:function(data){
-					var dateTimeString = data.DateVolunteered;
+					var timeValue=data.hours;
+					var timeComponents=timeValue.split(':');
+					var hours=parseInt(timeComponents[0]);
+					var minutes=parseInt(timeComponents[1]);
+
+
+					var dateTimeString=data.DateVolunteered;
 					var dateOnly=dateTimeString.split("T")[0];
+
+					$('#MissionTime').val(data.Missionname);
+					$('#dateVolunteeredT').val(dateOnly);
+					$('#hoursT').val(hours);
+					$('#minutesT').val(minutes);
+					$('#notesT').val(data.Notes);
+				},
+				error:function (xhr,status,error)
+				{
+
 				}
-			})
+			});
 		}
 
 	</script>
