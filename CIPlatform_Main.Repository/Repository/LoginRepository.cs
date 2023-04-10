@@ -1,5 +1,6 @@
 ﻿using CIPlatform_Main.Entities.Data;
 using CIPlatform_Main.Entities.Models;
+using CIPlatform_Main.Entities.ViewModel;
 using CIPlatform_Main.Repository.Interface;
 using System;
 using System.Collections.Generic;
@@ -23,6 +24,21 @@ namespace CIPlatform_Main.Repository.Repository
             List<User> userList=_ciPlatformContext.Users.ToList();
             return userList;
         }
+
+        public bool AddContactUsData(UserViewModel userView, int uid)
+        {
+            ContactU contactUs = new ContactU() { 
+                UserId=uid,
+                Subject= userView.ContactSubject,
+                Message= userView.ContactMessage
+
+			};
+            _ciPlatformContext.Add(contactUs);
+            _ciPlatformContext.SaveChanges();
+            return true;
+
+        }
+
 
     }
 }

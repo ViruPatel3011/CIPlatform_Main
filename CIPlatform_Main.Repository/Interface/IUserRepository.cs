@@ -20,8 +20,8 @@ namespace CIPlatform_Main.Repository.Interface
 
 		public string changeAvatar(string image, int uid);
 
-		public void AddTimeSheetData(VolTimeSheetVM volTime, int uid);
-		public void AddGoalBaseData(VolTimeSheetVM volTime, int uid);
+		public bool AddTimeSheetData(VolTimeSheetVM volTime, int uid);
+		public bool AddGoalBaseData(VolTimeSheetVM volTime, int uid);
 
 		public List<Timesheet> getTimeBasedSheet(int uid);
 		public List<Timesheet> getGoalBasedSheet(int uid);
@@ -42,6 +42,10 @@ namespace CIPlatform_Main.Repository.Interface
 
 		public void editDataForTimeMission(VolTimeSheetVM vtvm, long missionId, long uid);
 		public void editDataForGoalMission(VolTimeSheetVM vtvm, long missionId, long uid);
+
+
+		// Delete data from timesheet
+		public bool removeTimeBasedData(long MissionId, int uid);
 
 
 	}

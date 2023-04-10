@@ -11,9 +11,16 @@ namespace CIPlatform_Main.Entities.ViewModel
 	public class VolTimeSheetVM
 	{
 
+		[Required(ErrorMessage = "FirstName is Required")]
 		public string? FirstName { get; set; }
 
+		[Required(ErrorMessage = "LastName is Required")]
 		public string? LastName { get; set; }
+
+		[Required(ErrorMessage = "Email is Required")]
+		public string Email { get; set; }
+
+
 		public long MissionId { get; set; }
 
 		public string? MissionType { get; set; }
@@ -45,6 +52,10 @@ namespace CIPlatform_Main.Entities.ViewModel
 
 
 		public string Status { get; set; } = null!;
+		// Contact Us
+		public string ContactSubject { get; set; } = null!;
+		public string ContactMessage { get; set; } = null!;
+
 
 		public IEnumerable<User>? UserData { get; set; }
 		public IEnumerable<Mission>? MissionListTime { get; set; }

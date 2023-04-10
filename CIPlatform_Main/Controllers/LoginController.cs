@@ -95,5 +95,30 @@ namespace CIPlatform_Main.Controllers
 			return View();
 		}
 
+        [HttpGet]
+        public IActionResult ContactUs()
+		{
+			return View();
+		}
+
+        [HttpPost]
+        public IActionResult ContactUs(UserViewModel userView)
+		{
+			var identity = User.Identity as ClaimsIdentity;
+			var uid = identity?.FindFirst(ClaimTypes.Sid)?.Value;
+            var addContactUsData=_loginRepository.AddContactUsData(userView, Convert.ToInt32(uid));
+            if (addContactUsData)
+            {
+				TempData["Success Message"] = "Data Add Successfully";
+				return RedirectToAction("UserProfile", "User");
+            }
+            else{
+
+				TempData["Error Message"] = "Data not added!";
+				return RedirectToAction("UserProfile", "User");
+			}
+			
+		}
+
 	}
 }

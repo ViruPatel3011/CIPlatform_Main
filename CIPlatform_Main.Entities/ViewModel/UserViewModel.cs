@@ -61,8 +61,12 @@ namespace CIPlatform_Main.Entities.ViewModel
 		[Required(ErrorMessage = "Title is Required")]
 		public string? Title { get; set; }
 
+		// Contact Us
+		public string ContactSubject { get; set; } = null!;
 
-		
+		public string ContactMessage { get; set; } = null!;
+
+
 		public IEnumerable<User>? UserData { get; set; }
 		public IEnumerable<City>? Cities { get; set; }
 		public IEnumerable<Country>? Countries { get; set; }

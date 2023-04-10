@@ -4,6 +4,7 @@ using CIPlatform_Main.Entities.ViewModel;
 using CIPlatform_Main.Repository.Interface;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -176,7 +177,7 @@ namespace CIPlatform_Main.Repository.Repository
 
 		}
 
-		public void AddTimeSheetData(VolTimeSheetVM volTime,int uid)
+		public bool AddTimeSheetData(VolTimeSheetVM volTime,int uid)
 		{
 			DateTime dateTime=DateTime.Now;
 			var userVolunteeredDate = _ciPlatformContext.MissionApplications.Where(x => x.UserId == uid && x.MissionId == volTime.MissionId).Select(x => x.AppliedAt).FirstOrDefault();
@@ -184,27 +185,35 @@ namespace CIPlatform_Main.Repository.Repository
 			var hour = volTime.hours;
 			var minute = volTime.minutes;
 			var time = new TimeOnly(hour, minute, 0);
+			var alreadyDataExist = _ciPlatformContext.Timesheets.Where(x => x.MissionId == volTime.MissionId).FirstOrDefault();
+			if (alreadyDataExist == null)
+			{
+				Timesheet timesheet = new Timesheet()
+				{
+					MissionId = volTime.MissionId,
+					UserId = uid,
+					DateVolunteered = userVolunteeredDate,
+					Status = "Pending",
+					CreatedAt = DateTime.Now,
+					TimesheetTime = time,
+					Notes = volTime.missionDetail,
+					//Action=volTime.Action
 
-			Timesheet timesheet = new Timesheet()
-			{ 
-				MissionId = volTime.MissionId,
-				UserId=uid,
-				DateVolunteered= userVolunteeredDate,
-				Status="Pending",
-				CreatedAt=DateTime.Now,
-				TimesheetTime=time,
-				Notes=volTime.missionDetail,
-				//Action=volTime.Action
 
-
-			};
-			_ciPlatformContext.Add(timesheet);
-			_ciPlatformContext.SaveChanges();
+				};
+				_ciPlatformContext.Add(timesheet);
+				_ciPlatformContext.SaveChanges();
+				return true;
+			}
+			else
+			{
+				return false;
+			}
 
 
 		}
 		
-		public void AddGoalBaseData(VolTimeSheetVM volTime,int uid)
+		public bool AddGoalBaseData(VolTimeSheetVM volTime,int uid)
 		{
 			DateTime dateTime=DateTime.Now;
 			var userVolunteeredDate = _ciPlatformContext.MissionApplications.Where(x => x.UserId == uid && x.MissionId == volTime.MissionId).Select(x => x.AppliedAt).FirstOrDefault();
@@ -212,22 +221,31 @@ namespace CIPlatform_Main.Repository.Repository
 			//var hour = volTime.Hours;
 			//var minute = volTime.Minutes;
 			//var time = new TimeOnly(hour, minute, 0);
+			var alreadyDataExist = _ciPlatformContext.Timesheets.Where(x => x.MissionId == volTime.MissionId).FirstOrDefault();
+			if (alreadyDataExist == null)
+			{
+				Timesheet timesheet = new Timesheet()
+				{
+					MissionId = volTime.MissionId,
+					UserId = uid,
+					DateVolunteered = userVolunteeredDate,
+					Status = "Pending",
+					CreatedAt = DateTime.Now,
+					//TimesheetTime=time,
+					Notes = volTime.missionDetail,
+					Action = volTime.action
 
-			Timesheet timesheet = new Timesheet()
-			{ 
-				MissionId = volTime.MissionId,
-				UserId=uid,
-				DateVolunteered= userVolunteeredDate,
-				Status="Pending",
-				CreatedAt=DateTime.Now,
-				//TimesheetTime=time,
-				Notes=volTime.missionDetail,
-				Action = volTime.action
 
-
-			};
-			_ciPlatformContext.Add(timesheet);
-			_ciPlatformContext.SaveChanges();
+				};
+				_ciPlatformContext.Add(timesheet);
+				_ciPlatformContext.SaveChanges();
+				return true;
+			}
+			else
+			{
+				return false;	
+			}
+			
 
 
 		}
@@ -287,5 +305,21 @@ namespace CIPlatform_Main.Repository.Repository
 			_ciPlatformContext.SaveChanges();
 		}
 
+
+		// Delete data from timesheet
+		public bool removeTimeBasedData(long MissionId, int uid)
+		{
+			var entry=_ciPlatformContext.Timesheets.Where(x=>x.MissionId==MissionId && x.UserId == uid).FirstOrDefault();
+			if (entry != null)
+			{
+				_ciPlatformContext.Timesheets.Remove(entry);
+				_ciPlatformContext.SaveChanges();
+				return true;
+			}
+			else
+			{
+				return false;
+			}
+		}
 	}
 }

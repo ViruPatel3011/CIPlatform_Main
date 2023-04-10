@@ -106,9 +106,17 @@ namespace CIPlatform_Main.Controllers
 		{
 			var identity = User.Identity as ClaimsIdentity;
 			var uid = identity?.FindFirst(ClaimTypes.Sid)?.Value;
-			_userRepository.AddTimeSheetData(volTime, Convert.ToInt32(uid));
-			TempData["Success Message"] = "Data Added Successfully";
-			return RedirectToAction("VolTimeSheet", "User");
+			var goalData= _userRepository.AddTimeSheetData(volTime, Convert.ToInt32(uid));
+			if (goalData)
+			{
+				TempData["Success Message"] = "Data Added Successfully";
+				return RedirectToAction("VolTimeSheet", "User");
+			}
+			else
+			{
+				TempData["Error Message"] = "Data Already Exist";
+				return RedirectToAction("VolTimeSheet", "User");
+			}
 
 
 
@@ -117,9 +125,18 @@ namespace CIPlatform_Main.Controllers
 		{
 			var identity = User.Identity as ClaimsIdentity;
 			var uid = identity?.FindFirst(ClaimTypes.Sid)?.Value;
-			_userRepository.AddGoalBaseData(volTime, Convert.ToInt32(uid));
-			TempData["Success Message"] = "Data Added Successfully";
-			return RedirectToAction("VolTimeSheet", "User");
+			var timeData=_userRepository.AddGoalBaseData(volTime, Convert.ToInt32(uid));
+			if (timeData)
+			{
+				TempData["Success Message"] = "Data Added Successfully";
+				return RedirectToAction("VolTimeSheet", "User");
+			}
+			else
+			{
+				TempData["Error Message"] = "Data Already Exist";
+				return RedirectToAction("VolTimeSheet", "User");
+			}
+			
 
 
 
@@ -184,6 +201,28 @@ namespace CIPlatform_Main.Controllers
 			_userRepository.editDataForGoalMission(vtvm, missionId, Convert.ToInt32(uid));
 			TempData["success"] = "data edit successfull";
 			return RedirectToAction("VolTimeSheet", "User");
+		}
+
+
+		// Delete method for TimeSheet
+
+		public IActionResult deleteTimeSheetdData(long MissionId)
+		
+		{
+			var identity = User.Identity as ClaimsIdentity;
+			var uid = identity?.FindFirst(ClaimTypes.Sid)?.Value;
+			var removeData=_userRepository.removeTimeBasedData(MissionId, Convert.ToInt32(uid));
+			if (removeData)
+			{
+				TempData["Success Message"] = "Data Deleted Successfully";
+				return RedirectToAction("VolTimeSheet", "User");
+			}
+			else
+			{
+				TempData["Error Message"] = "Data Not Deleted ";
+				return RedirectToAction("VolTimeSheet", "User");
+			}
+
 		}
 
 		public IActionResult Index()
