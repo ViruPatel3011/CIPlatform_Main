@@ -87,5 +87,13 @@ namespace CIPlatform_Main.Controllers
 			return RedirectToAction("LandingPage", "Home");
 		}
 
+
+
+        // policy page
+		public IActionResult PolicyPage()
+		{
+			return View();
+		}
+
 	}
 }

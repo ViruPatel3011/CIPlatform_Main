@@ -265,15 +265,46 @@
 						<div class="col-md-6">
 							<label for="inputState" class="form-label">Country</label>
 							<select id="Country" class="form-select" asp-for="countryId">
-								<option selected>Select Your Country</option>
+								@{
+									var countryId = Model.UserData.Where(x => x.UserId == Convert.ToInt32(uid)).Select(x => x.CountryId).FirstOrDefault();
+									if (countryId == null)
+									{
+										<option selected>Select Your Country</option>
+									}
+									else{
+										@foreach (var country in Model.Countries )
+										{
+											if (country.CountryId == countryId)
+											{
+												<option selected>@country.Name</option>
+											}
+										}
+									}
+								}
+							
 
 							</select>
 						</div>
 						<div class="col-md-6">
 							<label for="inputState" class="form-label">City</label>
 							<select id="City" class="form-select" asp-for="cityId">
-								<option selected>Enter Your City</option>
-
+								@{
+									var cityId = Model.UserData.Where(x => x.UserId == Convert.ToInt32(uid)).Select(x => x.CityId).FirstOrDefault();
+									if (cityId == null)
+									{
+										<option selected>Select Your City</option>
+									}
+									else
+									{
+										@foreach (var city in Model.Cities)
+										{
+											if (city.CityId== cityId)
+											{
+												<option selected>@city.Name</option>
+											}
+										}
+									}
+								}
 							</select>
 						</div>
 					</div>
@@ -415,12 +446,14 @@
 					<div class="copyright-menu">
 						<ul>
 							<li>
-								<a href="#" style="color:#acacac">Privacy Policy</a>
+								<a  asp-controller="Login" asp-action="PolicyPage" style="color:#acacac">Privacy Policy</a>
 							</li>
 							<li>
 								<a href="#" style="color:#acacac">Cookie Policy</a>
 							</li>
 							<li>
+								<a href=""  style="color:#acacac">Contact Us</a>
+							</li><li>
 								<a href="#" style="color:#acacac">Terms of Use</a>
 							</li>
 
@@ -451,11 +484,11 @@
 
 	<script>
 		getCountry();
-		$('#City').attr('disabled', true);
+		//$('#City').attr('disabled', true);
 		$('#Country').change(function () {
 			$('#City').empty();
 			$('#City').append('<option>Select City</option>')
-			$('#City').attr('disabled', false);
+		//	$('#City').attr('disabled', false);
 			var countryId = $('#Country	').val();
 			$.ajax({
 				url: '/User/getCityList',
