@@ -3,6 +3,7 @@ using CIPlatform_Main.Entities.Models;
 using CIPlatform_Main.Entities.ViewModel;
 using CIPlatform_Main.Repository.Interface;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -29,6 +30,7 @@ namespace CIPlatform_Main.Repository.Repository
 			var countryList = _ciPlatformContext.Countries.ToList();
 			var skiilsList = _ciPlatformContext.Skills.ToList();
 			var userList=_ciPlatformContext.Users.ToList();
+			var usesSkils = _ciPlatformContext.UserSkills.Where(x => x.UserId == uid).ToList();
 			Country countryName= _ciPlatformContext.Countries.Where(c => c.CountryId ==loginUser.CountryId).FirstOrDefault();
 
 			UserViewModel userViewModel = new UserViewModel()
@@ -48,15 +50,17 @@ namespace CIPlatform_Main.Repository.Repository
 				Avatar=loginUser.Avatar,
 				ManagerDetail=loginUser.Manager,
 				CountryName = countryName,
-				UserData=userList
+				UserData=userList,
+				UserSkills= usesSkils,
 
-		};
+			};
 			return userViewModel;
 		}
 
+
+
 		public void SaveUserProfile(UserViewModel userView, int uid)
 		{
-
 			var alreadyExitUser = _ciPlatformContext.Users.Where(x => x.UserId == Convert.ToInt32(uid)).FirstOrDefault();
 		
 
@@ -71,14 +75,45 @@ namespace CIPlatform_Main.Repository.Repository
 				alreadyExitUser.Manager = userView.ManagerDetail;
 				alreadyExitUser.CityId = userView.cityId;
 				alreadyExitUser.CountryId = userView.countryId;
-
 				
 				_ciPlatformContext.SaveChanges();
-				
-		
-
 
 		}
+
+		public int AddSkills(long[] SkillArray, int uid)
+		{
+			List<int> skillIds = new List<int>();
+
+			var skills = _ciPlatformContext.Skills.Where(s => SkillArray.Contains(s.SkillId)).ToList();
+
+			foreach (var skill in skills)
+			{
+				skillIds.Add((int)skill.SkillId);
+			}
+
+			var existingUserSkills = _ciPlatformContext.UserSkills.Where(us => us.UserId == uid);
+			_ciPlatformContext.UserSkills.RemoveRange(existingUserSkills);
+
+			foreach (int skillid in skillIds)
+			{
+				var usrskill = new UserSkill()
+				{
+					SkillId = skillid,
+					UserId = uid,
+					CreatedAt = DateTime.Now
+				};
+				_ciPlatformContext.UserSkills.Add(usrskill);
+			}
+			_ciPlatformContext.SaveChanges();
+
+			return 1;
+		}
+
+
+
+
+
+
 
 		public string changeAvatar(string image, int uid)
 		{
@@ -146,8 +181,8 @@ namespace CIPlatform_Main.Repository.Repository
 			DateTime dateTime=DateTime.Now;
 			var userVolunteeredDate = _ciPlatformContext.MissionApplications.Where(x => x.UserId == uid && x.MissionId == volTime.MissionId).Select(x => x.AppliedAt).FirstOrDefault();
 
-			var hour = volTime.Hours;
-			var minute = volTime.Minutes;
+			var hour = volTime.hours;
+			var minute = volTime.minutes;
 			var time = new TimeOnly(hour, minute, 0);
 
 			Timesheet timesheet = new Timesheet()
@@ -158,7 +193,7 @@ namespace CIPlatform_Main.Repository.Repository
 				Status="Pending",
 				CreatedAt=DateTime.Now,
 				TimesheetTime=time,
-				Notes=volTime.Notes,
+				Notes=volTime.missionDetail,
 				//Action=volTime.Action
 
 
@@ -186,8 +221,8 @@ namespace CIPlatform_Main.Repository.Repository
 				Status="Pending",
 				CreatedAt=DateTime.Now,
 				//TimesheetTime=time,
-				Notes=volTime.Notes,
-				Action = volTime.Action
+				Notes=volTime.missionDetail,
+				Action = volTime.action
 
 
 			};
@@ -213,7 +248,44 @@ namespace CIPlatform_Main.Repository.Repository
 		}
 
 
+		// Edit Section Start
+		public Timesheet getDataForEditSectionForTimeBase(long missionId, long uid)
+		{
+			var data = _ciPlatformContext.Timesheets.FirstOrDefault(x => x.MissionId == missionId && x.UserId == uid);
+			return data;
+		}
 
-		
+		public Timesheet getDataForEditSectionForGoalBase(long missionId, long uid)
+		{
+			var data = _ciPlatformContext.Timesheets.FirstOrDefault(x => x.MissionId == missionId && x.UserId == uid);
+			return data;
+		}
+
+		public string getMissionNameForEditSection(long mId)
+		{
+			var missionName=_ciPlatformContext.Timesheets.Where(x=>x.MissionId==mId).Select(x=>x.Mission.Title).FirstOrDefault();
+			return missionName;
+		}
+
+
+		public void editDataForTimeMission(VolTimeSheetVM vtvm, long missionId, long uid)
+		{
+			var data = _ciPlatformContext.Timesheets.Where(x => x.MissionId == missionId && x.UserId == uid).FirstOrDefault();
+			var hour = vtvm.hours;
+			var minute = vtvm.minutes;
+			var timeOnly = new TimeOnly(hour, minute, 0);
+			data.TimesheetTime = timeOnly;
+			data.Notes = vtvm.missionDetail;
+			_ciPlatformContext.SaveChanges();
+		}
+
+		//edit data for goal base mission
+		public void editDataForGoalMission(VolTimeSheetVM vtvm, long missionId, long uid)
+		{
+			var data = _ciPlatformContext.Timesheets.Where(x => x.MissionId == missionId && x.UserId == uid).FirstOrDefault();
+			data.Notes = vtvm.missionDetail;
+			_ciPlatformContext.SaveChanges();
+		}
+
 	}
 }

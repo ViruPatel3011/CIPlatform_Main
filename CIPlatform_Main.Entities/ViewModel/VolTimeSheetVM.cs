@@ -22,10 +22,10 @@ namespace CIPlatform_Main.Entities.ViewModel
 
 
 		[Required(ErrorMessage = "Hours Detail is Required")]
-		public int Hours { get; set; }
+		public int hours { get; set; }
 
 		[Required(ErrorMessage = "Minutes Detail is Required")]
-		public int Minutes { get; set; }	
+		public int minutes { get; set; }	
 
 		public long? UserId { get; set; }
 
@@ -33,14 +33,16 @@ namespace CIPlatform_Main.Entities.ViewModel
 
 
 		[Required(ErrorMessage = "Action Field is Required")]
-		public int? Action { get; set; }
+		public int? action { get; set; }
 
 		[Required(ErrorMessage = "Please Select Date")]
-		public DateTime DateVolunteered { get; set; }
+		public DateTime volunteeringDate { get; set; }
 
 
 		[Required(ErrorMessage = "Notes is Required")]
-		public string? Notes { get; set; }
+		public string? message { get; set; }
+		public string? missionDetail { get; set; }
+
 
 		public string Status { get; set; } = null!;
 

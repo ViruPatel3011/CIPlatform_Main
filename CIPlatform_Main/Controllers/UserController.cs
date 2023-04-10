@@ -29,10 +29,15 @@ namespace CIPlatform_Main.Controllers
 		}
 
 		[HttpPost]
-		public IActionResult SaveUserData(UserViewModel userView) {
+		public IActionResult SaveUserData(UserViewModel userView, long[] finalSkillList) {
+
+			long[] skillsArray = finalSkillList;
+
+
 			var identity = User.Identity as ClaimsIdentity;
 			var uid = identity?.FindFirst(ClaimTypes.Sid)?.Value;
 			_userRepository.SaveUserProfile(userView,Convert.ToInt32(uid));
+			_userRepository.AddSkills(skillsArray, Convert.ToInt32(uid));
 			TempData["Success Message"] = "Data Added Successfully";
 			return RedirectToAction("UserProfile", "User");
 
@@ -121,7 +126,66 @@ namespace CIPlatform_Main.Controllers
 		}
 
 
-	
+
+
+		//Method for get data for edit in time base
+
+		[HttpGet]
+		public IActionResult getDataForEditSectionForTimeBase(long missionId)
+		{
+			var identity = User.Identity as ClaimsIdentity;
+			var uid = identity?.FindFirst(ClaimTypes.Sid)?.Value;
+			var data = _userRepository.getDataForEditSectionForTimeBase(missionId, Convert.ToInt32(uid));
+			var dataForMissionName = _userRepository.getMissionNameForEditSection(missionId);
+			return Json(new
+			{
+				missionName = dataForMissionName,
+				dateOfVolunteer = data.CreatedAt,
+				hours = data.TimesheetTime,
+				minutes = data.TimesheetTime,
+				message = data.Notes,
+			});
+		}
+
+		[HttpGet]
+		public IActionResult getDataForEditSectionForGoalBase(long missionId)
+		{
+			var identity = User.Identity as ClaimsIdentity;
+			var uid = identity?.FindFirst(ClaimTypes.Sid)?.Value;
+			var data = _userRepository.getDataForEditSectionForGoalBase(missionId, Convert.ToInt32(uid));
+			var dataForMissionName = _userRepository.getMissionNameForEditSection(missionId);
+
+			return Json(new
+			{
+				missionName = dataForMissionName,
+				action = data.Action,
+				dateOfVolunteer = data.CreatedAt,
+				message = data.Notes,
+			});
+		}
+
+
+		[HttpPost]
+		public IActionResult editDataForTimeBaseTimesheet(VolTimeSheetVM vtvm, long missionId)
+		{
+			var identity = User.Identity as ClaimsIdentity;
+			var uid = identity?.FindFirst(ClaimTypes.Sid)?.Value;
+			_userRepository.editDataForTimeMission(vtvm, missionId, Convert.ToInt32(uid));
+			TempData["success"] = "data edit successfull";
+			return RedirectToAction("VolTimeSheet", "User");
+		}
+
+		[HttpPost]
+		public IActionResult editDataForGoalBaseTimesheet(VolTimeSheetVM vtvm, long missionId)
+		{
+			var identity = User.Identity as ClaimsIdentity;
+			var uid = identity?.FindFirst(ClaimTypes.Sid)?.Value;
+
+			_userRepository.editDataForGoalMission(vtvm, missionId, Convert.ToInt32(uid));
+			TempData["success"] = "data edit successfull";
+			return RedirectToAction("VolTimeSheet", "User");
+		}
+
 		public IActionResult Index()
 		{
 			return View();

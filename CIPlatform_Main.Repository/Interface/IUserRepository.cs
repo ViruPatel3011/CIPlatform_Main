@@ -14,6 +14,8 @@ namespace CIPlatform_Main.Repository.Interface
 
 		public void SaveUserProfile(UserViewModel userView,int uid);
 
+		public int AddSkills(long[] skillsArray, int uid);
+
 		public int ChangeUserPassword(int uid, UserViewModel userViewModel);
 
 		public string changeAvatar(string image, int uid);
@@ -27,5 +29,20 @@ namespace CIPlatform_Main.Repository.Interface
 		public List<Mission> getGoalBaseMission(int uid);
 		public List<Country> GetCountryList();
 		public List<City> GetCityList(int id);
+
+
+		// Get Data for Edit TimeBased Mission
+		public Timesheet getDataForEditSectionForTimeBase(long missionId, long uid);
+
+		public Timesheet getDataForEditSectionForGoalBase(long missionId, long uid);
+
+
+		public string getMissionNameForEditSection(long missionId);
+
+
+		public void editDataForTimeMission(VolTimeSheetVM vtvm, long missionId, long uid);
+		public void editDataForGoalMission(VolTimeSheetVM vtvm, long missionId, long uid);
+
+
 	}
 }

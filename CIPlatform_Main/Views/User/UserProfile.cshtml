@@ -301,8 +301,18 @@
 					@*Skiils Section *@
 					<div class="mySkills mb-5">
 						<h3 class="border-bottom pb-3 mb-3">My Skills</h3>
-						<div class="border px-3 py-2 p mt-4 d-flex flex-column" id="selected-skills">
+						<div class="border px-3 py-2 p mt-4 d-flex flex-column" id="selectedSkills" name="selectedSkills">
+							@{
+								var userSkill = Model.UserSkills;
+								@foreach(var skills in Model.SkillList.Where( skill => userSkill.Any( us => us.SkillId == skill.SkillId ) ))
+							{
+								<small>@skills.SkillName</small>
+							}
+						}
+							
 						</div>
+
+
 						<a class="btn rounded-5 mt-3 border bg-white px-3" data-bs-toggle="modal" data-bs-target="#add-skills">Add Skills</a>
 						<div class="modal fade" id="add-skills" tabindex="-1" aria-labelledby="e" aria-hidden="true">
 							<div class="modal-dialog modal-xl modal-dialog-scrollable" id="modal-dialog">
@@ -395,6 +405,8 @@
 		</div>
 	</div>
 	<!--Second row is all about user profile photo and profile detail end-->
+
+
 	<!--footer satrt-->
 	<div class="copyright mt-5 bg-dark ">
 		<div class="container">
