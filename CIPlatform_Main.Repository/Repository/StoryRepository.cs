@@ -88,7 +88,7 @@ namespace CIPlatform_Main.Repository.Repository
         }*/
 
 
-        public storyDetailVM GetStoryDetail(long userId, int missionId)
+        public storyDetailVM GetStoryDetail(long userId, int missionId,int count)
         {
 			storyDetailVM sdv = new storyDetailVM();
             sdv.storyTitle = _ciPlatformContext.Stories.Where(x => x.UserId == userId && x.MissionId == missionId).Select(x => x.Title).FirstOrDefault();
@@ -105,8 +105,28 @@ namespace CIPlatform_Main.Repository.Repository
 			sdv.Avatar = _ciPlatformContext.Users.Where(x => x.UserId == userId).Select(x => x.Avatar).FirstOrDefault();
 			sdv.Stories = _ciPlatformContext.Stories.ToList();
 			sdv.storyMedia = _ciPlatformContext.StoryMedia.ToList();
-			
-            return sdv;
+			sdv.Viewscount = count;
+
+
+			//var story = _ciPlatformContext.Stories.Where(m => m.MissionId == missionId).FirstOrDefault();
+			//var storyView = _ciPlatformContext.Stories.Where(m => m.MissionId == missionId).Select(x=>x.Viewscount).FirstOrDefault();
+			//if (story != null && story.Viewscount < views)
+			//{
+			//	story.Viewscount = views;
+			//	_ciPlatformContext.Stories.Update(story);
+			//	_ciPlatformContext.SaveChanges();
+			//}
+
+			var viewCount = _ciPlatformContext.Stories.Where(x => x.MissionId == missionId).FirstOrDefault();
+			viewCount.Viewscount = count;
+			_ciPlatformContext.Update(viewCount);
+			_ciPlatformContext.SaveChanges();
+
+			return sdv;
+
+
+
+
         }
 
 

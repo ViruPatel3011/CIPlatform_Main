@@ -33,9 +33,11 @@ namespace CIPlatform_Main.Entities.ViewModel
 
         public long MissionId { get; set; }
         public long UserId { get; set; }
+		public int Viewscount { get; set; }
+		//public int views { get; set; }
 
-        
-        public string WhyIVolunteered { get; set; }   
+
+		public string WhyIVolunteered { get; set; }   
         public DateTime dateAndTime { get; set; }
     }
 }

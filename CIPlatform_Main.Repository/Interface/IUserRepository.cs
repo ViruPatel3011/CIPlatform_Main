@@ -20,8 +20,8 @@ namespace CIPlatform_Main.Repository.Interface
 
 		public string changeAvatar(string image, int uid);
 
-		public bool AddTimeSheetData(VolTimeSheetVM volTime, int uid);
-		public bool AddGoalBaseData(VolTimeSheetVM volTime, int uid);
+		public void AddTimeSheetData(VolTimeSheetVM volTime, int uid);
+		public void AddGoalBaseData(VolTimeSheetVM volTime, int uid);
 
 		public List<Timesheet> getTimeBasedSheet(int uid);
 		public List<Timesheet> getGoalBasedSheet(int uid);
@@ -32,20 +32,20 @@ namespace CIPlatform_Main.Repository.Interface
 
 
 		// Get Data for Edit TimeBased Mission
-		public Timesheet getDataForEditSectionForTimeBase(long missionId, long uid);
+		public Timesheet getDataForEditSectionForTimeBase(long tId, long uid);
 
-		public Timesheet getDataForEditSectionForGoalBase(long missionId, long uid);
-
-
-		public string getMissionNameForEditSection(long missionId);
+		public Timesheet getDataForEditSectionForGoalBase(long goalBasedId, long uid);
 
 
-		public void editDataForTimeMission(VolTimeSheetVM vtvm, long missionId, long uid);
-		public void editDataForGoalMission(VolTimeSheetVM vtvm, long missionId, long uid);
+		public string getMissionNameForEditSection(long tId);
+
+
+		public void editDataForTimeMission(VolTimeSheetVM vtvm, int tId, long uid);
+		public void editDataForGoalMission(VolTimeSheetVM vtvm, long timeSheetId, long uid);
 
 
 		// Delete data from timesheet
-		public bool removeTimeBasedData(long MissionId, int uid);
+		public bool removeTimeBasedData(int tId, int uid);
 
 
 	}

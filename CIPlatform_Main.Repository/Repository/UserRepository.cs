@@ -177,7 +177,9 @@ namespace CIPlatform_Main.Repository.Repository
 
 		}
 
-		public bool AddTimeSheetData(VolTimeSheetVM volTime,int uid)
+
+		// Add time based Data on database
+		public void AddTimeSheetData(VolTimeSheetVM volTime,int uid)
 		{
 			DateTime dateTime=DateTime.Now;
 			var userVolunteeredDate = _ciPlatformContext.MissionApplications.Where(x => x.UserId == uid && x.MissionId == volTime.MissionId).Select(x => x.AppliedAt).FirstOrDefault();
@@ -185,9 +187,12 @@ namespace CIPlatform_Main.Repository.Repository
 			var hour = volTime.hours;
 			var minute = volTime.minutes;
 			var time = new TimeOnly(hour, minute, 0);
-			var alreadyDataExist = _ciPlatformContext.Timesheets.Where(x => x.MissionId == volTime.MissionId).FirstOrDefault();
-			if (alreadyDataExist == null)
-			{
+
+
+			// This condition is for not added data fro same user twice
+			//var alreadyDataExist = _ciPlatformContext.Timesheets.Where(x => x.MissionId == volTime.MissionId).FirstOrDefault();
+			//if (alreadyDataExist == null)
+			//{
 				Timesheet timesheet = new Timesheet()
 				{
 					MissionId = volTime.MissionId,
@@ -203,17 +208,19 @@ namespace CIPlatform_Main.Repository.Repository
 				};
 				_ciPlatformContext.Add(timesheet);
 				_ciPlatformContext.SaveChanges();
-				return true;
-			}
-			else
-			{
-				return false;
-			}
+			//	return true;
+			//}
+			//else
+			//{
+			//	return false;
+			//}
 
 
 		}
-		
-		public bool AddGoalBaseData(VolTimeSheetVM volTime,int uid)
+
+
+		// Add Goal based Data on database
+		public void AddGoalBaseData(VolTimeSheetVM volTime,int uid)
 		{
 			DateTime dateTime=DateTime.Now;
 			var userVolunteeredDate = _ciPlatformContext.MissionApplications.Where(x => x.UserId == uid && x.MissionId == volTime.MissionId).Select(x => x.AppliedAt).FirstOrDefault();
@@ -221,10 +228,12 @@ namespace CIPlatform_Main.Repository.Repository
 			//var hour = volTime.Hours;
 			//var minute = volTime.Minutes;
 			//var time = new TimeOnly(hour, minute, 0);
-			var alreadyDataExist = _ciPlatformContext.Timesheets.Where(x => x.MissionId == volTime.MissionId).FirstOrDefault();
-			if (alreadyDataExist == null)
-			{
-				Timesheet timesheet = new Timesheet()
+
+			// This condition is for not added data fro same user twice
+			//var alreadyDataExist = _ciPlatformContext.Timesheets.Where(x => x.MissionId == volTime.MissionId).FirstOrDefault();
+			//if (alreadyDataExist == null)
+			//{
+			Timesheet timesheet = new Timesheet()
 				{
 					MissionId = volTime.MissionId,
 					UserId = uid,
@@ -239,12 +248,12 @@ namespace CIPlatform_Main.Repository.Repository
 				};
 				_ciPlatformContext.Add(timesheet);
 				_ciPlatformContext.SaveChanges();
-				return true;
-			}
-			else
-			{
-				return false;	
-			}
+				//return true;
+			//}
+			//else
+			//{
+			//	return false;	
+			//}
 			
 
 
@@ -266,29 +275,32 @@ namespace CIPlatform_Main.Repository.Repository
 		}
 
 
-		// Edit Section Start
-		public Timesheet getDataForEditSectionForTimeBase(long missionId, long uid)
+		// Get Time data for Edit on Icon click
+		public Timesheet getDataForEditSectionForTimeBase(long tId, long uid)
 		{
-			var data = _ciPlatformContext.Timesheets.FirstOrDefault(x => x.MissionId == missionId && x.UserId == uid);
+			var data = _ciPlatformContext.Timesheets.FirstOrDefault(x => x.TimesheetId== tId && x.UserId == uid);
 			return data;
 		}
 
-		public Timesheet getDataForEditSectionForGoalBase(long missionId, long uid)
+
+		// Get Goal data for Edit on Icon click
+		public Timesheet getDataForEditSectionForGoalBase(long goalBasedId, long uid)
 		{
-			var data = _ciPlatformContext.Timesheets.FirstOrDefault(x => x.MissionId == missionId && x.UserId == uid);
+			var data = _ciPlatformContext.Timesheets.FirstOrDefault(x => x.TimesheetId == goalBasedId && x.UserId == uid);
 			return data;
 		}
 
-		public string getMissionNameForEditSection(long mId)
+
+		public string getMissionNameForEditSection(long tId)
 		{
-			var missionName=_ciPlatformContext.Timesheets.Where(x=>x.MissionId==mId).Select(x=>x.Mission.Title).FirstOrDefault();
+			var missionName=_ciPlatformContext.Timesheets.Where(x=>x.TimesheetId==tId).Select(x=>x.Mission.Title).FirstOrDefault();
 			return missionName;
 		}
 
-
-		public void editDataForTimeMission(VolTimeSheetVM vtvm, long missionId, long uid)
+		//edit data for Time base mission on Edit Button
+		public void editDataForTimeMission(VolTimeSheetVM vtvm, int tId, long uid)
 		{
-			var data = _ciPlatformContext.Timesheets.Where(x => x.MissionId == missionId && x.UserId == uid).FirstOrDefault();
+			var data = _ciPlatformContext.Timesheets.Where(x => x.TimesheetId == tId && x.UserId == uid).FirstOrDefault();
 			var hour = vtvm.hours;
 			var minute = vtvm.minutes;
 			var timeOnly = new TimeOnly(hour, minute, 0);
@@ -297,19 +309,20 @@ namespace CIPlatform_Main.Repository.Repository
 			_ciPlatformContext.SaveChanges();
 		}
 
-		//edit data for goal base mission
-		public void editDataForGoalMission(VolTimeSheetVM vtvm, long missionId, long uid)
+
+		//edit data for goal base mission on Edit Button
+		public void editDataForGoalMission(VolTimeSheetVM vtvm, long timeSheetId, long uid)
 		{
-			var data = _ciPlatformContext.Timesheets.Where(x => x.MissionId == missionId && x.UserId == uid).FirstOrDefault();
+			var data = _ciPlatformContext.Timesheets.Where(x => x.TimesheetId == timeSheetId && x.UserId == uid).FirstOrDefault();
 			data.Notes = vtvm.missionDetail;
 			_ciPlatformContext.SaveChanges();
 		}
 
 
 		// Delete data from timesheet
-		public bool removeTimeBasedData(long MissionId, int uid)
+		public bool removeTimeBasedData(int tId, int uid)
 		{
-			var entry=_ciPlatformContext.Timesheets.Where(x=>x.MissionId==MissionId && x.UserId == uid).FirstOrDefault();
+			var entry=_ciPlatformContext.Timesheets.Where(x=>x.TimesheetId==tId && x.UserId == uid).FirstOrDefault();
 			if (entry != null)
 			{
 				_ciPlatformContext.Timesheets.Remove(entry);

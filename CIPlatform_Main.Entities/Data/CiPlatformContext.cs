@@ -727,7 +727,7 @@ public partial class CiPlatformContext : DbContext
                 .HasColumnType("datetime")
                 .HasColumnName("updated_at");
             entity.Property(e => e.UserId).HasColumnName("user_id");
-            entity.Property(e => e.Views).HasColumnName("views");
+            entity.Property(e => e.Viewscount).HasColumnName("viewscount");
         });
 
         modelBuilder.Entity<StoryInvite>(entity =>

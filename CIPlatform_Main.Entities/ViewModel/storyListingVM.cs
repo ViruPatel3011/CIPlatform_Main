@@ -24,6 +24,9 @@ namespace CIPlatform_Main.Entities.ViewModel
 		public string storyTitle { get; set; }
 		public string storyDescription { get; set; }
 		public DateTime dateAndTime { get; set; }
+		public int Viewscount { get; set; }
+
+		//public int views { get; set; }
 
 		public int currentPage { get; set; }
 		public int totalRecord{ get; set; }

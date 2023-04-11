@@ -25,7 +25,7 @@ public partial class Story
 
     public DateTime? DeletedAt { get; set; }
 
-    public int? Views { get; set; }
+    public int? Viewscount { get; set; }
 
     public virtual ICollection<StoryInvite> StoryInvites { get; } = new List<StoryInvite>();
 

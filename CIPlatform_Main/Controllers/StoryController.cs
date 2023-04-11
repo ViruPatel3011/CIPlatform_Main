@@ -105,9 +105,10 @@ namespace CIPlatform_Main.Controllers
 		}
 
 
-		public IActionResult storyDetail(long userId , int missionId)
+		public IActionResult storyDetail(long userId , int missionId,int views)
         {
-            var getStoryDetail = _storyRepository.GetStoryDetail(userId, missionId);
+			var count = views + 1;
+			var getStoryDetail = _storyRepository.GetStoryDetail(userId, missionId, count);
             return View(getStoryDetail);
         }
 

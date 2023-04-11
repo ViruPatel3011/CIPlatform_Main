@@ -122,6 +122,7 @@
 				@{
 					if (uid != null)
 					{
+
 						<a type="button" class="btn btn-outline-light sharYourStoryBtn" asp-controller="Story" asp-action="shareYourStoryPage">
 							Share your Story <i class="bi bi-arrow-right"></i>
 						</a>
@@ -163,8 +164,9 @@
 								@if (uid != null)
 								{
 
+									var views = @story.Viewscount ;
 									<div class="details position-absolute">
-										<a asp-controller="Story" asp-action="storyDetail" asp-route-userId="@story.UserId" asp-route-missionId="@story.MissionId" class="btn btn-outline-light detailsButton">
+										<a asp-controller="Story" asp-action="storyDetail" asp-route-userId="@story.UserId" asp-route-missionId="@story.MissionId" asp-route-views="@views" class="btn btn-outline-light detailsButton">
 											View Details <i class="bi bi-arrow-right"></i>
 										</a>
 									</div>

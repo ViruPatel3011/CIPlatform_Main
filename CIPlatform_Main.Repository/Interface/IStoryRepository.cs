@@ -14,7 +14,7 @@ namespace CIPlatform_Main.Repository.Interface
 
 		/*public bool getDataForStoryTable(int MissionId, string StoryTitle, string StoryText, DateTime StoryDate, int userId, string[] images, string videourl);*/
 
-        public storyDetailVM GetStoryDetail(long userId, int missionId);
+        public storyDetailVM GetStoryDetail(long userId, int missionId,int count);
 
 		public string userWithId(int[] ids, int missionid, string url);
 		public List<User> getUsersForRecomandateToCoWorker(string uid);
