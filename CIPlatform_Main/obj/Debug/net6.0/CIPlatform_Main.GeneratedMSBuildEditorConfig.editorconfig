@@ -16,6 +16,10 @@ build_property.GenerateRazorMetadataSourceChecksumAttributes =
 build_property.MSBuildProjectDirectory = E:\CIPlatform_Main\CIPlatform_Main
 build_property._RazorSourceGeneratorDebug = 
 
+[E:/CIPlatform_Main/CIPlatform_Main/Views/Admin/User.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cVXNlci5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
 [E:/CIPlatform_Main/CIPlatform_Main/Views/Forgot/Forgot.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRm9yZ290XEZvcmdvdC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 

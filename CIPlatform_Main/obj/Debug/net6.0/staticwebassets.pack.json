@@ -489,6 +489,10 @@
       "PackagePath": "staticwebassets\\css\\MissonAndRating.css"
     },
     {
+      "Id": "E:\\CIPlatform_Main\\CIPlatform_Main\\wwwroot\\css\\User.css",
+      "PackagePath": "staticwebassets\\css\\User.css"
+    },
+    {
       "Id": "E:\\CIPlatform_Main\\CIPlatform_Main\\wwwroot\\css\\UserProfile.css",
       "PackagePath": "staticwebassets\\css\\UserProfile.css"
     },
