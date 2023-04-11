@@ -29,7 +29,7 @@ namespace CIPlatform_Main.Entities.ViewModel
        
         public string Avatar { get; set; }
 
-        public int views { get; set; }
+      
 
         public long MissionId { get; set; }
         public long UserId { get; set; }

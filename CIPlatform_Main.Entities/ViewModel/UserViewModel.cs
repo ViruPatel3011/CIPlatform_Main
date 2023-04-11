@@ -26,7 +26,7 @@ namespace CIPlatform_Main.Entities.ViewModel
 		[Required(ErrorMessage = "EmployeeId is Required")]
 		public string? EmployeeId { get; set; }
 
-		[Required(ErrorMessage = "ManagerDetail is Required")]
+		//[Required(ErrorMessage = "ManagerDetail is Required")]
 		public string? ManagerDetail { get; set; }
 
 		[Required(ErrorMessage = "Department is Required")]
