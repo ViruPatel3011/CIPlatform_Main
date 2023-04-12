@@ -488,12 +488,14 @@
 														<div class="col">
 															<label for="exampleFormControlInput1" class="form-label">Subjects</label>
 															<input type="text" class="form-control" placeholder="Enter Your Subjects"  asp-for="ContactSubject">
+															<span asp-validation-for="ContactSubject" class="text-danger"></span>
 														</div>
 													</div>
 													<div class="row">
 														<div class="col">
 															<label for="exampleFormControlInput1" class="form-label">Message</label>
 															<textarea class="form-control" id="exampleFormControlTextarea1" rows="3" asp-for="ContactMessage">Enter your Message</textarea>
+															<span asp-validation-for="ContactMessage" class="text-danger"></span>
 														</div>
 													</div>
 												</div>

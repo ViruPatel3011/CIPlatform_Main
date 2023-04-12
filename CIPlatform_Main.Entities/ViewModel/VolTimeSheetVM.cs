@@ -49,7 +49,7 @@ namespace CIPlatform_Main.Entities.ViewModel
 		[Required(ErrorMessage = "Notes is Required")]
 		public string? message { get; set; }
 
-		[Required(ErrorMessage = "missionDetail is Required")]
+		[Required(ErrorMessage = "Message is Required")]
 		public string? missionDetail { get; set; }
 
 		[Required(ErrorMessage = "Status is Required")]
