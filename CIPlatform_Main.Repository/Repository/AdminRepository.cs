@@ -27,5 +27,36 @@ namespace CIPlatform_Main.Repository.Repository
 			return checkUser;
 		}
 
+        public bool EditDataForUser(string Name, string Surname, string email, string EmployeeId, long userid, string DeptName, string Ustatus)
+		{
+			var isUserValid=_ciPlatformContext.Users.Where(x=>x.UserId==userid).FirstOrDefault();
+			isUserValid.FirstName = Name;
+			isUserValid.LastName = Surname;
+			isUserValid.Email = email;
+			isUserValid.EmployeeId = EmployeeId;
+			isUserValid.Department = DeptName;
+			isUserValid.Status = Ustatus;
+			_ciPlatformContext.SaveChanges();
+			return true;
+		}
+
+		public bool removeUserData(long uId)
+		{
+			var isValidUser=_ciPlatformContext.Users.Where(x=>x.UserId==uId).FirstOrDefault();
+			var userAlreadyInUse = _ciPlatformContext.MissionApplications.Where(x => x.UserId == isValidUser.UserId).FirstOrDefault();
+			var userCommented=_ciPlatformContext.Comments.Where(x=>x.UserId==isValidUser.UserId).FirstOrDefault();
+			var userInSkill = _ciPlatformContext.UserSkills.Where(x => x.UserId == isValidUser.UserId).FirstOrDefault();
+			if(userAlreadyInUse == null || userCommented==null || userInSkill==null)
+			{
+				_ciPlatformContext.Users.Remove(isValidUser); 
+				_ciPlatformContext.SaveChanges();
+				return true;
+			}
+			else
+			{
+				return false;
+
+            }
+		}
     }
 }

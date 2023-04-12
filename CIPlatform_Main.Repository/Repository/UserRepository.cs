@@ -64,7 +64,9 @@ namespace CIPlatform_Main.Repository.Repository
 		{
 			var alreadyExitUser = _ciPlatformContext.Users.Where(x => x.UserId == Convert.ToInt32(uid)).FirstOrDefault();
 		
-
+			if(userView.countryId == 0 && userView.cityId == 0)
+			{
+				
 				alreadyExitUser.FirstName = userView.FirstName;
 				alreadyExitUser.LastName = userView.LastName;
 				alreadyExitUser.EmployeeId = userView.EmployeeId;
@@ -74,8 +76,23 @@ namespace CIPlatform_Main.Repository.Repository
 				alreadyExitUser.WhyIVolunteer = userView.WhyIVolunteer;
 				alreadyExitUser.LinkedInUrl = userView.LinkedInUrl;
 				alreadyExitUser.Manager = userView.ManagerDetail;
+			}
+			else
+			{
+				alreadyExitUser.FirstName = userView.FirstName;
+				alreadyExitUser.LastName = userView.LastName;
+				alreadyExitUser.EmployeeId = userView.EmployeeId;
+				alreadyExitUser.Title = userView.Title;
+				alreadyExitUser.Department = userView.Department;
+				alreadyExitUser.ProfileText = userView.ProfileText;
+				alreadyExitUser.WhyIVolunteer = userView.WhyIVolunteer;
+				alreadyExitUser.LinkedInUrl = userView.LinkedInUrl;
 				alreadyExitUser.CityId = userView.cityId;
 				alreadyExitUser.CountryId = userView.countryId;
+				alreadyExitUser.Manager = userView.ManagerDetail;
+
+			}
+				
 				
 				_ciPlatformContext.SaveChanges();
 

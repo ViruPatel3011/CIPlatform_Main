@@ -28,10 +28,10 @@ namespace CIPlatform_Main.Entities.ViewModel
 		public string Title { get; set; }
 
 
-		[Required(ErrorMessage = "Hours Detail is Required")]
+		[Required(ErrorMessage = "Hours  is Required")]
 		public int hours { get; set; }
 
-		[Required(ErrorMessage = "Minutes Detail is Required")]
+		[Required(ErrorMessage = "Minutes  is Required")]
 		public int minutes { get; set; }	
 
 		public long? UserId { get; set; }
@@ -48,12 +48,19 @@ namespace CIPlatform_Main.Entities.ViewModel
 
 		[Required(ErrorMessage = "Notes is Required")]
 		public string? message { get; set; }
+
+		[Required(ErrorMessage = "missionDetail is Required")]
 		public string? missionDetail { get; set; }
 
-
+		[Required(ErrorMessage = "Status is Required")]
 		public string Status { get; set; } = null!;
 		// Contact Us
+
+
+		[Required(ErrorMessage = "ContactSubject is Required")]
 		public string ContactSubject { get; set; } = null!;
+
+		[Required(ErrorMessage = "ContactMessage is Required")]
 		public string ContactMessage { get; set; } = null!;
 
 

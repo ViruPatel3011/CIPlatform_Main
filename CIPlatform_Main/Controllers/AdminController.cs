@@ -4,6 +4,7 @@ using CIPlatform_Main.Repository.Interface;
 
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
+using System.Security.Cryptography;
 
 namespace CIPlatform_Main.Controllers
 {
@@ -57,5 +58,38 @@ namespace CIPlatform_Main.Controllers
             });
         }
 
+
+		[HttpPost]
+        public IActionResult EditUserData(string Name,string Surname, string email,string EmployeeId,long userid,string DeptName,string Ustatus)
+		{
+			var  editData=_admin.EditDataForUser(Name,Surname,email,EmployeeId,userid,DeptName,Ustatus);
+			if (editData)
+			{
+
+				TempData["Success Message"] = "Data Edited Successfully";
+                return Json(new { redirectUrl = Url.Action("User", "Admin") });
+
+            }
+			else
+			{
+                TempData["Error Message"] = "Data Not Edited ";
+                return Json(new { redirectUrl = Url.Action("User", "Admin") });
+            }
+		}
+
+		public IActionResult deleteUserData(long uId)
+		{
+            var removeUserData = _admin.removeUserData(uId);
+            if (removeUserData)
+            {
+                TempData["Success Message"] = "User Deleted Successfully";
+                return Json(new { redirectUrl = Url.Action("User", "Admin") });
+            }
+            else
+            {
+                TempData["Error Message"] = "Can't Able to delete Because User already used SomeWhere";
+                return Json(new { redirectUrl = Url.Action("User", "Admin") });
+            }
+        }
     }
 }
