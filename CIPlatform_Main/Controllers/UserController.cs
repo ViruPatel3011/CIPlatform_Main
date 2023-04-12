@@ -185,7 +185,7 @@ namespace CIPlatform_Main.Controllers
 			var identity = User.Identity as ClaimsIdentity;
 			var uid = identity?.FindFirst(ClaimTypes.Sid)?.Value;
 			_userRepository.editDataForTimeMission(vtvm, timeSheetId, Convert.ToInt32(uid));
-			TempData["success"] = "data edit successfull";
+			TempData["Success Message"] = "data edited successfully";
 			return RedirectToAction("VolTimeSheet", "User");
 		}
 
@@ -198,7 +198,7 @@ namespace CIPlatform_Main.Controllers
 			var uid = identity?.FindFirst(ClaimTypes.Sid)?.Value;
 
 			_userRepository.editDataForGoalMission(vtvm, timeSheetId, Convert.ToInt32(uid));
-			TempData["success"] = "data edit successfull";
+			TempData["Success Message"] = "Data edited successfully";
 			return RedirectToAction("VolTimeSheet", "User");
 		}
 

@@ -8,7 +8,17 @@
 	var uid = identity?.FindFirst(ClaimTypes.Sid)?.Value;
 
 }
+<style>
+	html {
+  scroll-behavior: smooth;
+}
 
+	.longEnough {
+		max-height: 1300px;
+		width: 984px;
+		/*overflow: auto;*/
+	}
+</style>
 <!-- First navbar  -->
 <nav class="navbar navbar-expand-md navbar-light bg-light">
 	<div class="container">
@@ -126,7 +136,7 @@
 				</div>
 			</div>
 		</div>
-		<div class="col-md-8">
+		<div class="col-md-8 longEnough Scroll" data-mcs-theme="dark">
 			<div class="row" id="row1">
 				<div class="col-12 mt-1">
 					<h1 style="font-weight: 200;">Introduction</h1>
@@ -253,7 +263,7 @@
 
 
 <!--footer satrt-->
-<div class="copyright mt-5 bg-dark">
+<div class="copyright  bg-dark" style="position: fixed; bottom: 0px; width: 100%;">
 	<div class="container">
 		<div class="row">
 			<div class="col-md-6">
@@ -282,3 +292,12 @@
 	</div>
 </div>
 <!--footer end-->
+
+@*
+<script>
+	(function ($) {
+		$(window).on("load", function () {
+			$(".content").mCustomScrollbar();
+		});
+	})(jQuery);
+</script>*@
