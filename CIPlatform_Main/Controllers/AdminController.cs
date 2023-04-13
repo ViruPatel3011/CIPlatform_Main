@@ -37,7 +37,14 @@ namespace CIPlatform_Main.Controllers
 				UserList = userData
 			};
 
+
+
 			return View(model);
+		}
+
+		public IActionResult CMSPage()
+		{
+			return PartialView("_CMSPartial");
 		}
 
 		[HttpGet]
