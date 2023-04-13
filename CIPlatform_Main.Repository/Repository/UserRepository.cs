@@ -87,9 +87,9 @@ namespace CIPlatform_Main.Repository.Repository
 				alreadyExitUser.ProfileText = userView.ProfileText;
 				alreadyExitUser.WhyIVolunteer = userView.WhyIVolunteer;
 				alreadyExitUser.LinkedInUrl = userView.LinkedInUrl;
+				alreadyExitUser.Manager = userView.ManagerDetail;
 				alreadyExitUser.CityId = userView.cityId;
 				alreadyExitUser.CountryId = userView.countryId;
-				alreadyExitUser.Manager = userView.ManagerDetail;
 
 			}
 				

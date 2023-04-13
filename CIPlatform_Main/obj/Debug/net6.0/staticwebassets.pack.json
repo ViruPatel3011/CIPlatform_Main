@@ -153,6 +153,14 @@
       "PackagePath": "staticwebassets\\Assets\\calender.png"
     },
     {
+      "Id": "E:\\CIPlatform_Main\\CIPlatform_Main\\wwwroot\\Assets\\camera (1).png",
+      "PackagePath": "staticwebassets\\Assets\\camera (1).png"
+    },
+    {
+      "Id": "E:\\CIPlatform_Main\\CIPlatform_Main\\wwwroot\\Assets\\camera.png",
+      "PackagePath": "staticwebassets\\Assets\\camera.png"
+    },
+    {
       "Id": "E:\\CIPlatform_Main\\CIPlatform_Main\\wwwroot\\Assets\\cancel.png",
       "PackagePath": "staticwebassets\\Assets\\cancel.png"
     },
@@ -319,6 +327,10 @@
     {
       "Id": "E:\\CIPlatform_Main\\CIPlatform_Main\\wwwroot\\Assets\\pdf.png",
       "PackagePath": "staticwebassets\\Assets\\pdf.png"
+    },
+    {
+      "Id": "E:\\CIPlatform_Main\\CIPlatform_Main\\wwwroot\\Assets\\photo.png",
+      "PackagePath": "staticwebassets\\Assets\\photo.png"
     },
     {
       "Id": "E:\\CIPlatform_Main\\CIPlatform_Main\\wwwroot\\Assets\\pin.png",

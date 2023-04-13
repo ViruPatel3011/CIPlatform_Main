@@ -100,7 +100,7 @@
 
 
 								<!-- Time based mission  Upper Body  -->
-								<div class="position-relative">
+								<div class="position-relative card-image">
 									@{
 										var cardsImage = item.MissionMedia.FirstOrDefault();
 										<img src="@Url.Content(cardsImage.MediaPath)" class="card-img-top" alt="...">
@@ -327,7 +327,7 @@
 									<!-- Time based mission button-->
 									<div class="card-footer text-center">
 
-										<a asp-controller="Home" asp-action="MissionAndRating" asp-route-id="@item.MissionId" class="btn  rounded-pill" style="border: 2px solid #F88634;
+										<a asp-controller="Home" asp-action="MissionAndRating" asp-route-id="@item.MissionId" class="btn  rounded-pill explore" style="border: 2px solid #F88634;
 									  	color: #F88634;">
 											Explore Now <img src="~/Assets/right-arrow.png" alt="">
 										</a>
@@ -344,7 +344,7 @@
 								@*<div class="card">*@
 
 								<!-- Goal based Mission Upper Body  -->
-								<div class="position-relative">
+								<div class="position-relative card-image">
 									@{
 										var cardsImage = item.MissionMedia.FirstOrDefault();
 										<img src="@Url.Content(cardsImage.MediaPath)" class="card-img-top" alt="...">
@@ -560,7 +560,7 @@
 									<div class="card-footer text-center">
 
 
-										<a asp-controller="Home" asp-action="MissionAndRating" asp-route-id="@item.MissionId" class="btn  rounded-pill" style="border: 2px solid #F88634;
+										<a asp-controller="Home" asp-action="MissionAndRating" asp-route-id="@item.MissionId" class="btn  rounded-pill explore" style="border: 2px solid #F88634;
 									  	color: #F88634;">
 											Explore Now <img src="~/Assets/right-arrow.png" alt="">
 										</a>
@@ -621,7 +621,7 @@
 			@for (var pge = pager.StartPage; pge <= pager.EndPage; pge++)
 			{
 				<li class="page-item mx-2">
-					<a class="page-link cursor @(pge == pager.CurrentPage ? "active" : "")" onclick="loadMissions(pg=@pge)"> @pge </a>
+					<a class="page-link cursor @(pge == pager.CurrentPage ? "active orange" : "")" onclick="loadMissions(pg=@pge)"> @pge </a>
 				</li>
 			}
 

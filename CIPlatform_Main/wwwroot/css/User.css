@@ -50,5 +50,5 @@ a:hover {
 
 .nav-link:hover,
 .nav-link:has(:hover) {
-    color: white !important;
+    color: white ;
 }

@@ -1,9 +1,9 @@
 ﻿/* Navbar Style  */
-
+/*.userName:hover{
+    color:black !important
+}*/
 @media screen and (max-width: 992px) {
-
-    .user-pic,
-    .user-profile {
+    .user-pic, .user-profile {
         display: none;
     }
 }
@@ -187,6 +187,12 @@ li > p {
 .list-view .card {
     flex-direction: row;
 }
+.list-view .card-image{
+    width: 40%;
+}
+.list-view .card-body{
+    width: 60%;
+}
 
 @media (max-width: 575.98px) {
     .list-view .card {
@@ -248,9 +254,15 @@ li > p {
     left: 50%;
     transform: translateX(-50%);
 }
-
-
 /* inside card location,person,heart  */
+
+/*Explore Now button Effect */
+/*.explore:hover {
+    background-color: #F88634;
+    color: #fff;
+}*/
+
+
 
 
 /* Footer CSS  start */
@@ -335,3 +347,13 @@ li > p {
         height: 3rem;
         margin-top: 15%;
     }
+
+
+/*Pagination CSS*/
+/*.orange {
+    color:orange !important;
+}*/
+
+.pagination .page-item.active  {
+    background-color: orange !important;
+}

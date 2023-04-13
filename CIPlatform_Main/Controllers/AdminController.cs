@@ -34,17 +34,30 @@ namespace CIPlatform_Main.Controllers
 			var userData=_admin.getUserList();
 			AdminViewModel model = new AdminViewModel()
 			{
-				UserList = userData
+				UserList = userData,
 			};
 
-
-
-			return View(model);
+			return View( model);
 		}
 
+		public IActionResult UserPage()
+		{
+			var userData = _admin.getUserList();
+			AdminViewModel model = new AdminViewModel()
+			{
+				UserList = userData,
+			};
+
+			return PartialView("_UserPartial", model);
+		}
+		
 		public IActionResult CMSPage()
 		{
 			return PartialView("_CMSPartial");
+		}
+		public IActionResult MissionPage()
+		{
+			return PartialView("_MissionPartial");
 		}
 
 		[HttpGet]

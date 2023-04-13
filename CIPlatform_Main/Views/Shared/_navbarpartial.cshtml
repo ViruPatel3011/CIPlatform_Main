@@ -73,7 +73,7 @@
 
 
 					<li class="nav-item dropdown">
-						<a class="nav-link dropdown-toggle" href="#" id="navbarScrollingDropdown" role="button"
+						<a class="nav-link dropdown-toggle userName" href="#" id="navbarScrollingDropdown" role="button"
 						data-bs-toggle="dropdown" aria-expanded="false">
 							@{
 								var profilePic = Model.UserData.Where(x => x.UserId == Convert.ToInt32(uid)).Select(x => x.Avatar).FirstOrDefault();

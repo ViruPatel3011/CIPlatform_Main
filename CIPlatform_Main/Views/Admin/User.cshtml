@@ -57,14 +57,14 @@
 				<ul class="nav nav-pills flex-column mb-auto mt-4 mt-lg-4 mt-md-5">
 
 					<li class="nav-item">
-						<a href="#1" class="nav-link sidebarcontent " aria-current="page" onclick="loadUserView()">
+						<a href="@Url.Action("UserPage","Admin")" class="nav-link sidebarcontent " aria-current="page">
 
 							<i class="bi bi-person-fill sidebar-img "></i>
 							<lable class="d-block d-lg-block d-md-none">User</lable>
 						</a>
 					</li>
 					<li>
-						<a href="#CMSPage" class="nav-link sidebarcontent active" onclick="loadCMSPageView()">
+						<a href="@Url.Action("CMSPage","Admin")" class="nav-link sidebarcontent ">
 
 							<i class="bi bi-file-earmark-text-fill sidebar-img me-2"></i>
 
@@ -72,7 +72,7 @@
 						</a>
 					</li>
 					<li>
-						<a href="#3" class="nav-link sidebarcontent">
+						<a href="@Url.Action("MissionPage","Admin")" class="nav-link sidebarcontent">
 
 							<i class="bi bi-bullseye sidebar-img me-2"></i>
 
@@ -126,11 +126,12 @@
 
 			<div class="col-10 col-xl-10 col-lg-9 col-md-11 ">
 
-				<div class="row" id="userPage">
-					<partial name="_UserPartial">
+				<div class="row" id="loadSideBar">
+					@await Html.PartialAsync("~/Views/Shared/_UserPartial.cshtml")
 				</div>
-				<div class="row" id="cmsPage">
-				</div>
+
+
+
 			</div>
 
 
@@ -258,7 +259,6 @@
 				dataType: 'json',
 				success: function (data) {
 					//for date only
-
 					userid = userId
 					$('#fName').val(data.firstName);
 					$('#lName').val(data.lastName);
@@ -267,25 +267,19 @@
 					$('#dept').val(data.department);
 					$('#status').val(data.status);
 					$('#userid').val(data.userId);
-
 				},
 				error: function (xhr, status, error) {
 					// Handle errors
 				}
 			});
 		}
-
 		function EditData() {
-
 			var Fname = document.getElementById("fName").value;
 			var Lname = document.getElementById("lName").value;
 			var Mail = document.getElementById("email").value;
 			var EmpId = document.getElementById("empId").value;
 			var Department = document.getElementById("dept").value;
 			var status = document.getElementById("status").value;
-
-
-
 			$.ajax({
 				url: "/Admin/EditUserData",
 				type: "POST",
@@ -301,20 +295,17 @@
 				success: function (result) {
 					//alert("Data Edited successfully");
 					location.reload();
-
 				},
 				error: function (result) {
 					alert("error occur in Editing");
 				}
 			});
 		}
-
 		// Method for get user id for deleting data
 		var userid = 0;
 		function getUserId(userId) {
 			userid = userId;
 		}
-
 		// Method for delete user data
 		function deleteUserData() {
 			$.ajax({
@@ -323,39 +314,44 @@
 				data: {
 					uId: userid
 				},
-
 				success: function (data) {
 					location.reload();
 					//alert("deleted Successfully");
-
 				},
-
-			});
-
-		}
-		function loadUserView() {
-			document.getElementById('userPage').style.display = 'block';
-			document.getElementById('cmsPage').style.display = 'none';
-			$.ajax({
-				method: 'GET',
-				url: '/Admin/User',
-				success: function (data) {
-					$('#userPage').html(data.partialView);
-				}
 			});
 		}
 
-		function loadCMSPageView() {
-			document.getElementById('userPage').style.display = 'none';
-			document.getElementById('cmsPage').style.display = 'block';
-			$.ajax({
-				method: 'GET',
-				url: '/Admin/CMSPage',
-				success: function (data) {
-					$('#cmsPage').html(data.partialView);
-				}
+
+		$(function () {
+			$('.nav-link').on('click', function (event) {
+				event.preventDefault();
+				var url = $(this).attr('href');
+				$('#loadSideBar').load(url);
 			});
-		}
+		});
+
+		//function loadUserView() {
+		//	document.getElementById('userPage').style.display = 'block';
+		//	document.getElementById('cmsPage').style.display = 'none';
+		//	$.ajax({
+		//		method: 'GET',
+		//		url: '/Admin/User',
+		//		success: function (data) {
+		//			$('#userPage').html(data.partialView);
+		//		}
+		//	});
+		//}
+		//function loadCMSPageView() {
+		//	document.getElementById('userPage').style.display = 'none';
+		//	document.getElementById('cmsPage').style.display = 'block';
+		//	$.ajax({
+		//		method: 'GET',
+		//		url: '/Admin/CMSPage',
+		//		success: function (data) {
+		//			$('#cmsPage').html(data.partialView);
+		//		}
+		//	});
+		//}
 	</script>
 </body>
 </html>

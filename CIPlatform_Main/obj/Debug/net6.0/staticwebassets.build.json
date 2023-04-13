@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "PWBp++0h6oa4ZTPQ6wcdLq15h95FGcMLWUSNuZBVK1g=",
+  "Hash": "R7Kez45rwHz6XVGD1a4LWibHStTavmkcWjSD+bxzosk=",
   "Source": "CIPlatform_Main",
   "BasePath": "_content/CIPlatform_Main",
   "Mode": "Default",
@@ -253,6 +253,40 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\Assets\\calender.png"
+    },
+    {
+      "Identity": "E:\\CIPlatform_Main\\CIPlatform_Main\\wwwroot\\Assets\\camera (1).png",
+      "SourceId": "CIPlatform_Main",
+      "SourceType": "Discovered",
+      "ContentRoot": "E:\\CIPlatform_Main\\CIPlatform_Main\\wwwroot\\",
+      "BasePath": "_content/CIPlatform_Main",
+      "RelativePath": "Assets/camera (1).png",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\Assets\\camera (1).png"
+    },
+    {
+      "Identity": "E:\\CIPlatform_Main\\CIPlatform_Main\\wwwroot\\Assets\\camera.png",
+      "SourceId": "CIPlatform_Main",
+      "SourceType": "Discovered",
+      "ContentRoot": "E:\\CIPlatform_Main\\CIPlatform_Main\\wwwroot\\",
+      "BasePath": "_content/CIPlatform_Main",
+      "RelativePath": "Assets/camera.png",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\Assets\\camera.png"
     },
     {
       "Identity": "E:\\CIPlatform_Main\\CIPlatform_Main\\wwwroot\\Assets\\cancel.png",
@@ -1307,6 +1341,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\Assets\\pdf.png"
+    },
+    {
+      "Identity": "E:\\CIPlatform_Main\\CIPlatform_Main\\wwwroot\\Assets\\photo.png",
+      "SourceId": "CIPlatform_Main",
+      "SourceType": "Discovered",
+      "ContentRoot": "E:\\CIPlatform_Main\\CIPlatform_Main\\wwwroot\\",
+      "BasePath": "_content/CIPlatform_Main",
+      "RelativePath": "Assets/photo.png",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\Assets\\photo.png"
     },
     {
       "Identity": "E:\\CIPlatform_Main\\CIPlatform_Main\\wwwroot\\Assets\\pin.png",

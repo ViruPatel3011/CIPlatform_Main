@@ -63,7 +63,7 @@ namespace CIPlatform_Main.Repository.Repository
 			var userListForRecomendation = _ciPlatformContext.Users.ToList();
 			mrv.UserForRecommendation = userListForRecomendation;
 
-			var comment = _ciPlatformContext.Comments.ToList();
+			var comment = _ciPlatformContext.Comments.ToList().OrderByDescending(m=>m.CreatedAt);
 			mrv.comments = comment;
 
 			var applicationForMission = _ciPlatformContext.MissionApplications.ToList();

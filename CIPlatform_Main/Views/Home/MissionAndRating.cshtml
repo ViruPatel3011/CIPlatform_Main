@@ -553,8 +553,14 @@
 									  placeholder="Enter your comments..."></textarea>
 						</div>
 						@*<input type="hidden" value="@Model.MissionDetail.MissionId" id="missionId" />*@
-						<button class="btn btn-outline-warning ms-2 mt-2" id="commentButton">Post Comment</button>
-
+							@if (User.Identity.IsAuthenticated)
+									{
+							<button class="btn btn-outline-warning ms-2 mt-2" id="commentButton">Post Comment</button>
+						}
+						else
+						{
+							<button class="btn btn-outline-warning ms-2 mt-2" onclick="notloggedin();">Post Comment</button>
+						}
 						<div class="Scroll" id="LoadingComment">
 
 							@{
