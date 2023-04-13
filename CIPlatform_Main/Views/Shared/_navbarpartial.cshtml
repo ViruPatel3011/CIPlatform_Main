@@ -278,7 +278,7 @@
 
 
 
-	function loadMissions(sortVal) {
+	function loadMissions(pg,sortVal) {
 		var country = [];
 		$('#countryDropdown').find("input:checked").each(function (i, ob) {
 			country.push($(ob).val());
@@ -311,7 +311,7 @@
 			url: "/Home/LandingPage",
 			method: "POST",
 			dataType: "html",
-			data: { "sortVal": sortBy, "search": missionToSearch, "country": country, "city": city, "themes": themes, "skills": skills },
+			data: { "sortVal": sortBy, "search": missionToSearch, "pg": pg, "country": country, "city": city, "themes": themes, "skills": skills },
 			success: function (data) {
 				// console.log(data);
 				$('#missions-list').html("");

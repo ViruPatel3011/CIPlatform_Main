@@ -67,10 +67,24 @@ namespace CIPlatform_Main.Controllers
 
 			missions = SortingData(sortVal, missions);
 
+			
+
+			
+			int resCount = missions.Count();
+			const int pageSize = 3;
+			if (pg < 1)
+				pg = 1;
+			var pager = new Pager(resCount, pg, pageSize);
+
+			int recSkip = (pg - 1) * pageSize;
+
+			missions = missions.Skip(recSkip).Take(pager.PageSize).ToList();
+
+			this.ViewBag.userPager = pager;
+
+			ViewBag.missionCount = resCount;
+
 			landVM.Missions = missions;
-
-
-
 			return PartialView("_cardsPartialView", landVM);
 		
 	}
