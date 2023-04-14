@@ -119,7 +119,7 @@ namespace CIPlatform_Main.Repository.Repository
 
 			var viewCount = _ciPlatformContext.Stories.Where(x => x.MissionId == missionId).FirstOrDefault();
 			viewCount.Viewscount = count;
-			_ciPlatformContext.Update(viewCount);
+			_ciPlatformContext.Stories.Update(viewCount);
 			_ciPlatformContext.SaveChanges();
 
 			return sdv;

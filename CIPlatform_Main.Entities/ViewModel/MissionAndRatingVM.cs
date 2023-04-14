@@ -23,6 +23,9 @@ namespace CIPlatform_Main.Entities.ViewModel
 		public int totalrecord { get; set; }
 
 		public int missionRate { get; set; }
+		public int? userRate { get; set; }
+
+		
 
 		public int overallRating { get; set; }
 		public int numberOfVolunteers { get; set; }

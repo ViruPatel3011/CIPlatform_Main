@@ -286,12 +286,13 @@
 					}*@
 					@if (uid != null)
 					{
-
-						@if (Model.Favourite)
+						var favMissionId = Model.MissionDetail.MissionId;
+						var FavouriteMission = Model.FavoriteMissionList.Where(m => m.UserId == Convert.ToInt32(uid) && m.MissionId == favMissionId).FirstOrDefault();
+						@if (FavouriteMission != null)
 						{
 							<button class=" favorite added favBtn" style=" border:2px solid #757575; border-radius: 50px;" onclick="addFavourite(@Model.MissionDetail.MissionId);">
 								<img src="~/Assets/favourite.png" alt="" class="ms-2 " style="width: 30px;height: 30px;">
-								Add to Favourite
+								Remove Favourite
 							</button>
 						}
 						else
@@ -396,7 +397,7 @@
 						</div>
 
 						<div>
-							<input type="hidden" id="lblRating" />
+							<input type="hidden" id="lblRating" value=""/>
 						</div>
 
 
@@ -405,6 +406,7 @@
 					</div>
 				</div>
 				<!--star section end-->
+
 				<!--City,theme,date,organization section is start-->
 				<div class="container-fluid">
 					<div class="row d-flex mt-5 mx-auto">
@@ -947,11 +949,14 @@
 													</div>
 
 													<div class="d-flex  align-items-center">
+													
 														<img src="~/Assets/selected-star.png" class="star" alt="">
 														<img src="~/Assets/selected-star.png" class="star" alt="">
 														<img src="~/Assets/selected-star.png" class="star" alt="">
 														<img src="~/Assets/star.png" class="star" alt="">
 														<img src="~/Assets/star.png" class="star" alt="">
+														
+
 													</div>
 												</div>
 												<div class="d-flex justify-content-between position-relative border-top border-bottom py-4">
@@ -1153,7 +1158,13 @@
 			});
 		}
 
+		$(document).ready(function(){
 
+
+		 $("#lblRating").val(@Model.userRate);
+			CRateSelected();
+
+		})
 
 
 		// Function for Add to favourite button
@@ -1178,29 +1189,7 @@
 			}
 			*@
 
-			function addFavourite(missionId) {
-				var button = $('.favorite')
-				if (button.hasClass("added")) {
-					$('.favorite img').attr("src", "/Assets/heart1.png");
-					button.removeClass("added")
-				} else {
-					button.addClass("added");
-					$('.favorite img').attr("src", "/Assets/favourite.png");
-				}
-				$.ajax({
-					url: "/Home/doFavouriteMission",
-					type: "POST",
-					data: {
-						mId: missionId
-					},
-					success: function (result) {
-						console.log(result);
-						//$('.xyz').html($(result).find('.xyz').html());
-					}
-				})
-
-
-			}
+			
 
 		// Comments
 
@@ -1294,7 +1283,24 @@
 			})
 		}
 
+		// Add to favourite function
+		function addFavourite(missionId) {
 
+			$.ajax({
+				url: "/Home/doFavouriteMission",
+				type: "POST",
+				data: {
+					mId: missionId
+				},
+				success: function (result) {
+					location.reload();
+					console.log(result);
+					//$('.xyz').html($(result).find('.xyz').html());
+				}
+			})
+
+
+		}
 
 		// Apply for Mission Button
 		function applyMission() {

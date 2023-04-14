@@ -135,7 +135,9 @@ namespace CIPlatform_Main.Controllers
 
 		public IActionResult MissionAndRating(int id)
 		{
-			var getDataForRelatedMission = _missionAndRating.GetDataForRelatedMission(id);
+			var identity = User.Identity as ClaimsIdentity;
+			var uid = identity?.FindFirst(ClaimTypes.Sid)?.Value;
+			var getDataForRelatedMission = _missionAndRating.GetDataForRelatedMission(id,Convert.ToInt32(uid));
 			return View(getDataForRelatedMission);
 		}
 

@@ -23,10 +23,9 @@ namespace CIPlatform_Main.Repository.Repository
 		}
 
 
-		public MissionAndRatingVM GetDataForRelatedMission(int missionId)
+		public MissionAndRatingVM GetDataForRelatedMission(int missionId,int uid)
 		{
-			var identity = User.Identity as ClaimsIdentity;
-			var uid = identity?.FindFirst(ClaimTypes.Sid)?.Value;
+			
 
 			MissionAndRatingVM mrv = new MissionAndRatingVM();
 
@@ -75,8 +74,20 @@ namespace CIPlatform_Main.Repository.Repository
 			var userData = _ciPlatformContext.Users.ToList();
 			mrv.UserData = userData;
 
-			
+			var missionrate = _ciPlatformContext.MissionRatings.Where(x => x.MissionId == missionId).Select(x=>x.Rating).ToList();
+			mrv.missionRate = (int)missionrate.Average();
 
+			MissionRating? rateofUser = _ciPlatformContext.MissionRatings.Where(x => x.UserId == Convert.ToInt32(uid) && x.MissionId == missionId).FirstOrDefault();
+			if (rateofUser != null)
+			{
+				mrv.userRate = rateofUser.Rating;
+			}
+			else
+			{
+				mrv.userRate = 0;
+			}
+
+			
 
 			//the below code is to check that mission is already favourite by user or not
 			var fav = isFavourite(missionId);
@@ -86,11 +97,13 @@ namespace CIPlatform_Main.Repository.Repository
 			{
 				mrv.RatedVolunteers = missionRating.Count();
 				mrv.overallRating = (int)Math.Ceiling(missionRating.Average(x => x.Rating));
+				
 			}
 			catch
 			{
 				mrv.RatedVolunteers = 0;
 				mrv.overallRating = 0;
+				
 			}
 			return mrv;
 		}

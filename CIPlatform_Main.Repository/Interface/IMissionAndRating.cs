@@ -10,7 +10,7 @@ namespace CIPlatform_Main.Repository.Interface
 {
 	public interface IMissionAndRating
 	{
-		public MissionAndRatingVM GetDataForRelatedMission(int missionId);
+		public MissionAndRatingVM GetDataForRelatedMission(int missionId,int uid);
 
 		public string UpdateAndRate(int missionid, int rating, string Email);
 		public string commentOnMission(int mId, string commentText1, string uid);

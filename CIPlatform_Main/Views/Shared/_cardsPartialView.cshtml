@@ -722,22 +722,16 @@
 
 
 	function addFavourite(missionId) {
-		var button = $('.favorite')
-		if (button.hasClass("added")) {
-			$('.favorite img').attr("src", "/Assets/heart1.png");
-			button.removeClass("added")
-		} else {
-			button.addClass("added");
-			$('.favorite img').attr("src", "/Assets/favourite.png");
-		}
+		console.log(missionId);
 		$.ajax({
-			url: "/Home/favouriteMission",
+			url: "/Home/doFavouriteMission",
 			type: "POST",
 			data: {
-				id: missionId
+				mId: missionId
 			},
 			success: function (result) {
 				console.log(result);
+				location.reload();
 				//$('.xyz').html($(result).find('.xyz').html());
 			}
 		});
