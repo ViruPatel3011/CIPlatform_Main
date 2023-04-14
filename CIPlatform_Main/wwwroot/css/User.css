@@ -1,6 +1,7 @@
 ﻿body {
     margin: 0;
     padding: 0;
+    overflow-x:hidden;
 }
 
 .navigationbar {
@@ -51,4 +52,45 @@ a:hover {
 .nav-link:hover,
 .nav-link:has(:hover) {
     color: white ;
+}
+
+
+.paginate_button {
+    margin: 0 4px;
+    border: 1px solid #E8E8E8;
+    color: #757575;
+    padding: 5px 10px;
+    cursor: pointer;
+}
+
+.dataTables_paginate {
+    display: flex;
+    align-items: center;
+}
+
+span .paginate_button {
+    padding: 8px;
+}
+
+.dataTable {
+    border: 1px solid #D9D9D9;
+    margin: 20px 0;
+}
+
+    .dataTable > thead {
+        background-color: rgb(230, 230, 230);
+    }
+
+    .dataTable > tbody {
+        background-color: rgb(255, 255, 255);
+    }
+
+#mission-table_length,
+#mission-table_info {
+    display: none;
+}
+
+#mission-table_paginate {
+    display: flex;
+    justify-content: end;
 }

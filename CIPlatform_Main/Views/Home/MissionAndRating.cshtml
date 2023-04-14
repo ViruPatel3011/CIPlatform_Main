@@ -25,6 +25,9 @@
 
 
 	<title>Related Mission & Rating</title>
+	<style>
+	
+	</style>
 </head>
 
 <body>
@@ -324,7 +327,7 @@
 							<div class="modal fade " id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
 								<div class="modal-dialog">
 									<div class="modal-content">
-										<div id="model-content">
+										@*<div id="model-content">*@
 
 											<div class="modal-header">
 												<h1 class="modal-title fs-5" id="staticBackdropLabel">Modal title</h1>
@@ -333,15 +336,15 @@
 											<div class="modal-body" style="overflow:scroll; height:400px;">
 											</div>
 											<div class="modal-footer">
-												<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-												<button type="button" class="btn btn-primary" id="sendmail">Send Mail</button>
+												<button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+												<button type="button" class="btn btn-success" id="sendmail">Send Mail</button>
 											</div>
-										</div>
-										<div class="d-none w-100 text-center" id="volPageLoader">
+										@*</div>*@
+										@*<div class="d-none w-100 text-center" id="volPageLoader">
 											<div class="spinner-border text-warning" role="status">
 											</div>
 											<p>Sending Mail...</p>
-										</div>
+										</div>*@
 									</div>
 								</div>
 							</div>
@@ -1232,9 +1235,9 @@
 			$('.modal-body input[type="checkbox"]:checked').each(function () {
 				selecteduserid.push($(this).attr("id"));
 			});
-			console.log(selecteduserid);
-			$('#volPageLoader').removeClass('d-none');
-			$('#model-content').addClass('d-none');
+			//console.log(selecteduserid);
+			//$('#volPageLoader').removeClass('d-none');
+			//$('#model-content').addClass('d-none');
 			if (selecteduserid.length != 0) {
 				$.ajax({
 					type: "POST",
@@ -1244,15 +1247,32 @@
 						missionid: @Model.MissionDetail.MissionId,
 					},
 					traditional: true,
+					beforeSend: function () {
+						swal.fire({
+							html: '<h5>Loading...</h5><div class="spinner-border text-primary" role="status"><span class="visually-hidden">Loading...</span></div>',
+							showConfirmButton: false,
+							onRender: function () {
+								// there will only ever be one sweet alert open.
+								$('.swal2-content').prepend(sweet_loader);
+							}
+						});
+					},
 					success: function (response) {
-						alert('Mail Sent Successfully.. Now you can close Model...');
-						$('#volPageLoader').addClass('d-none');
-						$('#model-content').removeClass('d-none');
+						//swal("Thank you for your order", data, "success");
+						//$('#volPageLoader').addClass('d-none');
+						//$('#model-content').removeClass('d-none');
+
+						setTimeout(function () {
+							swal.fire({
+								icon: 'success',
+								html: '<h5>Success!</h5>'
+							});
+						}, 500);
 					}
 				});
 			}
 			else {
-				alert('Select at least one user!');
+				//alert('Select at least one user!');
 				$('#volPageLoader').addClass('d-none');
 				$('#model-content').removeClass('d-none');
 			}
@@ -1272,7 +1292,7 @@
 				success: function (result) {
 					div.empty();
 					$.each(result, function (i, data) {
-						div.append('<div class="form-check ms-3" style="height:50px;background-color:antiquewhite;"><input class="form-check-input checkbox" type="checkbox" value="' + data.firstName + " " + data.lastName + '" id=' + data.userId + '><label class="form-check-label" for=' + data.userId + '>' + data.firstName + " " + data.lastName + '</label></div>')
+						div.append('<div class="form-check ms-3 mb-2"><input class="form-check-input checkbox mt-3" type="checkbox" value="' + data.firstName + " " + data.lastName + '" id=' + data.userId + '><img src="' + data.avatar + ' " class="user-image mx-3"/><label class="form-check-label" for=' + data.userId + '>' + data.firstName + " " + data.lastName + '</label></div>')
 					})
 
 				}

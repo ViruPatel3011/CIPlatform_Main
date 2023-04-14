@@ -27,6 +27,16 @@
 	}
 }
 
+@*This Css is for Image sent user Profile*@
+<style>
+	.user-image{
+		width:50px;
+		height:50px;
+		border-radius:50%;
+		object-fit:cover;
+
+	}
+</style>
 <div class="row container mx-auto mb-2">
 	@{
 		var count = Model.Missions.Count();
@@ -151,7 +161,7 @@
 										else
 										{
 											<button class="position-absolute c1-heart  favorite added" onclick=" addFavourite(@item.MissionId);">
-												<img src="~/Assets/heart1.png" alt="" class="" style="width: 30px; height: 30px;">
+												<img src="~/Assets/heart1.png" alt="" class="" style="width: 25px; height: 25px;">
 											</button>
 										}
 
@@ -159,7 +169,7 @@
 									else
 									{
 										<button class="position-absolute c1-heart favorite added" onclick="notloggedin();">
-											<img src="~/Assets/heart1.png" alt="" class=" " style="width: 30px; height: 30px;">
+											<img src="~/Assets/heart1.png" alt="" class=" " style="width: 25px; height: 25px;">
 										</button>
 									}
 
@@ -172,21 +182,22 @@
 
 												<img src="~/Assets/user.png" alt="" style="margin-bottom: 10px;margin-left: -12px;">
 											</button>
-											<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+											<!-- Modal -->
+											<div class="modal fade " id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
 												<div class="modal-dialog">
 													<div class="modal-content">
 														<div id="model-content">
-														<div class="modal-header">
-															<h1 class="modal-title fs-5" id="staticBackdropLabel">Modal title</h1>
-															<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-														</div>
 
-														<div class="modal-body">
-														</div>
-														<div class="modal-footer">
-															<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-															<button type="button" class="btn btn-primary">Send Mail</button>
-														</div>
+															<div class="modal-header">
+																<h1 class="modal-title fs-5" id="staticBackdropLabel">Modal title</h1>
+																<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" onclick="getUser();"></button>
+															</div>
+															<div class="modal-body" style="overflow:scroll; height:400px;">
+															</div>
+															<div class="modal-footer">
+																<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+																<button type="button" class="btn btn-primary" id="sendmail">Send Mail</button>
+															</div>
 														</div>
 														<div class="d-none w-100 text-center" id="volPageLoader">
 															<div class="spinner-border text-warning" role="status">
@@ -394,7 +405,7 @@
 										else
 										{
 											<button class="position-absolute c1-heart  favorite added" onclick=" addFavourite(@item.MissionId);">
-												<img src="~/Assets/heart1.png" alt="" class="" style="width: 30px; height: 30px;">
+												<img src="~/Assets/heart1.png" alt="" class="" style="width: 25px; height: 25px;">
 											</button>
 										}
 
@@ -402,32 +413,36 @@
 									else
 									{
 										<button class="position-absolute c1-heart  favorite added" onclick="notloggedin();">
-											<img src="~/Assets/heart1.png" alt="" class="" style="width: 30px; height: 30px;">
+											<img src="~/Assets/heart1.png" alt="" class="" style="width: 25px; height: 25px;">
 										</button>
 									}
 
 									@if (User.Identity.IsAuthenticated)
 									{
 										<div class="position-absolute c1-person px-2 py-1">
-											<button type="button" class="btn btn-Secondary" data-bs-toggle="modal" data-bs-target="#staticBackdrop" onclick="getUser();">
+											<button type="button" class="btn btn-Secondary" data-bs-toggle="modal" data-bs-target="#staticBackdrop1" onclick="getUser();">
 
 												<img src="~/Assets/user.png" alt="" style="margin-bottom: 10px;margin-left: -12px;">
 											</button>
-											<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+											<!-- Modal -->
+											<div class="modal fade " id="staticBackdrop1" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
 												<div class="modal-dialog">
 													<div class="modal-content">
-														<div class="modal-header">
-															<h1 class="modal-title fs-5" id="staticBackdropLabel">Modal title</h1>
-															<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" onclick="getUser(@item.MissionId);"></button>
+														
+
+															<div class="modal-header">
+																<h1 class="modal-title fs-5" id="staticBackdropLabel">Modal title</h1>
+																<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" onclick="getUser();"></button>
+															</div>
+															<div class="modal-body" style="overflow:scroll; height:400px;">
+															</div>
+															<div class="modal-footer">
+																<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+																<button type="button" class="btn btn-primary" id="sendmail">Send Mail</button>
+															</div>
 														</div>
 
-														<div class="modal-body">
-														</div>
-														<div class="modal-footer">
-															<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-															<button type="button" class="btn btn-primary" onclick="senduser(@item.MissionId)">Send Mail</button>
-														</div>
-													</div>
+													
 												</div>
 											</div>
 
@@ -621,7 +636,7 @@
 			@for (var pge = pager.StartPage; pge <= pager.EndPage; pge++)
 			{
 				<li class="page-item mx-2">
-					<a class="page-link cursor @(pge == pager.CurrentPage ? "active orange" : "")" onclick="loadMissions(pg=@pge)"> @pge </a>
+					<a class="page-link cursor @(pge == pager.CurrentPage ? "active " : "")" onclick="loadMissions(pg=@pge)"> @pge </a>
 				</li>
 			}
 
@@ -667,7 +682,9 @@
 	$(document).on('click', '.btn-grid', gridList);
 	$(document).on('click', '.btn-list', showList);
 
-
+	$('#sendmail').click(function () {
+		senduser();
+	})
 
 	function senduser(missionId) {
 		var selecteduserid = [];
@@ -675,8 +692,8 @@
 			selecteduserid.push($(this).attr("id"));
 		});
 		console.log(selecteduserid);
-		$('#volPageLoader').removeClass('d-none');
-		$('#model-content').addClass('d-none');
+		//$('#volPageLoader').removeClass('d-none');
+		//$('#model-content').addClass('d-none');
 		if (selecteduserid.length != 0)
 		{	
 			$.ajax({
@@ -687,10 +704,26 @@
 					missionid: missionId,
 				},
 				traditional: true,
+				beforeSend: function () {
+					swal.fire({
+						html: '<h5>Loading...</h5><div class="spinner-border text-primary" role="status"><span class="visually-hidden">Loading...</span></div>',
+						showConfirmButton: false,
+						onRender: function () {
+							// there will only ever be one sweet alert open.
+							$('.swal2-content').prepend(sweet_loader);
+						}
+					});
+				},
 				success: function (response) {
-					alert('Mail Sent Successfully.. Now you can close Model...');
-					$('#volPageLoader').addClass('d-none');
-					$('#model-content').removeClass('d-none');
+					setTimeout(function () {
+						swal.fire({
+							icon: 'success',
+							html: '<h5>Success!</h5>'
+						});
+					}, 500);
+					//alert('Mail Sent Successfully.. Now you can close Model...');
+					//$('#volPageLoader').addClass('d-none');
+					//$('#model-content').removeClass('d-none');
 				}
 			});
 		}
@@ -712,7 +745,7 @@
 			success: function (result) {
 				div.empty();
 				$.each(result, function (i, data) {
-					div.append('<div class="form-check ms-3"><input class="form-check-input checkbox" type="checkbox" value="' + data.firstName + " " + data.lastName + '" id=' + data.userId + '><label class="form-check-label" for=' + data.userId + '>' + data.firstName + " " + data.lastName + '</label></div>')
+					div.append('<div class="form-check ms-3 mb-2"><input class="form-check-input checkbox mt-3" type="checkbox" value="' + data.firstName + " " + data.lastName + '" id=' + data.userId + '><img src="' + data.avatar + ' " class="user-image mx-3"/><label class="form-check-label" for=' + data.userId + '>' + data.firstName + " " + data.lastName + '</label></div>')
 				})
 			}
 		});

@@ -43,10 +43,11 @@ namespace CIPlatform_Main.Repository.Repository
 		public bool removeUserData(long uId)
 		{
 			var isValidUser=_ciPlatformContext.Users.Where(x=>x.UserId==uId).FirstOrDefault();
+			isValidUser.Status = "Deactive";
+			isValidUser.DeletedAt = DateTime.Now;
 			var userAlreadyInUse = _ciPlatformContext.MissionApplications.Where(x => x.UserId == isValidUser.UserId).FirstOrDefault();
-			var userCommented=_ciPlatformContext.Comments.Where(x=>x.UserId==isValidUser.UserId).FirstOrDefault();
-			var userInSkill = _ciPlatformContext.UserSkills.Where(x => x.UserId == isValidUser.UserId).FirstOrDefault();
-			if(userAlreadyInUse == null || userCommented==null || userInSkill==null)
+			
+			if(userAlreadyInUse == null )
 			{
 				_ciPlatformContext.Users.Remove(isValidUser); 
 				_ciPlatformContext.SaveChanges();
@@ -58,5 +59,28 @@ namespace CIPlatform_Main.Repository.Repository
 
             }
 		}
-    }
+
+		public bool AddUserDetails(string Ufname, string Ulname, string Uemail, string Upwd, string UphnNumber, string Uavtar, string Uempid, string UDept, string Usts)
+		{
+			User user = new User()
+			{
+				FirstName = Ufname,
+				LastName = Ulname,
+				Email = Uemail,
+				Password = Upwd,
+				PhoneNumber = UphnNumber,
+				Avatar = Uavtar,
+				EmployeeId = Uempid,
+				Department = UDept,
+				Status = Usts,
+				CountryId=1,
+				CityId=2
+
+			};
+			_ciPlatformContext.Users.Add(user);
+			_ciPlatformContext.SaveChanges();
+			return true;
+		}
+
+	}
 }

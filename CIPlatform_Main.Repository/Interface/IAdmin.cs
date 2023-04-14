@@ -17,5 +17,8 @@ namespace CIPlatform_Main.Repository.Interface
 		public bool EditDataForUser(string Name, string Surname, string email, string EmployeeId, long userid, string DeptName, string Ustatus);
 
 		public bool removeUserData(long  uId);
-    }
+
+		public bool AddUserDetails(string Ufname, string Ulname, string Uemail, string Upwd, string UphnNumber, string Uavtar, string Uempid, string UDept, string Usts);
+
+	}
 }

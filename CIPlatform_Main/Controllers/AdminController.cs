@@ -3,6 +3,7 @@ using CIPlatform_Main.Entities.ViewModel;
 using CIPlatform_Main.Repository.Interface;
 
 using Microsoft.AspNetCore.Mvc;
+using System.Net.Sockets;
 using System.Security.Claims;
 using System.Security.Cryptography;
 
@@ -59,6 +60,28 @@ namespace CIPlatform_Main.Controllers
 		{
 			return PartialView("_MissionPartial");
 		}
+		public IActionResult MissionThemePage()
+		{
+			return PartialView("_MissionThemePartial");
+		}
+		
+		public IActionResult MissionSkillsPage()
+		{
+			return PartialView("_MissionSkillsPartial");
+		}
+		public IActionResult MissionApplicationPage()
+		{
+			return PartialView("_MissionApplicationPartial");
+		}
+		
+		public IActionResult StoryPage()
+		{
+			return PartialView("_StoryPartial");
+		}
+		public IActionResult BannerPage()
+		{
+			return PartialView("_BannerPartial");
+		}
 
 		[HttpGet]
 		public IActionResult getDataForUser(long uId)
@@ -111,5 +134,24 @@ namespace CIPlatform_Main.Controllers
                 return Json(new { redirectUrl = Url.Action("User", "Admin") });
             }
         }
-    }
+
+		[HttpPost]
+		public IActionResult addUserData(string Ufname, string Ulname, string Uemail,string Upwd,string UphnNumber, string Uavtar, string Uempid, string UDept,  string Usts)
+		{
+			var userDataAdded = _admin.AddUserDetails(Ufname,Ulname,Uemail,Upwd,UphnNumber,Uavtar,Uempid,UDept,Usts);
+			if (userDataAdded)
+			{
+				TempData["Success Message"] = "Data Added Successfully";
+				return RedirectToAction("User", "Admin");
+			}
+			else
+			{
+				TempData["Error Message"] = "Data not Added Successfully";
+				return RedirectToAction("User", "Admin");
+
+			}
+			
+		}
+
+	}
 }
