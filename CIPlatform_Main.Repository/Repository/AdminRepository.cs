@@ -2,7 +2,7 @@
 using CIPlatform_Main.Entities.Models;
 using CIPlatform_Main.Entities.ViewModel;
 using CIPlatform_Main.Repository.Interface;
-
+using System.Diagnostics.Contracts;
 
 namespace CIPlatform_Main.Repository.Repository
 {
@@ -17,7 +17,23 @@ namespace CIPlatform_Main.Repository.Repository
 
 		public List<User> getUserList()
 		{
-			var list = _ciPlatformContext.Users.ToList();
+			var list = _ciPlatformContext.Users.OrderBy(x=>x.Status).ToList();
+			return list;
+		}
+		public List<CmsPage> cmsList()
+		{
+			var list = _ciPlatformContext.CmsPages.OrderBy(x=>x.Status).ToList();
+			return list;
+		}	
+		public List<Mission> getMissionList()
+		{
+			var list = _ciPlatformContext.Missions.OrderBy(x=>x.Status).ToList();
+			return list;
+		}
+
+		public List<MissionTheme> getMissionThemeList()
+		{
+			var list = _ciPlatformContext.MissionThemes.ToList();
 			return list;
 		}
 
@@ -49,7 +65,8 @@ namespace CIPlatform_Main.Repository.Repository
 			
 			if(userAlreadyInUse == null )
 			{
-				_ciPlatformContext.Users.Remove(isValidUser); 
+				
+				_ciPlatformContext.Users.Update(isValidUser); 
 				_ciPlatformContext.SaveChanges();
 				return true;
 			}
@@ -82,5 +99,97 @@ namespace CIPlatform_Main.Repository.Repository
 			return true;
 		}
 
+		public bool AddCMSpageData(string Title, string Description, string Slug, string Status)
+		{
+			CmsPage cmsPage = new CmsPage()
+			{
+				Title = Title,
+				Description = Description,
+				Slug = Slug,
+				Status = Status
+			};
+			_ciPlatformContext.CmsPages.Add(cmsPage);
+			_ciPlatformContext.SaveChanges();
+			return true;
+		}
+
+		public CmsPage getCMSDataForEdit(long cmsid)
+		{
+			var cmspage = _ciPlatformContext.CmsPages.Where(x => x.CmsPageId == cmsid).FirstOrDefault();
+			return cmspage;
+		}
+		public bool removeCMSData(long cmsId)
+		{
+			var cmsDataExist=_ciPlatformContext.CmsPages.Where(x=>x.CmsPageId == cmsId).FirstOrDefault();	
+			if(cmsDataExist !=null)
+			{
+				cmsDataExist.DeletedAt = DateTime.Now;
+				cmsDataExist.Status = "Deactive";
+				_ciPlatformContext.CmsPages.Update(cmsDataExist);
+				_ciPlatformContext.SaveChanges();
+				return true;
+
+			}
+			else
+			{
+				return false;
+			}
+		}
+
+		public bool SavedMissionData(string mTitle, string mType, DateTime SDate, DateTime EDate)
+		{
+			Mission mission = new Mission()
+			{
+				Title = mTitle,
+				MissionType = mType,
+				StartDate = SDate,
+				EndDate = EDate,
+				CityId=2,
+				CountryId=1,
+				ThemeId=1 // by default we should take theme_id as some value otherwise it will throw ans error		
+				
+			};
+			_ciPlatformContext.Missions.Add(mission);
+			_ciPlatformContext.SaveChanges();
+			return true;
+		}
+
+		public Mission getDataForMissionEdit(long mId)
+		{
+			var mission = _ciPlatformContext.Missions.Where(x => x.MissionId == mId).FirstOrDefault();
+			return mission;
+		}
+
+		public void editMissionData(AdminViewModel adminView, long missionid)
+		{
+			var mission = _ciPlatformContext.Missions.Where(x => x.MissionId == missionid).FirstOrDefault();
+			mission.Title = adminView.title;
+			mission.MissionType = adminView.missionType;
+			mission.StartDate = adminView.startDate;
+			mission.EndDate= adminView.endDate;
+			mission.Status = adminView.status;
+			_ciPlatformContext.SaveChanges();
+		}
+
+		public bool removeMissionsData(long missionId)
+		{
+			var validMission = _ciPlatformContext.Missions.Where(x => x.MissionId == missionId).FirstOrDefault();
+			if(validMission != null)
+			{
+
+			validMission.Status = "Deactive";
+			validMission.DeletedAt = DateTime.Now;
+			_ciPlatformContext.Missions.Update(validMission);
+			_ciPlatformContext.SaveChanges();
+				return true;
+			}
+			else
+			{
+				return false;
+			}
+			
+
+			
+		}
 	}
 }

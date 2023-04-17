@@ -30,5 +30,7 @@ namespace CIPlatform_Main.Entities.ViewModel
 
 		public int currentPage { get; set; }
 		public int totalRecord{ get; set; }
-	}
+
+   
+    }
 }

@@ -3,6 +3,8 @@ using CIPlatform_Main.Entities.ViewModel;
 using CIPlatform_Main.Repository.Interface;
 
 using Microsoft.AspNetCore.Mvc;
+using System;
+using System.Net.NetworkInformation;
 using System.Net.Sockets;
 using System.Security.Claims;
 using System.Security.Cryptography;
@@ -54,15 +56,43 @@ namespace CIPlatform_Main.Controllers
 		
 		public IActionResult CMSPage()
 		{
-			return PartialView("_CMSPartial");
+			var cmsData = _admin.cmsList();
+			AdminViewModel cmsModel = new AdminViewModel()
+			{
+				CMSPageList = cmsData,
+			};
+			return PartialView("_CMSPartial", cmsModel);
+		}
+		
+		public IActionResult CMSAdd()
+		{
+			return PartialView("_CMSAddPartial");
+		}
+		
+		public IActionResult CMSEdit()
+		{
+			return PartialView("_CMSEditPartial");
 		}
 		public IActionResult MissionPage()
 		{
-			return PartialView("_MissionPartial");
+			var missions = _admin.getMissionList();
+			AdminViewModel missionModel = new AdminViewModel()
+			{
+				MissionList = missions,
+			};
+
+			return PartialView("_MissionPartial", missionModel);
 		}
 		public IActionResult MissionThemePage()
 		{
-			return PartialView("_MissionThemePartial");
+
+			var missionTheme = _admin.getMissionThemeList();
+			AdminViewModel missionThemeModel = new AdminViewModel()
+			{ 
+				MissionThemeList= missionTheme,
+			};
+
+			return PartialView("_MissionThemePartial", missionThemeModel);
 		}
 		
 		public IActionResult MissionSkillsPage()
@@ -151,6 +181,108 @@ namespace CIPlatform_Main.Controllers
 
 			}
 			
+		}
+
+		[HttpPost]
+
+		public IActionResult AddCMSPageData(string Title, string Description, string Slug, string Status)
+		{
+			var cmsPageDataAdd = _admin.AddCMSpageData(Title, Description, Slug, Status);
+			if (cmsPageDataAdd)
+			{
+				TempData["Success Message"] = "Data Added Successfully";
+				return RedirectToAction("CMSPage", "Admin");
+			}
+			else
+			{
+				TempData["Error Message"] = "Data not Added Successfully";
+				return RedirectToAction("CMSPage", "Admin");
+			}
+		}
+
+		//[HttpGet]
+		//public IActionResult getCMSDataForEdit(long cmsid)
+		//{
+		//	var cmsData = _admin.getCMSPageDataforEdit(cmsid);
+		//	return Json(new {
+				
+
+				
+		//	});
+
+		//}
+
+
+		[HttpPost]
+		public IActionResult SaveMissionData(string mTitle, string mType,DateTime SDate, DateTime EDate)
+		{
+			var dataAdded=_admin.SavedMissionData(mTitle,mType,SDate, EDate);
+			if (dataAdded)
+			{
+				TempData["Success Message"] = "Data  Added Successfully";
+				return RedirectToAction("MissionPage", "Admin");
+			}
+			else
+			{
+				TempData["Error Message"] = "Data not Added Successfully";
+				return RedirectToAction("MissionPage", "Admin");
+			}
+		}
+
+
+		public IActionResult deleteCMSPageData(long cmsId)
+		{
+			var removeCMSData = _admin.removeCMSData(cmsId);
+			if (removeCMSData)
+			{
+				TempData["Success Message"] = "CMS Data Deleted Successfully";
+				return Json(new { redirectUrl = Url.Action("CMSPage", "Admin") });
+			}
+			else
+			{
+				TempData["Error Message"] = "Can't Able to delete CMS Data";
+				return Json(new { redirectUrl = Url.Action("CMSPage", "Admin") });
+			}
+		}
+
+		[HttpGet]
+		public IActionResult getDataForEditMission(long mId)
+		{
+			var data = _admin.getDataForMissionEdit(mId);
+			return Json(new
+			{
+				mTitle=data.Title,
+				mType=data.MissionType,
+				sDate=data.StartDate,
+				eDate=data.EndDate,
+				mStatus=data.Status,
+				mid=mId
+
+			});
+		}
+
+		[HttpPost]
+		public IActionResult EditMissionData(AdminViewModel adminView, long missionid)
+		{
+			_admin.editMissionData(adminView, missionid);
+			TempData["Success Message"] = "Data edited successfully";
+			return RedirectToAction("User", "Admin");
+		}
+
+		public IActionResult deleteMissionData(long missionId)
+		{
+			var removeMissionData = _admin.removeMissionsData(missionId);
+			if (removeMissionData)
+			{
+				TempData["Success Message"] = "Mission Deleted Successfully";
+				return Json(new { redirectUrl = Url.Action("User", "Admin") });
+			}
+			else
+			{
+				TempData["Error Message"] = "Can't Able to delete Mission";
+				return Json(new { redirectUrl = Url.Action("User", "Admin") });
+			}
+
 		}
 
 	}

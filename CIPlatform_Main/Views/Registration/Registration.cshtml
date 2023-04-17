@@ -127,19 +127,19 @@
 
                         <div class="mb-2">
                             <label for="exampleInputiFrstName" class="form-label">First Name</label>
-                            <input type="text" class="form-control" asp-for="FirstName" placeholder="evan" onkeyup="emptydata()">
+                            <input type="text" class="form-control" asp-for="FirstName" placeholder="evan" onkeyup="emptydata()" maxlength="10">
                             <span asp-validation-for="FirstName" class="text-danger"></span>
 
                         </div>
                         <div class="mb-2">
                             <label for="exampleInputLastName" class="form-label">Last Name</label>
-                            <input type="text" class="form-control" asp-for="LastName" placeholder="donohue" onkeyup="emptydata()">
+                            <input type="text" class="form-control" asp-for="LastName" placeholder="donohue" onkeyup="emptydata()" maxlength="10">
                             <span asp-validation-for="LastName" class="text-danger"></span>
 
                         </div>
                         <div class="mb-2">
                             <label for="exampleInputContact" class="form-label">Phone Number</label>
-                            <input type="text" class="form-control" asp-for="PhoneNumber" placeholder="8923454615" pattern="^[6-9]{1}[0-9]{9}$" onkeyup="emptydata()">
+                            <input type="text" class="form-control" asp-for="PhoneNumber" placeholder="8923454615" pattern="^[6-9]{1}[0-9]{9}$" onkeyup="emptydata()" maxlength="10">
                             <span asp-validation-for="PhoneNumber" class="text-danger"></span>
 
                         </div>

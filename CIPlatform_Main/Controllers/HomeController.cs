@@ -22,6 +22,8 @@ namespace CIPlatform_Main.Controllers
 			_landingPage = landingPage;
 			_missionAndRating=missionAndRating;
 		}
+
+
         public IActionResult LandingPage()
         {
 			var navBarData=_landingPage.LandingPageList();
@@ -69,7 +71,7 @@ namespace CIPlatform_Main.Controllers
 
 			
 
-			
+			// This code is for Pagination
 			int resCount = missions.Count();
 			const int pageSize = 3;
 			if (pg < 1)
@@ -89,6 +91,8 @@ namespace CIPlatform_Main.Controllers
 		
 	}
 
+
+		// Function for sorting Mission-cards on input dropdown
 		public List<Mission> SortingData(string sortVal, List<Mission> missions)
 		{
 			switch (sortVal)
