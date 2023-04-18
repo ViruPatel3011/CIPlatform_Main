@@ -36,6 +36,16 @@ namespace CIPlatform_Main.Repository.Repository
 			var list = _ciPlatformContext.MissionThemes.ToList();
 			return list;
 		}
+		public List<MissionApplication> getMissionAppList()
+		{
+			var list = _ciPlatformContext.MissionApplications.ToList();
+			return list;
+		}
+		public List<Skill> getSkillsList()
+		{
+			var list = _ciPlatformContext.Skills.ToList();
+			return list;
+		}
 
 		public User getDataForUserPanel(long uId)
 		{
@@ -238,6 +248,69 @@ namespace CIPlatform_Main.Repository.Repository
 			{
 				return false;
 			}
+		}
+
+		public bool SaveMisionApplicationData(long mappMid, long mappUid, string mappstatus, DateTime mappADate, DateTime mappCDate)
+		{
+			MissionApplication missionapp = new MissionApplication()
+			{
+				MissionId=mappMid,
+				UserId=mappUid,
+				ApprovalStatus=mappstatus,
+				AppliedAt=mappADate,
+				CreatedAt=mappCDate
+
+			};
+			_ciPlatformContext.MissionApplications.Add(missionapp);
+			_ciPlatformContext.SaveChanges();
+			return true;
+		}
+
+		public bool ApprovedUserbyAdmin(long mAppId)
+		{
+			var missionAppId = _ciPlatformContext.MissionApplications.Where(x => x.MissionApplicationId == mAppId).FirstOrDefault();
+			if (missionAppId != null)
+			{
+				missionAppId.ApprovalStatus = "Approved";
+				_ciPlatformContext.MissionApplications.Update(missionAppId);
+				_ciPlatformContext.SaveChanges();
+				return true;
+			}
+			else
+			{
+				return false;
+			}
+		}
+
+		public bool RejectedUserbyAdmin(long missionAppId)
+		{
+			var misAppId = _ciPlatformContext.MissionApplications.Where(x => x.MissionApplicationId == missionAppId).FirstOrDefault();
+			if (misAppId != null)
+			{
+				misAppId.ApprovalStatus = "Rejected";
+				_ciPlatformContext.MissionApplications.Update(misAppId);
+				_ciPlatformContext.SaveChanges();
+				return true;
+			}
+			else
+			{
+				return false;
+			}
+		}
+
+		public bool SaveSkillsData(string SName, DateTime SDate, string SStatus)
+		{
+			Skill skill = new Skill() { 
+				
+				SkillName=SName,
+				CreatedAt=SDate,
+				Status=SStatus
+			
+			};
+			_ciPlatformContext.Skills.Add(skill);
+			_ciPlatformContext.SaveChanges();
+			return true;
+
 		}
 	}
 }

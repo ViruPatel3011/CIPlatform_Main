@@ -1,3 +1,239 @@
-﻿<div class="col-12 col-xl-10 col-lg-9 col-md-11 ">
-	<h6>Mission Skills!</h6>
+﻿@model AdminViewModel
+
+<!-- Right Part Div for Tables -->
+<div class="col-12 col-xl-10 col-lg-9 col-md-11 ">
+	<div class="row shadow-lg " style="height:50px;">
+		<div class="col-12 d-flex bg-white ">
+			<div class="col-3 d-block d-md-none d-flex align-items-center">
+				<button class="border-0 bg-white" type="button" data-bs-toggle="offcanvas"
+						data-bs-target="#Adminoffcanvas" aria-controls="offcanvasWithBothOptions">
+					<i class="bi bi-list " style="font-size:40px;"></i>
+				</button>
+			</div>
+			<div class="col-6 d-flex align-items-center">
+				@{
+					DateTime now = DateTime.Now;
+					string formattedTime = now.ToString("dddd, MMMM d, yyyy, h:mm:ss tt");
+
+				}
+				@formattedTime
+			</div>
+			<div class="col-6 d-none d-md-block">
+				<div class="dropdown d-flex justify-content-end ">
+					<button class="btn ms-auto me-3 dropdown-toggle " type="button"
+							data-bs-toggle="dropdown" aria-expanded="false">
+						<img src="~/Assets/user1.png" alt="mdo" width="40" height="40"
+		class="rounded-circle loginimg">
+						Dropdown button
+					</button>
+					<ul class="dropdown-menu">
+						<li><a class="dropdown-item" href="#">Action</a></li>
+						<li><a class="dropdown-item" href="#">Another action</a></li>
+						<li><a class="dropdown-item" href="#">Something else here</a></li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-12">
+			<h3 class="mt-3 ms-3 mb-0">MissionApplication</h3>
+			<hr class="m-0 mt-2">
+		</div>
+	</div>
+	<div class="row mt-3">
+		<div class="col-4 ">
+			<div class="input-group rounded">
+				<input type="search" class="form-control rounded" placeholder="Search" aria-label="Search"
+					   aria-describedby="search-addon" />
+			</div>
+		</div>
+		<div class="col-8">
+			<div class="addBtn float-end">
+				<button type="button" class="btn btn-outline-warning px-3" data-bs-toggle="modal" data-bs-target="#AddDataModel" style="border-radius: 50px;">
+					Add
+				</button>
+				<div class="modal fade" id="AddDataModel" tabindex="-1"
+					 aria-labelledby="exampleModalLabel" aria-hidden="true">
+					<div class="modal-dialog modal-dialog-centered">
+						<div class="modal-content">
+							<div class="modal-header">
+								<h5 class="modal-title" id="exampleModalLabel">
+									Please fill below detail
+								</h5>
+								<button type="button" class="btn-close"
+										data-bs-dismiss="modal" aria-label="Close"></button>
+							</div>
+							<div class="modal-body">
+								
+								
+								<div class="mb-3">
+									<label for="exampleFormControlInput1"
+										   class="form-label">Skill Name</label>
+									<input type="text" class="form-control " id="skillN"
+										   placeholder="Enter skill Name">
+
+								</div>
+								<div class="mb-3">
+									<label for="exampleFormControlInput1"
+										   class="form-label">Created At</label>
+									<input type="date"
+										   class="form-control "
+										   placeholder="" id="skillCreate">
+								</div>
+
+								<div class="mb-3">
+									<label for="exampleFormControlInput1"
+										   class="form-label">Skills Status</label>
+									<input type="text" class="form-control " id="skillstatus"
+										   placeholder="">
+
+								</div>
+
+
+
+
+								<div class="modal-footer">
+									<button type="button" class="btn btn-outline-dark"
+											style="border-radius:50px"
+											data-bs-dismiss="modal">
+										Cancel
+									</button>
+									<button type="submit" class="btn btn-outline-warning"
+											style="border-radius:50px" onclick="addSkillData()">
+										Save
+									</button>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="row mt-3 mx-2 ">
+			<div class="col-12 table-responsive-sm">
+				<table class="table" id="mission-table">
+					<thead class="thead-dark">
+						<tr>
+							@*<th scope="col">MissionTheme Id</th>*@
+							<th scope="col">Skill Id</th>
+							<th scope="col">Skill Name</th>
+							<th scope="col">Created At </th>
+							<th scope="col">Skill Status</th>
+							<th scope="col">Action</th>
+						</tr>
+					</thead>
+					<tbody>
+						@foreach (var skills in Model.SkillsList)
+						{
+							<tr>
+								@*<td scope="row">@mission.MissionThemeId</td>*@
+								<td scope="row">@skills.SkillId</td>
+								<td scope="row">@skills.SkillName</td>
+								<td scope="row">@skills.CreatedAt</td>
+								
+								@if (skills.Status == "a")
+								{
+
+									<th class="text-success" scope="col">@skills.Status</th>
+								}
+								else if (skills.Status == "Pending")
+								{
+
+									<th class="text-warning" scope="col">@skills.Status</th>
+								}
+								else
+								{
+									<th class="text-danger" scope="col">@skills.Status</th>
+
+								}
+
+
+								<td class="p-0 pt-2 px-1 d-flex">
+									<div class="mb-2">
+										<button type="button" data-bs-toggle="modal"
+												data-bs-target="#exampleModalMissionAppEdit" class="border-0 bg-transparent" onclick="getMissionAppId(@skills.SkillId)">
+											<i class="bi bi-trash3 text-dark"></i>
+										</button>
+
+										<div class="modal fade" id="exampleModalMissionAppEdit" tabindex="-1"
+											 aria-labelledby="exampleModalLabel" aria-hidden="true">
+											<div class="modal-dialog modal-dialog-centered">
+												<div class="modal-content">
+													<div class="modal-header">
+														<h5 class="modal-title" id="exampleModalLabel">Confirm Approved?</h5>
+														<button type="button" class="btn-close"
+																data-bs-dismiss="modal" aria-label="Close"></button>
+													</div>
+													<div class="modal-body">
+
+														<div class="mb-3">
+															<label for="exampleFormControlInput1"
+																   class="form-label">Are you sure you want to Approve this user??</label>
+														</div>
+
+													</div>
+													<div class="modal-footer">
+														<button type="button" class="btn btn-outline-dark"
+																style="border-radius:50px"
+																data-bs-dismiss="modal">
+															Cancel
+														</button>
+														<button type="button" class="btn btn-outline-warning"
+																style="border-radius:50px" data-bs-dismiss="modal" onclick="ApproveUser()">
+															Approve
+														</button>
+													</div>
+												</div>
+											</div>
+										</div>
+
+									</div>
+									
+								</td>
+							</tr>
+
+
+						}
+
+					</tbody>
+				</table>
+			</div>
+		</div>
+
+
+	</div>
+
 </div>
+
+
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script src="~/lib/jquery/dist/jquery.js"></script>
+
+
+<script>
+
+	function addSkillData(){
+
+		var skillName = $("#skillN").val();
+		var createdAt = $("#skillCreate").val();
+		var Sstatus = $("#skillstatus").val();
+		
+		$.ajax({
+			url:"/Admin/SaveSkillData",
+			type:"POST",
+			data:{
+				"SName": skillName,
+				"SDate": createdAt,
+				"SStatus": Sstatus,
+				
+			},
+			success:function(result){
+				location.reload();
+			},
+			error: function (result) {
+				alert("error occur in Skill Add");
+			}
+		});
+	}
+</script>

@@ -15,6 +15,8 @@ namespace CIPlatform_Main.Repository.Interface
 		public List<CmsPage> cmsList();
 		public List<Mission> getMissionList();
 		public List<MissionTheme> getMissionThemeList();
+		public List<MissionApplication> getMissionAppList();
+		public List<Skill> getSkillsList();
 
 		public Mission getDataForMissionEdit(long mId);
 		public User getDataForUserPanel(long uId);
@@ -41,6 +43,16 @@ namespace CIPlatform_Main.Repository.Interface
 
 		public void EditDataForMissionTheme(AdminViewModel adminView, long missionThemeid);
 		public bool removeMissionThemeData(long ThId);
+
+		public bool SaveMisionApplicationData(long mappMid, long mappUid, string mappstatus, DateTime mappADate, DateTime mappCDate);
+
+		public bool ApprovedUserbyAdmin(long mAppId);
+		public bool RejectedUserbyAdmin(long missionAppId);
+
+
+		public bool SaveSkillsData(string SName, DateTime SDate, string SStatus);
+
+
 
 	}
 }

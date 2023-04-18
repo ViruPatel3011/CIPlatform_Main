@@ -107,11 +107,21 @@ namespace CIPlatform_Main.Controllers
 		
 		public IActionResult MissionSkillsPage()
 		{
-			return PartialView("_MissionSkillsPartial");
+			var skillsData = _admin.getSkillsList();
+			AdminViewModel skillModel = new AdminViewModel()
+			{
+				SkillsList = skillsData,
+			};
+			return PartialView("_MissionSkillsPartial", skillModel);
 		}
 		public IActionResult MissionApplicationPage()
 		{
-			return PartialView("_MissionApplicationPartial");
+			var missionApp = _admin.getMissionAppList();
+			AdminViewModel missionAppModel = new AdminViewModel()
+			{
+				MissionApplicationList = missionApp,
+			};
+			return PartialView("_MissionApplicationPartial", missionAppModel);
 		}
 		
 		public IActionResult StoryPage()
@@ -345,6 +355,69 @@ namespace CIPlatform_Main.Controllers
 			else
 			{
 				TempData["Error Message"] = "Can't Able to delete MissionTheme";
+				return Json(new { redirectUrl = Url.Action("User", "Admin") });
+			}
+		}
+
+		public IActionResult AddMissionApplicationData(long mappMid,long mappUid,string mappstatus,DateTime mappADate, DateTime mappCDate)
+		{
+			var missionappAdded = _admin.SaveMisionApplicationData(mappMid, mappUid, mappstatus, mappADate, mappCDate);
+			if (missionappAdded)
+			{
+				TempData["Success Message"] = "MissionApplication Added Successfully";
+				return Json(new { redirectUrl = Url.Action("User", "Admin") });
+			}
+			else
+			{
+				TempData["Error Message"] = "MissionApplication can't Add ";
+				return Json(new { redirectUrl = Url.Action("User", "Admin") });
+			}
+		}
+
+		[HttpPost]
+		public IActionResult AdminApprovedUser(long mAppId)
+		{
+			var approved = _admin.ApprovedUserbyAdmin(mAppId);
+			if (approved)
+			{
+				TempData["Success Message"] = "User Approved Successfully";
+				return Json(new { redirectUrl = Url.Action("User", "Admin") });
+			}
+			else
+			{
+				TempData["Error Message"] = "User not approved";
+				return Json(new { redirectUrl = Url.Action("User", "Admin") });
+			}
+		}
+		
+		[HttpPost]
+		public IActionResult AdminRejectUser(long missionAppId)
+		{
+			var rejected = _admin.RejectedUserbyAdmin(missionAppId);
+			if (rejected)
+			{
+				TempData["Success Message"] = "User Approved Successfully";
+				return Json(new { redirectUrl = Url.Action("User", "Admin") });
+			}
+			else
+			{
+				TempData["Error Message"] = "User not approved";
+				return Json(new { redirectUrl = Url.Action("User", "Admin") });
+			}
+		}
+
+		[HttpPost]
+		public IActionResult SaveSkillData(string SName,DateTime SDate,string SStatus)
+		{
+			var skillAdd = _admin.SaveSkillsData(SName, SDate, SStatus);
+			if (skillAdd)
+			{
+				TempData["Success Message"] = "Skill Added Successfully";
+				return Json(new { redirectUrl = Url.Action("User", "Admin") });
+			}
+			else
+			{
+				TempData["Error Message"] = "Skill not Added";
 				return Json(new { redirectUrl = Url.Action("User", "Admin") });
 			}
 		}
