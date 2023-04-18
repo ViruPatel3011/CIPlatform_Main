@@ -136,7 +136,7 @@ namespace CIPlatform_Main.Repository.Repository
 			}
 		}
 
-		public bool SavedMissionData(string mTitle, string mType, DateTime SDate, DateTime EDate)
+		public bool SavedMissionData(string mTitle, string mType, DateTime SDate, DateTime EDate, string msts)
 		{
 			Mission mission = new Mission()
 			{
@@ -144,6 +144,7 @@ namespace CIPlatform_Main.Repository.Repository
 				MissionType = mType,
 				StartDate = SDate,
 				EndDate = EDate,
+				Status=msts,
 				CityId=2,
 				CountryId=1,
 				ThemeId=1 // by default we should take theme_id as some value otherwise it will throw ans error		
@@ -190,6 +191,53 @@ namespace CIPlatform_Main.Repository.Repository
 			
 
 			
+		}
+
+		public bool SaveMisionThemeData( string titleT, DateTime createT, int statusT)
+		{
+			MissionTheme missionTheme = new MissionTheme()
+			{
+				//MissionThemeId = IdT,
+				Title = titleT,
+				CreatedAt = createT,
+				Status =(byte) statusT
+			};
+			_ciPlatformContext.MissionThemes.Add(missionTheme);
+			_ciPlatformContext.SaveChanges();
+			return true;
+		}
+
+		public MissionTheme getDataForMissionThemeEdit(long mthemeId)
+		{
+			var missionTheme=_ciPlatformContext.MissionThemes.Where(x=>x.MissionThemeId == mthemeId).FirstOrDefault();
+			return missionTheme;
+		}
+
+		public void EditDataForMissionTheme(AdminViewModel adminView, long missionThemeid)
+		{
+			var theme = _ciPlatformContext.MissionThemes.Where(x => x.MissionThemeId == missionThemeid).FirstOrDefault();
+			theme.Title = adminView.themeTitle;
+			theme.CreatedAt = adminView.createdDate;
+			theme.Status = adminView.themeStatus;
+			_ciPlatformContext.SaveChanges();
+
+		}
+
+		public bool removeMissionThemeData(long ThId)
+		{
+			var themeId = _ciPlatformContext.MissionThemes.Where(x => x.MissionThemeId == ThId).FirstOrDefault();
+			if (themeId != null)
+			{
+				themeId.Status = 0;
+				themeId.DeletedAt = DateTime.Now;
+				_ciPlatformContext.MissionThemes.Update(themeId);
+				_ciPlatformContext.SaveChanges();
+				return true;
+			}
+			else
+			{
+				return false;
+			}
 		}
 	}
 }

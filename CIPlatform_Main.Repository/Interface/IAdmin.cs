@@ -30,11 +30,17 @@ namespace CIPlatform_Main.Repository.Interface
 		public bool AddCMSpageData(string Title, string Description, string Slug, string Status);
 
 		//public CmsPage getCMSPageDataforEdit(long cmsid);
-		public bool SavedMissionData(string mTitle, string mType, DateTime SDate, DateTime EDate);
+		public bool SavedMissionData(string mTitle, string mType, DateTime SDate, DateTime EDate, string msts);
 
 		public void editMissionData(AdminViewModel adminView, long missionid);
 
 		public bool removeMissionsData(long missionId);
+
+		public bool SaveMisionThemeData(string titleT, DateTime createT, int statusT);
+		public MissionTheme getDataForMissionThemeEdit(long mthemeId);
+
+		public void EditDataForMissionTheme(AdminViewModel adminView, long missionThemeid);
+		public bool removeMissionThemeData(long ThId);
 
 	}
 }

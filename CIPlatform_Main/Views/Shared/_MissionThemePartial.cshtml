@@ -37,7 +37,7 @@
 	</div>
 	<div class="row">
 		<div class="col-12">
-			<h3 class="mt-3 ms-3 mb-0">Mission</h3>
+			<h3 class="mt-3 ms-3 mb-0">MissionTheme</h3>
 			<hr class="m-0 mt-2">
 		</div>
 	</div>
@@ -65,6 +65,13 @@
 										data-bs-dismiss="modal" aria-label="Close"></button>
 							</div>
 							<div class="modal-body">
+								@*<div class="mb-3">
+									<label for="exampleFormControlInput1"
+										   class="form-label">Mission Id</label>
+									<input type="text" class="form-control " id="themeId"
+										   placeholder="Enter your MissionTheme Id">
+
+								</div>*@
 								<div class="mb-3">
 									<label for="exampleFormControlInput1"
 										   class="form-label">Mission Title</label>
@@ -75,18 +82,19 @@
 							
 								<div class="mb-3">
 									<label for="exampleFormControlInput1"
-										   class="form-label">Start Date</label>
+										   class="form-label">Created At </label>
 									<input type="date"
 										   class="form-control "
-										   placeholder="Created date" id="createDate">
+										   placeholder="Created date" id="themeCreate">
 								</div>
 								<div class="mb-3">
 									<label for="exampleFormControlInput1"
-										   class="form-label">End Date</label>
-									<input type="date"
+										   class="form-label">status</label>
+									<input type="text"
 										   class="form-control "
-										   placeholder="Update Date" id="updateDate">
+										   placeholder="Created date" id="themeStatus">
 								</div>
+							
 
 								<div class="modal-footer">
 									<button type="button" class="btn btn-outline-dark"
@@ -110,9 +118,10 @@
 				<table class="table" id="mission-table">
 					<thead class="thead-dark">
 						<tr>
+							@*<th scope="col">MissionTheme Id</th>*@
 							<th scope="col">MissionTheme Title</th>
 							<th scope="col">Created At</th>
-							<th scope="col">Updated At</th>
+							<th scope="col">Status</th>
 							<th scope="col">Action</th>
 						</tr>
 					</thead>
@@ -120,14 +129,25 @@
 						@foreach (var mission in Model.MissionThemeList)
 						{
 							<tr>
+								@*<td scope="row">@mission.MissionThemeId</td>*@
 								<td scope="row">@mission.Title</td>
 								<td scope="row">@mission.CreatedAt</td>
-								<td scope="row">@mission.DeletedAt</td>							
+								@if (mission.Status==1)
+								{
+
+									<th class="text-success" scope="col">@mission.Status</th>
+								}
+								else
+								{
+									<th class="text-success" scope="col">@mission.Status</th>
+
+								}
+														
 
 								<td class="p-0 pt-2 px-1 d-flex">
 									<div class="mb-2">
 										<button type="button" data-bs-toggle="modal"
-												data-bs-target="#exampleModalMissionEdit" class="border-0 bg-transparent" >
+												data-bs-target="#exampleModalMissionEdit" class="border-0 bg-transparent" onclick="loadMissionThemeData(@mission.MissionThemeId)">
 											<i class="bi bi-pencil-square text-warning"></i>
 										</button>
 
@@ -142,36 +162,28 @@
 														<button type="button" class="btn-close"
 																data-bs-dismiss="modal" aria-label="Close"></button>
 													</div>
-													<form method="post" asp-controller="Admin" asp-action="EditMissionData">
+													<form method="post" asp-controller="Admin" asp-action="EditMissionThemeData">
 														@*missionid is for Data Edit post method and mid is for getdata for Edit*@
-														<input hidden name="missionid" id="mid">
+														<input hidden name="missionThemeid" id="midT">
 														<div class="modal-body">
 															@*value="@goalMission.MissionId"*@
 
 															<div class="mb-3">
 																<label for="exampleFormControlInput1"
 																	   class="form-label">Mission Title</label>
-																<input type="text" class="form-control "  id="missionTitle" value="missionTitle" asp-for="title">
+																<input type="text" class="form-control " id="missionThemeTitle" value="missionThemeTitle" asp-for="themeTitle">
 															</div>
+														
 															<div class="mb-3">
 																<label for="exampleFormControlInput1"
-																	   class="form-label">LastName</label>
-																<input type="text" class="form-control "  id="missionType" value="missionType" asp-for="missionType">
+																	   class="form-label">Created At</label>
+																<input type="text" class="form-control " id="createdTheme" value="createdTheme" asp-for="createdDate">
 															</div>
-															<div class="mb-3">
-																<label for="exampleFormControlInput1"
-																	   class="form-label">Start date</label>
-																<input type="text"  class="form-control " id="startDate" value="startDate" asp-for="startDate">
-															</div>
-															<div class="mb-3">
-																<label for="exampleFormControlInput1"
-																	   class="form-label">End Date</label>
-																<input type="text"  class="form-control "  id="endDate" value="endDate" asp-for="endDate">
-															</div>
+														
 															<div class="mb-3">
 																<label for="exampleFormControlInput1"
 																	   class="form-label">Status</label>
-																<input type="text" class="form-control " id="missionStatus" value="missionStatus" asp-for="status">
+																<input type="text" class="form-control " id="missionThemeStatus" value="missionThemeStatus" asp-for="themeStatus">
 															</div>
 
 
@@ -196,7 +208,7 @@
 									<div>
 										<button type="button" data-bs-toggle="modal"
 												data-bs-target="#exampleModalGoal"
-												class="border-0 bg-transparent" >
+												class="border-0 bg-transparent" onclick="getThemeId(@mission.MissionThemeId)">
 											<i class="bi bi-trash3 text-dark"></i>
 										</button>
 										<div class="modal fade" id="exampleModalGoal" tabindex="-1"
@@ -223,7 +235,7 @@
 															Cancel
 														</button>
 														<button type="button" class="btn btn-outline-warning"
-																style="border-radius:50px" data-bs-dismiss="modal" >
+																style="border-radius:50px" data-bs-dismiss="modal" onclick="deleteMissionThemeData()" >
 															Delete
 														</button>
 													</div>
@@ -255,29 +267,74 @@
 
 <script>
 	function addMissionThemeData(){
-		var title = $("#themeTitle").val();
-		var createdDate = $("#createDate").val();
-		var updatedDate = $("#updateDate").val();
+		var themeid = $("#themeId").val();
+		var themetitle = $("#themeTitle").val();
+		var themecreate = $("#themeCreate").val();
+		var themestatus = $("#themeStatus").val();
 	
 
 		$.ajax({
 			url: "/Admin/SaveMissionThemeData",
 			type: "POST",
 			data: {
-				"themeTitle": title,
-				"createddate": createdDate,
-				"publisheddate": updatedDate
+				//"IdT": themeid,
+				"titleT": themetitle,
+				"createT": themecreate,
+				"statusT": themestatus,
 				
 			},
 			success: function (result) {
 				location.reload();
-				alert("Mission Add successfully");
+				alert("MissionTheme Add successfully");
 
 
 			},
 			error: function (result) {
-				alert("error occur in Mission");
+				alert("error occur in MissionTheme");
 			}
+		});
+	}
+
+	function loadMissionThemeData(themeid){
+		$.ajax({
+			method: 'GET',
+			url: '/Admin/getDataForEditMissionTheme',
+			data: {
+				mthemeId: themeid
+			},
+			dataType: 'json',
+			success: function (data) {
+
+
+				//$('#missionName').val(data.mission);
+				$('#missionThemeTitle').val(data.themeTitle);
+				$('#createdTheme').val(data.createdtheme);
+				$('#missionThemeStatus').val(data.tStatus);
+				$('#midT').val(data.mIdT);
+
+			},
+			error: function (xhr, status, error) {
+				// Handle errors
+			}
+		});
+	}
+
+	var themeid=0;
+	function getThemeId(themeId){
+		themeid = themeId
+	}
+
+	function deleteMissionThemeData(){
+		$.ajax({
+			method: 'POST',
+			url: '/Admin/deleteMissionThemeData',
+			data: {
+				ThId: themeid
+			},
+			success: function (data) {
+				location.reload();
+				//alert("deleted Successfully");
+			},
 		});
 	}
 </script>

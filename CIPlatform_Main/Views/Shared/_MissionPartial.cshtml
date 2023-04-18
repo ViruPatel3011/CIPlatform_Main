@@ -81,6 +81,13 @@
 								</div>
 								<div class="mb-3">
 									<label for="exampleFormControlInput1"
+										   class="form-label">Status</label>
+									<input type="text" class="form-control " id="missionStatus"
+										   placeholder="Enter your Status(Goal/Time)">
+									
+								</div>
+								<div class="mb-3">
+									<label for="exampleFormControlInput1"
 										   class="form-label">Start Date</label>
 									<input type="date"
 										   class="form-control "
@@ -173,7 +180,7 @@
 													</div>
 													<div class="mb-3">
 														<label for="exampleFormControlInput1"
-															   class="form-label">LastName</label>
+															   class="form-label">Mission Type</label>
 														<input type="text" class="form-control "
 																   id="missionType" value="missionType" asp-for="missionType">
 													</div>
@@ -196,7 +203,7 @@
 															   class="form-label">Status</label>
 														<input type="text"
 															   class="form-control "
-																   id="missionStatus" value="missionStatus" asp-for="status">
+					   id="missionstatus" value="missionstatus" asp-for="status">
 													</div>
 												
 
@@ -284,6 +291,7 @@
 		var type = $("#mType").val();
 		var sdate = $("#SDate").val();
 		var edate = $("#EDate").val();
+		var mstatus = $("#missionStatus").val();
 
 		$.ajax({
 			url: "/Admin/SaveMissionData",
@@ -293,6 +301,7 @@
 				"mType": type,
 				"SDate": sdate,
 				"EDate": edate,
+				"msts": mstatus,
 			},
 			success: function (result) {
 				location.reload();
@@ -322,7 +331,7 @@
 				$('#missionType').val(data.mType);
 				$('#startDate').val(data.sDate);
 				$('#endDate').val(data.eDate);
-				$('#missionStatus').val(data.mStatus);
+				$('#missionstatus').val(data.mStatus);
 				$('#mid').val(data.mid);
 			
 			},

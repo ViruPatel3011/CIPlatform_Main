@@ -56,9 +56,9 @@
 		</div>
 		<div class="col-8">
 			<div class="addBtn float-end">
-				<a href="@Url.Action("CMSAdd","Admin")"" class="btn btn-outline-warning px-3" style="border-radius: 50px;">
+				<button class="btn btn-outline-warning px-3" style="border-radius: 50px;" id="cmsAdd">
 					Add
-				</a>
+				</button>
 			</div>
 		</div>
 	</div>
@@ -188,6 +188,18 @@
 
 
 <script>
+	$(function () {
+		$('#cmsAdd').on('click', function () {
+			$.ajax({
+				url: '@Url.Action("CMSAdd", "Admin")',
+				type: 'GET',
+				success: function (result) {
+					$('#loadSideBar').html(result);
+				}
+			});
+		});
+	});
+
 
 	var cmsPageId=0;
 
@@ -211,6 +223,15 @@
 	}
 
 	function loadCMSpageData(cmsId){
+
+		$.ajax({
+			url: '@Url.Action("CMSEdit", "Admin")',
+			type: 'GET',
+			success: function (result) {
+				$('#loadSideBar').html(result);
+			}
+		});
+
 		$.ajax({
 			method: 'GET',
 			url: '/Admin/getCMSDataForEdit',

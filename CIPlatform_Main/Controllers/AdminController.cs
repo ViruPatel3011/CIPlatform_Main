@@ -66,12 +66,22 @@ namespace CIPlatform_Main.Controllers
 		
 		public IActionResult CMSAdd()
 		{
-			return PartialView("_CMSAddPartial");
+			var cmsData = _admin.cmsList();
+			AdminViewModel cmsModel1 = new AdminViewModel()
+			{
+				CMSPageList = cmsData,
+			};
+			return PartialView("_CMSPageAddRight", cmsModel1);
 		}
 		
 		public IActionResult CMSEdit()
 		{
-			return PartialView("_CMSEditPartial");
+			var cmsData = _admin.cmsList();
+			AdminViewModel cmsModel2 = new AdminViewModel()
+			{
+				CMSPageList = cmsData,
+			};
+			return PartialView("_CMSPageEditRight", cmsModel2);
 		}
 		public IActionResult MissionPage()
 		{
@@ -214,9 +224,9 @@ namespace CIPlatform_Main.Controllers
 
 
 		[HttpPost]
-		public IActionResult SaveMissionData(string mTitle, string mType,DateTime SDate, DateTime EDate)
+		public IActionResult SaveMissionData(string mTitle, string mType,DateTime SDate, DateTime EDate,string msts)
 		{
-			var dataAdded=_admin.SavedMissionData(mTitle,mType,SDate, EDate);
+			var dataAdded=_admin.SavedMissionData(mTitle,mType,SDate, EDate,msts);
 			if (dataAdded)
 			{
 				TempData["Success Message"] = "Data  Added Successfully";
@@ -283,6 +293,60 @@ namespace CIPlatform_Main.Controllers
 				return Json(new { redirectUrl = Url.Action("User", "Admin") });
 			}
 
+		}
+
+		public IActionResult SaveMissionThemeData(string titleT,DateTime createT,int statusT)
+		{
+			var missionThemeAdded = _admin.SaveMisionThemeData( titleT, createT, statusT);
+			if (missionThemeAdded)
+			{
+				TempData["Success Message"] = "MissionTheme Added Successfully";
+				return Json(new { redirectUrl = Url.Action("User", "Admin") });
+			}
+			else
+			{
+				TempData["Error Message"] = "MissionTheme can't Add ";
+				return Json(new { redirectUrl = Url.Action("User", "Admin") });
+			}
+		}
+
+		[HttpGet]
+		public IActionResult getDataForEditMissionTheme(long mthemeId)
+		{
+			var themedata = _admin.getDataForMissionThemeEdit(mthemeId);
+			return Json(new
+			{
+				themeTitle = themedata.Title,
+				createdtheme = themedata.CreatedAt,
+				tStatus = themedata.Status,
+				mIdT = mthemeId
+
+			});
+
+		}
+
+		[HttpPost]
+		public IActionResult EditMissionThemeData(AdminViewModel adminView,long missionThemeid)
+		{
+			_admin.EditDataForMissionTheme(adminView, missionThemeid);
+			TempData["Success Message"] = "Data edited successfully";
+			return RedirectToAction("User", "Admin");
+
+		}
+
+		public IActionResult deleteMissionThemeData(long ThId)
+		{
+			var removeMissionThemeData = _admin.removeMissionThemeData(ThId);
+			if (removeMissionThemeData)
+			{
+				TempData["Success Message"] = "MissionTheme Deleted Successfully";
+				return Json(new { redirectUrl = Url.Action("User", "Admin") });
+			}
+			else
+			{
+				TempData["Error Message"] = "Can't Able to delete MissionTheme";
+				return Json(new { redirectUrl = Url.Action("User", "Admin") });
+			}
 		}
 
 	}

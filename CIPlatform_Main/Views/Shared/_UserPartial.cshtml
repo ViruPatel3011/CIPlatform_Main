@@ -1,6 +1,21 @@
 ﻿@model AdminViewModel
 
+<style>
+	#mission-table_filter{
+		margin-right:77%;
+		margin-bottom:16px;
 
+
+	}
+
+	#mission-table_previous, #mission-table_next{
+		display:none;
+	}
+
+	#mission-table_paginate{
+		margin-top:20px
+	}
+</style>
 <!-- Right Part Div for Tables -->
 <div class="col-12 col-xl-10 col-lg-9 col-md-11 ">
 	<div class="row shadow-lg " style="height:50px;">
@@ -43,12 +58,12 @@
 		</div>
 	</div>
 	<div class="row mt-3">
-		<div class="col-4 ">
+		@*<div class="col-4 " >
 			<div class="input-group rounded">
 				<input type="search" class="form-control rounded" placeholder="Search" aria-label="Search"
 					   aria-describedby="search-addon" />
 			</div>
-		</div>
+		</div>*@
 		<div class="col-8">
 			<div class="addBtn float-end">
 				<button type="button" class="btn btn-outline-warning px-3" data-bs-toggle="modal" data-bs-target="#AddDataModel" style="border-radius: 50px;">
@@ -307,7 +322,7 @@
 		</div>
 	</div>
 
-	<div class="row float-end">
+	@*<div class="row float-end">
 		<div class="col-12 ">
 			<nav aria-label="Page navigation example">
 				<ul class="pagination pagination-circle pg-blue">
@@ -331,7 +346,7 @@
 				</ul>
 			</nav>
 		</div>
-	</div>
+	</div>*@
 </div>
 
 		
