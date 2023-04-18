@@ -1,3 +1,12 @@
+E:\CIPlatform_Main\CIPlatform_Main\obj\Debug\net6.0\CIPlatform_Main.csproj.AssemblyReference.cache
+E:\CIPlatform_Main\CIPlatform_Main\obj\Debug\net6.0\CIPlatform_Main.GeneratedMSBuildEditorConfig.editorconfig
+E:\CIPlatform_Main\CIPlatform_Main\obj\Debug\net6.0\CIPlatform_Main.AssemblyInfoInputs.cache
+E:\CIPlatform_Main\CIPlatform_Main\obj\Debug\net6.0\CIPlatform_Main.AssemblyInfo.cs
+E:\CIPlatform_Main\CIPlatform_Main\obj\Debug\net6.0\CIPlatform_Main.csproj.CoreCompileInputs.cache
+E:\CIPlatform_Main\CIPlatform_Main\obj\Debug\net6.0\CIPlatform_Main.MvcApplicationPartsAssemblyInfo.cs
+E:\CIPlatform_Main\CIPlatform_Main\obj\Debug\net6.0\CIPlatform_Main.MvcApplicationPartsAssemblyInfo.cache
+E:\CIPlatform_Main\CIPlatform_Main\obj\Debug\net6.0\CIPlatform_Main.RazorAssemblyInfo.cache
+E:\CIPlatform_Main\CIPlatform_Main\obj\Debug\net6.0\CIPlatform_Main.RazorAssemblyInfo.cs
 E:\CIPlatform_Main\CIPlatform_Main\bin\Debug\net6.0\appsettings.Development.json
 E:\CIPlatform_Main\CIPlatform_Main\bin\Debug\net6.0\appsettings.json
 E:\CIPlatform_Main\CIPlatform_Main\bin\Debug\net6.0\CIPlatform_Main.staticwebassets.runtime.json
@@ -8,6 +17,8 @@ E:\CIPlatform_Main\CIPlatform_Main\bin\Debug\net6.0\CIPlatform_Main.dll
 E:\CIPlatform_Main\CIPlatform_Main\bin\Debug\net6.0\CIPlatform_Main.pdb
 E:\CIPlatform_Main\CIPlatform_Main\bin\Debug\net6.0\Azure.Core.dll
 E:\CIPlatform_Main\CIPlatform_Main\bin\Debug\net6.0\Azure.Identity.dll
+E:\CIPlatform_Main\CIPlatform_Main\bin\Debug\net6.0\cloudscribe.Pagination.Models.dll
+E:\CIPlatform_Main\CIPlatform_Main\bin\Debug\net6.0\cloudscribe.Web.Pagination.dll
 E:\CIPlatform_Main\CIPlatform_Main\bin\Debug\net6.0\Humanizer.dll
 E:\CIPlatform_Main\CIPlatform_Main\bin\Debug\net6.0\Microsoft.Bcl.AsyncInterfaces.dll
 E:\CIPlatform_Main\CIPlatform_Main\bin\Debug\net6.0\Microsoft.Data.SqlClient.dll
@@ -65,14 +76,6 @@ E:\CIPlatform_Main\CIPlatform_Main\bin\Debug\net6.0\CIPlatform_Main.Entities.dll
 E:\CIPlatform_Main\CIPlatform_Main\bin\Debug\net6.0\CIPlatform_Main.Repository.dll
 E:\CIPlatform_Main\CIPlatform_Main\bin\Debug\net6.0\CIPlatform_Main.Entities.pdb
 E:\CIPlatform_Main\CIPlatform_Main\bin\Debug\net6.0\CIPlatform_Main.Repository.pdb
-E:\CIPlatform_Main\CIPlatform_Main\obj\Debug\net6.0\CIPlatform_Main.csproj.AssemblyReference.cache
-E:\CIPlatform_Main\CIPlatform_Main\obj\Debug\net6.0\CIPlatform_Main.GeneratedMSBuildEditorConfig.editorconfig
-E:\CIPlatform_Main\CIPlatform_Main\obj\Debug\net6.0\CIPlatform_Main.AssemblyInfoInputs.cache
-E:\CIPlatform_Main\CIPlatform_Main\obj\Debug\net6.0\CIPlatform_Main.AssemblyInfo.cs
-E:\CIPlatform_Main\CIPlatform_Main\obj\Debug\net6.0\CIPlatform_Main.csproj.CoreCompileInputs.cache
-E:\CIPlatform_Main\CIPlatform_Main\obj\Debug\net6.0\CIPlatform_Main.MvcApplicationPartsAssemblyInfo.cache
-E:\CIPlatform_Main\CIPlatform_Main\obj\Debug\net6.0\CIPlatform_Main.RazorAssemblyInfo.cache
-E:\CIPlatform_Main\CIPlatform_Main\obj\Debug\net6.0\CIPlatform_Main.RazorAssemblyInfo.cs
 E:\CIPlatform_Main\CIPlatform_Main\obj\Debug\net6.0\staticwebassets\msbuild.CIPlatform_Main.Microsoft.AspNetCore.StaticWebAssets.props
 E:\CIPlatform_Main\CIPlatform_Main\obj\Debug\net6.0\staticwebassets\msbuild.build.CIPlatform_Main.props
 E:\CIPlatform_Main\CIPlatform_Main\obj\Debug\net6.0\staticwebassets\msbuild.buildMultiTargeting.CIPlatform_Main.props
@@ -89,6 +92,3 @@ E:\CIPlatform_Main\CIPlatform_Main\obj\Debug\net6.0\refint\CIPlatform_Main.dll
 E:\CIPlatform_Main\CIPlatform_Main\obj\Debug\net6.0\CIPlatform_Main.pdb
 E:\CIPlatform_Main\CIPlatform_Main\obj\Debug\net6.0\CIPlatform_Main.genruntimeconfig.cache
 E:\CIPlatform_Main\CIPlatform_Main\obj\Debug\net6.0\ref\CIPlatform_Main.dll
-E:\CIPlatform_Main\CIPlatform_Main\bin\Debug\net6.0\cloudscribe.Pagination.Models.dll
-E:\CIPlatform_Main\CIPlatform_Main\bin\Debug\net6.0\cloudscribe.Web.Pagination.dll
-E:\CIPlatform_Main\CIPlatform_Main\obj\Debug\net6.0\CIPlatform_Main.MvcApplicationPartsAssemblyInfo.cs

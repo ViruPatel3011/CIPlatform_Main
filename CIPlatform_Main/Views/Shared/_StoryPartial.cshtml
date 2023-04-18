@@ -1,3 +1,344 @@
-﻿<div class="col-12 col-xl-10 col-lg-9 col-md-11 ">
-	<h6>Hello Story !</h6>
+﻿@model AdminViewModel
+
+<!-- Right Part Div for Tables -->
+<div class="col-12 col-xl-10 col-lg-9 col-md-11 ">
+	<div class="row shadow-lg " style="height:50px;">
+		<div class="col-12 d-flex bg-white ">
+			<div class="col-3 d-block d-md-none d-flex align-items-center">
+				<button class="border-0 bg-white" type="button" data-bs-toggle="offcanvas"
+						data-bs-target="#Adminoffcanvas" aria-controls="offcanvasWithBothOptions">
+					<i class="bi bi-list " style="font-size:40px;"></i>
+				</button>
+			</div>
+			<div class="col-6 d-flex align-items-center">
+				@{
+					DateTime now = DateTime.Now;
+					string formattedTime = now.ToString("dddd, MMMM d, yyyy, h:mm:ss tt");
+
+				}
+				@formattedTime
+			</div>
+			<div class="col-6 d-none d-md-block">
+				<div class="dropdown d-flex justify-content-end ">
+					<button class="btn ms-auto me-3 dropdown-toggle " type="button"
+							data-bs-toggle="dropdown" aria-expanded="false">
+						<img src="~/Assets/user1.png" alt="mdo" width="40" height="40"
+		class="rounded-circle loginimg">
+						Dropdown button
+					</button>
+					<ul class="dropdown-menu">
+						<li><a class="dropdown-item" href="#">Action</a></li>
+						<li><a class="dropdown-item" href="#">Another action</a></li>
+						<li><a class="dropdown-item" href="#">Something else here</a></li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-12">
+			<h3 class="mt-3 ms-3 mb-0">Mission</h3>
+			<hr class="m-0 mt-2">
+		</div>
+	</div>
+	<div class="row mt-3">
+		<div class="col-4 ">
+			<div class="input-group rounded">
+				<input type="search" class="form-control rounded" placeholder="Search" aria-label="Search"
+					   aria-describedby="search-addon" />
+			</div>
+		</div>
+		<div class="col-8">
+			<div class="addBtn float-end">
+				<button type="button" class="btn btn-outline-warning px-3" data-bs-toggle="modal" data-bs-target="#storyAddModel" style="border-radius: 50px;">
+					Add
+				</button>
+				<div class="modal fade" id="storyAddModel" tabindex="-1"
+					 aria-labelledby="exampleModalLabel" aria-hidden="true">
+					<div class="modal-dialog modal-dialog-centered">
+						<div class="modal-content">
+							<div class="modal-header">
+								<h5 class="modal-title" id="exampleModalLabel">
+									Please fill below detail
+								</h5>
+								<button type="button" class="btn-close"
+										data-bs-dismiss="modal" aria-label="Close"></button>
+							</div>
+							<div class="modal-body">
+								<div class="mb-3">
+									<label for="exampleFormControlInput1"
+										   class="form-label">Story Title</label>
+									<input type="text" class="form-control " id="storyTitle"
+										   placeholder="Enter your Story Title">
+
+								</div>
+								<div class="mb-3">
+									<label for="exampleFormControlInput1"
+										   class="form-label">Mission Type</label>
+									<input type="text" class="form-control " id="mType"
+										   placeholder="Enter your MissionType(Goal/Time)">
+
+								</div>
+								<div class="mb-3">
+									<label for="exampleFormControlInput1"
+										   class="form-label">Status</label>
+									<input type="text" class="form-control " id="missionStatus"
+										   placeholder="Enter your Status(Goal/Time)">
+
+								</div>
+								<div class="mb-3">
+									<label for="exampleFormControlInput1"
+										   class="form-label">Start Date</label>
+									<input type="date"
+										   class="form-control "
+										   placeholder="Enter Start date" id="SDate">
+								</div>
+								<div class="mb-3">
+									<label for="exampleFormControlInput1"
+										   class="form-label">End Date</label>
+									<input type="date"
+										   class="form-control "
+										   placeholder="Enter End Date" id="EDate">
+								</div>
+
+								<div class="modal-footer">
+									<button type="button" class="btn btn-outline-dark"
+											style="border-radius:50px"
+											data-bs-dismiss="modal">
+										Cancel
+									</button>
+									<button type="submit" class="btn btn-outline-warning"
+											style="border-radius:50px" onclick="submitMissionData()">
+										Save
+									</button>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="row mt-3 mx-2 ">
+			<div class="col-12 table-responsive-sm">
+				<table class="table table-bordered table-striped" id="mission-table">
+					<thead class="thead-dark">
+						<tr>
+							<th scope="col">Story Title</th>
+							<th scope="col">Full Name</th>
+							<th scope="col">Mission Title</th>
+						
+							<th scope="col">Action</th>
+						</tr>
+					</thead>
+					<tbody>
+						@foreach (var story in Model.StoryList)
+						{
+							var missionTitle = "";
+							var username = "";
+							@foreach(var mission in Model.MissionList)
+							{
+								if (mission.MissionId == story.MissionId)
+								{
+									missionTitle = mission.Title;
+								}
+							}
+							@foreach(var user in Model.UserList)
+							{
+								if (user.UserId == story.UserId)
+								{
+									username=user.FirstName+ " "+ user.LastName;
+								}
+							}
+
+
+
+							<tr>
+								<td scope="row">@story.Title</td>
+								<td scope="row">@username</td>
+								<td scope="row">@missionTitle</td>
+								
+							
+								<td class="p-0 pt-2 px-1 d-flex">
+									<div class="mb-2" style="border: 2px solid #ffb100;border-radius: 44%;width: 30%;">
+										<a class="text-warning mx-2" type="button">
+											view
+										</a>
+									</div>
+									<div class="mb-2">
+										<button type="button" data-bs-toggle="modal"
+												data-bs-target="#exampleModalMissionEdit" class="border-0 bg-transparent" onclick="loadMissionData(@story.StoryId)">
+											<i class="bi bi-check-circle text-success"></i>
+										</button>
+
+										<div class="modal fade" id="exampleModalMissionEdit" tabindex="-1"
+											 aria-labelledby="exampleModalLabel" aria-hidden="true">
+											<div class="modal-dialog modal-dialog-centered">
+												<div class="modal-content">
+													<div class="modal-header">
+														<h5 class="modal-title" id="exampleModalLabel">
+															Please Input for Mission Edit
+														</h5>
+														<button type="button" class="btn-close"
+																data-bs-dismiss="modal" aria-label="Close"></button>
+													</div>
+													<form method="post" asp-controller="Admin" asp-action="EditMissionData">
+														@*missionid is for Data Edit post method and mid is for getdata for Edit*@
+														<input hidden name="missionid" id="mid">
+														<div class="modal-body">
+															@*value="@goalMission.MissionId"*@
+
+															<div class="mb-3">
+																<label for="exampleFormControlInput1"
+																	   class="form-label">Mission Title</label>
+																<input type="text" class="form-control "
+					   id="missionTitle" value="missionTitle" asp-for="title">
+															</div>
+															<div class="mb-3">
+																<label for="exampleFormControlInput1"
+																	   class="form-label">Mission Type</label>
+																<input type="text" class="form-control "
+					   id="missionType" value="missionType" asp-for="missionType">
+															</div>
+															<div class="mb-3">
+																<label for="exampleFormControlInput1"
+																	   class="form-label">Start date</label>
+																<input type="text"
+					   class="form-control "
+					   id="startDate" value="startDate" asp-for="startDate">
+															</div>
+															<div class="mb-3">
+																<label for="exampleFormControlInput1"
+																	   class="form-label">End Date</label>
+																<input type="text"
+					   class="form-control "
+					   id="endDate" value="endDate" asp-for="endDate">
+															</div>
+															<div class="mb-3">
+																<label for="exampleFormControlInput1"
+																	   class="form-label">Status</label>
+																<input type="text"
+					   class="form-control "
+					   id="missionstatus" value="missionstatus" asp-for="status">
+															</div>
+
+
+														</div>
+														<div class="modal-footer">
+															<button type="button" class="btn btn-outline-dark"
+																	style="border-radius:50px"
+																	data-bs-dismiss="modal">
+																Cancel
+															</button>
+															<button type="submit" class="btn btn-outline-warning"
+																	style="border-radius:50px">
+																Edit
+															</button>
+														</div>
+													</form>
+												</div>
+											</div>
+										</div>
+
+									</div>
+									<div>
+										<button type="button" data-bs-toggle="modal"
+												data-bs-target="#exampleModalGoal"
+												class="border-0 bg-transparent" onclick="getMissionId(@story.StoryId)">
+											<i class="bi bi-x-circle text-danger"></i>
+										</button>
+										<div class="modal fade" id="exampleModalGoal" tabindex="-1"
+											 aria-labelledby="exampleModalLabel" aria-hidden="true">
+											<div class="modal-dialog modal-dialog-centered">
+												<div class="modal-content">
+													<div class="modal-header">
+														<h5 class="modal-title" id="exampleModalLabel">Confirm Delete</h5>
+														<button type="button" class="btn-close"
+																data-bs-dismiss="modal" aria-label="Close"></button>
+													</div>
+													<div class="modal-body">
+
+														<div class="mb-3">
+															<label for="exampleFormControlInput1"
+																   class="form-label">Are you sure you want to delete??</label>
+														</div>
+
+													</div>
+													<div class="modal-footer">
+														<button type="button" class="btn btn-outline-dark"
+																style="border-radius:50px"
+																data-bs-dismiss="modal">
+															Cancel
+														</button>
+														<button type="button" class="btn btn-outline-warning"
+																style="border-radius:50px" data-bs-dismiss="modal" onclick="deleteMissionData()">
+															Delete
+														</button>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+									<div>
+										<button type="button" data-bs-toggle="modal"
+												data-bs-target="#exampleModalGoal"
+												class="border-0 bg-transparent" onclick="getMissionId(@story.StoryId)">
+											<i class="bi bi-trash3 text-dark"></i>
+										</button>
+										<div class="modal fade" id="exampleModalGoal" tabindex="-1"
+											 aria-labelledby="exampleModalLabel" aria-hidden="true">
+											<div class="modal-dialog modal-dialog-centered">
+												<div class="modal-content">
+													<div class="modal-header">
+														<h5 class="modal-title" id="exampleModalLabel">Confirm Delete</h5>
+														<button type="button" class="btn-close"
+																data-bs-dismiss="modal" aria-label="Close"></button>
+													</div>
+													<div class="modal-body">
+
+														<div class="mb-3">
+															<label for="exampleFormControlInput1"
+																   class="form-label">Are you sure you want to delete??</label>
+														</div>
+
+													</div>
+													<div class="modal-footer">
+														<button type="button" class="btn btn-outline-dark"
+																style="border-radius:50px"
+																data-bs-dismiss="modal">
+															Cancel
+														</button>
+														<button type="button" class="btn btn-outline-warning"
+																style="border-radius:50px" data-bs-dismiss="modal" onclick="deleteMissionData()">
+															Delete
+														</button>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+
+								</td>
+							</tr>
+
+
+						}
+
+					</tbody>
+				</table>
+			</div>
+		</div>
+
+
+	</div>
+
 </div>
+
+
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script src="~/lib/jquery/dist/jquery.js"></script>
+
+<script>
+
+
+
+</script>

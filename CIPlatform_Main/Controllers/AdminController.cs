@@ -1,13 +1,6 @@
-﻿using CIPlatform_Main.Entities.Models;
-using CIPlatform_Main.Entities.ViewModel;
+﻿using CIPlatform_Main.Entities.ViewModel;
 using CIPlatform_Main.Repository.Interface;
-
 using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Net.NetworkInformation;
-using System.Net.Sockets;
-using System.Security.Claims;
-using System.Security.Cryptography;
 
 namespace CIPlatform_Main.Controllers
 {
@@ -32,6 +25,7 @@ namespace CIPlatform_Main.Controllers
 		}
 		
 		
+		// Default User Page
 		public IActionResult User()
 		{
 			var userData=_admin.getUserList();
@@ -43,6 +37,8 @@ namespace CIPlatform_Main.Controllers
 			return View( model);
 		}
 
+
+		// Method for UserPage
 		public IActionResult UserPage()
 		{
 			var userData = _admin.getUserList();
@@ -53,7 +49,10 @@ namespace CIPlatform_Main.Controllers
 
 			return PartialView("_UserPartial", model);
 		}
-		
+
+
+
+		// Method for CMSPage
 		public IActionResult CMSPage()
 		{
 			var cmsData = _admin.cmsList();
@@ -63,7 +62,10 @@ namespace CIPlatform_Main.Controllers
 			};
 			return PartialView("_CMSPartial", cmsModel);
 		}
-		
+
+
+
+		// Method for CMS Page Add Section
 		public IActionResult CMSAdd()
 		{
 			var cmsData = _admin.cmsList();
@@ -73,7 +75,8 @@ namespace CIPlatform_Main.Controllers
 			};
 			return PartialView("_CMSPageAddRight", cmsModel1);
 		}
-		
+
+		// Method for CMS Page Edit Section
 		public IActionResult CMSEdit()
 		{
 			var cmsData = _admin.cmsList();
@@ -83,6 +86,10 @@ namespace CIPlatform_Main.Controllers
 			};
 			return PartialView("_CMSPageEditRight", cmsModel2);
 		}
+
+
+
+		// Method for Mission Page
 		public IActionResult MissionPage()
 		{
 			var missions = _admin.getMissionList();
@@ -93,6 +100,8 @@ namespace CIPlatform_Main.Controllers
 
 			return PartialView("_MissionPartial", missionModel);
 		}
+
+		// Method for MissionTheme Page
 		public IActionResult MissionThemePage()
 		{
 
@@ -104,7 +113,9 @@ namespace CIPlatform_Main.Controllers
 
 			return PartialView("_MissionThemePartial", missionThemeModel);
 		}
-		
+
+
+		// Method for MissionSkill Page
 		public IActionResult MissionSkillsPage()
 		{
 			var skillsData = _admin.getSkillsList();
@@ -114,6 +125,10 @@ namespace CIPlatform_Main.Controllers
 			};
 			return PartialView("_MissionSkillsPartial", skillModel);
 		}
+
+
+
+		// Method for MissionApplication Page
 		public IActionResult MissionApplicationPage()
 		{
 			var missionApp = _admin.getMissionAppList();
@@ -123,68 +138,35 @@ namespace CIPlatform_Main.Controllers
 			};
 			return PartialView("_MissionApplicationPartial", missionAppModel);
 		}
-		
+
+
+		// Method for Story Page
 		public IActionResult StoryPage()
 		{
-			return PartialView("_StoryPartial");
+			var storyList = _admin.getStoryList();
+			var userList = _admin.getUserList();
+			var missionList = _admin.getMissionList();
+			AdminViewModel storyModel = new AdminViewModel() {
+
+				StoryList = storyList,
+				UserList=userList,
+				MissionList=missionList
+			};
+
+			return PartialView("_StoryPartial", storyModel);
 		}
+
+
+		// Method for Banner Page
 		public IActionResult BannerPage()
 		{
 			return PartialView("_BannerPartial");
 		}
 
-		[HttpGet]
-		public IActionResult getDataForUser(long uId)
-		{
-           
-			var data = _admin.getDataForUserPanel(uId);
-            return Json(new
-            {
-                firstName = data.FirstName,
-                lastName = data.LastName,
-                email = data.Email,
-                employeeId = data.EmployeeId,
-                department = data.Department,
-                status = data.Status,
-                userId = uId
 
-            });
-        }
+		//***********     User Page Method Start   **************///
 
-
-		[HttpPost]
-        public IActionResult EditUserData(string Name,string Surname, string email,string EmployeeId,long userid,string DeptName,string Ustatus)
-		{
-			var  editData=_admin.EditDataForUser(Name,Surname,email,EmployeeId,userid,DeptName,Ustatus);
-			if (editData)
-			{
-
-				TempData["Success Message"] = "Data Edited Successfully";
-                return Json(new { redirectUrl = Url.Action("User", "Admin") });
-
-            }
-			else
-			{
-                TempData["Error Message"] = "Data Not Edited ";
-                return Json(new { redirectUrl = Url.Action("User", "Admin") });
-            }
-		}
-
-		public IActionResult deleteUserData(long uId)
-		{
-            var removeUserData = _admin.removeUserData(uId);
-            if (removeUserData)
-            {
-                TempData["Success Message"] = "User Deleted Successfully";
-                return Json(new { redirectUrl = Url.Action("User", "Admin") });
-            }
-            else
-            {
-                TempData["Error Message"] = "Can't Able to delete Because User already used SomeWhere";
-                return Json(new { redirectUrl = Url.Action("User", "Admin") });
-            }
-        }
-
+		// Method for Add User data 
 		[HttpPost]
 		public IActionResult addUserData(string Ufname, string Ulname, string Uemail,string Upwd,string UphnNumber, string Uavtar, string Uempid, string UDept,  string Usts)
 		{
@@ -203,6 +185,68 @@ namespace CIPlatform_Main.Controllers
 			
 		}
 
+
+		// Method for get UserData for Edit
+		[HttpGet]
+		public IActionResult getDataForUser(long uId)
+		{
+           
+			var data = _admin.getDataForUserPanel(uId);
+            return Json(new
+            {
+                firstName = data.FirstName,
+                lastName = data.LastName,
+                email = data.Email,
+                employeeId = data.EmployeeId,
+                department = data.Department,
+                status = data.Status,
+                userId = uId
+
+            });
+        }
+
+		// Method for Edit User data
+		[HttpPost]
+        public IActionResult EditUserData(string Name,string Surname, string email,string EmployeeId,long userid,string DeptName,string Ustatus)
+		{
+			var  editData=_admin.EditDataForUser(Name,Surname,email,EmployeeId,userid,DeptName,Ustatus);
+			if (editData)
+			{
+
+				TempData["Success Message"] = "Data Edited Successfully";
+                return Json(new { redirectUrl = Url.Action("User", "Admin") });
+
+            }
+			else
+			{
+                TempData["Error Message"] = "Data Not Edited ";
+                return Json(new { redirectUrl = Url.Action("User", "Admin") });
+            }
+		}
+
+
+		// Method for Delete User Data
+		public IActionResult deleteUserData(long uId)
+		{
+            var removeUserData = _admin.removeUserData(uId);
+            if (removeUserData)
+            {
+                TempData["Success Message"] = "User Deleted Successfully";
+                return Json(new { redirectUrl = Url.Action("User", "Admin") });
+            }
+            else
+            {
+                TempData["Error Message"] = "Can't Able to delete Because User already used SomeWhere";
+                return Json(new { redirectUrl = Url.Action("User", "Admin") });
+            }
+        }
+
+		//**************   User Page Methods END    ***************///
+
+
+		//**************   CMS Page Methods START    ***************///
+
+		// Method for Add CMS Page Data
 		[HttpPost]
 
 		public IActionResult AddCMSPageData(string Title, string Description, string Slug, string Status)
@@ -220,19 +264,40 @@ namespace CIPlatform_Main.Controllers
 			}
 		}
 
+
+		// Method for Delete CMS Page Data
+		public IActionResult deleteCMSPageData(long cmsId)
+		{
+			var removeCMSData = _admin.removeCMSData(cmsId);
+			if (removeCMSData)
+			{
+				TempData["Success Message"] = "CMS Data Deleted Successfully";
+				return Json(new { redirectUrl = Url.Action("CMSPage", "Admin") });
+			}
+			else
+			{
+				TempData["Error Message"] = "Can't Able to delete CMS Data";
+				return Json(new { redirectUrl = Url.Action("CMSPage", "Admin") });
+			}
+		}
 		//[HttpGet]
 		//public IActionResult getCMSDataForEdit(long cmsid)
 		//{
 		//	var cmsData = _admin.getCMSPageDataforEdit(cmsid);
 		//	return Json(new {
-				
 
-				
+
+
 		//	});
 
 		//}
 
 
+
+
+		//**************   Mission Page Methods START    ***************///
+
+		// Method for Add Mission Data
 		[HttpPost]
 		public IActionResult SaveMissionData(string mTitle, string mType,DateTime SDate, DateTime EDate,string msts)
 		{
@@ -250,21 +315,8 @@ namespace CIPlatform_Main.Controllers
 		}
 
 
-		public IActionResult deleteCMSPageData(long cmsId)
-		{
-			var removeCMSData = _admin.removeCMSData(cmsId);
-			if (removeCMSData)
-			{
-				TempData["Success Message"] = "CMS Data Deleted Successfully";
-				return Json(new { redirectUrl = Url.Action("CMSPage", "Admin") });
-			}
-			else
-			{
-				TempData["Error Message"] = "Can't Able to delete CMS Data";
-				return Json(new { redirectUrl = Url.Action("CMSPage", "Admin") });
-			}
-		}
 
+		// Method for Get Data for Edit Mission 
 		[HttpGet]
 		public IActionResult getDataForEditMission(long mId)
 		{
@@ -281,6 +333,8 @@ namespace CIPlatform_Main.Controllers
 			});
 		}
 
+
+		// Method for Edit Mission Data 
 		[HttpPost]
 		public IActionResult EditMissionData(AdminViewModel adminView, long missionid)
 		{
@@ -289,6 +343,8 @@ namespace CIPlatform_Main.Controllers
 			return RedirectToAction("User", "Admin");
 		}
 
+
+		// Method for Delete Mission Data 
 		public IActionResult deleteMissionData(long missionId)
 		{
 			var removeMissionData = _admin.removeMissionsData(missionId);
@@ -304,7 +360,14 @@ namespace CIPlatform_Main.Controllers
 			}
 
 		}
+		//**************   Mission Page Methods END    ***************///
 
+
+
+		//**************   MissionTheme Page Methods START    ***************///
+
+
+		// Method for Add Missiontheme Data
 		public IActionResult SaveMissionThemeData(string titleT,DateTime createT,int statusT)
 		{
 			var missionThemeAdded = _admin.SaveMisionThemeData( titleT, createT, statusT);
@@ -320,6 +383,9 @@ namespace CIPlatform_Main.Controllers
 			}
 		}
 
+
+
+		// Method for Get Data for Missiontheme 
 		[HttpGet]
 		public IActionResult getDataForEditMissionTheme(long mthemeId)
 		{
@@ -335,6 +401,7 @@ namespace CIPlatform_Main.Controllers
 
 		}
 
+		// Method for Edit Missiontheme Data
 		[HttpPost]
 		public IActionResult EditMissionThemeData(AdminViewModel adminView,long missionThemeid)
 		{
@@ -344,6 +411,7 @@ namespace CIPlatform_Main.Controllers
 
 		}
 
+		// Method for Delete Missiontheme Data
 		public IActionResult deleteMissionThemeData(long ThId)
 		{
 			var removeMissionThemeData = _admin.removeMissionThemeData(ThId);
@@ -358,7 +426,13 @@ namespace CIPlatform_Main.Controllers
 				return Json(new { redirectUrl = Url.Action("User", "Admin") });
 			}
 		}
+		//**************   MissionTheme Page Methods END    ***************///
 
+
+
+		//**************   MissionApplication Page Methods START    ***************///
+
+		// Method for Add MissionApplication Data
 		public IActionResult AddMissionApplicationData(long mappMid,long mappUid,string mappstatus,DateTime mappADate, DateTime mappCDate)
 		{
 			var missionappAdded = _admin.SaveMisionApplicationData(mappMid, mappUid, mappstatus, mappADate, mappCDate);
@@ -374,6 +448,8 @@ namespace CIPlatform_Main.Controllers
 			}
 		}
 
+
+		// Method for Approved User by Admin
 		[HttpPost]
 		public IActionResult AdminApprovedUser(long mAppId)
 		{
@@ -389,7 +465,8 @@ namespace CIPlatform_Main.Controllers
 				return Json(new { redirectUrl = Url.Action("User", "Admin") });
 			}
 		}
-		
+
+		// Method for Reject User by Admin
 		[HttpPost]
 		public IActionResult AdminRejectUser(long missionAppId)
 		{
@@ -405,11 +482,19 @@ namespace CIPlatform_Main.Controllers
 				return Json(new { redirectUrl = Url.Action("User", "Admin") });
 			}
 		}
+		//**************   MissionApplication Page Methods END    ***************///
 
+
+
+
+
+		//**************   MissionSkill Page Methods START    ***************///
+
+		// Method for Add Skills data
 		[HttpPost]
-		public IActionResult SaveSkillData(string SName,DateTime SDate,string SStatus)
+		public IActionResult SaveSkillData(string SName,DateTime SDate /*,string SStatus*/)
 		{
-			var skillAdd = _admin.SaveSkillsData(SName, SDate, SStatus);
+			var skillAdd = _admin.SaveSkillsData(SName, SDate /*,SStatus*/);
 			if (skillAdd)
 			{
 				TempData["Success Message"] = "Skill Added Successfully";
@@ -421,6 +506,24 @@ namespace CIPlatform_Main.Controllers
 				return Json(new { redirectUrl = Url.Action("User", "Admin") });
 			}
 		}
+
+
+		// Method for Delete Skills data
+		public IActionResult deleteUserSkill(long SkillsId)
+		{
+			var deleteSkill = _admin.DeleteSkillByAdmin(SkillsId);
+			if (deleteSkill)
+			{
+				TempData["Success Message"] = "Skill Deleted Successfully";
+				return Json(new { redirectUrl = Url.Action("User", "Admin") });
+			}
+			else
+			{
+				TempData["Error Message"] = "Skill not Deleted";
+				return Json(new { redirectUrl = Url.Action("User", "Admin") });
+			}
+		}
+		//**************   MissionSkill Page Methods END    ***************///
 
 	}
 }

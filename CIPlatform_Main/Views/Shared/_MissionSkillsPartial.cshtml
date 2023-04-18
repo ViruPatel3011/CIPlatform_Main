@@ -82,13 +82,13 @@
 										   placeholder="" id="skillCreate">
 								</div>
 
-								<div class="mb-3">
+								@*<div class="mb-3">
 									<label for="exampleFormControlInput1"
 										   class="form-label">Skills Status</label>
 									<input type="text" class="form-control " id="skillstatus"
 										   placeholder="">
 
-								</div>
+								</div>*@
 
 
 
@@ -112,7 +112,7 @@
 		</div>
 		<div class="row mt-3 mx-2 ">
 			<div class="col-12 table-responsive-sm">
-				<table class="table" id="mission-table">
+				<table class="table table-bordered table-striped " id="mission-table">
 					<thead class="thead-dark">
 						<tr>
 							@*<th scope="col">MissionTheme Id</th>*@
@@ -132,16 +132,12 @@
 								<td scope="row">@skills.SkillName</td>
 								<td scope="row">@skills.CreatedAt</td>
 								
-								@if (skills.Status == "a")
+								@if (skills.Status == "Added")
 								{
 
 									<th class="text-success" scope="col">@skills.Status</th>
 								}
-								else if (skills.Status == "Pending")
-								{
-
-									<th class="text-warning" scope="col">@skills.Status</th>
-								}
+								
 								else
 								{
 									<th class="text-danger" scope="col">@skills.Status</th>
@@ -152,7 +148,7 @@
 								<td class="p-0 pt-2 px-1 d-flex">
 									<div class="mb-2">
 										<button type="button" data-bs-toggle="modal"
-												data-bs-target="#exampleModalMissionAppEdit" class="border-0 bg-transparent" onclick="getMissionAppId(@skills.SkillId)">
+												data-bs-target="#exampleModalMissionAppEdit" class="border-0 bg-transparent" onclick="getSkillId(@skills.SkillId)">
 											<i class="bi bi-trash3 text-dark"></i>
 										</button>
 
@@ -161,7 +157,7 @@
 											<div class="modal-dialog modal-dialog-centered">
 												<div class="modal-content">
 													<div class="modal-header">
-														<h5 class="modal-title" id="exampleModalLabel">Confirm Approved?</h5>
+														<h5 class="modal-title" id="exampleModalLabel">Confirm Delete?</h5>
 														<button type="button" class="btn-close"
 																data-bs-dismiss="modal" aria-label="Close"></button>
 													</div>
@@ -169,7 +165,7 @@
 
 														<div class="mb-3">
 															<label for="exampleFormControlInput1"
-																   class="form-label">Are you sure you want to Approve this user??</label>
+																   class="form-label">Are you sure you want to Delete this Skill??</label>
 														</div>
 
 													</div>
@@ -180,8 +176,8 @@
 															Cancel
 														</button>
 														<button type="button" class="btn btn-outline-warning"
-																style="border-radius:50px" data-bs-dismiss="modal" onclick="ApproveUser()">
-															Approve
+																style="border-radius:50px" data-bs-dismiss="modal" onclick="deleteSkills()">
+															Delete
 														</button>
 													</div>
 												</div>
@@ -236,4 +232,27 @@
 			}
 		});
 	}
+
+	var skillid=0;
+	function getSkillId(skillId)
+	{
+		skillid = skillId
+	}
+	function deleteSkills(){
+		$.ajax({
+			url:"/Admin/deleteUserSkill",
+			type: "POST",
+			data: {
+				SkillsId: skillid
+
+			},
+			success: function (result) {
+				location.reload();
+			},
+			error: function (result) {
+				alert("error occur in Skill Add");
+			}
+		});
+	}
+
 </script>

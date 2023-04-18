@@ -13,16 +13,25 @@ namespace CIPlatform_Main.Entities.ViewModel
 		// below field is for mission page
 		public string title { get; set; }
 		public string? status { get; set; }
+		public string missionType { get; set; }
 
 		public DateTime? startDate { get; set; }
+		public DateTime? endDate { get; set; }
+
+
 
 		// below field is for mission Theme page
 		public string themeTitle { get; set; }
 		public byte themeStatus { get; set; }
 
+
+
+		// Below field for MissionTheme Page
 		public DateTime createdDate { get; set; }
-		public DateTime? endDate { get; set; }
-		public string missionType { get; set; }
+
+
+
+		// All the Required List 
 
 		public List<User> UserList { get; set; }
 		public List<CmsPage> CMSPageList { get; set; }
@@ -31,6 +40,7 @@ namespace CIPlatform_Main.Entities.ViewModel
 		public List<MissionTheme> MissionThemeList { get; set; }
 		public List<MissionApplication> MissionApplicationList { get; set; }
 		public List<Skill> SkillsList { get; set; }
+		public List<Story> StoryList { get; set; }
 
 
 

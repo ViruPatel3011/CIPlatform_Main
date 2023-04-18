@@ -260,6 +260,7 @@
 
 
 	
+		// Below code is for Search bar and pagination
 			$.noConflict();
 
 			jQuery(document).ready(function ($) {
@@ -273,7 +274,20 @@
 					return this.nodeType === 3;
 				}).remove();
 			});
-		
+
+
+		// Below code is for side bar Active on click
+		$('#userSelectedBg').addClass('active');
+		$('.nav-link').on('click', function (event) {
+			$('.nav-link').removeClass('active');
+			$('#userHighlight').removeClass('active');
+			$(this).addClass('active');
+			event.preventDefault();
+			var url = $(this).attr('href');
+			$('#loadSideBar').load(url);
+		});
+
+
 		var userid = 0;
 		function loadUserData(userId) {
 			$.ajax({
@@ -358,15 +372,6 @@
 
 
 
-		$('#userSelectedBg').addClass('active');
-		$('.nav-link').on('click', function (event) {
-			$('.nav-link').removeClass('active');
-			$('#userHighlight').removeClass('active');
-			$(this).addClass('active');
-			event.preventDefault();
-			var url = $(this).attr('href');
-			$('#loadSideBar').load(url);
-		});
 		//function loadUserView() {
 		//	document.getElementById('userPage').style.display = 'block';
 		//	document.getElementById('cmsPage').style.display = 'none';

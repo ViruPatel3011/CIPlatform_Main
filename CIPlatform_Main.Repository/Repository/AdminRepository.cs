@@ -15,6 +15,10 @@ namespace CIPlatform_Main.Repository.Repository
 			_ciPlatformContext = ciPlatformContext;
 		}
 
+
+		// All below Method for getting List
+
+		// ************** List Section start    **********//
 		public List<User> getUserList()
 		{
 			var list = _ciPlatformContext.Users.OrderBy(x=>x.Status).ToList();
@@ -46,14 +50,52 @@ namespace CIPlatform_Main.Repository.Repository
 			var list = _ciPlatformContext.Skills.ToList();
 			return list;
 		}
+		public List<Story> getStoryList()
+		{
+			var list = _ciPlatformContext.Stories.ToList();
+			return list;
+		}
 
+
+		// ************** List Section ENd    **********//
+
+
+
+		//**************   User Page Methods START    ***************///
+
+		// Method for Add User data
+		public bool AddUserDetails(string Ufname, string Ulname, string Uemail, string Upwd, string UphnNumber, string Uavtar, string Uempid, string UDept, string Usts)
+		{
+			User user = new User()
+			{
+				FirstName = Ufname,
+				LastName = Ulname,
+				Email = Uemail,
+				Password = Upwd,
+				PhoneNumber = UphnNumber,
+				Avatar = Uavtar,
+				EmployeeId = Uempid,
+				Department = UDept,
+				Status = Usts,
+				CountryId = 1,
+				CityId = 2
+
+			};
+			_ciPlatformContext.Users.Add(user);
+			_ciPlatformContext.SaveChanges();
+			return true;
+		}
+
+		// Method for get UserData for Edit
 		public User getDataForUserPanel(long uId)
 		{
 			var checkUser=_ciPlatformContext.Users.Where(x=>x.UserId == uId).FirstOrDefault();
 			return checkUser;
 		}
 
-        public bool EditDataForUser(string Name, string Surname, string email, string EmployeeId, long userid, string DeptName, string Ustatus)
+
+		// Method for Edit User data
+		public bool EditDataForUser(string Name, string Surname, string email, string EmployeeId, long userid, string DeptName, string Ustatus)
 		{
 			var isUserValid=_ciPlatformContext.Users.Where(x=>x.UserId==userid).FirstOrDefault();
 			isUserValid.FirstName = Name;
@@ -66,6 +108,8 @@ namespace CIPlatform_Main.Repository.Repository
 			return true;
 		}
 
+
+		// Method for Remove User data
 		public bool removeUserData(long uId)
 		{
 			var isValidUser=_ciPlatformContext.Users.Where(x=>x.UserId==uId).FirstOrDefault();
@@ -87,28 +131,15 @@ namespace CIPlatform_Main.Repository.Repository
             }
 		}
 
-		public bool AddUserDetails(string Ufname, string Ulname, string Uemail, string Upwd, string UphnNumber, string Uavtar, string Uempid, string UDept, string Usts)
-		{
-			User user = new User()
-			{
-				FirstName = Ufname,
-				LastName = Ulname,
-				Email = Uemail,
-				Password = Upwd,
-				PhoneNumber = UphnNumber,
-				Avatar = Uavtar,
-				EmployeeId = Uempid,
-				Department = UDept,
-				Status = Usts,
-				CountryId=1,
-				CityId=2
+		//**************   User Page Methods END    ***************///
 
-			};
-			_ciPlatformContext.Users.Add(user);
-			_ciPlatformContext.SaveChanges();
-			return true;
-		}
 
+
+
+
+		//**************   CMs Page Methods start    ***************///
+
+		// Method for Add CMS Page Data
 		public bool AddCMSpageData(string Title, string Description, string Slug, string Status)
 		{
 			CmsPage cmsPage = new CmsPage()
@@ -128,6 +159,9 @@ namespace CIPlatform_Main.Repository.Repository
 			var cmspage = _ciPlatformContext.CmsPages.Where(x => x.CmsPageId == cmsid).FirstOrDefault();
 			return cmspage;
 		}
+
+
+		// Method for Delete CMS Page Data
 		public bool removeCMSData(long cmsId)
 		{
 			var cmsDataExist=_ciPlatformContext.CmsPages.Where(x=>x.CmsPageId == cmsId).FirstOrDefault();	
@@ -146,6 +180,16 @@ namespace CIPlatform_Main.Repository.Repository
 			}
 		}
 
+		//**************   CMS Page MethodS END    ***************///
+
+
+
+
+
+
+		//**************   Mission Page MethodS START    ***************///
+
+		// Method for Add Mission Data
 		public bool SavedMissionData(string mTitle, string mType, DateTime SDate, DateTime EDate, string msts)
 		{
 			Mission mission = new Mission()
@@ -165,12 +209,14 @@ namespace CIPlatform_Main.Repository.Repository
 			return true;
 		}
 
+		// Method for Get Data for Edit Mission 
 		public Mission getDataForMissionEdit(long mId)
 		{
 			var mission = _ciPlatformContext.Missions.Where(x => x.MissionId == mId).FirstOrDefault();
 			return mission;
 		}
 
+		// Method for Edit Mission Data 
 		public void editMissionData(AdminViewModel adminView, long missionid)
 		{
 			var mission = _ciPlatformContext.Missions.Where(x => x.MissionId == missionid).FirstOrDefault();
@@ -182,6 +228,7 @@ namespace CIPlatform_Main.Repository.Repository
 			_ciPlatformContext.SaveChanges();
 		}
 
+		// Method for Delete Mission Data 
 		public bool removeMissionsData(long missionId)
 		{
 			var validMission = _ciPlatformContext.Missions.Where(x => x.MissionId == missionId).FirstOrDefault();
@@ -198,11 +245,19 @@ namespace CIPlatform_Main.Repository.Repository
 			{
 				return false;
 			}
-			
 
-			
+
 		}
+		//**************   Mission Page Methods END    ***************///
 
+
+
+
+
+		//**************   MissionTheme Page Methods END    ***************///
+
+
+		// Method for Add Missiontheme Data
 		public bool SaveMisionThemeData( string titleT, DateTime createT, int statusT)
 		{
 			MissionTheme missionTheme = new MissionTheme()
@@ -217,12 +272,14 @@ namespace CIPlatform_Main.Repository.Repository
 			return true;
 		}
 
+		// Method for Get Data for Missiontheme 
 		public MissionTheme getDataForMissionThemeEdit(long mthemeId)
 		{
 			var missionTheme=_ciPlatformContext.MissionThemes.Where(x=>x.MissionThemeId == mthemeId).FirstOrDefault();
 			return missionTheme;
 		}
 
+		// Method for Edit Missiontheme Data
 		public void EditDataForMissionTheme(AdminViewModel adminView, long missionThemeid)
 		{
 			var theme = _ciPlatformContext.MissionThemes.Where(x => x.MissionThemeId == missionThemeid).FirstOrDefault();
@@ -233,6 +290,7 @@ namespace CIPlatform_Main.Repository.Repository
 
 		}
 
+		// Method for Delete Missiontheme Data
 		public bool removeMissionThemeData(long ThId)
 		{
 			var themeId = _ciPlatformContext.MissionThemes.Where(x => x.MissionThemeId == ThId).FirstOrDefault();
@@ -249,7 +307,16 @@ namespace CIPlatform_Main.Repository.Repository
 				return false;
 			}
 		}
+		//**************   MissionTheme Page Methods END    ***************///
 
+
+
+
+
+
+		//**************   MissionApplication Page Methods START    ***************///
+
+		// Method for Add MissionApplication Data
 		public bool SaveMisionApplicationData(long mappMid, long mappUid, string mappstatus, DateTime mappADate, DateTime mappCDate)
 		{
 			MissionApplication missionapp = new MissionApplication()
@@ -266,6 +333,7 @@ namespace CIPlatform_Main.Repository.Repository
 			return true;
 		}
 
+		// Method for Approved User by Admin
 		public bool ApprovedUserbyAdmin(long mAppId)
 		{
 			var missionAppId = _ciPlatformContext.MissionApplications.Where(x => x.MissionApplicationId == mAppId).FirstOrDefault();
@@ -282,6 +350,7 @@ namespace CIPlatform_Main.Repository.Repository
 			}
 		}
 
+		// Method for Reject User by Admin
 		public bool RejectedUserbyAdmin(long missionAppId)
 		{
 			var misAppId = _ciPlatformContext.MissionApplications.Where(x => x.MissionApplicationId == missionAppId).FirstOrDefault();
@@ -298,19 +367,48 @@ namespace CIPlatform_Main.Repository.Repository
 			}
 		}
 
-		public bool SaveSkillsData(string SName, DateTime SDate, string SStatus)
+		//**************   MissionApplication Page Methods END    ***************///
+
+
+
+
+
+		//**************   MissionSkill Page Methods START    ***************///
+
+		// Method for Add Skills data
+		public bool SaveSkillsData(string SName, DateTime SDate /*, string SStatus*/)
 		{
 			Skill skill = new Skill() { 
 				
 				SkillName=SName,
 				CreatedAt=SDate,
-				Status=SStatus
-			
+				//Status=SStatus
+				Status = "Added"
+
 			};
 			_ciPlatformContext.Skills.Add(skill);
 			_ciPlatformContext.SaveChanges();
 			return true;
 
 		}
+
+		// Method for Delete Skills data
+		public bool DeleteSkillByAdmin(long SkillsId)
+		{
+			var skill = _ciPlatformContext.Skills.Where(x => x.SkillId == SkillsId).FirstOrDefault();
+			if (skill != null)
+			{
+				skill.Status = "Deleted";
+				_ciPlatformContext.Skills.Update(skill);
+				_ciPlatformContext.SaveChanges();
+				return true;
+
+			}
+			else
+			{
+				return false;
+			}
+		}
+		//**************   MissionSkill Page Methods END    ***************///
 	}
 }

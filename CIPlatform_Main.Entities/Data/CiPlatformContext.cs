@@ -685,7 +685,8 @@ public partial class CiPlatformContext : DbContext
                 .HasMaxLength(64)
                 .HasColumnName("skill_name");
             entity.Property(e => e.Status)
-                .HasMaxLength(1)
+                .HasMaxLength(20)
+                .IsUnicode(false)
                 .HasDefaultValueSql("((1))")
                 .HasColumnName("status");
             entity.Property(e => e.UpdatedAt)
