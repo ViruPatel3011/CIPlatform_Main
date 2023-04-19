@@ -641,6 +641,10 @@
       "PackagePath": "staticwebassets\\css\\bootstrap.rtl.min.css.map"
     },
     {
+      "Id": "E:\\CIPlatform_Main\\CIPlatform_Main\\wwwroot\\css\\datatables.css",
+      "PackagePath": "staticwebassets\\css\\datatables.css"
+    },
+    {
       "Id": "E:\\CIPlatform_Main\\CIPlatform_Main\\wwwroot\\css\\forgot.css",
       "PackagePath": "staticwebassets\\css\\forgot.css"
     },

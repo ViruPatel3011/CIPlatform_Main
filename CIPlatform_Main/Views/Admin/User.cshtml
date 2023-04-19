@@ -24,8 +24,10 @@
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
 
 
-	<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.25/css/jquery.dataTables.css">
+	@*<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.25/css/jquery.dataTables.css">
 
+*@
+	<link rel="stylesheet" href="~/css/datatables.css">
 	
 	<link rel="stylesheet" href="~/css/User.css">
 	<title>User</title>
@@ -132,6 +134,7 @@
 			<div class="col-10 col-xl-10 col-lg-9 col-md-11 ">
 
 				<div class="row" id="loadSideBar">
+
 					@await Html.PartialAsync("~/Views/Shared/_UserPartial.cshtml")
 				</div>
 
@@ -261,19 +264,19 @@
 
 	
 		// Below code is for Search bar and pagination
-			$.noConflict();
+			//$.noConflict();
 
-			jQuery(document).ready(function ($) {
+			//jQuery(document).ready(function ($) {
 
-			$('#mission-table').DataTable({
-					"pageLength": 5
-				});
+			//$('#mission-table').DataTable({
+			//		"pageLength": 5
+			//	});
 
-				$('#myTable_filter label input').attr('placeholder', 'Search...').attr('value', '');
-				$('#myTable_filter label').contents().filter(function () {
-					return this.nodeType === 3;
-				}).remove();
-			});
+			//	$('#myTable_filter label input').attr('placeholder', 'Search...').attr('value', '');
+			//	$('#myTable_filter label').contents().filter(function () {
+			//		return this.nodeType === 3;
+			//	}).remove();
+			//});
 
 
 		// Below code is for side bar Active on click
@@ -434,12 +437,7 @@
 			});
 		}
 
-		//$("#mission-table").DataTable({
-		//	language: {
-		//		searchPlaceholder: "Search records",
-		//		search: "",
-		//	}
-		//});
+	
 
 
 	</script>

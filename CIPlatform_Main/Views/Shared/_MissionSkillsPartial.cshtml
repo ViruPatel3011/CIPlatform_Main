@@ -1,5 +1,22 @@
 ﻿@model AdminViewModel
 
+
+<style>
+	#missionskill-table_filter {
+		margin-right: 77%;
+		margin-bottom: 16px;
+	}
+
+	#missionskill-table_previous, #missionskill-table_next {
+		display: none;
+	}
+
+	#missionskill-table_paginate {
+		margin-top: 20px
+	}
+</style>
+
+
 <!-- Right Part Div for Tables -->
 <div class="col-12 col-xl-10 col-lg-9 col-md-11 ">
 	<div class="row shadow-lg " style="height:50px;">
@@ -37,15 +54,15 @@
 	</div>
 	<div class="row">
 		<div class="col-12">
-			<h3 class="mt-3 ms-3 mb-0">MissionApplication</h3>
+			<h3 class="mt-3 ms-3 mb-0">MissionSkill</h3>
 			<hr class="m-0 mt-2">
 		</div>
 	</div>
 	<div class="row mt-3">
 		<div class="col-4 ">
-			<div class="input-group rounded">
+			<div class="input-group rounded search-bar">
 				<input type="search" class="form-control rounded" placeholder="Search" aria-label="Search"
-					   aria-describedby="search-addon" />
+					   aria-describedby="search-addon" id="search-bar" />
 			</div>
 		</div>
 		<div class="col-8">
@@ -112,7 +129,7 @@
 		</div>
 		<div class="row mt-3 mx-2 ">
 			<div class="col-12 table-responsive-sm">
-				<table class="table table-bordered table-striped " id="mission-table">
+				<table class="table table-bordered table-striped " id="missionskill-table">
 					<thead class="thead-dark">
 						<tr>
 							@*<th scope="col">MissionTheme Id</th>*@
@@ -205,7 +222,8 @@
 
 <script src="~/lib/jquery/dist/jquery.min.js"></script>
 <script src="~/lib/jquery/dist/jquery.js"></script>
-
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.js"></script>
 
 <script>
 
@@ -255,4 +273,12 @@
 		});
 	}
 
+	$(document).ready(function () {
+		var dataTable = $('#missionskill-table').DataTable({
+			"pageLength": 4,
+		});
+		$('#search-bar').keyup(function () {
+			dataTable.search(this.value).draw();
+		});
+	});
 </script>

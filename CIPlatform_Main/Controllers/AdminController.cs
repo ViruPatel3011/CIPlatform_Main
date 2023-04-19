@@ -18,12 +18,7 @@ namespace CIPlatform_Main.Controllers
 
 
 
-
-		public IActionResult Index()
-		{
-			return View();
-		}
-		
+	
 		
 		// Default User Page
 		public IActionResult User()
@@ -524,6 +519,35 @@ namespace CIPlatform_Main.Controllers
 			}
 		}
 		//**************   MissionSkill Page Methods END    ***************///
+
+
+
+
+
+		//**************   Story Page Methods START    ***************///
+
+		public IActionResult AdminApproveStory(long stId)
+		{
+			_admin.StoryApprovedByAdmin(stId);
+			TempData["Success Message"] = "Story Approved";
+			return Json(new { redirectUrl = Url.Action("User", "Admin") });
+
+		}
+		
+		public IActionResult AdminDeclineStory(long storyid)
+		{
+			_admin.StoryDeclinedByAdmin(storyid);
+			TempData["Success Message"] = "Story Declined";
+			return Json(new { redirectUrl = Url.Action("User", "Admin") });
+
+		}
+		public IActionResult AdminDeleteStory(long dSId)
+		{
+			_admin.StoryDeletedByAdmin(dSId);
+			TempData["Success Message"] = "Story Deleted";
+			return Json(new { redirectUrl = Url.Action("User", "Admin") });
+
+		}
 
 	}
 }

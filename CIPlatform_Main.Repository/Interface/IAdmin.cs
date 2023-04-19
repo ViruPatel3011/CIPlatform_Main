@@ -125,5 +125,14 @@ namespace CIPlatform_Main.Repository.Interface
 
 		//**************   MissionSkill Page Methods END    ***************///
 
+
+
+
+		//**************   Story Page Methods START    ***************///
+
+		public bool StoryApprovedByAdmin(long stId);
+		public bool StoryDeclinedByAdmin(long storyid);
+		public bool StoryDeletedByAdmin(long dSId);
+
 	}
 }

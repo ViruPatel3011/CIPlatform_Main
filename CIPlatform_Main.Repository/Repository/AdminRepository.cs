@@ -42,7 +42,7 @@ namespace CIPlatform_Main.Repository.Repository
 		}
 		public List<MissionApplication> getMissionAppList()
 		{
-			var list = _ciPlatformContext.MissionApplications.ToList();
+			var list = _ciPlatformContext.MissionApplications.OrderBy(x=>x.ApprovalStatus).ToList();
 			return list;
 		}
 		public List<Skill> getSkillsList()
@@ -410,5 +410,63 @@ namespace CIPlatform_Main.Repository.Repository
 			}
 		}
 		//**************   MissionSkill Page Methods END    ***************///
+
+
+
+
+
+
+
+
+		//**************   Story Page Methods START    ***************///
+
+		public bool StoryApprovedByAdmin(long stId)
+		{
+			var storyid=_ciPlatformContext.Stories.Where(x=>x.StoryId==stId).FirstOrDefault();
+			if(storyid != null)
+			{
+				storyid.Status = "Published";
+				_ciPlatformContext.Stories.Update(storyid);
+				_ciPlatformContext.SaveChanges();
+				return true;
+			}
+			else
+			{
+				return false;
+			}
+		
+		}
+
+		public bool StoryDeclinedByAdmin(long storyid)
+		{
+			var storyId = _ciPlatformContext.Stories.Where(x => x.StoryId == storyid).FirstOrDefault();
+			if (storyId != null)
+			{
+				storyId.Status = "Declined";
+				_ciPlatformContext.Stories.Update(storyId);
+				_ciPlatformContext.SaveChanges();
+				return true;
+			}
+			else
+			{
+				return false;
+			}
+		}
+		
+		public bool StoryDeletedByAdmin(long dSId)
+		{
+			var storyId = _ciPlatformContext.Stories.Where(x => x.StoryId == dSId).FirstOrDefault();
+			if (storyId != null)
+			{
+				storyId.Status = "Deleted";
+				_ciPlatformContext.Stories.Update(storyId);
+				_ciPlatformContext.SaveChanges();
+				return true;
+			}
+			else
+			{
+				return false;
+			}
+		}
 	}
 }
