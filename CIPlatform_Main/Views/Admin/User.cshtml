@@ -441,5 +441,18 @@
 
 
 	</script>
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+	<script type="text/javascript" src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.js"></script>
+
+	<script type="text/javascript">
+		$(document).ready(function () {
+			var dataTable = $('#user-table').DataTable({
+				"pageLength": 4,
+			});
+			$('#search-bar').keyup(function () {
+				dataTable.search(this.value).draw();
+			});
+		});
+	</script>
 </body>
 </html>

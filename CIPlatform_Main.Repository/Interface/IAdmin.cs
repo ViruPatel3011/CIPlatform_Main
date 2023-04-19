@@ -22,6 +22,7 @@ namespace CIPlatform_Main.Repository.Interface
 		public List<MissionApplication> getMissionAppList();
 		public List<Skill> getSkillsList();
 		public List<Story> getStoryList();
+		public List<Banner> getBannerList();
 
 
 		// ************** List Section ENd    **********//
@@ -134,5 +135,18 @@ namespace CIPlatform_Main.Repository.Interface
 		public bool StoryDeclinedByAdmin(long storyid);
 		public bool StoryDeletedByAdmin(long dSId);
 
+		//**************   Story Page Methods END    ***************///
+
+
+
+		//**************   Banner Page Methods START    ***************///
+
+		public bool AddBanneData(string textB, string imageB, int sOrderB, DateTime dateB);
+
+		public Banner getDataForEditBannerPage(long bId);
+
+		public void EditBannerPageData(BannerVM banner, long bannerId);
+
+		public bool deleteBannerPageData(long bannerPageId);
 	}
 }

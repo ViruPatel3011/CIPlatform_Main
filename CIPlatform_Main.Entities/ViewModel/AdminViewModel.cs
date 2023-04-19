@@ -9,7 +9,7 @@ namespace CIPlatform_Main.Entities.ViewModel
 {
 	public class AdminViewModel
 	{
-
+		public long storyId { get; set; }
 		// below field is for mission page
 		public string title { get; set; }
 		public string? status { get; set; }
@@ -41,6 +41,7 @@ namespace CIPlatform_Main.Entities.ViewModel
 		public List<MissionApplication> MissionApplicationList { get; set; }
 		public List<Skill> SkillsList { get; set; }
 		public List<Story> StoryList { get; set; }
+		public List<Banner> BannerList { get; set; }
 
 
 

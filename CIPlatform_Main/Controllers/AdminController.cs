@@ -155,7 +155,13 @@ namespace CIPlatform_Main.Controllers
 		// Method for Banner Page
 		public IActionResult BannerPage()
 		{
-			return PartialView("_BannerPartial");
+			var bannerData = _admin.getBannerList();
+			BannerVM bannerModel = new BannerVM()
+			{
+				BannerList = bannerData
+			};
+
+			return PartialView("_BannerPartial", bannerModel);
 		}
 
 
@@ -549,5 +555,64 @@ namespace CIPlatform_Main.Controllers
 
 		}
 
+		//**************   Story Page Methods END***************///
+
+
+
+
+
+		//**************   Banner Page Methods START***************///
+
+		public IActionResult SaveBannerData(string textB, string imageB, int sOrderB, DateTime dateB)
+		{
+			var bannerAdd = _admin.AddBanneData(textB, imageB, sOrderB, dateB);
+			if(bannerAdd)
+			{
+				TempData["Success Message"] = "Banner Added";
+				return Json(new { redirectUrl = Url.Action("User", "Admin") });
+			}
+			else
+			{
+				TempData["Error Message"] = "Banner Not Added";
+				return Json(new { redirectUrl = Url.Action("User", "Admin") });
+			}
+		}
+
+		public IActionResult getDataForEditBanner(long bId)
+		{
+			var editbanner = _admin.getDataForEditBannerPage(bId);
+			return Json(new {
+
+				bImage=editbanner.Image,
+				bText=editbanner.Text,
+				bOrder=editbanner.SortOrder,
+				bDate=editbanner.CreatedAt,
+				bannerId=bId
+
+			});
+
+		}
+
+		public IActionResult EditBannerData(BannerVM banner,long bannerId)
+		{
+			_admin.EditBannerPageData(banner, bannerId);
+			TempData["Success Message"] = "Banner Edited";
+			return RedirectToAction("User", "Admin");
+		}
+
+		public IActionResult deleteBannerData(long bannerPageId)
+		{
+			var delete = _admin.deleteBannerPageData(bannerPageId);
+			if(delete)
+			{
+				TempData["Success Message"] = "Banner Deleted";
+				return RedirectToAction("User", "Admin");
+			}
+			else
+			{
+				TempData["Error Message"] = "Banner not Deleted";
+				return RedirectToAction("User", "Admin");
+			}
+		}
 	}
 }

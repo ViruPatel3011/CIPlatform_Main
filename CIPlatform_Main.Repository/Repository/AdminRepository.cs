@@ -55,6 +55,11 @@ namespace CIPlatform_Main.Repository.Repository
 			var list = _ciPlatformContext.Stories.ToList();
 			return list;
 		}
+		public List<Banner> getBannerList()
+		{
+			var list = _ciPlatformContext.Banners.ToList();
+			return list;
+		}
 
 
 		// ************** List Section ENd    **********//
@@ -460,6 +465,60 @@ namespace CIPlatform_Main.Repository.Repository
 			{
 				storyId.Status = "Deleted";
 				_ciPlatformContext.Stories.Update(storyId);
+				_ciPlatformContext.SaveChanges();
+				return true;
+			}
+			else
+			{
+				return false;
+			}
+		}
+		//**************   Story Page Methods END***************///
+
+
+
+
+		//**************   Banner Page Methods START***************///
+		public bool AddBanneData(string textB, string imageB, int sOrderB, DateTime dateB)
+		{
+			Banner banner = new Banner()
+			{ 
+				Text=textB,
+				Image=imageB,
+				SortOrder=sOrderB,
+				CreatedAt=dateB
+			
+			};
+			_ciPlatformContext.Banners.Add(banner); 
+			_ciPlatformContext.SaveChanges();
+			return true;
+
+		}
+
+		public Banner getDataForEditBannerPage(long bId)
+		{
+			var bannerList = _ciPlatformContext.Banners.Where(x => x.BannerId == bId).FirstOrDefault();
+			return bannerList;
+		}
+
+		public void EditBannerPageData(BannerVM banner, long bannerId)
+		{
+			var bannerPageId = _ciPlatformContext.Banners.Where(x => x.BannerId == bannerId).FirstOrDefault();
+			bannerPageId.Text = banner.Text;
+			bannerPageId.Image = banner.Image;
+			bannerPageId.SortOrder = banner.SortOrder;
+			bannerPageId.CreatedAt = banner.CreatedAt;
+			_ciPlatformContext.Banners.Update(bannerPageId);
+			_ciPlatformContext.SaveChanges();
+		}
+
+		public bool deleteBannerPageData(long bannerPageId)
+		{
+			var bid=_ciPlatformContext.Banners.Where(x=>x.BannerId==bannerPageId).FirstOrDefault();
+			if(bid!=null) {
+
+				bid.DeletedAt = DateTime.Now;
+				_ciPlatformContext.Banners.Update(bid);
 				_ciPlatformContext.SaveChanges();
 				return true;
 			}

@@ -147,7 +147,7 @@
 								@*<td scope="row">@mission.MissionThemeId</td>*@
 								<td scope="row">@skills.SkillId</td>
 								<td scope="row">@skills.SkillName</td>
-								<td scope="row">@skills.CreatedAt</td>
+								<td scope="row">@skills.CreatedAt.ToString("dd-MM-yyyy")</td>
 								
 								@if (skills.Status == "Added")
 								{

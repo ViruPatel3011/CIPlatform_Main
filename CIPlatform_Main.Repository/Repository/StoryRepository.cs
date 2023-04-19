@@ -88,7 +88,7 @@ namespace CIPlatform_Main.Repository.Repository
         }*/
 
 
-        public storyDetailVM GetStoryDetail(long userId, int missionId,int count)
+        public storyDetailVM GetStoryDetail(long userId, int missionId,int count,long storyId)
         {
 			storyDetailVM sdv = new storyDetailVM();
             sdv.storyTitle = _ciPlatformContext.Stories.Where(x => x.UserId == userId && x.MissionId == missionId).Select(x => x.Title).FirstOrDefault();
@@ -117,7 +117,7 @@ namespace CIPlatform_Main.Repository.Repository
 			//	_ciPlatformContext.SaveChanges();
 			//}
 
-			var viewCount = _ciPlatformContext.Stories.Where(x => x.MissionId == missionId).FirstOrDefault();
+			var viewCount = _ciPlatformContext.Stories.FirstOrDefault(x => x.MissionId == missionId);
 			viewCount.Viewscount = count;
 			_ciPlatformContext.Stories.Update(viewCount);
 			_ciPlatformContext.SaveChanges();

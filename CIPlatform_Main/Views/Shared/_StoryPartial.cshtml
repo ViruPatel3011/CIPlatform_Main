@@ -48,7 +48,7 @@
 					   aria-describedby="search-addon" />
 			</div>
 		</div>
-	
+
 		<div class="row mt-3 mx-2 ">
 			<div class="col-12 table-responsive-sm">
 				<table class="table table-bordered table-striped" id="mission-table">
@@ -58,7 +58,7 @@
 							<th scope="col">Full Name</th>
 							<th scope="col">Mission Title</th>
 							<th scope="col">Story status</th>
-						
+
 							<th scope="col">Action</th>
 						</tr>
 					</thead>
@@ -67,18 +67,18 @@
 						{
 							var missionTitle = "";
 							var username = "";
-							@foreach(var mission in Model.MissionList)
+							@foreach (var mission in Model.MissionList)
 							{
 								if (mission.MissionId == story.MissionId)
 								{
 									missionTitle = mission.Title;
 								}
 							}
-							@foreach(var user in Model.UserList)
+							@foreach (var user in Model.UserList)
 							{
 								if (user.UserId == story.UserId)
 								{
-									username=user.FirstName+ " "+ user.LastName;
+									username = user.FirstName + " " + user.LastName;
 								}
 							}
 
@@ -92,7 +92,7 @@
 								{
 									<td class="text-success" scope="row">@story.Status</td>
 								}
-								else if(story.Status=="Declined")
+								else if (story.Status == "Declined")
 								{
 									<td class="text-warning" scope="row">@story.Status</td>
 
@@ -100,13 +100,16 @@
 								else
 								{
 									<td class="text-danger" scope="row">@story.Status</td>
-									
+
 								}
 
-							
+
 								<td class="p-0 pt-2 px-1 d-flex">
 									<div class="mb-2" style="border: 2px solid #ffb100;border-radius: 44%;width: 30%;">
-										<a class="text-warning mx-2" type="button" @*onclick="ViewStory(@story.StoryId)"*@>
+										<input hidden name="userId" id="userId" />
+										<input hidden name="missionId" id="missionId" />
+										<input hidden name="view" id="views" />
+										<a class="text-warning mx-2" type="button" asp-controller="Story" asp-action="storyDetail" asp-route-storyId="@story.StoryId" asp-route-missionId="@story.MissionId" asp-route-userId ="@story.UserId" asp-route-views="@story.Viewscount">
 											view
 										</a>
 									</div>
@@ -249,21 +252,21 @@
 <script>
 
 
-	function ViewStory(storyid){
+	function ViewStory(storyid) {
 
-		var url = "/Story/storyDetail/" + storyid;
+		var url = "/Story/storyDetail/id=" + storyid;
 		window.open(url, "_blank");
 
 	}
 
 
 
-	var storyid=0;
-	function getStoryId(storyId){
+	var storyid = 0;
+	function getStoryId(storyId) {
 		storyid = storyId
 	}
 
-	function approveStory(){
+	function approveStory() {
 		$.ajax({
 			url: "/Admin/AdminApproveStory",
 			type: "POST",
@@ -284,13 +287,13 @@
 	}
 
 
-	var id=0;
-	function getrejectId(stid){
-		id=stid
+	var id = 0;
+	function getrejectId(stid) {
+		id = stid
 	}
 
 
-	function declineStory(){
+	function declineStory() {
 		$.ajax({
 			url: "/Admin/AdminDeclineStory",
 			type: "POST",
@@ -310,13 +313,12 @@
 		});
 	}
 
-	var delId=0;
-	function getIdForDelete(delstId)
-	{
+	var delId = 0;
+	function getIdForDelete(delstId) {
 		delId = delstId
 	}
 
-	function deleteStory(){
+	function deleteStory() {
 		$.ajax({
 			url: "/Admin/AdminDeleteStory",
 			type: "POST",

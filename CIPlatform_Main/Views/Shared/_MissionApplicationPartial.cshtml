@@ -166,7 +166,7 @@
 								@*<td scope="row">@mission.MissionThemeId</td>*@
 								<td scope="row">@missionApp.MissionApplicationId</td>
 								<td scope="row">@missionApp.UserId</td>
-								<td scope="row">@missionApp.AppliedAt</td>
+								<td scope="row">@missionApp.AppliedAt.ToString("dd-MM-yyyy")</td>
 								@if (missionApp.ApprovalStatus== "Approved")
 								{
 
