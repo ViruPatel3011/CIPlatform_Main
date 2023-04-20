@@ -152,8 +152,9 @@
 					<thead class="thead-dark">
 						<tr>
 							@*<th scope="col">MissionTheme Id</th>*@
-							<th scope="col">MissionApplication Id</th>
-							<th scope="col">UserId</th>
+							<th scope="col">Mission Title</th>
+							<th scope="col">Mission Id </th>
+							<th scope="col">User Full name</th>
 							<th scope="col">Applied Date</th>
 							<th scope="col">Approval Status</th>
 							<th scope="col">Action</th>
@@ -162,10 +163,28 @@
 					<tbody>
 						@foreach (var missionApp in Model.MissionApplicationList)
 						{
+							var missionTitle = "";
+							var username = "";
+							@foreach (var mission in Model.MissionList)
+							{
+								if (mission.MissionId == missionApp.MissionId)
+								{
+									missionTitle = mission.Title;
+								}
+							}
+							@foreach (var user in Model.UserList)
+							{
+								if (user.UserId == missionApp.UserId)
+								{
+									username = user.FirstName + " " + user.LastName;
+								}
+							}
+
 							<tr>
-								@*<td scope="row">@mission.MissionThemeId</td>*@
-								<td scope="row">@missionApp.MissionApplicationId</td>
-								<td scope="row">@missionApp.UserId</td>
+
+								<td scope="row">@missionTitle</td>
+								<td scope="row">@missionApp.MissionId</td>
+								<td scope="row">@username</td>
 								<td scope="row">@missionApp.AppliedAt.ToString("dd-MM-yyyy")</td>
 								@if (missionApp.ApprovalStatus== "Approved")
 								{
@@ -280,9 +299,7 @@
 </div>
 
 
-<script src="~/lib/jquery/dist/jquery.min.js"></script>
-<script src="~/lib/jquery/dist/jquery.js"></script>
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
 <script type="text/javascript" src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.js"></script>
 
 

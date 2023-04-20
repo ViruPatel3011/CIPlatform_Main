@@ -88,13 +88,30 @@ namespace CIPlatform_Main.Controllers
 		public IActionResult MissionPage()
 		{
 			var missions = _admin.getMissionList();
-			AdminViewModel missionModel = new AdminViewModel()
+			MissionVMAdmin missionModel = new MissionVMAdmin()
 			{
 				MissionList = missions,
 			};
 
 			return PartialView("_MissionPartial", missionModel);
 		}
+
+		// Method for Mission Page Add Section
+		public IActionResult MissionAdd()
+		{
+			var missionData = _admin.getMissionList();
+			var missionTheme = _admin.getMissionThemeList();
+			var skill = _admin.getSkillsList();
+			MissionVMAdmin missionModel1 = new MissionVMAdmin()
+			{
+				MissionList = missionData,
+                MissionThemeList= missionTheme,
+                SkillList= skill
+            };
+			return PartialView("_MissionPageAddRight", missionModel1);
+		}
+
+		
 
 		// Method for MissionTheme Page
 		public IActionResult MissionThemePage()
@@ -127,9 +144,13 @@ namespace CIPlatform_Main.Controllers
 		public IActionResult MissionApplicationPage()
 		{
 			var missionApp = _admin.getMissionAppList();
+			var mission = _admin.getMissionList();
+			var user = _admin.getUserList();
 			AdminViewModel missionAppModel = new AdminViewModel()
 			{
 				MissionApplicationList = missionApp,
+				UserList = user,
+				MissionList=mission
 			};
 			return PartialView("_MissionApplicationPartial", missionAppModel);
 		}
@@ -315,10 +336,24 @@ namespace CIPlatform_Main.Controllers
 			}
 		}
 
+		// Second 
+		public IActionResult AddMissionPageData(MissionVMAdmin missionVM,List<long> listOfSkill)
+		{
+			var dataAdd = _admin.AddMissionPagedata(missionVM, listOfSkill);
+			if (dataAdd)
+			{
+                TempData["Success Message"] = "Data  Added Successfully";
+                return RedirectToAction("User", "Admin");
+            }
+            else
+            {
+                TempData["Error Message"] = "Data not Added Successfully";
+                return RedirectToAction("User", "Admin");
+            }
+        }
 
-
-		// Method for Get Data for Edit Mission 
-		[HttpGet]
+        // Method for Get Data for Edit Mission 
+        [HttpGet]
 		public IActionResult getDataForEditMission(long mId)
 		{
 			var data = _admin.getDataForMissionEdit(mId);

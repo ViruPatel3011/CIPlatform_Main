@@ -70,29 +70,30 @@
 									<label for="exampleFormControlInput1"
 										   class="form-label">Banner Text</label>
 									<input type="text" class="form-control " id="bText"
-										   placeholder="Enter your Banner Text" required>
-
+										   placeholder="Enter your Banner Text" >
+									<span class="error-message text-danger ms-1" id="banner-val"></span>
 								</div>
 								<div class="mb-3">
 									<label for="exampleFormControlInput1"
 										   class="form-label">Banner Image</label>
 									<input type="file" class="form-control " id="bImg"
-										   placeholder="Select Banner Image" required>
-
+										   placeholder="Select Banner Image" >
+									<span class="error-message text-danger ms-1" id="image-val"></span>
 								</div>
 								<div class="mb-3">
 									<label for="exampleFormControlInput1"
 										   class="form-label">Sort Order</label>
 									<input type="text" class="form-control " id="bOrder"
-										   placeholder="Enter Sort Order" required>
-
+										   placeholder="Enter Sort Order" >
+									<span class="error-message text-danger ms-1" id="sOrder-val"></span>
 								</div>
 								<div class="mb-3">
 									<label for="exampleFormControlInput1"
 										   class="form-label">Created At</label>
 									<input type="date"
 										   class="form-control "
-										   placeholder="" id="bDate" required>
+										   placeholder="" id="bDate" >
+									<span class="error-message text-danger ms-1" id="date-val"></span>
 								</div>
 								
 
@@ -262,8 +263,6 @@
 </div>
 
 
-<script src="~/lib/jquery/dist/jquery.min.js"></script>
-<script src="~/lib/jquery/dist/jquery.js"></script>
 
 <script>
 
@@ -273,26 +272,74 @@
 		var sortorder = $("#bOrder").val();
 		var date = $("#bDate").val();
 
-		$.ajax({
-			url: "/Admin/SaveBannerData",
-			type: "POST",
-			data: {
-				"textB": text,
-				"imageB": image,
-				"sOrderB": sortorder,
-				"dateB": date,
-				
-			},
-			success: function (result) {
-				location.reload();
-			
+		var isvalid=true;
+
+		if (!text) {
+			$('#banner-val').addClass("active");
+			$('#banner-val').text('Please enter a Banner Text .');
+			isvalid= false;
+		} else if (!isNaN(text)) {
+			$('#banner-val').addClass("active");
+			$('#banner-val').text('Text should not be a number.');
+			isvalid=  false;
+		} else {
+			$('#banner-val').text('');
+		}
+
+		if (!image) {
+			$('#image-val').addClass("active");
+			$('#image-val').text('Please Select at least one Image.');
+			isvalid=  false;
+		}
+		 else 
+		 {
+			$('#image-val').text('');
+		}
+
+		if (!sortorder) {
+			$('#sOrder-val').addClass("active");
+			$('#sOrder-val').text('Please enter a Sort Order.');
+			isvalid=  false;
+		}
+		 else 
+		 {
+			$('#sOrder-val').text('');
+		}
+		
+		if (!date) {
+			$('#date-val').addClass("active");
+			$('#date-val').text('Please Select Date.');
+			isvalid=  false;
+		}
+		 else 
+		 {
+			$('#date-val').text('');
+		}
 
 
-			},
-			error: function (result) {
-				alert("error occur in Mission");
-			}
-		});
+		if(isValid){
+			$.ajax({
+				url: "/Admin/SaveBannerData",
+				type: "POST",
+				data: {
+					"textB": text,
+					"imageB": image,
+					"sOrderB": sortorder,
+					"dateB": date,
+
+				},
+				success: function (result) {
+					location.reload();
+
+
+
+				},
+				error: function (result) {
+					alert("error occur in Mission");
+				}
+			});
+		}
+		
 	}
 
 	function loadBannerData(bannerId)

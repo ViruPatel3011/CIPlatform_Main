@@ -1,5 +1,6 @@
 ﻿using CIPlatform_Main.Entities.Models;
 using CIPlatform_Main.Entities.ViewModel;
+using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -64,8 +65,13 @@ namespace CIPlatform_Main.Repository.Interface
 
 		//**************   Mission Page MethodS START    ***************///
 
+
+
 		// Method for Add Mission Data
-		public bool SavedMissionData(string mTitle, string mType, DateTime SDate, DateTime EDate, string msts);
+
+		public bool AddMissionPagedata(MissionVMAdmin missionVM, List<long> listOfSkill);
+
+        public bool SavedMissionData(string mTitle, string mType, DateTime SDate, DateTime EDate, string msts);
 
 		// Method for Get Data for Edit Mission 
 		public Mission getDataForMissionEdit(long mId);

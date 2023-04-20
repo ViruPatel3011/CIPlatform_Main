@@ -36,7 +36,8 @@ namespace CIPlatform_Main.Entities.ViewModel
 		public List<User> UserList { get; set; }
 		public List<CmsPage> CMSPageList { get; set; }
 		public List<Mission> MissionList { get; set; }
-		public List<MissionApplication> MissionAppList { get; set; }
+
+		//public List<MissionApplication> MissionAppList { get; set; }
 		public List<MissionTheme> MissionThemeList { get; set; }
 		public List<MissionApplication> MissionApplicationList { get; set; }
 		public List<Skill> SkillsList { get; set; }

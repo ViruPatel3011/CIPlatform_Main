@@ -2,6 +2,7 @@
 using CIPlatform_Main.Entities.Models;
 using CIPlatform_Main.Entities.ViewModel;
 using CIPlatform_Main.Repository.Interface;
+using Microsoft.AspNetCore.Http;
 using System.Diagnostics.Contracts;
 
 namespace CIPlatform_Main.Repository.Repository
@@ -185,15 +186,65 @@ namespace CIPlatform_Main.Repository.Repository
 			}
 		}
 
-		//**************   CMS Page MethodS END    ***************///
+        //**************   CMS Page MethodS END    ***************///
 
 
 
 
 
 
-		//**************   Mission Page MethodS START    ***************///
+        //**************   Mission Page MethodS START    ***************///
+        public bool AddMissionPagedata(MissionVMAdmin missionVM, List<long> listOfSkill)
+		{
+			Mission mission = new Mission() { 
+			
+				Title=missionVM.title,
+				Description=missionVM.description,
+				ShortDescription=missionVM.shortDescription,
+				CountryId=missionVM.countryId,
+				CityId=missionVM.cityId,
+				OrganizationName=missionVM.organizationName,
+				OrganizationDetail=missionVM.organizationDetail,
+				StartDate=missionVM.startDate,
+				EndDate=missionVM.endDate,
+				MissionType = missionVM.missionType,
+				Availability =missionVM.availability,
+				ThemeId=missionVM.themeId		
+			
+			};
+			_ciPlatformContext.Missions.Add(mission);
+			_ciPlatformContext.SaveChanges();
 
+            foreach (var image in missionVM.images)
+            {
+               
+                    var missionMedia = new MissionMedium
+                    {
+                        MissionId = mission.MissionId,
+						MediaPath=image.FileName,
+                        MediaType = "Image"
+                    };
+
+                    _ciPlatformContext.MissionMedia.Add(missionMedia);
+
+			}
+
+			foreach(var skillAdd in listOfSkill)
+			{
+				var missionSkill = new MissionSkill
+				{
+					MissionId = mission.MissionId,
+					SkillId = skillAdd
+				};
+				_ciPlatformContext.MissionSkills.Add(missionSkill);
+			}
+
+			// Save changes to the database
+			_ciPlatformContext.SaveChanges();
+
+            return true;
+
+		}
 		// Method for Add Mission Data
 		public bool SavedMissionData(string mTitle, string mType, DateTime SDate, DateTime EDate, string msts)
 		{
@@ -253,6 +304,8 @@ namespace CIPlatform_Main.Repository.Repository
 
 
 		}
+
+		
 		//**************   Mission Page Methods END    ***************///
 
 

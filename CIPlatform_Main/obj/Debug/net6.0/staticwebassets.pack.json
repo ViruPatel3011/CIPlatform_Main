@@ -497,6 +497,10 @@
       "PackagePath": "staticwebassets\\css\\LandingPage.css"
     },
     {
+      "Id": "E:\\CIPlatform_Main\\CIPlatform_Main\\wwwroot\\css\\MissionPartial.css",
+      "PackagePath": "staticwebassets\\css\\MissionPartial.css"
+    },
+    {
       "Id": "E:\\CIPlatform_Main\\CIPlatform_Main\\wwwroot\\css\\MissonAndRating.css",
       "PackagePath": "staticwebassets\\css\\MissonAndRating.css"
     },
