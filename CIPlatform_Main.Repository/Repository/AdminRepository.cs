@@ -4,6 +4,7 @@ using CIPlatform_Main.Entities.ViewModel;
 using CIPlatform_Main.Repository.Interface;
 using Microsoft.AspNetCore.Http;
 using System.Diagnostics.Contracts;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace CIPlatform_Main.Repository.Repository
 {
@@ -215,19 +216,58 @@ namespace CIPlatform_Main.Repository.Repository
 			_ciPlatformContext.Missions.Add(mission);
 			_ciPlatformContext.SaveChanges();
 
+			var lastMissionId=_ciPlatformContext.Missions.OrderByDescending(m=>m.MissionId).Select(m=>m.MissionId).FirstOrDefault();
             foreach (var image in missionVM.images)
             {
-               
-                    var missionMedia = new MissionMedium
-                    {
-                        MissionId = mission.MissionId,
-						MediaPath=image.FileName,
-                        MediaType = "Image"
-                    };
+				var fileName = image.FileName;
+				var fileType = image.ContentType;
 
-                    _ciPlatformContext.MissionMedia.Add(missionMedia);
+				using (var fileStream = image.OpenReadStream())
+				{
+					var filePath = Path.Combine("MissionImages", fileName);
+					using (var fStream = new FileStream(Path.Combine("wwwroot", "MissionImgDcouments", fileName), FileMode.Create))
+					{
+						image.CopyToAsync(fStream);
+						var missionMedia = new MissionMedium
+						{
+							MissionId = mission.MissionId,
+							MediaPath = filePath,
+							MediaName=image.FileName,
+							MediaType=image.ContentType
+
+                            
+						};
+
+						_ciPlatformContext.MissionMedia.Add(missionMedia);
+					}
+				}
 
 			}
+
+			foreach(var documents in missionVM.Documents)
+			{
+                var fileName = documents.FileName;
+                var fileType = documents.ContentType;
+
+                using (var fileStream = documents.OpenReadStream())
+                {
+                    var filePath = Path.Combine("MissionImages", fileName);
+                    using (var fStream = new FileStream(Path.Combine("wwwroot", "MissionImgDcouments", fileName), FileMode.Create))
+                    {
+                        documents.CopyToAsync(fStream);
+                        var missiondocuments = new MissionDocument
+                        {
+                            MissionId = mission.MissionId,
+                            DocumentName = documents.FileName,
+                            DocumentType = fileType,
+							DocumentPath=filePath,
+							CreatedAt=DateTime.Now,
+                        };
+
+                        _ciPlatformContext.MissionDocuments.Add(missiondocuments);
+                    }
+                }
+            }
 
 			foreach(var skillAdd in listOfSkill)
 			{

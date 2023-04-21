@@ -31,6 +31,7 @@ namespace CIPlatform_Main.Entities.ViewModel
 		public string missionType { get; set; }
 
         public List<IFormFile> images { get; set; }
+        public List<IFormFile> Documents { get; set; }
 
         public List<Mission> MissionList { get; set; }
 		public List<MissionMedium> MissionMediaList { get; set; }

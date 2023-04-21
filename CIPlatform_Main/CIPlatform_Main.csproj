@@ -26,6 +26,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="wwwroot\MissionImgDcouments\" />
     <Folder Include="wwwroot\StoryMedia\" />
   </ItemGroup>
 

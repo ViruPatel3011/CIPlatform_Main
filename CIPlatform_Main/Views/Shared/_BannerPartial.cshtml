@@ -65,50 +65,53 @@
 								<button type="button" class="btn-close"
 										data-bs-dismiss="modal" aria-label="Close"></button>
 							</div>
-							<div class="modal-body">
-								<div class="mb-3">
-									<label for="exampleFormControlInput1"
-										   class="form-label">Banner Text</label>
-									<input type="text" class="form-control " id="bText"
-										   placeholder="Enter your Banner Text" >
-									<span class="error-message text-danger ms-1" id="banner-val"></span>
-								</div>
-								<div class="mb-3">
-									<label for="exampleFormControlInput1"
-										   class="form-label">Banner Image</label>
-									<input type="file" class="form-control " id="bImg"
-										   placeholder="Select Banner Image" >
-									<span class="error-message text-danger ms-1" id="image-val"></span>
-								</div>
-								<div class="mb-3">
-									<label for="exampleFormControlInput1"
-										   class="form-label">Sort Order</label>
-									<input type="text" class="form-control " id="bOrder"
-										   placeholder="Enter Sort Order" >
-									<span class="error-message text-danger ms-1" id="sOrder-val"></span>
-								</div>
-								<div class="mb-3">
-									<label for="exampleFormControlInput1"
-										   class="form-label">Created At</label>
-									<input type="date"
-										   class="form-control "
-										   placeholder="" id="bDate" >
-									<span class="error-message text-danger ms-1" id="date-val"></span>
-								</div>
-								
+							<form id="bannerForm">
+								<div class="modal-body">
+									<div class="mb-3">
+										<label for="exampleFormControlInput1"
+											   class="form-label">Banner Text</label>
+										<input type="text" class="form-control " id="bText" asp-for="bannerText"
+											   placeholder="Enter your Banner Text">@*
+										<span class="error-message text-danger ms-1" id="banner-val"></span>*@
+										<span asp-validation-for="bannerText" class="text-danger"></span>
+									</div>
+									<div class="mb-3">
+										<label for="exampleFormControlInput1"
+											   class="form-label">Banner Image</label>
+										<input type="file" class="form-control " id="bImg"
+											   placeholder="Select Banner Image">
+										<span class="error-message text-danger ms-1" id="image-val"></span>
+									</div>
+									<div class="mb-3">
+										<label for="exampleFormControlInput1"
+											   class="form-label">Sort Order</label>
+										<input type="text" class="form-control " id="bOrder"
+											   placeholder="Enter Sort Order">
+										<span class="error-message text-danger ms-1" id="sOrder-val"></span>
+									</div>
+									<div class="mb-3">
+										<label for="exampleFormControlInput1"
+											   class="form-label">Created At</label>
+										<input type="date"
+											   class="form-control "
+											   placeholder="" id="bDate">
+										<span class="error-message text-danger ms-1" id="date-val"></span>
+									</div>
 
-								<div class="modal-footer">
-									<button type="button" class="btn btn-outline-dark"
-											style="border-radius:50px"
-											data-bs-dismiss="modal">
-										Cancel
-									</button>
-									<button type="submit" class="btn btn-outline-warning"
-											style="border-radius:50px" onclick="submitBannerData()">
-										Save
-									</button>
+
+									<div class="modal-footer">
+										<button type="button" class="btn btn-outline-dark"
+												style="border-radius:50px"
+												data-bs-dismiss="modal">
+											Cancel
+										</button>
+										<button type="submit" class="btn btn-outline-warning"
+												style="border-radius:50px" >
+											Save
+										</button>
+									</div>
 								</div>
-							</div>
+							</form>
 						</div>
 					</div>
 				</div>
@@ -137,11 +140,11 @@
 								<td scope="row">@banner.Text</td>
 								<td scope="row">@banner.SortOrder</td>
 								<td scope="row">@banner.CreatedAt</td>
-								
+
 
 
 								<td class="p-0 pt-2 px-1 d-flex">
-									
+
 									<div class="mb-2">
 										<button type="button" data-bs-toggle="modal"
 												data-bs-target="#bannerModel" class="border-0 bg-transparent" onclick="loadBannerData(@banner.BannerId)">
@@ -185,7 +188,7 @@
 																	   class="form-label">Created at</label>
 																<input type="text" class="form-control " id="CreateDateE" asp-for="CreatedAt">
 															</div>
-															
+
 
 
 														</div>
@@ -244,7 +247,7 @@
 											</div>
 										</div>
 									</div>
-							
+
 
 								</td>
 							</tr>
@@ -261,63 +264,72 @@
 	</div>
 
 </div>
-
+<partial name="_ValidationScriptsPartial"></partial>
 
 
 <script>
 
-	function submitBannerData(){
-		var text = $("#bText").val();
-		var image = $("#bImg").val();
-		var sortorder = $("#bOrder").val();
-		var date = $("#bDate").val();
+	$('#bannerForm').on('submit', e => submitBannerData(e));
 
-		var isvalid=true;
+	function submitBannerData(event) {
+		event.preventDefault();
 
-		if (!text) {
-			$('#banner-val').addClass("active");
-			$('#banner-val').text('Please enter a Banner Text .');
-			isvalid= false;
-		} else if (!isNaN(text)) {
-			$('#banner-val').addClass("active");
-			$('#banner-val').text('Text should not be a number.');
-			isvalid=  false;
-		} else {
-			$('#banner-val').text('');
-		}
+		$("#bannerForm").valid();
+		if (!$("#bannerForm").valid()) {
 
-		if (!image) {
-			$('#image-val').addClass("active");
-			$('#image-val').text('Please Select at least one Image.');
-			isvalid=  false;
+			return;
 		}
-		 else 
-		 {
-			$('#image-val').text('');
-		}
-
-		if (!sortorder) {
-			$('#sOrder-val').addClass("active");
-			$('#sOrder-val').text('Please enter a Sort Order.');
-			isvalid=  false;
-		}
-		 else 
-		 {
-			$('#sOrder-val').text('');
-		}
-		
-		if (!date) {
-			$('#date-val').addClass("active");
-			$('#date-val').text('Please Select Date.');
-			isvalid=  false;
-		}
-		 else 
-		 {
-			$('#date-val').text('');
-		}
+		else {
 
 
-		if(isValid){
+			var text = $("#bText").val();
+			var image = $("#bImg").val();
+			var sortorder = $("#bOrder").val();
+			var date = $("#bDate").val();
+
+			//var isvalid = true;
+
+			//if (!text) {
+			//	$('#banner-val').addClass("active");
+			//	$('#banner-val').text('Please enter a Banner Text .');
+			//	isvalid = false;
+			//} else if (!isNaN(text)) {
+			//	$('#banner-val').addClass("active");
+			//	$('#banner-val').text('Text should not be a number.');
+			//	isvalid = false;
+			//} else {
+			//	$('#banner-val').text('');
+			//}
+
+			//if (!image) {
+			//	$('#image-val').addClass("active");
+			//	$('#image-val').text('Please Select at least one Image.');
+			//	isvalid = false;
+			//}
+			//else {
+			//	$('#image-val').text('');
+			//}
+
+			//if (!sortorder) {
+			//	$('#sOrder-val').addClass("active");
+			//	$('#sOrder-val').text('Please enter a Sort Order.');
+			//	isvalid = false;
+			//}
+			//else {
+			//	$('#sOrder-val').text('');
+			//}
+
+			//if (!date) {
+			//	$('#date-val').addClass("active");
+			//	$('#date-val').text('Please Select Date.');
+			//	isvalid = false;
+			//}
+			//else {
+			//	$('#date-val').text('');
+			//}
+
+
+
 			$.ajax({
 				url: "/Admin/SaveBannerData",
 				type: "POST",
@@ -339,11 +351,10 @@
 				}
 			});
 		}
-		
+
 	}
 
-	function loadBannerData(bannerId)
-	{
+	function loadBannerData(bannerId) {
 		$.ajax({
 			method: 'GET',
 			url: '/Admin/getDataForEditBanner',
@@ -360,7 +371,7 @@
 				$('#sortOrderE').val(data.bOrder);
 				$('#CreateDateE').val(data.bDate);
 				$('#bid').val(data.bannerId);
-			
+
 			},
 			error: function (xhr, status, error) {
 				// Handle errors
@@ -369,12 +380,12 @@
 	}
 
 
-	var banId=0;
-	function getidForBanner(bid){
+	var banId = 0;
+	function getidForBanner(bid) {
 		banId = bid
 	}
 
-	function deleteBanner(){
+	function deleteBanner() {
 		$.ajax({
 			method: 'POST',
 			url: '/Admin/deleteBannerData',

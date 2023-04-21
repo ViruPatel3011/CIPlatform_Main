@@ -30,6 +30,7 @@ namespace CIPlatform_Main.Controllers
 			return View(navBarData);
         }
 
+
 		[HttpPost]
         public IActionResult LandingPage(string[]? country, string[]? city, string[]? themes, string[]? skills, string? sortVal, string? search, int pg = 1)
 		{

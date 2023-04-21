@@ -453,6 +453,14 @@
       "PackagePath": "staticwebassets\\Assets\\xlsx.png"
     },
     {
+      "Id": "E:\\CIPlatform_Main\\CIPlatform_Main\\wwwroot\\MissionImgDcouments\\CSR-initiative-stands-for-Coffee--and-Farmer-Equity.png",
+      "PackagePath": "staticwebassets\\MissionImgDcouments\\CSR-initiative-stands-for-Coffee--and-Farmer-Equity.png"
+    },
+    {
+      "Id": "E:\\CIPlatform_Main\\CIPlatform_Main\\wwwroot\\MissionImgDcouments\\_Documents_Week 1.docx",
+      "PackagePath": "staticwebassets\\MissionImgDcouments\\_Documents_Week 1.docx"
+    },
+    {
       "Id": "E:\\CIPlatform_Main\\CIPlatform_Main\\wwwroot\\StoryMedia\\0Home.jpg",
       "PackagePath": "staticwebassets\\StoryMedia\\0Home.jpg"
     },

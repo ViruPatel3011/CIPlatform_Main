@@ -305,6 +305,7 @@
 		}
 
 
+		$("#missionSpinner").removeClass("d-none");
 
 
 		$.ajax({
@@ -314,6 +315,7 @@
 			data: { "sortVal": sortBy, "search": missionToSearch, "pg": pg, "country": country, "city": city, "themes": themes, "skills": skills },
 			success: function (data) {
 				// console.log(data);
+				$("#missionSpinner").addClass("d-none");
 				$('#missions-list').html("");
 				$('#missions-list').html(data);
 			},

@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "e36Pl2p4cFVOML3TOyVPopsVAr8ozJ5YQSVc2W5uumc=",
+  "Hash": "MiysLXHEIiv28ns+7i3cZEQ7jp0hPhwaeyKP+m2TMFw=",
   "Source": "CIPlatform_Main",
   "BasePath": "_content/CIPlatform_Main",
   "Mode": "Default",
@@ -3840,6 +3840,40 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\lib\\jquery-validation-unobtrusive\\LICENSE.txt"
+    },
+    {
+      "Identity": "E:\\CIPlatform_Main\\CIPlatform_Main\\wwwroot\\MissionImgDcouments\\_Documents_Week 1.docx",
+      "SourceId": "CIPlatform_Main",
+      "SourceType": "Discovered",
+      "ContentRoot": "E:\\CIPlatform_Main\\CIPlatform_Main\\wwwroot\\",
+      "BasePath": "_content/CIPlatform_Main",
+      "RelativePath": "MissionImgDcouments/_Documents_Week 1.docx",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\MissionImgDcouments\\_Documents_Week 1.docx"
+    },
+    {
+      "Identity": "E:\\CIPlatform_Main\\CIPlatform_Main\\wwwroot\\MissionImgDcouments\\CSR-initiative-stands-for-Coffee--and-Farmer-Equity.png",
+      "SourceId": "CIPlatform_Main",
+      "SourceType": "Discovered",
+      "ContentRoot": "E:\\CIPlatform_Main\\CIPlatform_Main\\wwwroot\\",
+      "BasePath": "_content/CIPlatform_Main",
+      "RelativePath": "MissionImgDcouments/CSR-initiative-stands-for-Coffee--and-Farmer-Equity.png",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\MissionImgDcouments\\CSR-initiative-stands-for-Coffee--and-Farmer-Equity.png"
     },
     {
       "Identity": "E:\\CIPlatform_Main\\CIPlatform_Main\\wwwroot\\StoryMedia\\0Home.jpg",
