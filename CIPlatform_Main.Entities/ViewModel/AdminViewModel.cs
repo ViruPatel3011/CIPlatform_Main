@@ -1,6 +1,7 @@
 ﻿using CIPlatform_Main.Entities.Models;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -20,17 +21,34 @@ namespace CIPlatform_Main.Entities.ViewModel
 
 
 
-		// below field is for mission Theme page
-		public string themeTitle { get; set; }
-		public byte themeStatus { get; set; }
+        // below field is for mission Theme page
+        [Required(ErrorMessage = "ThemeTitle Is Required")]
+        public string themeTitle { get; set; }
+
+        [Required(ErrorMessage = "ThemeStatus Is Required")]
+        public byte themeStatus { get; set; }
 
 
 
 		// Below field for MissionTheme Page
+
 		public DateTime createdDate { get; set; }
 
+		// Below field for MissionApplication Page
+		[Required(ErrorMessage = "MissionId Is Required")]
+		public long missionId;
 
+		[Required(ErrorMessage = "UserId Is Required")]
+		public long userId;
 
+		[Required(ErrorMessage = "ApprovalStatus Is Required")]
+		public string ApprovalStatus;
+
+		[Required(ErrorMessage = "createdAt Is Required")]
+		public DateTime createdat;
+
+		[Required(ErrorMessage = "appliedAt Is Required")]
+		public DateTime appliedat;
 		// All the Required List 
 
 		public List<User> UserList { get; set; }

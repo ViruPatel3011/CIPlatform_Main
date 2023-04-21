@@ -81,50 +81,50 @@
 								<button type="button" class="btn-close"
 										data-bs-dismiss="modal" aria-label="Close"></button>
 							</div>
-							<div class="modal-body">
-								@*<div class="mb-3">
+							<form id="missionThemeForm">
+								<div class="modal-body">
+									@*<div class="mb-3">
 									<label for="exampleFormControlInput1"
-										   class="form-label">Mission Id</label>
+									class="form-label">Mission Id</label>
 									<input type="text" class="form-control " id="themeId"
-										   placeholder="Enter your MissionTheme Id">
+									placeholder="Enter your MissionTheme Id">
 
-								</div>*@
-								<div class="mb-3">
-									<label for="exampleFormControlInput1"
-										   class="form-label">Mission Title</label>
-									<input type="text" class="form-control " id="themeTitle"
-										   placeholder="Enter your MissionTheme Title">
+									</div>*@
+									<div class="mb-3">
+										<label for="exampleFormControlInput1"
+											   class="form-label">Mission Title</label>
+										<input type="text" class="form-control " id="themeTitle" placeholder="Enter your MissionTheme Title" asp-for="themeTitle">
+										<span asp-validation-for="themeTitle" class="text-danger"></span>
 
-								</div>
-							
-								<div class="mb-3">
-									<label for="exampleFormControlInput1"
-										   class="form-label">Created At </label>
-									<input type="date"
-										   class="form-control "
-										   placeholder="Created date" id="themeCreate">
-								</div>
-								<div class="mb-3">
-									<label for="exampleFormControlInput1"
-										   class="form-label">status</label>
-									<input type="text"
-										   class="form-control "
-										   placeholder="Created date" id="themeStatus">
-								</div>
-							
+									</div>
 
-								<div class="modal-footer">
-									<button type="button" class="btn btn-outline-dark"
-											style="border-radius:50px"
-											data-bs-dismiss="modal">
-										Cancel
-									</button>
-									<button type="submit" class="btn btn-outline-warning"
-											style="border-radius:50px" onclick="addMissionThemeData()">
-										Save
-									</button >
+									<div class="mb-3">
+										<label for="exampleFormControlInput1"
+											   class="form-label">Created At </label>
+										<input type="date" class="form-control " placeholder="Created date" id="themeCreate" asp-for="createdDate">
+										<span asp-validation-for="createdDate" class="text-danger"></span>
+									</div>
+									<div class="mb-3">
+										<label for="exampleFormControlInput1"
+											   class="form-label">status</label>
+										<input type="text" class="form-control " placeholder="Enter ThemeStatus " id="themeStatus" asp-for="themeStatus">
+										<span asp-validation-for="themeStatus" class="text-danger"></span>
+									</div>
+
+
+									<div class="modal-footer">
+										<button type="button" class="btn btn-outline-dark"
+												style="border-radius:50px"
+												data-bs-dismiss="modal">
+											Cancel
+										</button>
+										<button type="submit" class="btn btn-outline-warning"
+												style="border-radius:50px">
+											Save
+										</button>
+									</div>
 								</div>
-							</div>
+							</form>
 						</div>
 					</div>
 				</div>
@@ -149,7 +149,7 @@
 								@*<td scope="row">@mission.MissionThemeId</td>*@
 								<td scope="row">@mission.Title</td>
 								<td scope="row">@mission.CreatedAt.ToString("dd-MM-yyyy")</td>
-								@if (mission.Status==1)
+								@if (mission.Status == 1)
 								{
 
 									<th class="text-success" scope="col">@mission.Status</th>
@@ -159,7 +159,7 @@
 									<th class="text-danger" scope="col">@mission.Status</th>
 
 								}
-														
+
 
 								<td class="p-0 pt-2 px-1 d-flex">
 									<div class="mb-2">
@@ -189,18 +189,21 @@
 																<label for="exampleFormControlInput1"
 																	   class="form-label">Mission Title</label>
 																<input type="text" class="form-control " id="missionThemeTitle" value="missionThemeTitle" asp-for="themeTitle">
+																<span asp-validation-for="themeTitle" class="text-danger"></span>
 															</div>
-														
+
 															<div class="mb-3">
 																<label for="exampleFormControlInput1"
 																	   class="form-label">Created At</label>
 																<input type="text" class="form-control " id="createdTheme" value="createdTheme" asp-for="createdDate">
+																<span asp-validation-for="createdDate" class="text-danger"></span>
 															</div>
-														
+
 															<div class="mb-3">
 																<label for="exampleFormControlInput1"
 																	   class="form-label">Status</label>
 																<input type="text" class="form-control " id="missionThemeStatus" value="missionThemeStatus" asp-for="themeStatus">
+																<span asp-validation-for="themeStatus" class="text-danger"></span>
 															</div>
 
 
@@ -252,7 +255,7 @@
 															Cancel
 														</button>
 														<button type="button" class="btn btn-outline-warning"
-																style="border-radius:50px" data-bs-dismiss="modal" onclick="deleteMissionThemeData()" >
+																style="border-radius:50px" data-bs-dismiss="modal" onclick="deleteMissionThemeData()">
 															Delete
 														</button>
 													</div>
@@ -278,40 +281,59 @@
 </div>
 
 
-
+@*This Scripts files is for validation*@
+<script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+<script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
 <script type="text/javascript" src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.js"></script>
 
 <script>
-	function addMissionThemeData(){
-		var themeid = $("#themeId").val();
-		var themetitle = $("#themeTitle").val();
-		var themecreate = $("#themeCreate").val();
-		var themestatus = $("#themeStatus").val();
-	
+	$('#missionThemeForm').on('submit', e => addMissionThemeData(e));
 
-		$.ajax({
-			url: "/Admin/SaveMissionThemeData",
-			type: "POST",
-			data: {
-				//"IdT": themeid,
-				"titleT": themetitle,
-				"createT": themecreate,
-				"statusT": themestatus,
-				
-			},
-			success: function (result) {
-				location.reload();
-				alert("MissionTheme Add successfully");
+	function addMissionThemeData(event) {
+		event.preventDefault();
+
+		$("#missionThemeForm").valid();
+		if (!$("#missionThemeForm").valid()) {
+
+			return;
+		}
 
 
-			},
-			error: function (result) {
-				alert("error occur in MissionTheme");
-			}
-		});
+		else {
+
+
+			var themeid = $("#themeId").val();
+			var themetitle = $("#themeTitle").val();
+			var themecreate = $("#themeCreate").val();
+			var themestatus = $("#themeStatus").val();
+
+
+			$.ajax({
+				url: "/Admin/SaveMissionThemeData",
+				type: "POST",
+				data: {
+					//"IdT": themeid,
+					"titleT": themetitle,
+					"createT": themecreate,
+					"statusT": themestatus,
+
+				},
+				success: function (result) {
+					location.reload();
+					alert("MissionTheme Add successfully");
+
+
+				},
+				error: function (result) {
+					alert("error occur in MissionTheme");
+				}
+			});
+		}
 	}
 
-	function loadMissionThemeData(themeid){
+
+
+	function loadMissionThemeData(themeid) {
 		$.ajax({
 			method: 'GET',
 			url: '/Admin/getDataForEditMissionTheme',
@@ -335,12 +357,12 @@
 		});
 	}
 
-	var themeid=0;
-	function getThemeId(themeId){
+	var themeid = 0;
+	function getThemeId(themeId) {
 		themeid = themeId
 	}
 
-	function deleteMissionThemeData(){
+	function deleteMissionThemeData() {
 		$.ajax({
 			method: 'POST',
 			url: '/Admin/deleteMissionThemeData',

@@ -36,6 +36,23 @@
 		object-fit:cover;
 
 	}
+	.page-link:active{
+		color:#F88634;
+		border:1px solid #F88634;
+
+	}
+	.page-link:hover{
+		color:white !important;
+		background:#F88634 !important;
+		cursor:pointer;
+		transition: 0.5s;
+
+	}
+
+	.page-link:not(:active) {
+		border-color: #F88634;
+		color: #F88634;
+	}
 </style>
 <div class="row container mx-auto mb-2">
 	@{
@@ -47,7 +64,7 @@
 
 			<div class="col-lg-1 d-none d-lg-block">
 				<div class="dropdown">
-					<a class="btn btn-secondary dropdown-toggle text-dark bg-transparent" href="#" type="button" id="dropdownMenuButton1"
+					<a class="btn btn-secondary dropdown-toggle text-dark bg-transparent"  id="dropdownMenuButton1"
 					   data-bs-toggle="dropdown" aria-expanded="false">
 						Sort By
 					</a>
@@ -232,8 +249,8 @@
 								<!-- Time based mission  Body-->
 								<div class="card-body">
 									<h5 class="card-title">@item.Title</h5>
-									<p class="card-text">
-										@item.ShortDescription
+									<p class="card-text" style="display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical;overflow: hidden;">
+										@Html.Raw(@item.ShortDescription)
 									</p>
 									<div class="d-flex justify-content-between mb-3">
 
@@ -471,8 +488,8 @@
 								<!--  Goal based Mission Body-->
 								<div class="card-body">
 									<h5 class="card-title">@item.Title</h5>
-									<p class="card-text">
-										@item.ShortDescription
+									<p class="card-text" style="display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical;overflow: hidden;">
+										@Html.Raw(@item.ShortDescription)
 									</p>
 									<div class="d-flex justify-content-between mb-3">
 
@@ -663,6 +680,8 @@
 
 
 	<script>
+
+
 	if (localStorage.getItem('vp') === 'list') {
 		showList();
 	}

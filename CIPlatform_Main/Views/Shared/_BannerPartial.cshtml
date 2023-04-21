@@ -70,32 +70,28 @@
 									<div class="mb-3">
 										<label for="exampleFormControlInput1"
 											   class="form-label">Banner Text</label>
-										<input type="text" class="form-control " id="bText" asp-for="bannerText"
-											   placeholder="Enter your Banner Text">@*
-										<span class="error-message text-danger ms-1" id="banner-val"></span>*@
-										<span asp-validation-for="bannerText" class="text-danger"></span>
+										<input type="text" class="form-control " id="bText" asp-for="Text"
+											   placeholder="Enter your Banner Text">									
+										<span asp-validation-for="Text" class="text-danger"></span>
 									</div>
 									<div class="mb-3">
 										<label for="exampleFormControlInput1"
 											   class="form-label">Banner Image</label>
-										<input type="file" class="form-control " id="bImg"
-											   placeholder="Select Banner Image">
-										<span class="error-message text-danger ms-1" id="image-val"></span>
+										<input type="file" class="form-control " id="bImg" placeholder="Select Banner Image" asp-for="Image">
+										<span asp-validation-for="Image" class="text-danger"></span>
 									</div>
 									<div class="mb-3">
 										<label for="exampleFormControlInput1"
 											   class="form-label">Sort Order</label>
-										<input type="text" class="form-control " id="bOrder"
-											   placeholder="Enter Sort Order">
-										<span class="error-message text-danger ms-1" id="sOrder-val"></span>
+										<input type="text" class="form-control " id="bOrder" placeholder="Enter Sort Order" asp-for="SortOrder">
+										<span asp-validation-for="SortOrder" class="text-danger"></span>
 									</div>
 									<div class="mb-3">
 										<label for="exampleFormControlInput1"
 											   class="form-label">Created At</label>
 										<input type="date"
-											   class="form-control "
-											   placeholder="" id="bDate">
-										<span class="error-message text-danger ms-1" id="date-val"></span>
+											   class="form-control " placeholder="Select Date" id="bDate" asp-for="CreatedAt">
+										<span asp-validation-for="CreatedAt" class="text-danger"></span>
 									</div>
 
 
@@ -172,21 +168,25 @@
 																<label for="exampleFormControlInput1"
 																	   class="form-label">Banner Image</label>
 																<input type="text" class="form-control " id="bannerIMgE" asp-for="Image">
+																<span asp-validation-for="Image" class="text-danger"></span>
 															</div>
 															<div class="mb-3">
 																<label for="exampleFormControlInput1"
 																	   class="form-label">Banner text</label>
 																<input type="text" class="form-control " id="bannertTextE" asp-for="Text">
+																<span asp-validation-for="Text" class="text-danger"></span>
 															</div>
 															<div class="mb-3">
 																<label for="exampleFormControlInput1"
 																	   class="form-label">Sort Order</label>
 																<input type="text" class="form-control " id="sortOrderE" asp-for="SortOrder">
+																<span asp-validation-for="SortOrder" class="text-danger"></span>
 															</div>
 															<div class="mb-3">
 																<label for="exampleFormControlInput1"
 																	   class="form-label">Created at</label>
 																<input type="text" class="form-control " id="CreateDateE" asp-for="CreatedAt">
+																<span asp-validation-for="CreatedAt" class="text-danger"></span>
 															</div>
 
 
@@ -287,49 +287,7 @@
 			var sortorder = $("#bOrder").val();
 			var date = $("#bDate").val();
 
-			//var isvalid = true;
-
-			//if (!text) {
-			//	$('#banner-val').addClass("active");
-			//	$('#banner-val').text('Please enter a Banner Text .');
-			//	isvalid = false;
-			//} else if (!isNaN(text)) {
-			//	$('#banner-val').addClass("active");
-			//	$('#banner-val').text('Text should not be a number.');
-			//	isvalid = false;
-			//} else {
-			//	$('#banner-val').text('');
-			//}
-
-			//if (!image) {
-			//	$('#image-val').addClass("active");
-			//	$('#image-val').text('Please Select at least one Image.');
-			//	isvalid = false;
-			//}
-			//else {
-			//	$('#image-val').text('');
-			//}
-
-			//if (!sortorder) {
-			//	$('#sOrder-val').addClass("active");
-			//	$('#sOrder-val').text('Please enter a Sort Order.');
-			//	isvalid = false;
-			//}
-			//else {
-			//	$('#sOrder-val').text('');
-			//}
-
-			//if (!date) {
-			//	$('#date-val').addClass("active");
-			//	$('#date-val').text('Please Select Date.');
-			//	isvalid = false;
-			//}
-			//else {
-			//	$('#date-val').text('');
-			//}
-
-
-
+			
 			$.ajax({
 				url: "/Admin/SaveBannerData",
 				type: "POST",
