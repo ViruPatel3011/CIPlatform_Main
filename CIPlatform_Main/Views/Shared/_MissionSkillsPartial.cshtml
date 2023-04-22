@@ -19,39 +19,8 @@
 
 <!-- Right Part Div for Tables -->
 <div class="col-12 col-xl-10 col-lg-9 col-md-11 ">
-	<div class="row shadow-lg " style="height:50px;">
-		<div class="col-12 d-flex bg-white ">
-			<div class="col-3 d-block d-md-none d-flex align-items-center">
-				<button class="border-0 bg-white" type="button" data-bs-toggle="offcanvas"
-						data-bs-target="#Adminoffcanvas" aria-controls="offcanvasWithBothOptions">
-					<i class="bi bi-list " style="font-size:40px;"></i>
-				</button>
-			</div>
-			<div class="col-6 d-flex align-items-center">
-				@{
-					DateTime now = DateTime.Now;
-					string formattedTime = now.ToString("dddd, MMMM d, yyyy, h:mm:ss tt");
 
-				}
-				@formattedTime
-			</div>
-			<div class="col-6 d-none d-md-block">
-				<div class="dropdown d-flex justify-content-end ">
-					<button class="btn ms-auto me-3 dropdown-toggle " type="button"
-							data-bs-toggle="dropdown" aria-expanded="false">
-						<img src="~/Assets/user1.png" alt="mdo" width="40" height="40"
-		class="rounded-circle loginimg">
-						Dropdown button
-					</button>
-					<ul class="dropdown-menu">
-						<li><a class="dropdown-item" href="#">Action</a></li>
-						<li><a class="dropdown-item" href="#">Another action</a></li>
-						<li><a class="dropdown-item" href="#">Something else here</a></li>
-					</ul>
-				</div>
-			</div>
-		</div>
-	</div>
+
 	<div class="row">
 		<div class="col-12">
 			<h3 class="mt-3 ms-3 mb-0">MissionSkill</h3>
@@ -81,47 +50,48 @@
 								<button type="button" class="btn-close"
 										data-bs-dismiss="modal" aria-label="Close"></button>
 							</div>
-							<div class="modal-body">
-								
-								
-								<div class="mb-3">
-									<label for="exampleFormControlInput1"
-										   class="form-label">Skill Name</label>
-									<input type="text" class="form-control " id="skillN"
-										   placeholder="Enter skill Name">
+							<form id="missionSkillform">
+								<div class="modal-body">
 
-								</div>
-								<div class="mb-3">
-									<label for="exampleFormControlInput1"
-										   class="form-label">Created At</label>
-									<input type="date"
-										   class="form-control "
-										   placeholder="" id="skillCreate">
-								</div>
 
-								@*<div class="mb-3">
+									<div class="mb-3">
+										<label for="exampleFormControlInput1"
+											   class="form-label">Skill Name</label>
+										<input type="text" class="form-control " id="skillN" placeholder="Enter skill Name" asp-for="skillName">
+										<span asp-validation-for="skillName" class="text-danger"></span>
+
+									</div>
+									<div class="mb-3">
+										<label for="exampleFormControlInput1"
+											   class="form-label">Created At</label>
+										<input type="date" class="form-control "placeholder="" id="skillCreate" asp-for="skillDate">
+										<span asp-validation-for="skillDate" class="text-danger"></span>
+									</div>
+
+									@*<div class="mb-3">
 									<label for="exampleFormControlInput1"
-										   class="form-label">Skills Status</label>
+									class="form-label">Skills Status</label>
 									<input type="text" class="form-control " id="skillstatus"
-										   placeholder="">
+									placeholder="">
 
-								</div>*@
-
-
+									</div>*@
 
 
-								<div class="modal-footer">
-									<button type="button" class="btn btn-outline-dark"
-											style="border-radius:50px"
-											data-bs-dismiss="modal">
-										Cancel
-									</button>
-									<button type="submit" class="btn btn-outline-warning"
-											style="border-radius:50px" onclick="addSkillData()">
-										Save
-									</button>
+
+
+									<div class="modal-footer">
+										<button type="button" class="btn btn-outline-dark"
+												style="border-radius:50px"
+												data-bs-dismiss="modal">
+											Cancel
+										</button>
+										<button type="submit" class="btn btn-outline-warning"
+												style="border-radius:50px">
+											Save
+										</button>
+									</div>
 								</div>
-							</div>
+							</form>
 						</div>
 					</div>
 				</div>
@@ -148,13 +118,13 @@
 								<td scope="row">@skills.SkillId</td>
 								<td scope="row">@skills.SkillName</td>
 								<td scope="row">@skills.CreatedAt.ToString("dd-MM-yyyy")</td>
-								
+
 								@if (skills.Status == "Added")
 								{
 
 									<th class="text-success" scope="col">@skills.Status</th>
 								}
-								
+
 								else
 								{
 									<th class="text-danger" scope="col">@skills.Status</th>
@@ -202,7 +172,7 @@
 										</div>
 
 									</div>
-									
+
 								</td>
 							</tr>
 
@@ -219,43 +189,58 @@
 
 </div>
 
-
 <script type="text/javascript" src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.js"></script>
+@*This Scripts files is for validation*@
+<script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+<script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
 
 <script>
 
-	function addSkillData(){
+	$('#missionSkillform').on('submit', e => addSkillData(e));
 
-		var skillName = $("#skillN").val();
-		var createdAt = $("#skillCreate").val();
-		var Sstatus = $("#skillstatus").val();
-		
-		$.ajax({
-			url:"/Admin/SaveSkillData",
-			type:"POST",
-			data:{
-				"SName": skillName,
-				"SDate": createdAt,
-				"SStatus": Sstatus,
-				
-			},
-			success:function(result){
-				location.reload();
-			},
-			error: function (result) {
-				alert("error occur in Skill Add");
-			}
-		});
+	function addSkillData(event) {
+
+		event.preventDefault();
+
+		$("#missionSkillform").valid();
+		if (!$("#missionSkillform").valid()) {
+
+			return;
+		}
+		else {
+
+			var skillName = $("#skillN").val();
+			var createdAt = $("#skillCreate").val();
+			var Sstatus = $("#skillstatus").val();
+
+			$.ajax({
+				url: "/Admin/SaveSkillData",
+				type: "POST",
+				data: {
+					"SName": skillName,
+					"SDate": createdAt,
+					"SStatus": Sstatus,
+
+				},
+				success: function (result) {
+					location.reload();
+				},
+				error: function (result) {
+					alert("error occur in Skill Add");
+				}
+			});
+		}
 	}
 
-	var skillid=0;
-	function getSkillId(skillId)
-	{
+
+
+	var skillid = 0;
+	function getSkillId(skillId) {
 		skillid = skillId
 	}
-	function deleteSkills(){
+	function deleteSkills() {
 		$.ajax({
-			url:"/Admin/deleteUserSkill",
+			url: "/Admin/deleteUserSkill",
 			type: "POST",
 			data: {
 				SkillsId: skillid

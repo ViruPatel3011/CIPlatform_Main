@@ -26,7 +26,7 @@
 
 	<title>Related Mission & Rating</title>
 	<style>
-	
+
 	</style>
 </head>
 
@@ -302,14 +302,14 @@
 						{
 
 							<button class=" favorite favBtn" style=" border:2px solid #757575; border-radius: 50px;" onclick="addFavourite(@Model.MissionDetail.MissionId);">
-								<img src="~/Assets/heart1.png" alt="" class="ms-2 " style="width: 30px; height: 30px;"> Add to Favourite
+								<img src="~/Assets/heart1.png" alt="" class="ms-2 " style="width: 22px; height: 22px;"> Add to Favourite
 							</button>
 						}
 					}
 					else
 					{
 						<button class=" favorite favBtn" style=" border:2px solid #757575; border-radius: 50px;" onclick="notloggedin();">
-							<img src="~/Assets/heart1.png" alt="" class="ms-2 " style="width: 30px; height: 30px;"> Add to Favourite
+							<img src="~/Assets/heart1.png" alt="" class="ms-2 " style="width: 22px; height: 22px;"> Add to Favourite
 						</button>
 					}
 
@@ -323,28 +323,28 @@
 								<img src="~/Assets/add1.png" /> Recommended to co-worker
 							</button>
 
-							<!-- Modal -->
+
 							<div class="modal fade " id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
 								<div class="modal-dialog">
 									<div class="modal-content">
 										@*<div id="model-content">*@
 
-											<div class="modal-header">
-												<h1 class="modal-title fs-5" id="staticBackdropLabel">Modal title</h1>
-												<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" onclick="getUser();"></button>
-											</div>
-											<div class="modal-body" style="overflow:scroll; height:400px;">
-											</div>
-											<div class="modal-footer">
-												<button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
-												<button type="button" class="btn btn-success" id="sendmail">Send Mail</button>
-											</div>
+										<div class="modal-header">
+											<h1 class="modal-title fs-5" id="staticBackdropLabel">Modal title</h1>
+											<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" onclick="getUser();"></button>
+										</div>
+										<div class="modal-body" style="overflow:scroll; height:400px;">
+										</div>
+										<div class="modal-footer">
+											<button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+											<button type="button" class="btn btn-success" id="sendmail">Send Mail</button>
+										</div>
 										@*</div>*@
 										@*<div class="d-none w-100 text-center" id="volPageLoader">
-											<div class="spinner-border text-warning" role="status">
-											</div>
-											<p>Sending Mail...</p>
-										</div>*@
+									<div class="spinner-border text-warning" role="status">
+									</div>
+									<p>Sending Mail...</p>
+									</div>*@
 									</div>
 								</div>
 							</div>
@@ -400,7 +400,7 @@
 						</div>
 
 						<div>
-							<input type="hidden" id="lblRating" value=""/>
+							<input type="hidden" id="lblRating" value="" />
 						</div>
 
 
@@ -409,7 +409,6 @@
 					</div>
 				</div>
 				<!--star section end-->
-
 				<!--City,theme,date,organization section is start-->
 				<div class="container-fluid">
 					<div class="row d-flex mt-5 mx-auto">
@@ -446,13 +445,13 @@
 							if (alreadyAppliedUser == null)
 							{
 								<a href="" class="btn  py-2 px-3 " id="applyBtn" style="border: 2px solid #F88634;
-													color: #F88634;" onclick="applyMission()">Apply Now <img src="~/Assets/right-arrow.png" class="ps-3" alt=""></a>
+																	color: #F88634;" onclick="applyMission()">Apply Now <img src="~/Assets/right-arrow.png" class="ps-3" alt=""></a>
 							}
 
 							else
 							{
 								<a href="" class="btn  py-2 px-3 " id="applyBtn" style="border: 2px solid #F88634;
-												color: #F88634;" onclick="applyMission()" disabled>Already Applied <img src="~/Assets/right-arrow.png" class="ps-3" alt=""></a>
+																color: #F88634;" onclick="applyMission()" disabled>Already Applied <img src="~/Assets/right-arrow.png" class="ps-3" alt=""></a>
 							}
 
 						}
@@ -558,8 +557,8 @@
 									  placeholder="Enter your comments..."></textarea>
 						</div>
 						@*<input type="hidden" value="@Model.MissionDetail.MissionId" id="missionId" />*@
-							@if (User.Identity.IsAuthenticated)
-									{
+						@if (User.Identity.IsAuthenticated)
+						{
 							<button class="btn btn-outline-warning ms-2 mt-2" id="commentButton">Post Comment</button>
 						}
 						else
@@ -798,14 +797,79 @@
 													<img src="~/Assets/pin.png" alt="">
 													@item.City.Name
 												</div>
-												<div class="position-absolute c1-heart px-2 py-1">
-													<img src="~/Assets/heart.png" alt="">
+
+												@if (User.Identity.IsAuthenticated)
+												{
+													var favMissionId = item.MissionId;
+													var FavouriteMission = Model.FavoriteMissionList.Where(m => m.UserId == Convert.ToInt32(uid) && m.MissionId == favMissionId).FirstOrDefault();
+
+
+													@if (FavouriteMission != null)
+													{
+														<div class="position-absolute c1-heart favorite added" onclick="addFavourite(@item.MissionId);">
+															<img class="ms-2 mt-2" src="~/Assets/favourite.png" alt="" style="width: 30px;height: 30px;">
+														</div>
+													}
+													else
+													{
+														<div class="position-absolute c1-heart favorite added" onclick="addFavourite(@item.MissionId);">
+															<img class="ms-2 mt-2" src="~/Assets/heart.png" alt="" style="width: 24px; height: 23px;">
+														</div>
+													}
+
+												}
+												else
+												{
+													<div class="position-absolute c1-heart favorite added" onclick="notloggedin();">
+														<img class="ms-2 mt-2" src="~/Assets/heart.png" alt="" style="width: 24px; height: 23px;">
+
+													</div>
+												}
+
+
+												<div class="position-absolute c1-person ">
+													@if (User.Identity.IsAuthenticated)
+													{
+
+														<button type="button" class="btn btn-Secondary" data-bs-toggle="modal" data-bs-target="#relatedRecommendTime" onclick="getUser();">
+															<img class="pe-2" src="~/Assets/user.png" alt="">
+														</button>
+														<div class="modal fade " id="relatedRecommendTime" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+															<div class="modal-dialog">
+																<div class="modal-content">
+																	@*<div id="model-content">*@
+
+																	<div class="modal-header">
+																		<h1 class="modal-title fs-5" id="staticBackdropLabel">Modal title</h1>
+																		<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" onclick="getUser();"></button>
+																	</div>
+																	<div class="modal-body" style="overflow:scroll; height:400px;">
+																	</div>
+																	<div class="modal-footer">
+																		<button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+																		<button type="button" class="btn btn-success" id="sendmail">Send Mail</button>
+																	</div>
+																	@*</div>*@
+																	@*<div class="d-none w-100 text-center" id="volPageLoader">
+												<div class="spinner-border text-warning" role="status">
 												</div>
-												<div class="position-absolute c1-person px-2 py-1">
-													<img src="~/Assets/user.png" alt="">
+												<p>Sending Mail...</p>
+												</div>*@
+																</div>
+															</div>
+														</div>
+													}
+													else
+													{
+
+														<button type="button" class="btn btn-Secondary">
+															<img class="pe-2" src="~/Assets/user.png" alt="" onclick="notloggedin();">
+														</button>
+
+													}
 												</div>
 												<div class="text-center position-absolute" id="mission-theme" style=" left: 50%;
-														transform: translateX(-50%);">
+																		transform: translateX(-50%);">
 													<p class="ps-1 pe-1 mb-0" style="border-radius: 20px; background-color: white;">
 														@item.Theme.Title
 													</p>
@@ -849,21 +913,21 @@
 														</div>
 													</div>
 													@*
-													<div class="d-flex align-items-center " id="skillList" style="display:none">
-														<div class="mt-1 pe-0 me-2">
-															<img src="~/Assets/Seats-left.png" alt="" width="25px" height="25px">
-														</div>
-														<div class="px-0 ">
-															<h6 class="mb-0 mt-1">Skills</h6>
-															<p class="mb-0">
-																@foreach (var skill in Model.MissionSkills)
-																{
-																	<span>@skill.Skill.SkillName</span>
-																}
-															</p>
-														</div>
-													</div>
-													*@
+									<div class="d-flex align-items-center " id="skillList" style="display:none">
+									<div class="mt-1 pe-0 me-2">
+									<img src="~/Assets/Seats-left.png" alt="" width="25px" height="25px">
+									</div>
+									<div class="px-0 ">
+									<h6 class="mb-0 mt-1">Skills</h6>
+									<p class="mb-0">
+									@foreach (var skill in Model.MissionSkills)
+									{
+									<span>@skill.Skill.SkillName</span>
+									}
+									</p>
+									</div>
+									</div>
+									*@
 													<div class="d-flex align-items-center">
 														<div class=" mt-1 me-2 mx-auto">
 															<img src="~/Assets/deadline.png" width="25px" height="25px" alt="">
@@ -879,7 +943,7 @@
 												<div class="card-footer text-center">
 
 													<a type="submit" asp-controller="Home" asp-action="MissionAndRating" asp-route-id="@item.MissionId" class="btn  rounded-pill" style="border: 2px solid #F88634;
-													  	color: #F88634;">
+																	  	color: #F88634;">
 														Explore Now <img src="~/Assets/right-arrow.png" alt="">
 													</a>
 
@@ -924,14 +988,76 @@
 													<img src="~/Assets/pin.png" alt="">
 													@item.City.Name
 												</div>
-												<div class="position-absolute c1-heart px-2 py-1">
-													<img src="~/Assets/heart.png" alt="">
+
+												@if (User.Identity.IsAuthenticated)
+												{
+													var favMissionId = item.MissionId;
+													var FavouriteMission = Model.FavoriteMissionList.Where(m => m.UserId == Convert.ToInt32(uid) && m.MissionId == favMissionId).FirstOrDefault();
+
+
+													@if (FavouriteMission != null)
+													{
+														<div class="position-absolute c1-heart favorite added" onclick="addFavourite(@item.MissionId);">
+															<img class="ms-2 mt-2" src="~/Assets/favourite.png" alt="" style="width: 30px;height: 30px;">
+														</div>
+													}
+													else
+													{
+														<div class="position-absolute c1-heart favorite added" onclick="addFavourite(@item.MissionId);">
+															<img class="ms-2 mt-2" src="~/Assets/heart.png" alt="" style="width: 24px; height: 23px;">
+														</div>
+													}
+
+												}
+												else
+												{
+													<div class="position-absolute c1-heart favorite added" onclick="notloggedin();">
+														<img class="ms-2 mt-2" src="~/Assets/heart.png" alt="" style="width: 24px; height: 23px;">
+
+													</div>
+												}
+												<div class="position-absolute c1-person">
+													@if (User.Identity.IsAuthenticated)
+													{
+														<button type="button" class="btn btn-Secondary" data-bs-toggle="modal" data-bs-target="#relatedRecommendGoal" onclick="getUser();">
+															<img class="pe-2" src="~/Assets/user.png" alt="">
+														</button>
+														<div class="modal fade " id="relatedRecommendGoal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+															<div class="modal-dialog">
+																<div class="modal-content">
+																	@*<div id="model-content">*@
+
+																	<div class="modal-header">
+																		<h1 class="modal-title fs-5" id="staticBackdropLabel">Modal title</h1>
+																		<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" onclick="getUser();"></button>
+																	</div>
+																	<div class="modal-body" style="overflow:scroll; height:400px;">
+																	</div>
+																	<div class="modal-footer">
+																		<button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+																		<button type="button" class="btn btn-success" id="sendmail">Send Mail</button>
+																	</div>
+																	@*</div>*@
+																	@*<div class="d-none w-100 text-center" id="volPageLoader">
+												<div class="spinner-border text-warning" role="status">
 												</div>
-												<div class="position-absolute c1-person px-2 py-1">
-													<img src="~/Assets/user.png" alt="">
+												<p>Sending Mail...</p>
+												</div>*@
+																</div>
+															</div>
+														</div>
+													}
+													else
+													{
+
+														<button type="button" class="btn btn-Secondary">
+															<img class="pe-2" src="~/Assets/user.png" alt="" onclick="notloggedin();">
+														</button>
+
+													}
 												</div>
 												<div class="text-center position-absolute" id="mission-theme" style=" left: 50%;
-													transform: translateX(-50%); bottom: -27px;">
+																	transform: translateX(-50%); bottom: -27px;">
 													<p class="ps-1 pe-1" style="border-radius: 20px; background-color: white;">
 														@item.Theme.Title
 													</p>
@@ -952,20 +1078,20 @@
 													</div>
 
 													<div class="d-flex  align-items-center">
-													
+
 														<img src="~/Assets/selected-star.png" class="star" alt="">
 														<img src="~/Assets/selected-star.png" class="star" alt="">
 														<img src="~/Assets/selected-star.png" class="star" alt="">
 														<img src="~/Assets/star.png" class="star" alt="">
 														<img src="~/Assets/star.png" class="star" alt="">
-														
+
 
 													</div>
 												</div>
 												<div class="d-flex justify-content-between position-relative border-top border-bottom py-4">
 													<div class="text-center position-absolute" id="mission-deadline" style=" top: -15px;
-											left: 50%;
-											transform: translateX(-50%);">
+															left: 50%;
+															transform: translateX(-50%);">
 														<p style="border: 1px solid gray;border-radius: 20px; font-size:15px" class="ps-1 pe-1">
 															Ongoing Oppurtunity
 														</p>
@@ -980,21 +1106,21 @@
 														</div>
 													</div>
 													@*
-													<div class="d-flex align-items-center " id="skillList" style="display:none">
-														<div class="mt-1 pe-0 me-2">
-															<img src="~/Assets/Seats-left.png" alt="" width="25px" height="25px">
-														</div>
-														<div class="px-0 ">
-															<h6 class="mb-0 mt-1">Skills</h6>
-															<p class="mb-0">
-																@foreach (var skill in Model.MissionSkills)
-																{
-																	<span>@skill.Skill.SkillName</span>
-																}
-															</p>
-														</div>
-													</div>
-													*@
+									<div class="d-flex align-items-center " id="skillList" style="display:none">
+									<div class="mt-1 pe-0 me-2">
+									<img src="~/Assets/Seats-left.png" alt="" width="25px" height="25px">
+									</div>
+									<div class="px-0 ">
+									<h6 class="mb-0 mt-1">Skills</h6>
+									<p class="mb-0">
+									@foreach (var skill in Model.MissionSkills)
+									{
+									<span>@skill.Skill.SkillName</span>
+									}
+									</p>
+									</div>
+									</div>
+									*@
 													<div class="d-flex align-items-center">
 														<div class=" mt-1 me-2 mx-auto">
 															<img src="~/Assets/achieved.png" width="25px" height="25px" alt="">
@@ -1015,7 +1141,7 @@
 
 
 													<a type="submit" asp-controller="Home" asp-action="MissionAndRating" asp-route-id="@item.MissionId" class="btn  rounded-pill" style="border: 2px solid #F88634;
-													  	color: #F88634;">
+																	  	color: #F88634;">
 														Explore Now <img src="~/Assets/right-arrow.png" alt="">
 													</a>
 
@@ -1161,10 +1287,10 @@
 			});
 		}
 
-		$(document).ready(function(){
+		$(document).ready(function () {
 
 
-		 $("#lblRating").val(@Model.userRate);
+			$("#lblRating").val(@Model.userRate);
 			CRateSelected();
 
 		})
@@ -1192,11 +1318,11 @@
 			}
 			*@
 
-			
 
-		// Comments
 
-		var commentBtn = document.querySelector('#commentButton');
+										// Comments
+
+										var commentBtn = document.querySelector('#commentButton');
 
 		$(commentBtn).click(postComment);
 
@@ -1340,7 +1466,7 @@
 				}
 			});
 		}
-														/*function recommendattion(mId){
+																						/*function recommendattion(mId){
 		var userids = [];
 		$('.modal-body input:checked').each(function () {
 		userids.push($(this).attr("id"));

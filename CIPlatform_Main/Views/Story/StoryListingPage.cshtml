@@ -25,6 +25,33 @@
 	<title>Story-Listing-Page</title>
 </head>
 
+<style>
+	:root {
+		--bs-pagination-active-color: #F88634 !important;
+		--bs-pagination-active-bg: #F88634 !important;
+		--bs-pagination-active-border: #F88634 !important;
+	}
+	.page-link:active {
+		color: #F88634 ;
+		border: 1px solid #F88634;
+	}
+
+	.page-link:hover {
+		color: white !important;
+		background: #F88634 !important;
+		cursor: pointer;
+		transition: 0.5s;
+	}
+
+	.page-link:not(:active) {
+		border-color: #F88634;
+		color: #F88634;
+	}
+	.page-item{
+		margin-right:10px;
+	}
+
+</style>
 <body>
 
 	<!-- First navbar  -->

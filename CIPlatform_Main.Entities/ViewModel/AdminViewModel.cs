@@ -40,7 +40,7 @@ namespace CIPlatform_Main.Entities.ViewModel
 
 		[Required(ErrorMessage = "UserId Is Required")]
 		public long userId;
-
+			
 		[Required(ErrorMessage = "ApprovalStatus Is Required")]
 		public string ApprovalStatus;
 
@@ -49,6 +49,17 @@ namespace CIPlatform_Main.Entities.ViewModel
 
 		[Required(ErrorMessage = "appliedAt Is Required")]
 		public DateTime appliedat;
+
+
+		// Below field for MissionSkill Page
+
+		[Required(ErrorMessage = "skillName Is Required")]
+		public string skillName;
+
+		[Required(ErrorMessage = "skillDate Is Required")]
+		public DateTime skillDate;
+
+
 		// All the Required List 
 
 		public List<User> UserList { get; set; }
