@@ -61,6 +61,10 @@ namespace CIPlatform_Main.Repository.Repository
 		{
 			var list = _ciPlatformContext.Banners.ToList();
 			return list;
+		}public List<Country> getCountryList()
+		{
+			var list = _ciPlatformContext.Countries.ToList();
+			return list;
 		}
 
 
@@ -161,12 +165,22 @@ namespace CIPlatform_Main.Repository.Repository
 			return true;
 		}
 
-		public CmsPage getCMSDataForEdit(long cmsid)
+		public CmsPage getCMSPageDataforEdit(long cmsid)
 		{
 			var cmspage = _ciPlatformContext.CmsPages.Where(x => x.CmsPageId == cmsid).FirstOrDefault();
 			return cmspage;
 		}
 
+		public void EditCMSPageData(AdminViewModel adminView, long cmsPageid)
+		{
+			var checkCMSId=_ciPlatformContext.CmsPages.Where(x=>x.CmsPageId==cmsPageid).FirstOrDefault();
+			checkCMSId.Title = adminView.CMSTitle;
+			checkCMSId.Description = adminView.CMSDescrition;
+			checkCMSId.Slug = adminView.CMSSlug;
+			checkCMSId.Status = adminView.CMSStatus;
+			_ciPlatformContext.CmsPages.Update(checkCMSId);
+			_ciPlatformContext.SaveChanges();
+		}
 
 		// Method for Delete CMS Page Data
 		public bool removeCMSData(long cmsId)
@@ -286,24 +300,24 @@ namespace CIPlatform_Main.Repository.Repository
 
 		}
 		// Method for Add Mission Data
-		public bool SavedMissionData(string mTitle, string mType, DateTime SDate, DateTime EDate, string msts)
-		{
-			Mission mission = new Mission()
-			{
-				Title = mTitle,
-				MissionType = mType,
-				StartDate = SDate,
-				EndDate = EDate,
-				Status=msts,
-				CityId=2,
-				CountryId=1,
-				ThemeId=1 // by default we should take theme_id as some value otherwise it will throw ans error		
+		//public bool SavedMissionData(string mTitle, string mType, DateTime SDate, DateTime EDate, string msts)
+		//{
+		//	Mission mission = new Mission()
+		//	{
+		//		Title = mTitle,
+		//		MissionType = mType,
+		//		StartDate = SDate,
+		//		EndDate = EDate,
+		//		Status=msts,
+		//		CityId=2,
+		//		CountryId=1,
+		//		ThemeId=1 // by default we should take theme_id as some value otherwise it will throw ans error		
 				
-			};
-			_ciPlatformContext.Missions.Add(mission);
-			_ciPlatformContext.SaveChanges();
-			return true;
-		}
+		//	};
+		//	_ciPlatformContext.Missions.Add(mission);
+		//	_ciPlatformContext.SaveChanges();
+		//	return true;
+		//}
 
 		// Method for Get Data for Edit Mission 
 		public Mission getDataForMissionEdit(long mId)
@@ -312,20 +326,31 @@ namespace CIPlatform_Main.Repository.Repository
 			return mission;
 		}
 
-		// Method for Edit Mission Data 
-		public void editMissionData(AdminViewModel adminView, long missionid)
+        // Method for Edit Mission Data 
+        public void editMissionPageData(MissionVMAdmin missionVM, long mPageEditId)
 		{
-			var mission = _ciPlatformContext.Missions.Where(x => x.MissionId == missionid).FirstOrDefault();
-			mission.Title = adminView.title;
-			mission.MissionType = adminView.missionType;
-			mission.StartDate = adminView.startDate;
-			mission.EndDate= adminView.endDate;
-			mission.Status = adminView.status;
+			var editMissionId = _ciPlatformContext.Missions.Where(x => x.MissionId == mPageEditId).FirstOrDefault();
+			editMissionId.Title = missionVM.title;
+			editMissionId.Description = missionVM.description;
+			editMissionId.ShortDescription = missionVM.shortDescription;
+			editMissionId.CountryId = missionVM.countryId;
+			editMissionId.CityId = missionVM.cityId;
+			editMissionId.OrganizationName= missionVM.organizationName;
+			editMissionId.OrganizationDetail= missionVM.organizationDetail;
+			editMissionId.StartDate= missionVM.startDate;
+			editMissionId.EndDate= missionVM.endDate;
+			editMissionId.MissionType= missionVM.missionType;
+			editMissionId.ThemeId= missionVM.themeId;
+			editMissionId.Availability= missionVM.availability;
+			editMissionId.Availability= missionVM.availability;
+			_ciPlatformContext.Missions.Update(editMissionId);
 			_ciPlatformContext.SaveChanges();
+
+			
 		}
 
-		// Method for Delete Mission Data 
-		public bool removeMissionsData(long missionId)
+        // Method for Delete Mission Data 
+        public bool removeMissionsData(long missionId)
 		{
 			var validMission = _ciPlatformContext.Missions.Where(x => x.MissionId == missionId).FirstOrDefault();
 			if(validMission != null)
@@ -588,21 +613,47 @@ namespace CIPlatform_Main.Repository.Repository
 
 		}
 
+		//get banner
+		public Banner getBanner(long bId)
+		{
+			return _ciPlatformContext.Banners.FirstOrDefault(bnr => bnr.BannerId == bId);
+		}
 		public Banner getDataForEditBannerPage(long bId)
 		{
 			var bannerList = _ciPlatformContext.Banners.Where(x => x.BannerId == bId).FirstOrDefault();
 			return bannerList;
 		}
 
-		public void EditBannerPageData(BannerVM banner, long bannerId)
+		public bool EditBannerPageData(BannerVM banner, long bannerId)
 		{
 			var bannerPageId = _ciPlatformContext.Banners.Where(x => x.BannerId == bannerId).FirstOrDefault();
-			bannerPageId.Text = banner.Text;
-			bannerPageId.Image = banner.Image;
-			bannerPageId.SortOrder = banner.SortOrder;
-			bannerPageId.CreatedAt = banner.CreatedAt;
-			_ciPlatformContext.Banners.Update(bannerPageId);
-			_ciPlatformContext.SaveChanges();
+			var fileName = banner.Image.FileName;
+			//var fileType = advm.bannerImage.ContentType;
+
+			using (var fileStream = banner.Image.OpenReadStream())
+			{
+				var filePath = Path.Combine("\\MissionImgDcouments", fileName);
+				using (var fStream = new FileStream(Path.Combine("wwwroot", "MissionImgDcouments", fileName), FileMode.Create))
+				{
+					banner.bannerImage.CopyTo(fStream);
+					if (bannerPageId != null)
+					{
+
+						bannerPageId.Text = banner.Text;
+						bannerPageId.Image = filePath;
+						bannerPageId.SortOrder = banner.SortOrder;
+						bannerPageId.CreatedAt = banner.CreatedAt;
+						_ciPlatformContext.Banners.Update(bannerPageId);
+						_ciPlatformContext.SaveChanges();
+						return true;
+					}
+					else
+					{
+						return false;
+
+					}
+				}
+			}
 		}
 
 		public bool deleteBannerPageData(long bannerPageId)

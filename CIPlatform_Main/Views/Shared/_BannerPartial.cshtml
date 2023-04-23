@@ -135,8 +135,14 @@
 															<div class="mb-3">
 																<label for="exampleFormControlInput1"
 																	   class="form-label">Banner Image</label>
-																<input type="text" class="form-control " id="bannerIMgE" asp-for="Image">
+																<input type="file" class="form-control " id="bannerIMgE" asp-for="Image">
 																<span asp-validation-for="Image" class="text-danger"></span>
+															</div>
+															<div class="mb-3">
+																<label for="exampleFormControlInput1"
+																	   class="form-label">Banner Image</label>
+																<div id="img_priview_edit">
+																</div>
 															</div>
 															<div class="mb-3">
 																<label for="exampleFormControlInput1"
@@ -281,6 +287,7 @@
 	}
 
 	function loadBannerData(bannerId) {
+		$('#img_priview_edit').html("");
 		$.ajax({
 			method: 'GET',
 			url: '/Admin/getDataForEditBanner',
@@ -303,6 +310,51 @@
 				// Handle errors
 			}
 		});
+
+		$.ajax({
+			method: 'Get',
+			url: '/Admin/getBanner',
+			data: {
+				bId: bannerId,
+			},
+			success: function (data) {
+				console.log(data);
+				var imageUrl = data.image;
+				//alert(imageUrl);
+				var img = $('<img>').attr('src', imageUrl).width(70).height(70).css('margin-right', '10px');
+				console.log(imageUrl);
+				$('#img_priview_edit').append(img);
+			},
+			error: function (xhr, status, error) {
+				// Handle errors
+			}
+		});
+	}
+
+
+	//below function deisplay all the images in UI which we are select from the input Type file
+	$('#bannerIMgE').on('change', e => showImages(e));
+	function showImages(event) {
+		console.log(event);
+		var previewDiv = document.getElementById("img_priview_edit");
+		previewDiv.innerHTML = "";
+
+		var files = event.target.files;
+		console.log(files);
+		for (var i = 0; i < files.length; i++) {
+			var file = files[i];
+			var reader = new FileReader();
+			reader.onload = function (event) {
+				var img = document.createElement("img");
+				img.src = event.target.result;
+				img.width = 70;
+				img.height = 70;
+				img.style.marginRight = "20px";
+				console.log(img);
+				previewDiv.append(img);
+			};
+			reader.readAsDataURL(file);
+		}
 	}
 
 

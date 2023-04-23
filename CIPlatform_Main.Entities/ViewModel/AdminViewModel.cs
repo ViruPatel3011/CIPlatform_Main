@@ -10,6 +10,14 @@ namespace CIPlatform_Main.Entities.ViewModel
 {
 	public class AdminViewModel
 	{
+		// Below field is for CMS Page
+		public string CMSTitle { get;set; }	
+		public string CMSDescrition { get;set; }	
+		public string CMSSlug { get;set; }	
+		public string CMSStatus { get;set; }	
+
+
+
 		public long storyId { get; set; }
 		// below field is for mission page
 		public string title { get; set; }

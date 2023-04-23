@@ -78,73 +78,7 @@
 											<i class="bi bi-pencil-square text-warning"></i>
 										</button>
 
-										<div class="modal fade" id="exampleModalMissionEdit" tabindex="-1"
-											 aria-labelledby="exampleModalLabel" aria-hidden="true">
-											<div class="modal-dialog modal-dialog-centered">
-												<div class="modal-content">
-													<div class="modal-header">
-														<h5 class="modal-title" id="exampleModalLabel">
-															Please Input for Mission Edit
-														</h5>
-														<button type="button" class="btn-close"
-																data-bs-dismiss="modal" aria-label="Close"></button>
-													</div>
-													<form method="post" asp-controller="Admin" asp-action="EditMissionData">
-														@*missionid is for Data Edit post method and mid is for getdata for Edit*@
-														<input hidden name="missionid" id="mid">
-														<div class="modal-body">
-															@*value="@goalMission.MissionId"*@
-
-															<div class="mb-3">
-																<label for="exampleFormControlInput1"
-																	   class="form-label">Mission Title</label>
-																<input type="text" class="form-control " id="missionTitle" value="missionTitle" asp-for="title">
-															</div>
-															<div class="mb-3">
-																<label for="exampleFormControlInput1"
-																	   class="form-label">Mission Type</label>
-																<input type="text" class="form-control "
-					   id="missionType" value="missionType" asp-for="missionType">
-															</div>
-															<div class="mb-3">
-																<label for="exampleFormControlInput1"
-																	   class="form-label">Start date</label>
-																<input type="text"
-					   class="form-control "
-					   id="startDate" value="startDate" asp-for="startDate">
-															</div>
-															<div class="mb-3">
-																<label for="exampleFormControlInput1"
-																	   class="form-label">End Date</label>
-																<input type="text"
-					   class="form-control "
-					   id="endDate" value="endDate" asp-for="endDate">
-															</div>
-															<div class="mb-3">
-																<label for="exampleFormControlInput1"
-																	   class="form-label">Status</label>
-																<input type="text"
-					   class="form-control "
-					   id="missionstatus" value="missionstatus" asp-for="status">
-															</div>
-
-
-														</div>
-														<div class="modal-footer">
-															<button type="button" class="btn btn-outline-dark"
-																	style="border-radius:50px"
-																	data-bs-dismiss="modal">
-																Cancel
-															</button>
-															<button type="submit" class="btn btn-outline-warning"
-																	style="border-radius:50px">
-																Edit
-															</button>
-														</div>
-													</form>
-												</div>
-											</div>
-										</div>
+										
 
 									</div>
 									<div>
@@ -220,36 +154,46 @@
 		});
 	});
 
-	function submitMissionData() {
-		var title = $("#mTitle").val();
-		var type = $("#mType").val();
-		var sdate = $("#SDate").val();
-		var edate = $("#EDate").val();
-		var mstatus = $("#missionStatus").val();
+	//function submitMissionData() {
+	//	var title = $("#mTitle").val();
+	//	var type = $("#mType").val();
+	//	var sdate = $("#SDate").val();
+	//	var edate = $("#EDate").val();
+	//	var mstatus = $("#missionStatus").val();
 
-		$.ajax({
-			url: "/Admin/SaveMissionData",
-			type: "POST",
-			data: {
-				"mTitle": title,
-				"mType": type,
-				"SDate": sdate,
-				"EDate": edate,
-				"msts": mstatus,
-			},
-			success: function (result) {
-				location.reload();
-				alert("Mission Add successfully");
+	//	$.ajax({
+	//		url: "/Admin/SaveMissionData",
+	//		type: "POST",
+	//		data: {
+	//			"mTitle": title,
+	//			"mType": type,
+	//			"SDate": sdate,
+	//			"EDate": edate,
+	//			"msts": mstatus,
+	//		},
+	//		success: function (result) {
+	//			location.reload();
+	//			alert("Mission Add successfully");
 
 
-			},
-			error: function (result) {
-				alert("error occur in Mission");
-			}
-		});
-	}
+	//		},
+	//		error: function (result) {
+	//			alert("error occur in Mission");
+	//		}
+	//	});
+	//}
 
 	function loadMissionData(missionId) {
+
+		$.ajax({
+			url: '@Url.Action("MissionEdit", "Admin")',
+			type: 'GET',
+			success: function (result) {
+				$('#loadSideBar').html(result);
+			}
+		});
+
+
 		$.ajax({
 			method: 'GET',
 			url: '/Admin/getDataForEditMission',
@@ -261,12 +205,23 @@
 
 
 				//$('#missionName').val(data.mission);
-				$('#missionTitle').val(data.mTitle);
-				$('#missionType').val(data.mType);
-				$('#startDate').val(data.sDate);
-				$('#endDate').val(data.eDate);
-				$('#missionstatus').val(data.mStatus);
-				$('#mid').val(data.mid);
+				$('#missionText').val(data.mText);
+				$('#missionDesc').val(data.mDesc);
+				$('#missionShortDesc').val(data.mSdesc);
+				$('#Country').val(data.country);
+				$('#City').val(data.city);
+				$('#mOrgName').val(data.mOrgN);
+				$('#mOrgDetail').val(data.mOrgD);
+				$('#mStartD').val(data.mSDate);
+				$('#mEndD').val(data.mEDate);
+				$('#missiontype').val(data.mType);
+				$('#mTheme').val(data.mTheme);
+				//$('#mSeats').val(data.mSeats);
+				//$('#mDeadline').val(data.mDeadline);
+				$('#mAvailability').val(data.mAvailability);
+				//$('#fileInput').val(data.mFile);
+				//$('#documentInput').val(data.mdocument);
+				$('#missionEId').val(data.mEditid);
 
 			},
 			error: function (xhr, status, error) {

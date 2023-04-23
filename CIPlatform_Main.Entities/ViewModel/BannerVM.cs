@@ -1,4 +1,5 @@
 ﻿using CIPlatform_Main.Entities.Models;
+using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -14,7 +15,7 @@ namespace CIPlatform_Main.Entities.ViewModel
 		public long BannerId { get; set; }
 
 		[Required(ErrorMessage = "Image Is Required")]
-		public string Image { get; set; } = null!;
+		public IFormFile Image { get; set; } = null!;
 
 		[Required(ErrorMessage = "BannerText Is Required")]
 		public string? Text { get; set; }
@@ -25,7 +26,7 @@ namespace CIPlatform_Main.Entities.ViewModel
 		[Required(ErrorMessage = "CreatedAt Is Required")]
 		public DateTime CreatedAt { get; set; }
 
-
+		public IFormFile bannerImage { get; set; }
 
 		public List<Banner> BannerList { get; set; }
 	}

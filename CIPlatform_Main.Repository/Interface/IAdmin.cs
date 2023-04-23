@@ -24,6 +24,7 @@ namespace CIPlatform_Main.Repository.Interface
 		public List<Skill> getSkillsList();
 		public List<Story> getStoryList();
 		public List<Banner> getBannerList();
+		public List<Country> getCountryList();
 
 
 		// ************** List Section ENd    **********//
@@ -53,7 +54,9 @@ namespace CIPlatform_Main.Repository.Interface
 		// Method for Add CMS Page Data
 		public bool AddCMSpageData(string Title, string Description, string Slug, string Status);
 
-		//public CmsPage getCMSPageDataforEdit(long cmsid);
+		public CmsPage getCMSPageDataforEdit(long cmsid);
+
+		public void EditCMSPageData(AdminViewModel adminView, long cmsPageid);
 
 		// Method for Delete CMS Page Data
 		public bool removeCMSData(long cmsId);
@@ -71,16 +74,17 @@ namespace CIPlatform_Main.Repository.Interface
 
 		public bool AddMissionPagedata(MissionVMAdmin missionVM, List<long> listOfSkill);
 
-        public bool SavedMissionData(string mTitle, string mType, DateTime SDate, DateTime EDate, string msts);
+        //public bool SavedMissionData(string mTitle, string mType, DateTime SDate, DateTime EDate, string msts);
 
 		// Method for Get Data for Edit Mission 
 		public Mission getDataForMissionEdit(long mId);
 
 		// Method for Edit Mission Data 
-		public void editMissionData(AdminViewModel adminView, long missionid);
 
-		// Method for Delete Mission Data 
-		public bool removeMissionsData(long missionId);
+		public void editMissionPageData(MissionVMAdmin missionVM, long mPageEditId);
+
+        // Method for Delete Mission Data 
+        public bool removeMissionsData(long missionId);
 
 		//**************   Mission Page Methods END    ***************///
 
@@ -151,8 +155,11 @@ namespace CIPlatform_Main.Repository.Interface
 
 		public Banner getDataForEditBannerPage(long bId);
 
-		public void EditBannerPageData(BannerVM banner, long bannerId);
+		//get banner
+		public Banner getBanner(long bId);
+		public bool EditBannerPageData(BannerVM banner, long bannerId);
 
 		public bool deleteBannerPageData(long bannerPageId);
-	}
+      
+    }
 }

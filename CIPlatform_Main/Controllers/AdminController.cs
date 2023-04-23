@@ -1,6 +1,7 @@
 ﻿using CIPlatform_Main.Entities.ViewModel;
 using CIPlatform_Main.Repository.Interface;
 using Microsoft.AspNetCore.Mvc;
+using System.Xml;
 
 namespace CIPlatform_Main.Controllers
 {
@@ -111,7 +112,22 @@ namespace CIPlatform_Main.Controllers
 			return PartialView("_MissionPageAddRight", missionModel1);
 		}
 
-		
+		// Method for CMS Page Edit Section
+		public IActionResult MissionEdit()
+		{
+			var missionData = _admin.getMissionList();
+			var missionTheme = _admin.getMissionThemeList();
+			var skill = _admin.getSkillsList();
+			var country = _admin.getCountryList();
+			MissionVMAdmin missionEditModel = new MissionVMAdmin()
+			{
+				MissionList = missionData,
+				MissionThemeList = missionTheme,
+				SkillList = skill,
+				CountryList = country
+			};
+			return PartialView("_MissionPageEditRight", missionEditModel);
+		}
 
 		// Method for MissionTheme Page
 		public IActionResult MissionThemePage()
@@ -302,39 +318,53 @@ namespace CIPlatform_Main.Controllers
 				return Json(new { redirectUrl = Url.Action("CMSPage", "Admin") });
 			}
 		}
-		//[HttpGet]
-		//public IActionResult getCMSDataForEdit(long cmsid)
-		//{
-		//	var cmsData = _admin.getCMSPageDataforEdit(cmsid);
-		//	return Json(new {
+		[HttpGet]
+		public IActionResult getCMSDataForEdit(long cmsid)
+		{
+			var cmsData = _admin.getCMSPageDataforEdit(cmsid);
+			return Json(new
+			{
+
+				cmsTitle = cmsData.Title,
+				cmsText = cmsData.Description,
+				cmsSlug = cmsData.Slug,
+				cmsStatus = cmsData.Status,
+				cmsId = cmsid
 
 
+			}); ;
 
-		//	});
+		}
 
-		//}
+		[HttpPost]
+		public IActionResult EditCMSPageData(AdminViewModel adminView,long cmsPageid)
+		{
+			_admin.EditCMSPageData(adminView, cmsPageid);
+			TempData["Success Message"] = "Data edited successfully";
+			return RedirectToAction("User", "Admin");
 
+		}
 
 
 
 		//**************   Mission Page Methods START    ***************///
 
 		// Method for Add Mission Data
-		[HttpPost]
-		public IActionResult SaveMissionData(string mTitle, string mType,DateTime SDate, DateTime EDate,string msts)
-		{
-			var dataAdded=_admin.SavedMissionData(mTitle,mType,SDate, EDate,msts);
-			if (dataAdded)
-			{
-				TempData["Success Message"] = "Data  Added Successfully";
-				return RedirectToAction("MissionPage", "Admin");
-			}
-			else
-			{
-				TempData["Error Message"] = "Data not Added Successfully";
-				return RedirectToAction("MissionPage", "Admin");
-			}
-		}
+		//[HttpPost]
+		//public IActionResult SaveMissionData(string mTitle, string mType,DateTime SDate, DateTime EDate,string msts)
+		//{
+		//	var dataAdded=_admin.SavedMissionData(mTitle,mType,SDate, EDate,msts);
+		//	if (dataAdded)
+		//	{
+		//		TempData["Success Message"] = "Data  Added Successfully";
+		//		return RedirectToAction("MissionPage", "Admin");
+		//	}
+		//	else
+		//	{
+		//		TempData["Error Message"] = "Data not Added Successfully";
+		//		return RedirectToAction("MissionPage", "Admin");
+		//	}
+		//}
 
 		// Second 
 		public IActionResult AddMissionPageData(MissionVMAdmin missionVM,List<long> listOfSkill)
@@ -359,29 +389,38 @@ namespace CIPlatform_Main.Controllers
 			var data = _admin.getDataForMissionEdit(mId);
 			return Json(new
 			{
-				mTitle=data.Title,
-				mType=data.MissionType,
-				sDate=data.StartDate,
-				eDate=data.EndDate,
-				mStatus=data.Status,
-				mid=mId
+				mText = data.Title,
+				mDesc = data.Description,
+				mSdesc = data.ShortDescription,
+				country = data.CountryId,
+				city = data.CityId,
+				mOrgN = data.OrganizationName,
+				mOrgD = data.OrganizationDetail,
+				mSDate = data.StartDate,
+				mEDate = data.EndDate,
+				mType = data.MissionType,
+				mTheme = data.ThemeId,
+				mAvailability = data.Availability,
+				mEditid = mId
 
 			});
 		}
 
 
 		// Method for Edit Mission Data 
+
 		[HttpPost]
-		public IActionResult EditMissionData(AdminViewModel adminView, long missionid)
+		public IActionResult EditMissionPageData(MissionVMAdmin missionVM,long mPageEditId)
 		{
-			_admin.editMissionData(adminView, missionid);
-			TempData["Success Message"] = "Data edited successfully";
-			return RedirectToAction("User", "Admin");
-		}
+			_admin.editMissionPageData(missionVM, mPageEditId);
+            TempData["Success Message"] = "Mission Deleted Successfully";
+            return Json(new { redirectUrl = Url.Action("User", "Admin") });
+
+        }
 
 
-		// Method for Delete Mission Data 
-		public IActionResult deleteMissionData(long missionId)
+        // Method for Delete Mission Data 
+        public IActionResult deleteMissionData(long missionId)
 		{
 			var removeMissionData = _admin.removeMissionsData(missionId);
 			if (removeMissionData)
@@ -627,6 +666,14 @@ namespace CIPlatform_Main.Controllers
 			});
 
 		}
+
+		//get Banner
+		public IActionResult getBanner(long bId)
+		{
+			var storyMedia = _admin.getBanner(bId);
+			return Json(storyMedia);
+		}
+		
 
 		public IActionResult EditBannerData(BannerVM banner,long bannerId)
 		{

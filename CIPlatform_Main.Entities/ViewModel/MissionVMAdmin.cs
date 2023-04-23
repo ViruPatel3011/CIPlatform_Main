@@ -74,5 +74,7 @@ namespace CIPlatform_Main.Entities.ViewModel
 		public List<MissionMedium> MissionMediaList { get; set; }
 		public List<MissionTheme> MissionThemeList { get; set; }
 		public List<Skill> SkillList { get; set; }
+		public List<Country> CountryList{ get; set; }
+		public List<City> CityList{ get; set; }
 	}
 }
