@@ -14,5 +14,7 @@ namespace CIPlatform_Main.Repository.Interface
 
         public bool AddContactUsData(UserViewModel userView, int uid);
 
+        
+
 	}
 }

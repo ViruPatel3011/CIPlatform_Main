@@ -3,7 +3,9 @@ using CIPlatform_Main.Entities.Models;
 using CIPlatform_Main.Entities.ViewModel;
 using CIPlatform_Main.Repository.Interface;
 using Microsoft.AspNetCore.Http;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using System.Diagnostics.Contracts;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 using static System.Net.Mime.MediaTypeNames;
 
 namespace CIPlatform_Main.Repository.Repository
@@ -224,7 +226,8 @@ namespace CIPlatform_Main.Repository.Repository
 				EndDate=missionVM.endDate,
 				MissionType = missionVM.missionType,
 				Availability =missionVM.availability,
-				ThemeId=missionVM.themeId		
+				ThemeId=missionVM.themeId,
+				
 			
 			};
 			_ciPlatformContext.Missions.Add(mission);
@@ -417,6 +420,14 @@ namespace CIPlatform_Main.Repository.Repository
 		public bool removeMissionThemeData(long ThId)
 		{
 			var themeId = _ciPlatformContext.MissionThemes.Where(x => x.MissionThemeId == ThId).FirstOrDefault();
+			var missionList = _ciPlatformContext.Missions.ToList();
+			foreach(var missionTheme in missionList)
+			{
+				if (missionTheme.ThemeId == themeId.MissionThemeId)
+				{
+					return false;
+				}
+			}
 			if (themeId != null)
 			{
 				themeId.Status = 0;
@@ -440,15 +451,16 @@ namespace CIPlatform_Main.Repository.Repository
 		//**************   MissionApplication Page Methods START    ***************///
 
 		// Method for Add MissionApplication Data
-		public bool SaveMisionApplicationData(long mappMid, long mappUid, string mappstatus, DateTime mappADate, DateTime mappCDate)
+		public bool SaveMisionApplicationData(long mappMid, long mappUid, DateTime mappADate, DateTime mappCDate)
 		{
 			MissionApplication missionapp = new MissionApplication()
 			{
 				MissionId=mappMid,
 				UserId=mappUid,
-				ApprovalStatus=mappstatus,
+				ApprovalStatus="Pending",
 				AppliedAt=mappADate,
-				CreatedAt=mappCDate
+				CreatedAt=mappCDate,
+				
 
 			};
 			_ciPlatformContext.MissionApplications.Add(missionapp);
@@ -519,6 +531,14 @@ namespace CIPlatform_Main.Repository.Repository
 		public bool DeleteSkillByAdmin(long SkillsId)
 		{
 			var skill = _ciPlatformContext.Skills.Where(x => x.SkillId == SkillsId).FirstOrDefault();
+			var skillList = _ciPlatformContext.MissionSkills.ToList();
+			foreach (var skillDelete in skillList)
+			{
+				if (skillDelete.SkillId == skill.SkillId)
+				{
+					return false;
+				}
+			}
 			if (skill != null)
 			{
 				skill.Status = "Deleted";
@@ -597,21 +617,40 @@ namespace CIPlatform_Main.Repository.Repository
 
 
 		//**************   Banner Page Methods START***************///
-		public bool AddBanneData(string textB, string imageB, int sOrderB, DateTime dateB)
+		public bool AddbannerPageData(BannerVM banner)
 		{
-			Banner banner = new Banner()
-			{ 
-				Text=textB,
-				Image=imageB,
-				SortOrder=sOrderB,
-				CreatedAt=dateB
-			
+
+			// Below line is for convert image in its original name
+			string fileName = banner.bannerImage.FileName;
+			Banner ban = new Banner() {
+				
+				Image = "/Assets/" + fileName,
+				Text = banner.bannerText,
+				SortOrder = banner.sortOrder,
+				CreatedAt = DateTime.Now,
+
 			};
-			_ciPlatformContext.Banners.Add(banner); 
+			_ciPlatformContext.Banners.Add(ban);
 			_ciPlatformContext.SaveChanges();
 			return true;
 
+
 		}
+		//public bool AddBanneData(string textB, string imageB, int sOrderB, DateTime dateB)
+		//{
+		//	Banner banner = new Banner()
+		//	{ 
+		//		Text=textB,
+		//		Image=imageB,
+		//		SortOrder=sOrderB,
+		//		CreatedAt=dateB
+
+		//	};
+		//	_ciPlatformContext.Banners.Add(banner); 
+		//	_ciPlatformContext.SaveChanges();
+		//	return true;
+
+		//}
 
 		//get banner
 		public Banner getBanner(long bId)
@@ -627,10 +666,10 @@ namespace CIPlatform_Main.Repository.Repository
 		public bool EditBannerPageData(BannerVM banner, long bannerId)
 		{
 			var bannerPageId = _ciPlatformContext.Banners.Where(x => x.BannerId == bannerId).FirstOrDefault();
-			var fileName = banner.Image.FileName;
+			var fileName = banner.bannerImage.FileName;
 			//var fileType = advm.bannerImage.ContentType;
 
-			using (var fileStream = banner.Image.OpenReadStream())
+			using (var fileStream = banner.bannerImage.OpenReadStream())
 			{
 				var filePath = Path.Combine("\\MissionImgDcouments", fileName);
 				using (var fStream = new FileStream(Path.Combine("wwwroot", "MissionImgDcouments", fileName), FileMode.Create))
@@ -639,9 +678,9 @@ namespace CIPlatform_Main.Repository.Repository
 					if (bannerPageId != null)
 					{
 
-						bannerPageId.Text = banner.Text;
+						bannerPageId.Text = banner.bannerText;
 						bannerPageId.Image = filePath;
-						bannerPageId.SortOrder = banner.SortOrder;
+						bannerPageId.SortOrder = banner.sortOrder;
 						bannerPageId.CreatedAt = banner.CreatedAt;
 						_ciPlatformContext.Banners.Update(bannerPageId);
 						_ciPlatformContext.SaveChanges();

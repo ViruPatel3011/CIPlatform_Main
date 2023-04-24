@@ -59,7 +59,7 @@ namespace CIPlatform_Main.Repository.Repository
 		}
 
 
-
+		// Method for Save User Profile Data
 		public void SaveUserProfile(UserViewModel userView, int uid)
 		{
 			var alreadyExitUser = _ciPlatformContext.Users.Where(x => x.UserId == Convert.ToInt32(uid)).FirstOrDefault();
@@ -98,6 +98,7 @@ namespace CIPlatform_Main.Repository.Repository
 
 		}
 
+		// Method for Add User Skill Data
 		public int AddSkills(long[] SkillArray, int uid)
 		{
 			List<int> skillIds = new List<int>();
@@ -109,7 +110,7 @@ namespace CIPlatform_Main.Repository.Repository
 				skillIds.Add((int)skill.SkillId);
 			}
 
-			var existingUserSkills = _ciPlatformContext.UserSkills.Where(us => us.UserId == uid);
+			var existingUserSkills = _ciPlatformContext.UserSkills.Where(u => u.UserId == uid);
 			_ciPlatformContext.UserSkills.RemoveRange(existingUserSkills);
 
 			foreach (int skillid in skillIds)
@@ -133,6 +134,7 @@ namespace CIPlatform_Main.Repository.Repository
 
 
 
+		// Method for change user Profile image
 		public string changeAvatar(string image, int uid)
 		{
 			var userdetail = _ciPlatformContext.Users.Where(x => x.UserId == uid).FirstOrDefault();
@@ -142,6 +144,8 @@ namespace CIPlatform_Main.Repository.Repository
 			return "Success";
 		}
 
+
+		// Method for change user Password
 		public int ChangeUserPassword(int uid, UserViewModel userViewModel)
 		{
 			var checkUser = _ciPlatformContext.Users.Where(x => x.UserId == uid).FirstOrDefault();
@@ -167,13 +171,33 @@ namespace CIPlatform_Main.Repository.Repository
 			
 		}
 
+		// Method for Getting List of Country for UserProfile
+		public List<Country> GetCountryList()
+		{
+			var countryList = _ciPlatformContext.Countries.ToList();
+			return countryList;
+		}
+
+
+		// Method for Getting List of City for UserProfile
+		public List<City> GetCityList(int id)
+		{
+			var cityList = _ciPlatformContext.Cities.Where(x => x.CountryId == id).ToList();
+			return cityList;
+		}
+
+
+		//*******   Timesheet Section START ********
+
+		// Below method is for Get List of Time Based mission
 		public List<Mission> getTimeBaseMission(int uid)
 		{
-
 			var missionApplied = _ciPlatformContext.MissionApplications.Where(x => x.UserId == uid).Select(x => x.MissionId);
 			
 			return _ciPlatformContext.Missions.Where(x => missionApplied.Contains(x.MissionId) && x.MissionType == "Time").OrderBy(x => x.Title).ToList(); ;
 		}
+
+		// Below method is for Get List of Goal Based mission
 		public List<Mission> getGoalBaseMission(int uid)
 		{
 
@@ -181,12 +205,16 @@ namespace CIPlatform_Main.Repository.Repository
 			return _ciPlatformContext.Missions.Where(x => missionApplied.Contains(x.MissionId) && x.MissionType == "Goal").OrderBy(x => x.Title).ToList(); ;
 		}
 
+
+		// Below method is for Get List of TimeSheet for Time Based mission
 		public List<Timesheet> getTimeBasedSheet(int uid)
 		{
 			var sheetList=_ciPlatformContext.Timesheets.Where(x=>x.Mission.MissionType=="Time" && x.UserId == uid).ToList();
 			return sheetList;
 
 		}
+
+		// Below method is for Get List of TimeSheet for Goal Based mission
 		public List<Timesheet> getGoalBasedSheet(int uid)
 		{
 			var sheetList=_ciPlatformContext.Timesheets.Where(x=>x.Mission.MissionType=="Goal" && x.UserId == uid).ToList();
@@ -276,20 +304,6 @@ namespace CIPlatform_Main.Repository.Repository
 
 		}
 
-
-
-
-
-		public List<Country> GetCountryList()
-		{
-			var countryList = _ciPlatformContext.Countries.ToList();
-			return countryList;
-		}
-		public List<City> GetCityList(int id)
-		{
-			var cityList = _ciPlatformContext.Cities.Where(x=>x.CountryId==id).ToList();
-			return cityList;
-		}
 
 
 		// Get Time data for Edit on Icon click

@@ -28,6 +28,8 @@ namespace CIPlatform_Main.Controllers
 		
 		}
 
+
+		// Method for Save User Profile Data
 		[HttpPost]
 		public IActionResult SaveUserData(UserViewModel userView, long[] finalSkillList) {
 
@@ -43,6 +45,8 @@ namespace CIPlatform_Main.Controllers
 
 		}
 
+
+		// Method for change user Password
 		[HttpPost]
 		public IActionResult changePassword(UserViewModel userView)
 		{
@@ -66,6 +70,8 @@ namespace CIPlatform_Main.Controllers
 
 		}
 
+
+		// Method for change user Profile image
 		public bool changeProfile(string image)
 		{
 			var identity = User.Identity as ClaimsIdentity;
@@ -75,17 +81,24 @@ namespace CIPlatform_Main.Controllers
 			return true;
 		}
 
+
+		// Method for Getting List of Country for UserProfile
 		public JsonResult getCountryList()
 		{
 			var countryList = _userRepository.GetCountryList();
 			return Json(countryList);
 		}
+
+		// Method for Getting List of City for UserProfile
 		public JsonResult getCityList(int id)
 		{
 			var cityList = _userRepository.GetCityList(id);
 			return Json(cityList);
 		}
 
+
+
+		//*******   Timesheet Section START ********
 		public IActionResult VolTimeSheet()
 		{
 

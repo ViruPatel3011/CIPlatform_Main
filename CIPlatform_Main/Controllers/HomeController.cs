@@ -130,10 +130,10 @@ namespace CIPlatform_Main.Controllers
 			{
 				missions = missions.Where(s => themes.Contains(s.Theme.Title)).ToList();
 			}
-			/*	if (skills.Length > 0)
-				{
-					missions = missions.Where(s => skills.Contains(s.MissionSkills.)).ToList();
-				}*/
+			if (skills.Length > 0)
+			{
+				missions = missions.Where(mission => mission.MissionSkills.Any(skill => skills.Contains(skill.Skill.SkillName))).ToList();
+			}
 			return missions;
 		}
 

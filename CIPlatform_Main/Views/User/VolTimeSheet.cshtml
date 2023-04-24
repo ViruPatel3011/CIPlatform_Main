@@ -272,48 +272,7 @@
 											<button type="button" class="border-0 bg-transparent" onclick="deleteData(@data.TimesheetId)">
 												<i class="bi bi-trash3 text-dark"></i>
 											</button>
-											@*<form method="post" asp-controller="User" asp-action="deleteTimeSheetdData" asp-route-id="@data.MissionId">
 
-										<div class="modal fade" id="exampleModalDelete" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-										<div class="modal-dialog modal-dialog">
-										<div class="modal-content">
-										<div class="modal-header">
-										<h5 class="modal-title" id="exampleModalLabel">Please input below volunteering Hours </h5>
-										<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-										</div>
-										<div class="modal-body">
-
-										<input hidden name="missionId" value="@data.MissionId">
-										<div class="mb-3">
-										<input type="text" class="form-control missionNameTime" placeholder="" disabled>
-										</div>
-										<div class="mb-3">
-										<label for="exampleFormControlInput1" class="form-label">Date Volunteerd</label>
-										<input type="text" class="form-control dateOfVolunteerdTime" placeholder="select date" disabled>
-										</div>
-										<div class="row">
-										<div class="col">
-										<label for="exampleFormControlInput1" class="form-label">Hours</label>
-										<input class="form-control editHoursForTime" placeholder="" aria-label="First name" asp-for="hours" disabled>
-										</div>
-										<div class="col">
-										<label for="exampleFormControlInput1" class="form-label">Minutes</label>
-										<input type="text" class="form-control editMinutesForTime" placeholder="" aria-label="Last name" asp-for="minutes" disabled>
-										</div>
-										</div>
-										<div class="mb-3">
-										<label for="exampleFormControlTextarea1" class="form-label">Message</label>
-										<textarea class="form-control textMessageTime" rows="3" asp-for="missionDetail" disabled>Enter your Message</textarea>
-										</div>
-										</div>
-										<div class="modal-footer">
-										<button type="button" class="btn btn-outline-dark" style="border-radius:50px" data-bs-dismiss="modal">Cancel</button>
-										<button type="submit" class="btn btn-outline-warning" style="border-radius:50px" >Delete</button>
-										</div>
-										</div>
-										</div>
-										</div>
-										</form>*@
 										</td>
 									</tr>
 								}
@@ -451,41 +410,7 @@
 											<button type="button" class="border-0 bg-transparent" onclick="deleteData(@goalMission.TimesheetId)">
 												<i class="bi bi-trash3 text-dark"></i>
 											</button>
-											@*<form method="post" asp-controller="User" asp-action="deleteTimeSheetdData" asp-route-id="@goalMission.MissionId">
-
-										<div class="modal fade" id="exampleModalGoalDelete" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-										<div class="modal-dialog modal-dialog">
-										<div class="modal-content">
-										<div class="modal-header">
-										<h5 class="modal-title" id="exampleModalLabel">Please input below volunteering Goal</h5>
-										<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-										</div>
-										<div class="modal-body">
-										<input hidden name="missionId" value="@goalMission.MissionId">
-										<div class="mb-3">
-										<input type="text" class="form-control missionNameGoal" placeholder="" disabled>
-										</div>
-										<div class="mb-3">
-										<label for="exampleFormControlInput1" class="form-label">Action</label>
-										<input type="email" class="form-control action" placeholder="Enter your action" disabled>
-										</div>
-										<div class="mb-3">
-										<label for="exampleFormControlInput1" class="form-label">Date Volunteerd</label>
-										<input type="text" class="form-control dateOfVolunteeredGoal" placeholder="select date" disabled>
-										</div>
-										<div class="mb-3">
-										<label for="exampleFormControlTextarea1" class="form-label">Message</label>
-										<textarea class="form-control textMessageGoal" rows="3" asp-for="missionDetail" disabled>Enter your Message</textarea>
-										</div>
-										</div>
-										<div class="modal-footer">
-										<button type="button" class="btn btn-outline-dark" style="border-radius:50px" data-bs-dismiss="modal">Cancel</button>
-										<button type="submit" class="btn btn-outline-warning" style="border-radius:50px">Delete</button>
-										</div>
-										</div>
-										</div>
-										</div>
-										</form>*@
+											
 										</td>
 									</tr>
 								}

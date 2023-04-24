@@ -15,18 +15,18 @@ namespace CIPlatform_Main.Entities.ViewModel
 		public long BannerId { get; set; }
 
 		[Required(ErrorMessage = "Image Is Required")]
-		public IFormFile Image { get; set; } = null!;
+		public IFormFile bannerImage { get; set; } = null!;
 
 		[Required(ErrorMessage = "BannerText Is Required")]
-		public string? Text { get; set; }
+		public string? bannerText { get; set; }
 
 		[Required(ErrorMessage = "SortOrder Is Required")]
-		public int? SortOrder { get; set; }
+		public int? sortOrder { get; set; }
 
 		[Required(ErrorMessage = "CreatedAt Is Required")]
 		public DateTime CreatedAt { get; set; }
 
-		public IFormFile bannerImage { get; set; }
+		public IFormFile bannerImageE { get; set; }
 
 		public List<Banner> BannerList { get; set; }
 	}

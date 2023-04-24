@@ -115,7 +115,7 @@ namespace CIPlatform_Main.Repository.Interface
 		//**************   MissionApplication Page Methods START    ***************///
 
 		// Method for Add MissionApplication Data
-		public bool SaveMisionApplicationData(long mappMid, long mappUid, string mappstatus, DateTime mappADate, DateTime mappCDate);
+		public bool SaveMisionApplicationData(long mappMid, long mappUid, DateTime mappADate, DateTime mappCDate);
 
 		// Method for Approved User by Admin
 		public bool ApprovedUserbyAdmin(long mAppId);
@@ -150,8 +150,8 @@ namespace CIPlatform_Main.Repository.Interface
 
 
 		//**************   Banner Page Methods START    ***************///
-
-		public bool AddBanneData(string textB, string imageB, int sOrderB, DateTime dateB);
+		public bool AddbannerPageData(BannerVM banner);
+		//public bool AddBanneData(string textB, string imageB, int sOrderB, DateTime dateB);
 
 		public Banner getDataForEditBannerPage(long bId);
 

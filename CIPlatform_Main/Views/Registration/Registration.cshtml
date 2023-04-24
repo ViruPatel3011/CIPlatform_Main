@@ -127,37 +127,37 @@
 
                         <div class="mb-2">
                             <label for="exampleInputiFrstName" class="form-label">First Name</label>
-                            <input type="text" class="form-control" asp-for="FirstName" placeholder="evan" onkeyup="emptydata()" maxlength="10">
+                            <input type="text" class="form-control" asp-for="FirstName" placeholder="evan"  maxlength="10">
                             <span asp-validation-for="FirstName" class="text-danger"></span>
 
                         </div>
                         <div class="mb-2">
                             <label for="exampleInputLastName" class="form-label">Last Name</label>
-                            <input type="text" class="form-control" asp-for="LastName" placeholder="donohue" onkeyup="emptydata()" maxlength="10">
+                            <input type="text" class="form-control" asp-for="LastName" placeholder="donohue"  maxlength="10">
                             <span asp-validation-for="LastName" class="text-danger"></span>
 
                         </div>
                         <div class="mb-2">
                             <label for="exampleInputContact" class="form-label">Phone Number</label>
-                            <input type="text" class="form-control" asp-for="PhoneNumber" placeholder="8923454615" pattern="^[6-9]{1}[0-9]{9}$" onkeyup="emptydata()" maxlength="10">
+                            <input type="text" class="form-control" asp-for="PhoneNumber" placeholder="8923454615" pattern="^[6-9]{1}[0-9]{9}$"  maxlength="10">
                             <span asp-validation-for="PhoneNumber" class="text-danger"></span>
 
                         </div>
                         <div class="mb-2">
                             <label for="exampleInputEmail1" class="form-label">Email Address</label>
-                            <input type="email" class="form-control" asp-for="Email" placeholder="evan.donohue@gmail.com" onkeyup="emptydata()">
+                            <input type="email" class="form-control" asp-for="Email" placeholder="evan.donohue@gmail.com" >
                             <span asp-validation-for="Email" class="text-danger" id="requieredfiledemail"></span>
 
                         </div>
                         <div class="mb-2">
                             <label for="exampleInputPassword" class="form-label">Password</label>
-                            <input type="password" class="form-control" id="exampleInputPassword1" asp-for="Password" placeholder="Enter Password" value="" onkeyup="emptydata()">
+                            <input type="password" class="form-control" id="exampleInputPassword1" asp-for="Password" placeholder="Enter Password" value="" >
                             <span asp-validation-for="Password" class="text-danger" id="requieredfiledpas"></span>
 
                         </div>
                         <div class="mb-2">
                             <label for="exampleInputConfirmPassword" class="form-label">Confirm Password</label>
-                            <input type="password" class="form-control" id="exampleInputPassword2" asp-for="ConfirmPassword" placeholder="Enter password again" value="" onfocusout="passwordvalidate()" onkeyup="emptydata()">
+                            <input type="password" class="form-control" id="exampleInputPassword2" asp-for="ConfirmPassword" placeholder="Enter password again" value="" >
                             <span asp-validation-for="ConfirmPassword" class="text-danger" id="requieredfiledpas"></span>
                             <span class="text-danger" style="display:none;" id="passconferr">Password and Confirm Password must be same </span>
 

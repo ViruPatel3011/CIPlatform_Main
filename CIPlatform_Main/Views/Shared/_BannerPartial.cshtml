@@ -1,7 +1,7 @@
 ﻿@model BannerVM
 
 <!-- Right Part Div for Tables -->
-<div class="col-12 col-xl-10 col-lg-9 col-md-11 ">
+<div class="col-12 col-xl-11 col-lg-9 col-md-11 ">
 
 	<div class="row">
 		<div class="col-12">
@@ -33,26 +33,26 @@
 								<button type="button" class="btn-close"
 										data-bs-dismiss="modal" aria-label="Close"></button>
 							</div>
-							<form id="bannerForm">
+							<form method="post" asp-controller="Admin" asp-action="AddBannerData" enctype="multipart/form-data">
 								<div class="modal-body">
 									<div class="mb-3">
 										<label for="exampleFormControlInput1"
 											   class="form-label">Banner Text</label>
-										<input type="text" class="form-control " id="bText" asp-for="Text"
+										<input type="text" class="form-control " id="bText" asp-for="bannerText"
 											   placeholder="Enter your Banner Text">									
-										<span asp-validation-for="Text" class="text-danger"></span>
+										<span asp-validation-for="bannerText" class="text-danger"></span>
 									</div>
 									<div class="mb-3">
 										<label for="exampleFormControlInput1"
 											   class="form-label">Banner Image</label>
-										<input type="file" class="form-control " id="bImg" placeholder="Select Banner Image" asp-for="Image">
-										<span asp-validation-for="Image" class="text-danger"></span>
+										<input type="file" class="form-control " id="bImg" placeholder="Select Banner Image" asp-for="bannerImage">
+										<span asp-validation-for="bannerImage" class="text-danger"></span>
 									</div>
 									<div class="mb-3">
 										<label for="exampleFormControlInput1"
 											   class="form-label">Sort Order</label>
-										<input type="text" class="form-control " id="bOrder" placeholder="Enter Sort Order" asp-for="SortOrder">
-										<span asp-validation-for="SortOrder" class="text-danger"></span>
+										<input type="text" class="form-control " id="bOrder" placeholder="Enter Sort Order" asp-for="sortOrder">
+										<span asp-validation-for="sortOrder" class="text-danger"></span>
 									</div>
 									<div class="mb-3">
 										<label for="exampleFormControlInput1"
@@ -132,29 +132,19 @@
 														<div class="modal-body">
 															@*value="@goalMission.MissionId"*@
 
-															<div class="mb-3">
-																<label for="exampleFormControlInput1"
-																	   class="form-label">Banner Image</label>
-																<input type="file" class="form-control " id="bannerIMgE" asp-for="Image">
-																<span asp-validation-for="Image" class="text-danger"></span>
-															</div>
-															<div class="mb-3">
-																<label for="exampleFormControlInput1"
-																	   class="form-label">Banner Image</label>
-																<div id="img_priview_edit">
-																</div>
-															</div>
+															
+															
 															<div class="mb-3">
 																<label for="exampleFormControlInput1"
 																	   class="form-label">Banner text</label>
-																<input type="text" class="form-control " id="bannertTextE" asp-for="Text">
-																<span asp-validation-for="Text" class="text-danger"></span>
+																<input type="text" class="form-control " id="bannertTextE" asp-for="bannerText">
+																<span asp-validation-for="bannerText" class="text-danger"></span>
 															</div>
 															<div class="mb-3">
 																<label for="exampleFormControlInput1"
 																	   class="form-label">Sort Order</label>
-																<input type="text" class="form-control " id="sortOrderE" asp-for="SortOrder">
-																<span asp-validation-for="SortOrder" class="text-danger"></span>
+																<input type="text" class="form-control " id="sortOrderE" asp-for="sortOrder">
+																<span asp-validation-for="sortOrder" class="text-danger"></span>
 															</div>
 															<div class="mb-3">
 																<label for="exampleFormControlInput1"
@@ -163,7 +153,18 @@
 																<span asp-validation-for="CreatedAt" class="text-danger"></span>
 															</div>
 
-
+															<div class="mb-3">
+																<label for="exampleFormControlInput1"
+																	   class="form-label">Banner Image</label>
+																<input type="file" class="form-control" id="banImageE" asp-for="bannerImage">
+																<span asp-validation-for="bannerImageE" class="text-danger"></span>
+															</div>
+															<div class="mb-3">
+																<label for="exampleFormControlInput1"
+																	   class="form-label">Banner Image</label>
+																<div id="img_priview_edit">
+																</div>
+															</div>
 
 														</div>
 														<div class="modal-footer">
@@ -238,6 +239,8 @@
 	</div>
 
 </div>
+@*<script src="https://code.jquery.com/jquery-3.6.4.js" integrity="sha256-a9jBBRygX1Bh5lt8GZjXDzyOB+bWve9EiO7tROUtj/E=" crossorigin="anonymous"></script>*@
+
 <partial name="_ValidationScriptsPartial"></partial>
 
 
@@ -296,10 +299,8 @@
 			},
 			dataType: 'json',
 			success: function (data) {
-
-
-				//$('#missionName').val(data.mission);
-				$('#bannerIMgE').val(data.bImage);
+							
+				//$('#banImageE').val(data.bImage);
 				$('#bannertTextE').val(data.bText);
 				$('#sortOrderE').val(data.bOrder);
 				$('#CreateDateE').val(data.bDate);
@@ -333,7 +334,7 @@
 
 
 	//below function deisplay all the images in UI which we are select from the input Type file
-	$('#bannerIMgE').on('change', e => showImages(e));
+	$('#banImageE').on('change', e => showImages(e));
 	function showImages(event) {
 		console.log(event);
 		var previewDiv = document.getElementById("img_priview_edit");

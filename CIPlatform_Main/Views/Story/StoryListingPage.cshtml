@@ -26,15 +26,13 @@
 </head>
 
 <style>
-	:root {
-		--bs-pagination-active-color: #F88634 !important;
-		--bs-pagination-active-bg: #F88634 !important;
-		--bs-pagination-active-border: #F88634 !important;
+	.page-item.active .page-link {
+		z-index: 3;
+		color: #fff;
+		background-color: #F88634 !important;
+		border-color: #F88634 !important;
 	}
-	.page-link:active {
-		color: #F88634 ;
-		border: 1px solid #F88634;
-	}
+	
 
 	.page-link:hover {
 		color: white !important;
@@ -51,6 +49,7 @@
 		margin-right:10px;
 	}
 
+		
 </style>
 <body>
 

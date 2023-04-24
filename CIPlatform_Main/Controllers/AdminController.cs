@@ -1,5 +1,6 @@
 ﻿using CIPlatform_Main.Entities.ViewModel;
 using CIPlatform_Main.Repository.Interface;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Xml;
 
@@ -19,8 +20,8 @@ namespace CIPlatform_Main.Controllers
 
 
 
-	
-		
+
+		[Authorize]
 		// Default User Page
 		public IActionResult User()
 		{
@@ -508,9 +509,9 @@ namespace CIPlatform_Main.Controllers
 		//**************   MissionApplication Page Methods START    ***************///
 
 		// Method for Add MissionApplication Data
-		public IActionResult AddMissionApplicationData(long mappMid,long mappUid,string mappstatus,DateTime mappADate, DateTime mappCDate)
+		public IActionResult AddMissionApplicationData(long mappMid,long mappUid,DateTime mappADate, DateTime mappCDate)
 		{
-			var missionappAdded = _admin.SaveMisionApplicationData(mappMid, mappUid, mappstatus, mappADate, mappCDate);
+			var missionappAdded = _admin.SaveMisionApplicationData(mappMid, mappUid, mappADate, mappCDate);
 			if (missionappAdded)
 			{
 				TempData["Success Message"] = "MissionApplication Added Successfully";
@@ -636,28 +637,20 @@ namespace CIPlatform_Main.Controllers
 
 
 		//**************   Banner Page Methods START***************///
-
-		public IActionResult SaveBannerData(string textB, string imageB, int sOrderB, DateTime dateB)
+		public IActionResult AddBannerData(BannerVM banner)
 		{
-			var bannerAdd = _admin.AddBanneData(textB, imageB, sOrderB, dateB);
-			if(bannerAdd)
-			{
-				TempData["Success Message"] = "Banner Added";
-				return Json(new { redirectUrl = Url.Action("User", "Admin") });
-			}
-			else
-			{
-				TempData["Error Message"] = "Banner Not Added";
-				return Json(new { redirectUrl = Url.Action("User", "Admin") });
-			}
+			_admin.AddbannerPageData(banner);
+			TempData["Success Message"] = "Banner Added";
+			return RedirectToAction("User", "Admin");
 		}
+		
 
 		public IActionResult getDataForEditBanner(long bId)
-		{
+			{
 			var editbanner = _admin.getDataForEditBannerPage(bId);
 			return Json(new {
 
-				bImage=editbanner.Image,
+				//bImage=editbanner.Image,
 				bText=editbanner.Text,
 				bOrder=editbanner.SortOrder,
 				bDate=editbanner.CreatedAt,

@@ -15,7 +15,7 @@
 	}
 </style>
 <!-- Right Part Div for Tables -->
-<div class="col-12 col-xl-10 col-lg-9 col-md-11 ">
+<div class="col-12 col-xl-11 col-lg-9 col-md-11 ">
 	
 	<div class="row">
 		<div class="col-12">
@@ -96,10 +96,20 @@
 										</a>
 									</div>
 									<div class="mb-2">
-										<button type="button" data-bs-toggle="modal"
-												data-bs-target="#storyModel" class="border-0 bg-transparent" onclick="getStoryId(@story.StoryId)">
-											<i class="bi bi-check-circle text-success"></i>
-										</button>
+										@if (story.Status == "Published")
+										{
+											<button type="button" class="border-0 bg-transparent"  disabled>
+												<i class="bi bi-check-circle text-dark"></i>
+											</button>
+										}
+										else
+										{
+											<button type="button" data-bs-toggle="modal"
+													data-bs-target="#storyModel" class="border-0 bg-transparent" onclick="getStoryId(@story.StoryId)">
+												<i class="bi bi-check-circle text-success"></i>
+											</button>
+										}
+									
 
 										<div class="modal fade" id="storyModel" tabindex="-1"
 											 aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -135,11 +145,22 @@
 
 									</div>
 									<div>
-										<button type="button" data-bs-toggle="modal"
-												data-bs-target="#exampleModalGoalForDecline"
-												class="border-0 bg-transparent" onclick="getrejectId(@story.StoryId)">
-											<i class="bi bi-x-circle text-danger"></i>
-										</button>
+										@if (story.Status == "Declined")
+										{
+											<button type="button"
+											class="border-0 bg-transparent" disabled>
+												<i class="bi bi-x-circle text-dark"></i>
+											</button>
+										}
+										else
+										{
+											<button type="button" data-bs-toggle="modal"
+													data-bs-target="#exampleModalGoalForDecline"
+													class="border-0 bg-transparent" onclick="getrejectId(@story.StoryId)">
+												<i class="bi bi-x-circle text-danger"></i>
+											</button>
+										}
+									
 										<div class="modal fade" id="exampleModalGoalForDecline" tabindex="-1"
 											 aria-labelledby="exampleModalLabel" aria-hidden="true">
 											<div class="modal-dialog modal-dialog-centered">
@@ -173,11 +194,22 @@
 										</div>
 									</div>
 									<div>
-										<button type="button" data-bs-toggle="modal"
-												data-bs-target="#exampleModalGoalForDelete"
-												class="border-0 bg-transparent" onclick="getIdForDelete(@story.StoryId)">
-											<i class="bi bi-trash3 text-dark"></i>
-										</button>
+										@if (story.Status == "Deleted")
+										{
+											<button type="button"
+													class="border-0 bg-transparent" >
+												<i class="bi bi-trash3 text-dark" disabled></i>
+											</button>
+										}
+										else
+										{
+											<button type="button" data-bs-toggle="modal"
+													data-bs-target="#exampleModalGoalForDelete"
+													class="border-0 bg-transparent" onclick="getIdForDelete(@story.StoryId)">
+												<i class="bi bi-trash3 text-dark"></i>
+											</button>
+										}
+										
 										<div class="modal fade" id="exampleModalGoalForDelete" tabindex="-1"
 											 aria-labelledby="exampleModalLabel" aria-hidden="true">
 											<div class="modal-dialog modal-dialog-centered">

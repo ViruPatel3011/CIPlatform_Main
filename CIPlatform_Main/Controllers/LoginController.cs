@@ -91,8 +91,15 @@ namespace CIPlatform_Main.Controllers
 
         // policy page
 		public IActionResult PolicyPage()
-		{
-			return View();
+        {
+            var userList = _loginRepository.GetUser();
+            LandingPageVM landingPage = new LandingPageVM() { 
+                
+                UserData= userList
+
+			};
+
+            return View(landingPage);
 		}
 
         [HttpGet]

@@ -74,7 +74,7 @@
 								@*@{
 									var profilePic = Model.UserData.Where(x => x.UserId == Convert.ToInt32(uid)).Select(x => x.Avatar).FirstOrDefault();
 								}*@
-								<img src="@Model.Avatar" class="rounded-circle" height="35" width="35" alt="Profile pic"
+								<img src="~/Assets/volunteer1.png" class="rounded-circle" height="35" width="35" alt="Profile pic"
 			 loading="lazy" />
 								@name @surname
 							</a>
@@ -367,6 +367,7 @@
 		}
 
 
+		// Method for Edit all story data
 		function editData() {
 			var missionId = document.getElementById("mId").value;
 			//alert(missionId);

@@ -33,7 +33,7 @@
 			</div>
 		</div>
 
-		<div class="col-8">
+	@*	<div class="col-8">
 			<div class="addBtn float-end">
 				<button type="button" class="btn btn-outline-warning px-3" data-bs-toggle="modal" data-bs-target="#AddDataModel" style="border-radius: 50px;">
 					Add
@@ -51,13 +51,7 @@
 							</div>
 							<form id="missinAppForm">
 								<div class="modal-body">
-									@*<div class="mb-3">
-									<label for="exampleFormControlInput1"
-									class="form-label">Mission Id</label>
-									<input type="text" class="form-control " id="themeId"
-									placeholder="Enter your MissionTheme Id">
-
-									</div>*@
+								
 									<div class="mb-3">
 										<label for="exampleFormControlInput1"
 											   class="form-label">Mission Id</label>
@@ -72,12 +66,7 @@
 										<span asp-validation-for="userId" class="text-danger"></span>
 
 									</div>
-									<div class="mb-3">
-										<label for="exampleFormControlInput1"
-											   class="form-label">Approval Status </label>
-										<input type="text" class="form-control " placeholder="Approval Status" id="mappStatus" asp-for="ApprovalStatus">
-										<span asp-validation-for="ApprovalStatus" class="text-danger"></span>
-									</div>
+								
 
 									<div class="mb-3">
 										<label for="exampleFormControlInput1"
@@ -113,7 +102,8 @@
 					</div>
 				</div>
 			</div>
-		</div>
+		</div>*@
+
 		<div class="row mt-3 mx-2 ">
 			<div class="col-12 table-responsive-sm">
 				<table class="table table-bordered table-striped" id="missionapp-table">
@@ -173,10 +163,20 @@
 
 								<td class="p-0 pt-2 px-1 d-flex">
 									<div class="mb-2">
+										@if (missionApp.ApprovalStatus == "Approved")
+										{
+											<button type="button" class="border-0 bg-transparent" disabled>
+												<i class="bi bi-check-circle text-dark"></i>
+											</button>
+										}
+										else
+										{
+											
 										<button type="button" data-bs-toggle="modal"
 												data-bs-target="#exampleModalMissionAppEdit" class="border-0 bg-transparent" onclick="getMissionAppId(@missionApp.MissionApplicationId)">
 											<i class="bi bi-check-circle text-success"></i>
 										</button>
+										}
 
 										<div class="modal fade" id="exampleModalMissionAppEdit" tabindex="-1"
 											 aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -212,11 +212,22 @@
 
 									</div>
 									<div>
-										<button type="button" data-bs-toggle="modal"
-												data-bs-target="#exampleModalGoal"
-												class="border-0 bg-transparent" onclick="getIdForDelete(@missionApp.MissionApplicationId)">
-											<i class="bi bi-x-circle text-danger"></i>
-										</button>
+										@if (missionApp.ApprovalStatus == "Rejected")
+										{
+											<button type="button" 
+											class="border-0 bg-transparent" >
+												<i class="bi bi-x-circle text-dark" disabled></i>
+											</button>
+										}
+										else
+										{
+											<button type="button" data-bs-toggle="modal"
+													data-bs-target="#exampleModalGoal"
+													class="border-0 bg-transparent" onclick="getIdForDelete(@missionApp.MissionApplicationId)">
+												<i class="bi bi-x-circle text-danger"></i>
+											</button>
+										}
+									
 										<div class="modal fade" id="exampleModalGoal" tabindex="-1"
 											 aria-labelledby="exampleModalLabel" aria-hidden="true">
 											<div class="modal-dialog modal-dialog-centered">
@@ -290,7 +301,7 @@
 		
 				var appMid = $("#mappmId").val();
 				var appUid = $("#mappUId").val();
-				var appStatus = $("#mappStatus").val();
+				//var appStatus = $("#mappStatus").val();
 				var appADate = $("#mappDate").val();
 				var appCDate = $("#mappcreated").val();
 
@@ -302,7 +313,7 @@
 						//"IdT": themeid,
 						"mappMid": appMid,
 						"mappUid": appUid,
-						"mappstatus": appStatus,
+						//"mappstatus": appStatus,
 						"mappADate": appADate,
 						"mappCDate": appCDate,
 

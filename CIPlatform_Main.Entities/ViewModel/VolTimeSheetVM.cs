@@ -54,8 +54,9 @@ namespace CIPlatform_Main.Entities.ViewModel
 
 		[Required(ErrorMessage = "Status is Required")]
 		public string Status { get; set; } = null!;
-		// Contact Us
 
+
+		// Below field for Contact Us 
 
 		[Required(ErrorMessage = "ContactSubject is Required")]
 		public string ContactSubject { get; set; } = null!;

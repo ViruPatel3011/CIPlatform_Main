@@ -26,15 +26,18 @@ namespace CIPlatform_Main.Controllers
 			return View(allStoryData);
 		}
 
+
+		// Method Get all the data saved in database for Edit
         [Authorize]
         public IActionResult shareYourStoryPage(string missionid)
         {
             var identity = User.Identity as ClaimsIdentity;
             var uid = identity?.FindFirst(ClaimTypes.Sid)?.Value;
             var detailRelatedStory = _storyRepository.getDataForShareYourStory(missionid, uid);
-
-            return View(detailRelatedStory);
+			return View(detailRelatedStory);
         }
+
+		// Method for Get all Mission List in Dropdown
         public JsonResult getAllMissions()
         {
             var identity = User.Identity as ClaimsIdentity;
@@ -44,6 +47,7 @@ namespace CIPlatform_Main.Controllers
         }
 
 
+		// Method for submit new Story in Database
 		[HttpPost]
 		public IActionResult shareYourStoryPage(int mid, string sTitle, string? sDateAndTime, string sDesc, int userId, string[] images, string videoUrl)
 		{
@@ -87,7 +91,7 @@ namespace CIPlatform_Main.Controllers
 		}
 
 
-		// Edit Data method
+		// Method for Edit data for story
 		public IActionResult EditShareStory(int mid, string sTitle, string sDesc, int userId, string[] images, string videoUrl)
 		{
 			var mission_id = mid;
@@ -98,7 +102,7 @@ namespace CIPlatform_Main.Controllers
 
 		}
 
-		//method for edit story
+		//Edit method called when we select any mission and go to getdataForStory Method
 		public IActionResult editStory(string missionid)
 		{
 			return Json(new { redirectUrl = Url.Action("shareYourStoryPage", "Story", new { missionid = missionid }) });
