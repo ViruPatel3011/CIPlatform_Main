@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "MiysLXHEIiv28ns+7i3cZEQ7jp0hPhwaeyKP+m2TMFw=",
+  "Hash": "XUJiKI40zvBbYG5RFYaxLBLmaVO5yMKZ+ynZL+G1bcA=",
   "Source": "CIPlatform_Main",
   "BasePath": "_content/CIPlatform_Main",
   "Mode": "Default",
@@ -3857,6 +3857,40 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\MissionImgDcouments\\_Documents_Week 1.docx"
+    },
+    {
+      "Identity": "E:\\CIPlatform_Main\\CIPlatform_Main\\wwwroot\\MissionImgDcouments\\404-Page-image.png",
+      "SourceId": "CIPlatform_Main",
+      "SourceType": "Discovered",
+      "ContentRoot": "E:\\CIPlatform_Main\\CIPlatform_Main\\wwwroot\\",
+      "BasePath": "_content/CIPlatform_Main",
+      "RelativePath": "MissionImgDcouments/404-Page-image.png",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\MissionImgDcouments\\404-Page-image.png"
+    },
+    {
+      "Identity": "E:\\CIPlatform_Main\\CIPlatform_Main\\wwwroot\\MissionImgDcouments\\Animal-welfare-&-save-birds-campaign.png",
+      "SourceId": "CIPlatform_Main",
+      "SourceType": "Discovered",
+      "ContentRoot": "E:\\CIPlatform_Main\\CIPlatform_Main\\wwwroot\\",
+      "BasePath": "_content/CIPlatform_Main",
+      "RelativePath": "MissionImgDcouments/Animal-welfare-&-save-birds-campaign.png",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\MissionImgDcouments\\Animal-welfare-&-save-birds-campaign.png"
     },
     {
       "Identity": "E:\\CIPlatform_Main\\CIPlatform_Main\\wwwroot\\MissionImgDcouments\\CSR-initiative-stands-for-Coffee--and-Farmer-Equity.png",

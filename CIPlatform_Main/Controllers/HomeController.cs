@@ -58,14 +58,17 @@ namespace CIPlatform_Main.Controllers
 
 			List<Mission> missions = (List<Mission>)landingPageData.Missions;
 
-			if (search != null)
-			{
-				missions = missions.Where(m => m.Title.ToLower().Contains(search.ToLower())).ToList();
-			}
+
+			
 
 			if (country.Length > 0 || city.Length > 0 || themes.Length > 0 || skills.Length > 0)
 			{
 				missions = FilterMission(missions, country, city, themes, skills);
+			}
+
+			if (search != null)
+			{
+				missions = missions.Where(m => m.Title.ToLower().Contains(search.ToLower())).ToList();
 			}
 
 			missions = SortingData(sortVal, missions);

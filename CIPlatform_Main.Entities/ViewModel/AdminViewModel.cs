@@ -10,8 +10,17 @@ namespace CIPlatform_Main.Entities.ViewModel
 {
 	public class AdminViewModel
 	{
-		// Below field is for CMS Page
-		public string CMSTitle { get;set; }	
+
+        // Below field is for AdminLogin
+        [Required(ErrorMessage = "Email is Required")]
+        public string Email { get; set; }
+
+        [Required(ErrorMessage = "Password is Required")]
+        public string Password { get; set; }
+
+
+        // Below field is for CMS Page
+        public string CMSTitle { get;set; }	
 		public string CMSDescrition { get;set; }	
 		public string CMSSlug { get;set; }	
 		public string CMSStatus { get;set; }	

@@ -666,7 +666,7 @@ namespace CIPlatform_Main.Repository.Repository
 		public bool EditBannerPageData(BannerVM banner, long bannerId)
 		{
 			var bannerPageId = _ciPlatformContext.Banners.Where(x => x.BannerId == bannerId).FirstOrDefault();
-			var fileName = banner.bannerImage.FileName;
+			var fileName = banner.bannerImage?.FileName;
 			//var fileType = advm.bannerImage.ContentType;
 
 			using (var fileStream = banner.bannerImage.OpenReadStream())

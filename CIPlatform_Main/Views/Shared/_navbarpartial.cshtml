@@ -11,6 +11,7 @@
 	var name = identity?.FindFirst(ClaimTypes.Name)?.Value;
 	var surname = identity?.FindFirst(ClaimTypes.Surname)?.Value;
 	var uid = identity?.FindFirst(ClaimTypes.Sid)?.Value;
+	var email = identity?.FindFirst(ClaimTypes.Email)?.Value;
 }
 <div style="background-color:red !important;">
 		@if (TempData["Success Message"] != null)
@@ -83,11 +84,18 @@
 							@name @surname
 						</a>
 						<ul class="dropdown-menu" aria-labelledby="navbarScrollingDropdown">
-							@*<li><a class="dropdown-item" href="#">Dashboard</a></li>*@
-							<li><a class="dropdown-item" asp-controller="Admin" asp-action="User">Admin Panel</a></li>
+							
+							@foreach(var admin in Model.AdminList)
+							{
+								if (admin.Email == email)
+								{
+									<li><a class="dropdown-item" asp-controller="Admin" asp-action="User">Admin Panel</a></li>
+									
+								}
+							}
+						
 							<li><a class="dropdown-item" asp-controller="User" asp-action="UserProfile">Add Profile</a></li>
-							<li><a class="dropdown-item" asp-controller="User" asp-action="VolTimeSheet">Volunteering TimeSheet</a></li>
-						@*	<li><a class="dropdown-item" href="#">Help Center</a></li>*@
+							<li><a class="dropdown-item" asp-controller="User" asp-action="VolTimeSheet">Volunteering TimeSheet</a></li>					
 							<li><a class="dropdown-item" asp-controller="Login" asp-action="Logout">LogOut</a></li>
 						</ul>
 					</li>
@@ -95,6 +103,7 @@
 				else
 				{
 					<ul class="navbar-nav d-flex">
+						<li class="btn-info me-2 pe-1" style="border-radius: 4px;width: 70px;"><a class="dropdown-item btn p-1 text-center" asp-controller="Login" asp-action="Admin">Admin</a></li>
 						<li class="btn-info me-2 pe-1" style="border-radius: 4px;width: 70px;"><a class="dropdown-item btn p-1 text-center" asp-controller="Login" asp-action="Login">Login</a></li>
 						<li class="btn-info me-2 pe-1" style="border-radius: 4px;width: 70px;"><a class="dropdown-item btn p-1 text-center" asp-controller="Registration" asp-action="Registration">Register</a></li>
 					</ul>

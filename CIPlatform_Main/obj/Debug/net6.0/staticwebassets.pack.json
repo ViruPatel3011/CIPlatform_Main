@@ -453,6 +453,14 @@
       "PackagePath": "staticwebassets\\Assets\\xlsx.png"
     },
     {
+      "Id": "E:\\CIPlatform_Main\\CIPlatform_Main\\wwwroot\\MissionImgDcouments\\404-Page-image.png",
+      "PackagePath": "staticwebassets\\MissionImgDcouments\\404-Page-image.png"
+    },
+    {
+      "Id": "E:\\CIPlatform_Main\\CIPlatform_Main\\wwwroot\\MissionImgDcouments\\Animal-welfare-&-save-birds-campaign.png",
+      "PackagePath": "staticwebassets\\MissionImgDcouments\\Animal-welfare-&-save-birds-campaign.png"
+    },
+    {
       "Id": "E:\\CIPlatform_Main\\CIPlatform_Main\\wwwroot\\MissionImgDcouments\\CSR-initiative-stands-for-Coffee--and-Farmer-Equity.png",
       "PackagePath": "staticwebassets\\MissionImgDcouments\\CSR-initiative-stands-for-Coffee--and-Farmer-Equity.png"
     },

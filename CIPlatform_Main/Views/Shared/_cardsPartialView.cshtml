@@ -165,28 +165,52 @@
 									</div>
 									@if (uid != null)
 									{
-
-										var favMissionId = item.MissionId;
-										var FavouriteMission = Model.FavoriteMissionList.Where(m => m.UserId == Convert.ToInt32(uid) && m.MissionId == favMissionId).FirstOrDefault();
-
-										@if (FavouriteMission != null)
+										var currentDate = DateTime.Now;
+										if (currentDate > item.EndDate)
 										{
-											<button class="position-absolute c1-heart  favorite added" onclick="addFavourite(@item.MissionId,@pager.CurrentPage,1);">
-												<img src="~/Assets/favourite.png" alt="" class="" style="width: 30px;height: 30px;">
-											</button>
+
+											var favMissionId = item.MissionId;
+											var FavouriteMission = Model.FavoriteMissionList.Where(m => m.UserId == Convert.ToInt32(uid) && m.MissionId == favMissionId).FirstOrDefault();
+											@if (FavouriteMission != null)
+											{
+												<button class="position-absolute c1-heart favorite added" onclick="missionClosed();">
+													<img src="~/Assets/favourite.png" alt="" class="" style="width: 30px;height: 30px;">
+												</button>
+											}
+											else
+											{
+
+												<button class="position-absolute c1-heart  favorite added" onclick="missionClosed();">
+													<img src="~/Assets/heart.png" alt="" class="" style="width: 24px; height: 23px;">
+												</button>
+											}
 										}
 										else
 										{
-											<button class="position-absolute c1-heart  favorite added" onclick="addFavourite(@item.MissionId,@pager.CurrentPage,1);">
-												<img src="~/Assets/heart.png" alt="" class="" style="width: 24px; height: 23px;">
-											</button>
-										}
 
+
+											var favMissionId = item.MissionId;
+											var FavouriteMission = Model.FavoriteMissionList.Where(m => m.UserId == Convert.ToInt32(uid) && m.MissionId == favMissionId).FirstOrDefault();
+
+											@if (FavouriteMission != null)
+											{
+												<button class="position-absolute c1-heart favorite added" onclick="addFavourite(@item.MissionId,@pager.CurrentPage,1);">
+													<img src="~/Assets/favourite.png" alt="" class="" style="width: 30px;height: 30px;">
+												</button>
+											}
+											else
+											{
+												<button class="position-absolute c1-heart  favorite added" onclick="addFavourite(@item.MissionId,@pager.CurrentPage,1);">
+													<img src="~/Assets/heart.png" alt="" class="" style="width: 24px; height: 23px;">
+												</button>
+											}
+
+										}
 									}
 									else
 									{
-										<button class="position-absolute c1-heart favorite added" onclick="notloggedin();">
-											<img src="~/Assets/heart.png" alt="" class=" " style="width: 24px; height: 23px;">
+										<button class="position-absolute c1-heart  favorite added" onclick="notloggedin();">
+											<img src="~/Assets/heart.png" alt="" class="" style="width: 24px; height: 23px;">
 										</button>
 									}
 
@@ -194,38 +218,51 @@
 
 									@if (User.Identity.IsAuthenticated)
 									{
-										<div class="position-absolute c1-person px-2 py-1">
-											<button type="button" class="btn btn-Secondary" data-bs-toggle="modal" data-bs-target="#staticBackdrop" onclick="getUser();">
+										var currentDate = DateTime.Now;
+										if (currentDate > item.EndDate)
+										{
+											<div class="position-absolute c1-person px-2 py-1">
+												<button type="button" class="btn btn-Secondary" onclick="missionClosed();">
 
-												<img src="~/Assets/user.png" alt="" style="margin-bottom: 10px;margin-left: -12px;">
-											</button>
-											<!-- Modal -->
-											<div class="modal fade " id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-												<div class="modal-dialog">
-													<div class="modal-content">
-														<div id="model-content">
+													<img src="~/Assets/user.png" alt="" style="margin-bottom: 10px;margin-left: -12px;">
+												</button>
+											</div>
+										}
+										else
+										{
+											<div class="position-absolute c1-person px-2 py-1">
+												<button type="button" class="btn btn-Secondary" data-bs-toggle="modal" data-bs-target="#staticBackdrop" onclick="getUser();">
 
-															<div class="modal-header">
-																<h1 class="modal-title fs-5" id="staticBackdropLabel">Modal title</h1>
-																<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" onclick="getUser();"></button>
+													<img src="~/Assets/user.png" alt="" style="margin-bottom: 10px;margin-left: -12px;">
+												</button>
+												<!-- Modal -->
+												<div class="modal fade " id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+													<div class="modal-dialog">
+														<div class="modal-content">
+															<div id="model-content">
+
+																<div class="modal-header">
+																	<h1 class="modal-title fs-5" id="staticBackdropLabel">Modal title</h1>
+																	<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" onclick="getUser();"></button>
+																</div>
+																<div class="modal-body" style="overflow:scroll; height:400px;">
+																</div>
+																<div class="modal-footer">
+																	<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+																	<button type="button" class="btn btn-primary" id="sendmail">Send Mail</button>
+																</div>
 															</div>
-															<div class="modal-body" style="overflow:scroll; height:400px;">
+															<div class="d-none w-100 text-center" id="volPageLoader">
+																<div class="spinner-border text-warning" role="status">
+																</div>
+																<p>Sending Mail...</p>
 															</div>
-															<div class="modal-footer">
-																<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-																<button type="button" class="btn btn-primary" id="sendmail">Send Mail</button>
-															</div>
-														</div>
-														<div class="d-none w-100 text-center" id="volPageLoader">
-															<div class="spinner-border text-warning" role="status">
-															</div>
-															<p>Sending Mail...</p>
 														</div>
 													</div>
 												</div>
-											</div>
 
-										</div>
+											</div>
+										}
 									}
 									else
 									{
@@ -236,7 +273,7 @@
 									}
 
 									<div class="text-center position-absolute" id="mission-theme">
-										<p class="ps-1 pe-1 mb-0" style="border-radius: 20px; background-color: white;">
+										<p class="ps-1 pe-1 mb-0" style="border-radius: 20px; background-color: white; font-size: 12px;">
 											@foreach (var theme in Model.MissionThemes.Where(x => x.MissionThemeId == item.ThemeId))
 											{
 												@theme.Title
@@ -356,7 +393,7 @@
 									<div class="card-footer text-center">
 
 										<a asp-controller="Home" asp-action="MissionAndRating" asp-route-id="@item.MissionId" class="btn  rounded-pill explore" style="border: 2px solid #F88634;
-										  	color: #F88634;">
+												  	color: #F88634;">
 											Explore Now <img src="~/Assets/right-arrow.png" alt="">
 										</a>
 
@@ -409,23 +446,47 @@
 									</div>
 									@if (uid != null)
 									{
-
-										var favMissionId = item.MissionId;
-										var FavouriteMission = Model.FavoriteMissionList.Where(m => m.UserId == Convert.ToInt32(uid) && m.MissionId == favMissionId).FirstOrDefault();
-
-										@if (FavouriteMission != null)
+										var currentDate = DateTime.Now;
+										if (currentDate > item.EndDate)
 										{
-											<button class="position-absolute c1-heart favorite added" onclick="addFavourite(@item.MissionId,@pager.CurrentPage,1);">
-												<img src="~/Assets/favourite.png" alt="" class="" style="width: 30px;height: 30px;">
-											</button>
+
+											var favMissionId = item.MissionId;
+											var FavouriteMission = Model.FavoriteMissionList.Where(m => m.UserId == Convert.ToInt32(uid) && m.MissionId == favMissionId).FirstOrDefault();
+											@if (FavouriteMission != null)
+											{
+												<button class="position-absolute c1-heart favorite added" onclick="missionClosed();">
+													<img src="~/Assets/favourite.png" alt="" class="" style="width: 30px;height: 30px;">
+												</button>
+											}
+											else
+											{
+
+												<button class="position-absolute c1-heart  favorite added" onclick="missionClosed();">
+													<img src="~/Assets/heart.png" alt="" class="" style="width: 24px; height: 23px;">
+												</button>
+											}
 										}
 										else
 										{
-											<button class="position-absolute c1-heart  favorite added" onclick="addFavourite(@item.MissionId,@pager.CurrentPage,1);">
-												<img src="~/Assets/heart.png" alt="" class="" style="width: 24px; height: 23px;">
-											</button>
-										}
 
+
+											var favMissionId = item.MissionId;
+											var FavouriteMission = Model.FavoriteMissionList.Where(m => m.UserId == Convert.ToInt32(uid) && m.MissionId == favMissionId).FirstOrDefault();
+
+											@if (FavouriteMission != null)
+											{
+												<button class="position-absolute c1-heart favorite added" onclick="addFavourite(@item.MissionId,@pager.CurrentPage,1);">
+													<img src="~/Assets/favourite.png" alt="" class="" style="width: 30px;height: 30px;">
+												</button>
+											}
+											else
+											{
+												<button class="position-absolute c1-heart  favorite added" onclick="addFavourite(@item.MissionId,@pager.CurrentPage,1);">
+													<img src="~/Assets/heart.png" alt="" class="" style="width: 24px; height: 23px;">
+												</button>
+											}
+
+										}
 									}
 									else
 									{
@@ -436,34 +497,51 @@
 
 									@if (User.Identity.IsAuthenticated)
 									{
-										<div class="position-absolute c1-person px-2 py-1">
-											<button type="button" class="btn btn-Secondary" data-bs-toggle="modal" data-bs-target="#staticBackdrop1" onclick="getUser();">
+										var currentDate = DateTime.Now;
+										if (currentDate > item.EndDate)
+										{
+											<div class="position-absolute c1-person px-2 py-1">
+												<button type="button" class="btn btn-Secondary" onclick="missionClosed();">
 
-												<img src="~/Assets/user.png" alt="" style="margin-bottom: 10px;margin-left: -12px;">
-											</button>
-											<!-- Modal -->
-											<div class="modal fade " id="staticBackdrop1" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-												<div class="modal-dialog">
-													<div class="modal-content">
+													<img src="~/Assets/user.png" alt="" style="margin-bottom: 10px;margin-left: -12px;">
+												</button>
+											</div>
+										}
+										else
+										{
+											<div class="position-absolute c1-person px-2 py-1">
+												<button type="button" class="btn btn-Secondary" data-bs-toggle="modal" data-bs-target="#staticBackdrop" onclick="getUser();">
 
+													<img src="~/Assets/user.png" alt="" style="margin-bottom: 10px;margin-left: -12px;">
+												</button>
+												<!-- Modal -->
+												<div class="modal fade " id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+													<div class="modal-dialog">
+														<div class="modal-content">
+															<div id="model-content">
 
-														<div class="modal-header">
-															<h1 class="modal-title fs-5" id="staticBackdropLabel">Modal title</h1>
-															<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" onclick="getUser();"></button>
-														</div>
-														<div class="modal-body" style="overflow:scroll; height:400px;">
-														</div>
-														<div class="modal-footer">
-															<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-															<button type="button" class="btn btn-primary" id="sendmail">Send Mail</button>
+																<div class="modal-header">
+																	<h1 class="modal-title fs-5" id="staticBackdropLabel">Modal title</h1>
+																	<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" onclick="getUser();"></button>
+																</div>
+																<div class="modal-body" style="overflow:scroll; height:400px;">
+																</div>
+																<div class="modal-footer">
+																	<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+																	<button type="button" class="btn btn-primary" id="sendmail">Send Mail</button>
+																</div>
+															</div>
+															<div class="d-none w-100 text-center" id="volPageLoader">
+																<div class="spinner-border text-warning" role="status">
+																</div>
+																<p>Sending Mail...</p>
+															</div>
 														</div>
 													</div>
-
-
 												</div>
-											</div>
 
-										</div>
+											</div>
+										}
 									}
 									else
 									{
@@ -475,7 +553,7 @@
 
 
 									<div class="text-center position-absolute" id="mission-theme">
-										<p class="ps-1 pe-1 mb-0" style="border-radius: 20px; background-color: white;">
+										<p class="ps-1 pe-1 mb-0" style="border-radius: 20px; background-color: white;font-size: 12px;">
 											@foreach (var theme in Model.MissionThemes.Where(x => x.MissionThemeId == item.ThemeId))
 											{
 												@theme.Title
@@ -593,7 +671,7 @@
 
 
 										<a asp-controller="Home" asp-action="MissionAndRating" asp-route-id="@item.MissionId" class="btn  rounded-pill explore" style="border: 2px solid #F88634;
-										  	color: #F88634;">
+												  	color: #F88634;">
 											Explore Now <img src="~/Assets/right-arrow.png" alt="">
 										</a>
 
@@ -679,7 +757,7 @@
 
 
 
-	<script>
+<script>
 
 
 	if (localStorage.getItem('vp') === 'list') {
@@ -772,7 +850,7 @@
 
 
 
-	function addFavourite(missionId,pg,flag) {
+	function addFavourite(missionId, pg, flag) {
 		//console.log(missionId);
 		$.ajax({
 			url: "/Home/doFavouriteMission",
@@ -789,14 +867,14 @@
 				}
 			},
 			error: function () {
-					alert("Error occured during Favourite");
-				}
-			
-		//console.log(result);
-			
+				alert("Error occured during Favourite");
+			}
+
+			//console.log(result);
+
 			//location.reload();
 			//$('.xyz').html($(result).find('.xyz').html());
-		
+
 		});
-		}
+	}
 </script>

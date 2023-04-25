@@ -55,5 +55,6 @@ namespace CIPlatform_Main.Entities.ViewModel
         public IEnumerable<Comment>? comments { get; set; }
         public IEnumerable<Story>? Story { get; set; }
         public IEnumerable<StoryMedium>? storyMedia { get; set; }
+        public IEnumerable<Admin>? AdminList{ get; set; }
     }
 }

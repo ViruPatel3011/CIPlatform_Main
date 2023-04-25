@@ -15,7 +15,7 @@ namespace CIPlatform_Main.Entities.ViewModel
 		public long BannerId { get; set; }
 
 		[Required(ErrorMessage = "Image Is Required")]
-		public IFormFile bannerImage { get; set; } = null!;
+		public IFormFile? bannerImage { get; set; }
 
 		[Required(ErrorMessage = "BannerText Is Required")]
 		public string? bannerText { get; set; }
@@ -26,7 +26,7 @@ namespace CIPlatform_Main.Entities.ViewModel
 		[Required(ErrorMessage = "CreatedAt Is Required")]
 		public DateTime CreatedAt { get; set; }
 
-		public IFormFile bannerImageE { get; set; }
+		public IFormFile? bannerImageE { get; set; }
 
 		public List<Banner> BannerList { get; set; }
 	}

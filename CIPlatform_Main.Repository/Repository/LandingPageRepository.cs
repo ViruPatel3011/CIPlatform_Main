@@ -2,6 +2,7 @@
 using CIPlatform_Main.Entities.Models;
 using CIPlatform_Main.Entities.ViewModel;
 using CIPlatform_Main.Repository.Interface;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -49,6 +50,9 @@ namespace CIPlatform_Main.Repository.Repository
 			
 			List<GoalMission> goalMission = GetGoalMission();
 			landingPageData.GoalMissions = goalMission;
+			
+			List<Admin> admin = GetAdminList();
+			landingPageData.AdminList = admin;
 
 			return landingPageData;
 
@@ -100,6 +104,8 @@ namespace CIPlatform_Main.Repository.Repository
 			
 			List<MissionMedium> missionMedia = GetMissionMedia();
 			landingPage.MissionMedia = missionMedia;
+
+			
 
 			return landingPage;
 
@@ -183,6 +189,11 @@ namespace CIPlatform_Main.Repository.Repository
 		{
 			List<User> getUser = _ciPlatformContext.Users.ToList();
 			return getUser;
+		}
+		public List<Admin> GetAdminList()
+		{
+			List<Admin> getAdmin = _ciPlatformContext.Admins.ToList();
+			return getAdmin;
 		}
 	}
 }

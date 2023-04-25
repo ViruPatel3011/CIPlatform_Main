@@ -126,7 +126,7 @@
 														<button type="button" class="btn-close"
 																data-bs-dismiss="modal" aria-label="Close"></button>
 													</div>
-													<form method="post" asp-controller="Admin" asp-action="EditBannerData">
+													<form method="post" asp-controller="Admin" asp-action="EditBannerData" enctype="multipart/form-data">
 														@*missionid is for Data Edit post method and mid is for getdata for Edit*@
 														<input hidden name="bannerId" id="bid">
 														<div class="modal-body">
@@ -157,7 +157,7 @@
 																<label for="exampleFormControlInput1"
 																	   class="form-label">Banner Image</label>
 																<input type="file" class="form-control" id="banImageE" asp-for="bannerImage">
-																<span asp-validation-for="bannerImageE" class="text-danger"></span>
+																<span asp-validation-for="bannerImage" class="text-danger"></span>
 															</div>
 															<div class="mb-3">
 																<label for="exampleFormControlInput1"

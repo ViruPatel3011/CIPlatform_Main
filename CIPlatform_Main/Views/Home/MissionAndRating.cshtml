@@ -298,7 +298,7 @@
 							var FavouriteMission = Model.FavoriteMissionList.Where(m => m.UserId == Convert.ToInt32(uid) && m.MissionId == favMissionId).FirstOrDefault();
 							@if (FavouriteMission != null)
 							{
-								<button class=" favorite added favBtn" style=" border:2px solid #757575; border-radius: 50px;" disabled>
+								<button class=" favorite added favBtn" style=" border:2px solid #757575; border-radius: 50px;" onclick="missionClosed();">
 									<img src="~/Assets/favourite.png" alt="" class="ms-2 " style="width: 30px;height: 30px;">
 									Remove Favourite
 								</button>
@@ -306,7 +306,7 @@
 							else
 							{
 
-								<button class=" favorite favBtn" style=" border:2px solid #757575; border-radius: 50px;" disabled>
+								<button class=" favorite favBtn" style=" border:2px solid #757575; border-radius: 50px;" onclick="missionClosed();">
 									<img src="~/Assets/heart1.png" alt="" class="ms-2 " style="width: 22px; height: 22px;"> Add to Favourite
 								</button>
 							}
@@ -348,7 +348,7 @@
 						var currentDate = DateTime.Now;
 						if (currentDate > Model.MissionDetail.EndDate)
 						{
-							<div style=" border:2px solid #757575; border-radius: 50px;" disabled>
+							<div style=" border:2px solid #757575; border-radius: 50px;" onclick="missionClosed();">
 								<button type="button" class="btn btn-Secondary" style="border: 1px solid; border-radius: 50px;">
 									<img src="~/Assets/add1.png" /> Recommended to co-worker
 								</button>
@@ -422,7 +422,7 @@
 							var currentDate = DateTime.Now;
 							if (currentDate > Model.MissionDetail.EndDate)
 							{
-								<div class="" id="ratings" style="background-color:white" onmouseout="CRateSelected()" disabled>
+								<div class="" id="ratings" style="background-color:white" onmouseout="CRateSelected()" onclick="missionClosed();">
 									<img class="rating-star" id="span1" src="~/Assets/star-empty.png" alt="" style="width:28px">
 									<img class="rating-star" id="span2" src="~/Assets/star-empty.png" alt="" style="width:28px">
 									<img class="rating-star" id="span3" src="~/Assets/star-empty.png" alt="" style="width:28px">
@@ -489,7 +489,7 @@
 					var currentDate = DateTime.Now;
 					if (currentDate > Model.MissionDetail.EndDate)
 					{
-						<div class="text-center mt-3 mb-3">
+						<div class="text-center mt-3 mb-3" onclick="missionClosed();">
 							<button class="btn  py-2 px-3 text-danger " id="applyBtn" style="border: 2px solid red;color: red;">Mission Closed<img src="~/Assets/right-arrow.png" class="ps-3" alt=""></button>
 						</div>
 					}

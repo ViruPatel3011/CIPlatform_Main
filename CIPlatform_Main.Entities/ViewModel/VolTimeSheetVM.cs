@@ -31,7 +31,9 @@ namespace CIPlatform_Main.Entities.ViewModel
 		[Required(ErrorMessage = "Hours  is Required")]
 		public int hours { get; set; }
 
+
 		[Required(ErrorMessage = "Minutes  is Required")]
+		[Range(0, 60, ErrorMessage = "Minute must be between 0 and 60.")]
 		public int minutes { get; set; }	
 
 		public long? UserId { get; set; }

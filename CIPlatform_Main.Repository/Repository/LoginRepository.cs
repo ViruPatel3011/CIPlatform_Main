@@ -39,6 +39,12 @@ namespace CIPlatform_Main.Repository.Repository
 
         }
 
+        public List<Admin> getValidAdmin()
+        {
+            List<Admin> adminList=_ciPlatformContext.Admins.ToList();
+            return adminList;
+        }
+
 
     }
 }
