@@ -5,6 +5,7 @@ using CIPlatform_Main.Repository.Interface;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using System.Diagnostics.Contracts;
+using System.Diagnostics.Eventing.Reader;
 using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 using static System.Net.Mime.MediaTypeNames;
 
@@ -46,7 +47,8 @@ namespace CIPlatform_Main.Repository.Repository
 		}
 		public List<MissionApplication> getMissionAppList()
 		{
-			var list = _ciPlatformContext.MissionApplications.OrderBy(x=>x.ApprovalStatus).ToList();
+			var list = _ciPlatformContext.MissionApplications.Where(x => x.ApprovalStatus != "Rejected").OrderBy(x=>x.ApprovalStatus).ToList();
+			//var list = _ciPlatformContext.MissionApplications.OrderBy(x=>x.ApprovalStatus).ToList();
 			return list;
 		}
 		public List<Skill> getSkillsList()
@@ -79,24 +81,33 @@ namespace CIPlatform_Main.Repository.Repository
 		// Method for Add User data
 		public bool AddUserDetails(string Ufname, string Ulname, string Uemail, string Upwd, string UphnNumber, string Uavtar, string Uempid, string UDept, string Usts)
 		{
-			User user = new User()
+			var checkUser = _ciPlatformContext.Users.Where(x => x.Email == Uemail).FirstOrDefault();
+			if (checkUser !=null){
+				return false;
+			}
+			else
 			{
-				FirstName = Ufname,
-				LastName = Ulname,
-				Email = Uemail,
-				Password = Upwd,
-				PhoneNumber = UphnNumber,
-				Avatar = Uavtar,
-				EmployeeId = Uempid,
-				Department = UDept,
-				Status = Usts,
-				CountryId = 1,
-				CityId = 2
+				User user = new User()
+				{
+					FirstName = Ufname,
+					LastName = Ulname,
+					Email = Uemail,
+					Password = Upwd,
+					PhoneNumber = UphnNumber,
+					Avatar = Uavtar,
+					EmployeeId = Uempid,
+					Department = UDept,
+					Status = Usts,
+					CountryId = 1,
+					CityId = 2
 
-			};
-			_ciPlatformContext.Users.Add(user);
-			_ciPlatformContext.SaveChanges();
-			return true;
+				};
+				_ciPlatformContext.Users.Add(user);
+				_ciPlatformContext.SaveChanges();
+				return true;
+			}
+			
+			
 		}
 
 		// Method for get UserData for Edit

@@ -6,7 +6,7 @@
 
 @model AdminViewModel
 
-<h2 style="font-weight:200" class="ps-3 mt-4">Edit</h2>
+<h2 class="ps-3 mt-4 ms-2">Edit</h2>
 <form method="post" asp-controller="Admin" asp-action="EditCMSPageData">
 	@*cmsPageid is for Data Edit post method and cmsId is for getdata for Edit*@
 	<input hidden name="cmsPageid" id="cmsId">
@@ -20,7 +20,7 @@
 	<div class="row mx-2 mt-2">
 		<div class="col-12 my-3">
 			<label for="inputEmail4">Description</label>
-				<textarea id="CMStext" value="CMStext" placeholder="" asp-for="CMSDescrition"></textarea>
+				<textarea id="CMStext" value="CMStext" class="w-100  mt-2 form form-control" placeholder="" rows="5" asp-for="CMSDescrition"></textarea>
 		</div>
 	</div>
 	<div class="row mx-2 mt-1">

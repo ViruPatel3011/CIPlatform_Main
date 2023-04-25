@@ -55,7 +55,7 @@ for (var checkbox of checkboxes) {
 
 
 function addElement(current, value) {
-    loadMissions();
+    loadMissions(pg=1);
     let filtersSection = document.querySelector(".filters-section");
 
     let createdTag = document.createElement('span');
@@ -80,7 +80,7 @@ function addElement(current, value) {
         elementToBeRemoved.remove();
 
         current.checked = false;
-        loadMissions();
+        loadMissions(pg=1);
 
 
 
@@ -97,7 +97,7 @@ function addElement(current, value) {
 }
 
 function removeElement(value) {
-    loadMissions();
+    loadMissions(pg=1);
     let filtersSection = document.querySelector(".filters-section");
 
     let elementToBeRemoved = document.getElementById(value);

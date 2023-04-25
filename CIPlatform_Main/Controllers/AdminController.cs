@@ -212,12 +212,12 @@ namespace CIPlatform_Main.Controllers
 			var userDataAdded = _admin.AddUserDetails(Ufname,Ulname,Uemail,Upwd,UphnNumber,Uavtar,Uempid,UDept,Usts);
 			if (userDataAdded)
 			{
-				TempData["Success Message"] = "Data Added Successfully";
+				TempData["Success Message"] = "User Added Successfully";
 				return RedirectToAction("User", "Admin");
 			}
 			else
 			{
-				TempData["Error Message"] = "Data not Added Successfully";
+				TempData["Error Message"] = "User already Exist!";
 				return RedirectToAction("User", "Admin");
 
 			}

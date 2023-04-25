@@ -89,7 +89,7 @@
 							{
 								if (admin.Email == email)
 								{
-									<li><a class="dropdown-item" asp-controller="Admin" asp-action="User">Admin Panel</a></li>
+									<li><a class="dropdown-item" asp-controller="Login" asp-action="Admin">Admin Panel</a></li>
 									
 								}
 							}
@@ -103,7 +103,7 @@
 				else
 				{
 					<ul class="navbar-nav d-flex">
-						<li class="btn-info me-2 pe-1" style="border-radius: 4px;width: 70px;"><a class="dropdown-item btn p-1 text-center" asp-controller="Login" asp-action="Admin">Admin</a></li>
+						@*<li class="btn-info me-2 pe-1" style="border-radius: 4px;width: 70px;"><a class="dropdown-item btn p-1 text-center" asp-controller="Login" asp-action="Admin">Admin</a></li>*@
 						<li class="btn-info me-2 pe-1" style="border-radius: 4px;width: 70px;"><a class="dropdown-item btn p-1 text-center" asp-controller="Login" asp-action="Login">Login</a></li>
 						<li class="btn-info me-2 pe-1" style="border-radius: 4px;width: 70px;"><a class="dropdown-item btn p-1 text-center" asp-controller="Registration" asp-action="Registration">Register</a></li>
 					</ul>
@@ -276,14 +276,14 @@
 
 
 	$(document).ready(function () {
-		loadMissions();
+		loadMissions(pg=1);
 
 	});
 
 	$("#search-field").on("keyup", function (e) {
 		missionToSearch = $("#search-field").val().toLowerCase();
 		console.log(missionToSearch);
-		loadMissions();
+		loadMissions(pg=1);
 	});
 
 
