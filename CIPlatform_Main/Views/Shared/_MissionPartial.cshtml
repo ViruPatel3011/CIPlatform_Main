@@ -14,6 +14,22 @@
 	#mission-table_paginate {
 		margin-top: 20px
 	}
+
+	.image-container {
+		  position: relative;
+		  display: inline-block;
+		  margin-right: 50px; /* add some space between images */
+}
+
+.cancel-icon {
+	 position: absolute;
+		top: -9px;
+		right: -69px;
+		padding: 5px;
+		cursor: pointer;
+		width: 20px;
+		height: 20px;
+}
 </style>
 
 <!-- Right Part Div for Tables -->
@@ -239,7 +255,7 @@
 				documentPreview.empty(); // clear any previously displayed documents
 
 				for (var i = 0; i < data.documentUrls.length; i++) {
-					var documentUrl = "/"+data.documentUrls[i];
+					var documentUrl = data.documentUrls[i];
 					var documentElement = $('<a>').attr('href', documentUrl).text('Document ' + (i + 1));
 					documentPreview.append(documentElement); // Append the document element to the document-preview div
 				}
@@ -250,10 +266,16 @@
 				imagePreview.empty(); // clear any previously displayed images
 
 				for (var j = 0; j < data.imageUrls.length; j++) {
-					var imageUrl = "/"+data.imageUrls[j];
+					var imageUrl = data.imageUrls[j];
 					var imageElement = $('<img>').attr('src', imageUrl);
-					imagePreview.append(imageElement); // Append the image element to the image-preview div
+					var cancelIcon = $('<span>').addClass('cancel-icon').html('&#10005;'); // create cancel icon element
+					var imageContainer = $('<div>').addClass('image-container').append(imageElement, cancelIcon); // wrap image and cancel icon in container
+					imagePreview.append(imageContainer); // Append the image container to the image-preview div
 				}
+
+				$('.cancel-icon').click(function () {
+					$(this).parent().remove(); // remove the image container when the cancel icon is clicked
+				});
 
 				
 			},

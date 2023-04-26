@@ -127,7 +127,7 @@
 
 
 								<!-- Time based mission  Upper Body  -->
-								<div class="position-relative card-image">
+								<div class="position-relative card-image"  style="max-height:200px">
 									@{
 										var cardsImage = item.MissionMedia.FirstOrDefault();
 										<img src="@Url.Content(cardsImage.MediaPath)" class="card-img-top" alt="...">
@@ -409,7 +409,7 @@
 								@*<div class="card">*@
 
 								<!-- Goal based Mission Upper Body  -->
-								<div class="position-relative card-image">
+								<div class="position-relative card-image" style="max-height:200px">
 									@{
 										var cardsImage = item.MissionMedia.FirstOrDefault();
 										<img src="@Url.Content(cardsImage.MediaPath)" class="card-img-top" alt="...">
