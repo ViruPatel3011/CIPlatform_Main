@@ -1,7 +1,10 @@
-﻿using CIPlatform_Main.Entities.ViewModel;
+﻿using CIPlatform_Main.Entities.Models;
+using CIPlatform_Main.Entities.ViewModel;
 using CIPlatform_Main.Repository.Interface;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Net.NetworkInformation;
+using System.Reflection;
 using System.Xml;
 
 namespace CIPlatform_Main.Controllers
@@ -262,7 +265,22 @@ namespace CIPlatform_Main.Controllers
                 return Json(new { redirectUrl = Url.Action("User", "Admin") });
             }
 		}
+		public IActionResult EditUserPageData(AdminViewModel adminView,long userId)
+		{
+			var editData = _admin.EditDataForUserPage(adminView, userId);
+			if (editData)
+			{
 
+				TempData["Success Message"] = "Data Edited Successfully";
+				return RedirectToAction("User", "Admin");
+
+			}
+			else
+			{
+				TempData["Error Message"] = "Data Not Edited ";
+				return RedirectToAction("User", "Admin");
+			}
+		}
 
 		// Method for Delete User Data
 		public IActionResult deleteUserData(long uId)
@@ -388,7 +406,8 @@ namespace CIPlatform_Main.Controllers
 		public IActionResult getDataForEditMission(long mId)
 		{
 			var data = _admin.getDataForMissionEdit(mId);
-			return Json(new
+            var imageUrl = data.MissionMedia.Select(m => m.MediaPath).ToArray();
+            return Json(new
 			{
 				mText = data.Title,
 				mDesc = data.Description,
@@ -402,7 +421,8 @@ namespace CIPlatform_Main.Controllers
 				mType = data.MissionType,
 				mTheme = data.ThemeId,
 				mAvailability = data.Availability,
-				mEditid = mId
+                imageUrls = imageUrl,
+                mEditid = mId
 
 			});
 		}
@@ -583,6 +603,28 @@ namespace CIPlatform_Main.Controllers
 			}
 		}
 
+		// Method for Get Data for Missiontheme 
+		[HttpGet]
+		public IActionResult getDataForEditMissionSkill(long mSkillid)
+		{
+			var skilldata = _admin.getDataForMissionSkillEdit(mSkillid);
+			return Json(new
+			{
+
+				skillTitleE=skilldata.SkillName,
+				skillDateE=skilldata.CreatedAt.ToString("dd-MM-yyyy"),
+				mIdS=mSkillid
+			});
+
+		}
+
+		[HttpPost]
+		public IActionResult EditMissionSkillData(string skillName, long missionSkillid)
+		{
+			_admin.EditSkillPageData(skillName, missionSkillid);
+			TempData["Success Message"] = "Data edited successfully";
+			return RedirectToAction("User", "Admin");
+		}
 
 		// Method for Delete Skills data
 		public IActionResult deleteUserSkill(long SkillsId)

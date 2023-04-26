@@ -228,6 +228,14 @@
 				//$('#documentInput').val(data.mdocument);
 				$('#missionEId').val(data.mEditid);
 
+				// Display images in the image-preview div
+				var imageUrls = data.imageUrls;
+				var imagePreview = $('#image-preview');
+				for (var i = 0; i < imageUrls.length; i++) {
+					var imageUrl = imageUrls[i];
+					var imageElement = $('<img>').attr('src', imageUrl);
+					imagePreview.append(imageElement);
+				}
 			},
 			error: function (xhr, status, error) {
 				// Handle errors

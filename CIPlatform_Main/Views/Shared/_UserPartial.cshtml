@@ -49,65 +49,76 @@
 								<button type="button" class="btn-close"
 										data-bs-dismiss="modal" aria-label="Close"></button>
 							</div>
+							<form id="userForm">
 							<div class="modal-body">
 								<div class="mb-3">
 									<label for="exampleFormControlInput1"
 										   class="form-label">First Name</label>
 									<input type="text" class="form-control "
-										   placeholder="Enter your first name" id="addFName">
+			  placeholder="Enter your first name" id="addFName" asp-for="FirstName">
+										<span asp-validation-for="FirstName" class="text-danger"></span>
 								</div>
 								<div class="mb-3">
 									<label for="exampleFormControlInput1"
 										   class="form-label">Last Name</label>
 									<input type="text" class="form-control "
-										   placeholder="Enter your last name" id="addLName">
+			  placeholder="Enter your last name" id="addLName" asp-for="LastName">
+										<span asp-validation-for="LastName" class="text-danger"></span>
 								</div>
 								<div class="mb-3">
 									<label for="exampleFormControlInput1"
 										   class="form-label">Email</label>
 									<input type="email"
 										   class="form-control "
-										   placeholder="Enter Email address" id="addEmail">
+			  placeholder="Enter Email address" id="addEmail" asp-for="UEmail">
+										<span asp-validation-for="UEmail" class="text-danger"></span>
 								</div>
 								<div class="mb-3">
 									<label for="exampleFormControlInput1"
 										   class="form-label">Password</label>
+
 									<input type="password"
 										   class="form-control "
-										   placeholder="Enter password" id="addPassword">
+			  placeholder="Enter password" id="addPassword" asp-for="UPassword">
+										<span asp-validation-for="UPassword" class="text-danger"></span>
 								</div>
 								<div class="mb-3">
 									<label for="exampleFormControlInput1"
 										   class="form-label">Phone Number</label>
 									<input type="text"
 										   class="form-control "
-										   placeholder="Enter phone number" id="addPhnNumber">
+			  placeholder="Enter phone number" id="addPhnNumber" asp-for="PhoneNumber">
+										<span asp-validation-for="PhoneNumber" class="text-danger"></span>
 								</div>
 								<div class="mb-3">
 									<label for="exampleFormControlInput1"
 										   class="form-label">Avatar</label>
 									<input type="file"
 										   class="form-control "
-										   placeholder="select avatar" id="addAvatar">
+			  placeholder="select avatar" id="addAvatar" asp-for="Avatar">
+										<span asp-validation-for="Avatar" class="text-danger"></span>
 								</div>
 								<div class="mb-3">
 									<label for="exampleFormControlTextarea1"
 										   class="form-label">Employee ID</label>
 									<input class="form-control "
-										   rows="3" placeholder="Enter employeeid" id="addEmpId">
-									<span class="text-danger"></span>
+			  rows="3" placeholder="Enter employeeid" id="addEmpId " asp-for="EmployeeId">
+										<span asp-validation-for="EmployeeId" class="text-danger"></span>
+								@*	<span class="text-danger"></span>*@
 								</div>
 								<div class="mb-3">
 									<label for="exampleFormControlInput1"
 										   class="form-label">Department</label>
 									<input type="text" class="form-control"
-										   placeholder="Enter your department" id="addDeptName">
+			  placeholder="Enter your department" id="addDeptName" asp-for="Department">
+										<span asp-validation-for="Department" class="text-danger"></span>
 								</div>
 								<div class="mb-3">
 									<label for="exampleFormControlInput1"
 										   class="form-label">Status</label>
 									<input type="email" class="form-control"
-										   placeholder="Enter your status" id="addStatus">
+			  placeholder="Enter your status" id="addStatus" asp-for="Status">
+										<span asp-validation-for="Status" class="text-danger"></span>
 								</div>
 							</div>
 							<div class="modal-footer">
@@ -117,10 +128,11 @@
 									Cancel
 								</button>
 								<button type="submit" class="btn btn-outline-warning"
-										style="border-radius:50px" onclick="addDataToDatabase()">
+										style="border-radius:50px">
 									Save
 								</button>
 							</div>
+							</form>
 						</div>
 					</div>
 				</div>
@@ -179,49 +191,50 @@
 													<button type="button" class="btn-close"
 															data-bs-dismiss="modal" aria-label="Close"></button>
 												</div>
+												<form method="post" asp-controller="Admin" asp-action="EditUserPageData">
 												<div class="modal-body">
-													<input hidden id="userid">
+													<input hidden id="userid" name="userId">
 													@*value="@goalMission.MissionId"*@
 
 													<div class="mb-3">
 														<label for="exampleFormControlInput1"
 															   class="form-label">FirstName</label>
-														<input type="text" class="form-control "
-															   id="fName" value="fName">
+														<input type="text" class="form-control " id="fName" value="fName" asp-for="FirstName">
+														<span asp-validation-for="FirstName" class="text-danger"></span>
 													</div>
 													<div class="mb-3">
 														<label for="exampleFormControlInput1"
 															   class="form-label">LastName</label>
-														<input type="text" class="form-control "
-															   id="lName" value="lName">
+														<input type="text" class="form-control " id="lName" value="lName" asp-for="LastName">
+														<span asp-validation-for="LastName" class="text-danger"></span>
 													</div>
 													<div class="mb-3">
 														<label for="exampleFormControlInput1"
 															   class="form-label">Email</label>
 														<input type="email"
-															   class="form-control "
-															   id="email" value="email">
+															   class="form-control "id="email" value="email" asp-for="UEmail" disabled>
+															  
 													</div>
 													<div class="mb-3">
 														<label for="exampleFormControlInput1"
 															   class="form-label">Employee Id</label>
 														<input type="number"
-															   class="form-control "
-															   id="empId" value="empId">
+															   class="form-control " id="empId" value="empId" asp-for="EmployeeId">
+														<span asp-validation-for="EmployeeId" class="text-danger"></span>
 													</div>
 													<div class="mb-3">
 														<label for="exampleFormControlInput1"
 															   class="form-label">DepartMent</label>
 														<input type="text"
-															   class="form-control "
-															   id="dept" value="dept">
+															   class="form-control " id="dept" value="dept" asp-for="Department">
+														<span asp-validation-for="Department" class="text-danger"></span>
 													</div>
 													<div class="mb-3">
 														<label for="exampleFormControlInput1"
 															   class="form-label">Status</label>
 														<input type="text"
-															   class="form-control "
-															   id="status" value="status">
+															   class="form-control "id="status" value="status" asp-for="Status">
+														<span asp-validation-for="Status" class="text-danger"></span>
 													</div>
 
 												</div>
@@ -232,10 +245,11 @@
 														Cancel
 													</button>
 													<button type="submit" class="btn btn-outline-warning"
-															style="border-radius:50px" onclick="EditData(@user.UserId)">
+															style="border-radius:50px" >
 														Edit
 													</button>
 												</div>
+												</form>
 											</div>
 										</div>
 									</div>

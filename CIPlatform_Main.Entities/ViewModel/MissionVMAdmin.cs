@@ -45,10 +45,10 @@ namespace CIPlatform_Main.Entities.ViewModel
 
 		public DateTime? endDate { get; set; }
 
-		[Required(ErrorMessage = "Deadline Is Required")]
+		//[Required(ErrorMessage = "Deadline Is Required")]
 		public DateTime? deadline { get; set; }
 
-		[Required(ErrorMessage = "Total Seats Is Required")]
+		//[Required(ErrorMessage = "Total Seats Is Required")]
 
 		public long totalSeats { get; set; }
 
@@ -68,9 +68,9 @@ namespace CIPlatform_Main.Entities.ViewModel
 		[Required(ErrorMessage = "Please Select Documents")]
 		public List<IFormFile> Documents { get; set; }
 
-		[Required(ErrorMessage = "Image Is Required")]
+        public List<string> imagepaths { get; set; }
 
-		public List<Mission> MissionList { get; set; }
+        public List<Mission> MissionList { get; set; }
 		public List<MissionMedium> MissionMediaList { get; set; }
 		public List<MissionTheme> MissionThemeList { get; set; }
 		public List<Skill> SkillList { get; set; }

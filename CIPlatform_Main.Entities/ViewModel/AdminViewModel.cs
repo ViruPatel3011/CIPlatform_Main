@@ -10,9 +10,44 @@ namespace CIPlatform_Main.Entities.ViewModel
 {
 	public class AdminViewModel
 	{
+		// Below field for User
 
-        // Below field is for AdminLogin
-        [Required(ErrorMessage = "Email is Required")]
+		[Required(ErrorMessage = "First Name is required")]
+		public string? FirstName { get; set; }
+
+		[Required(ErrorMessage = "Last Name is required")]
+		public string? LastName { get; set; }
+
+		[Required(ErrorMessage = "Email is required")]
+		public string UEmail { get; set; } = null!;
+
+		[Required(ErrorMessage = "Password is required")]
+		[DataType(DataType.Password)]
+		[StringLength(10, MinimumLength = 6)]
+		[RegularExpression("([a-z]|[A-Z]|[0-9]|[\\W]){4}[a-zA-Z0-9\\W]{3,11}", ErrorMessage = "Invalid password format")]
+		public string UPassword { get; set; } = null!;
+
+		[RegularExpression("^([0-9]{10})$", ErrorMessage = "Invalid Mobile Number.")]
+		[Required(ErrorMessage = "PhoneNumber is required")]
+		public string PhoneNumber { get; set; } = null!;
+
+		[Required(ErrorMessage = "Avtar is required")]
+		public string? Avatar { get; set; }
+
+		[Required(ErrorMessage = "Employee Id is required")]
+		public string? EmployeeId { get; set; }
+
+		[Required(ErrorMessage = "Department is required")]
+		public string? Department { get; set; }
+
+		[Required(ErrorMessage = "status is required")]
+		public string Status { get; set; } = null!;
+
+
+
+
+		// Below field is for AdminLogin
+		[Required(ErrorMessage = "Email is Required")]
         public string Email { get; set; }
 
         [Required(ErrorMessage = "Password is Required")]

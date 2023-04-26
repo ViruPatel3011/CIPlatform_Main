@@ -3,6 +3,8 @@ using CIPlatform_Main.Entities.Models;
 using CIPlatform_Main.Entities.ViewModel;
 using CIPlatform_Main.Repository.Interface;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using System.Diagnostics.Contracts;
 using System.Diagnostics.Eventing.Reader;
@@ -132,7 +134,21 @@ namespace CIPlatform_Main.Repository.Repository
 			return true;
 		}
 
+		public bool EditDataForUserPage(AdminViewModel adminView, long userId)
+		{
+			var user = _ciPlatformContext.Users.Where(x => x.UserId == userId).FirstOrDefault();
+			user.FirstName = adminView.FirstName;
+			user.LastName=adminView.LastName;	
+			//user.Email=adminView.UEmail;	
+			user.EmployeeId = adminView.EmployeeId;	
+			user.Department = adminView.Department;	
+			user.Status = adminView.Status;
+			_ciPlatformContext.Users.Update(user);
+			_ciPlatformContext.SaveChanges();
+			return true;
 
+		}
+		
 		// Method for Remove User data
 		public bool removeUserData(long uId)
 		{
@@ -252,7 +268,7 @@ namespace CIPlatform_Main.Repository.Repository
 
 				using (var fileStream = image.OpenReadStream())
 				{
-					var filePath = Path.Combine("MissionImages", fileName);
+					var filePath = Path.Combine("MissionImgDcouments", fileName);
 					using (var fStream = new FileStream(Path.Combine("wwwroot", "MissionImgDcouments", fileName), FileMode.Create))
 					{
 						image.CopyToAsync(fStream);
@@ -279,7 +295,7 @@ namespace CIPlatform_Main.Repository.Repository
 
                 using (var fileStream = documents.OpenReadStream())
                 {
-                    var filePath = Path.Combine("MissionImages", fileName);
+                    var filePath = Path.Combine("MissionImgDcouments", fileName);
                     using (var fStream = new FileStream(Path.Combine("wwwroot", "MissionImgDcouments", fileName), FileMode.Create))
                     {
                         documents.CopyToAsync(fStream);
@@ -336,8 +352,9 @@ namespace CIPlatform_Main.Repository.Repository
 		// Method for Get Data for Edit Mission 
 		public Mission getDataForMissionEdit(long mId)
 		{
-			var mission = _ciPlatformContext.Missions.Where(x => x.MissionId == mId).FirstOrDefault();
-			return mission;
+            //var mission = _ciPlatformContext.Missions.Where(x => x.MissionId == mId).FirstOrDefault();
+            var mission = _ciPlatformContext.Missions.Include(m => m.MissionMedia).FirstOrDefault(m => m.MissionId == mId);
+            return mission;
 		}
 
         // Method for Edit Mission Data 
@@ -423,6 +440,7 @@ namespace CIPlatform_Main.Repository.Repository
 			theme.Title = adminView.themeTitle;
 			theme.CreatedAt = adminView.createdDate;
 			theme.Status = adminView.themeStatus;
+			_ciPlatformContext.MissionThemes.Update(theme);
 			_ciPlatformContext.SaveChanges();
 
 		}
@@ -529,7 +547,7 @@ namespace CIPlatform_Main.Repository.Repository
 				SkillName=SName,
 				CreatedAt=SDate,
 				//Status=SStatus
-				Status = "Added"
+				Status = "Active"
 
 			};
 			_ciPlatformContext.Skills.Add(skill);
@@ -538,6 +556,22 @@ namespace CIPlatform_Main.Repository.Repository
 
 		}
 
+		public Skill getDataForMissionSkillEdit(long mSkillid)
+		{
+			var skillid = _ciPlatformContext.Skills.Where(skill => skill.SkillId == mSkillid).FirstOrDefault();
+			return skillid;
+		}
+
+		[HttpPost]
+		public void EditSkillPageData(string skillName, long missionSkillid)
+		{
+			var skillEdit=_ciPlatformContext.Skills.Where(skill=>skill.SkillId==missionSkillid).FirstOrDefault();
+			skillEdit.SkillName = skillName;
+			skillEdit.UpdatedAt = DateTime.Now;
+			_ciPlatformContext.Skills.Update(skillEdit);
+			_ciPlatformContext.SaveChanges();
+
+		}
 		// Method for Delete Skills data
 		public bool DeleteSkillByAdmin(long SkillsId)
 		{
@@ -552,7 +586,7 @@ namespace CIPlatform_Main.Repository.Repository
 			}
 			if (skill != null)
 			{
-				skill.Status = "Deleted";
+				skill.Status = "DeActive";
 				_ciPlatformContext.Skills.Update(skill);
 				_ciPlatformContext.SaveChanges();
 				return true;

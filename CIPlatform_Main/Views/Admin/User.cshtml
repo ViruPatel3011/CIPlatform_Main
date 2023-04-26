@@ -357,6 +357,9 @@
 				}
 			});
 		}
+
+
+
 		function EditData() {
 			var Fname = document.getElementById("fName").value;
 			var Lname = document.getElementById("lName").value;
@@ -385,6 +388,10 @@
 				}
 			});
 		}
+
+
+
+
 		// Method for get user id for deleting data
 		var userid = 0;
 		function getUserId(userId) {
@@ -404,9 +411,20 @@
 				},
 			});
 		}
-		
+
+
+		$('#userForm').on('submit', e => addDataToDatabase(e));
 
 		function addDataToDatabase() {
+
+			event.preventDefault();
+
+			$("#userForm").valid();
+			if (!$("#userForm").valid()) {
+
+				return;
+			}
+			else {
 			var firstName = $("#addFName").val();
 			var lastName = $("#addLName").val();
 			var email = $("#addEmail").val();
@@ -441,7 +459,7 @@
 		}
 
 	
-
+		}
 
 	</script>
 	

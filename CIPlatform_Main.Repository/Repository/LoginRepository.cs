@@ -21,18 +21,18 @@ namespace CIPlatform_Main.Repository.Repository
 
         public List<User> GetUser()
         {
-            List<User> userList=_ciPlatformContext.Users.ToList();
+            List<User> userList = _ciPlatformContext.Users.ToList();
             return userList;
         }
 
         public bool AddContactUsData(UserViewModel userView, int uid)
         {
-            ContactU contactUs = new ContactU() { 
-                UserId=uid,
-                Subject= userView.ContactSubject,
-                Message= userView.ContactMessage
+            ContactU contactUs = new ContactU() {
+                UserId = uid,
+                Subject = userView.ContactSubject,
+                Message = userView.ContactMessage
 
-			};
+            };
             _ciPlatformContext.Add(contactUs);
             _ciPlatformContext.SaveChanges();
             return true;
@@ -41,10 +41,15 @@ namespace CIPlatform_Main.Repository.Repository
 
         public List<Admin> getValidAdmin()
         {
-            List<Admin> adminList=_ciPlatformContext.Admins.ToList();
+            List<Admin> adminList = _ciPlatformContext.Admins.ToList();
             return adminList;
         }
 
+        //public List<Banner> getBannerList()
+        //{
+        //    List<Banner> bannerList = _ciPlatformContext.Banners.ToList();
+        //    return bannerList;
+        //}
 
     }
 }

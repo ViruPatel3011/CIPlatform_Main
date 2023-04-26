@@ -46,7 +46,7 @@ namespace CIPlatform_Main.Controllers
                 if (ModelState.IsValid)
                 {
 
-                    var status = _ciPlatformContext.Admins.Where(x => x.Email == loginVM.Email && x.Password == loginVM.Password).FirstOrDefault();
+                    var status = _ciPlatformContext.Admins.Where(x => x.Email == loginVM.Email && x.Password == loginVM.Password ).FirstOrDefault();
                     if (status != null)
                     {
 
@@ -96,7 +96,7 @@ namespace CIPlatform_Main.Controllers
             {
                 if (ModelState.IsValid)
                 {
-                    var status = _ciPlatformContext.Users.Where(x => x.Email == loginVM.Email && x.Password == loginVM.Password).FirstOrDefault();
+                    var status = _ciPlatformContext.Users.Where(x => x.Email == loginVM.Email && x.Password == loginVM.Password && x.Status!= "Deactive").FirstOrDefault();
                     if (status != null)
                     {
 

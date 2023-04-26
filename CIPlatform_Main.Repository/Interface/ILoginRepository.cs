@@ -17,6 +17,8 @@ namespace CIPlatform_Main.Repository.Interface
 
         public List<Admin> getValidAdmin();
 
+        //public List<Banner> getBannerList();
+
 
 
     }

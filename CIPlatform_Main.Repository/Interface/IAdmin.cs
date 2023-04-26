@@ -42,6 +42,8 @@ namespace CIPlatform_Main.Repository.Interface
 		// Method for Edit User data
 		public bool EditDataForUser(string Name, string Surname, string email, string EmployeeId, long userid, string DeptName, string Ustatus);
 
+		public bool EditDataForUserPage(AdminViewModel adminView,long userId);
+
 		// Method for Delete User Data
 		public bool removeUserData(long  uId);
 
@@ -131,6 +133,9 @@ namespace CIPlatform_Main.Repository.Interface
 		// Method for Add Skills data
 		public bool SaveSkillsData(string SName, DateTime SDate /*,string SStatus*/);
 
+		public Skill getDataForMissionSkillEdit(long mSkillid);
+
+		public void EditSkillPageData(string skillName, long missionSkillid);
 		// Method for Delete Skills data
 		public bool DeleteSkillByAdmin(long SkillsId);
 
