@@ -80,9 +80,11 @@ namespace CIPlatform_Main.Repository.Interface
 
 		// Method for Get Data for Edit Mission 
 		public Mission getDataForMissionEdit(long mId);
+		public Mission getDataforDocEdit(long mId);
 
 		// Method for Edit Mission Data 
 
+		//public MissionVMAdmin singleMissionForEdit(long missionId);
 		public void editMissionPageData(MissionVMAdmin missionVM, long mPageEditId);
 
         // Method for Delete Mission Data 

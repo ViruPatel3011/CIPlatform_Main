@@ -261,59 +261,115 @@ namespace CIPlatform_Main.Repository.Repository
 			_ciPlatformContext.SaveChanges();
 
 			var lastMissionId=_ciPlatformContext.Missions.OrderByDescending(m=>m.MissionId).Select(m=>m.MissionId).FirstOrDefault();
-            foreach (var image in missionVM.images)
-            {
+			//         foreach (var image in missionVM.images)
+			//         {
+			//	var fileName = image.FileName;
+			//	var fileType = image.ContentType;
+
+			//	using (var fileStream = image.OpenReadStream())
+			//	{
+			//		var filePath = Path.Combine("MissionImgDcouments", fileName);
+			//		using (var fStream = new FileStream(Path.Combine("wwwroot", "MissionImgDcouments", fileName), FileMode.Create))
+			//		{
+			//			image.CopyToAsync(fStream);
+			//			var missionMedia = new MissionMedium
+			//			{
+			//				MissionId = mission.MissionId,
+			//				MediaPath = filePath,
+			//				MediaName=image.FileName,
+			//				MediaType=image.ContentType
+
+
+			//			};
+
+			//			_ciPlatformContext.MissionMedia.Add(missionMedia);
+			//		}
+			//	}
+
+			//}
+
+			//foreach (var documents in missionVM.Documents)
+			//{
+			//	var fileName = documents.FileName;
+			//	var fileType = documents.ContentType;
+
+			//	using (var fileStream = documents.OpenReadStream())
+			//	{
+			//		var filePath = Path.Combine("MissionImgDcouments", fileName);
+			//		using (var fStream = new FileStream(Path.Combine("wwwroot", "MissionImgDcouments", fileName), FileMode.Create))
+			//		{
+			//			documents.CopyToAsync(fStream);
+			//			var missiondocuments = new MissionDocument
+			//			{
+			//				MissionId = mission.MissionId,
+			//				DocumentName = documents.FileName,
+			//				DocumentType = fileType,
+			//				DocumentPath = filePath,
+			//				CreatedAt = DateTime.Now,
+			//			};
+
+			//			_ciPlatformContext.MissionDocuments.Add(missiondocuments);
+			//		}
+			//	}
+			//}
+
+			foreach (var image in missionVM.images)
+			{
 				var fileName = image.FileName;
 				var fileType = image.ContentType;
+				byte[] imageData;
 
 				using (var fileStream = image.OpenReadStream())
 				{
-					var filePath = Path.Combine("MissionImgDcouments", fileName);
-					using (var fStream = new FileStream(Path.Combine("wwwroot", "MissionImgDcouments", fileName), FileMode.Create))
+					using (var memoryStream = new MemoryStream())
 					{
-						image.CopyToAsync(fStream);
-						var missionMedia = new MissionMedium
-						{
-							MissionId = mission.MissionId,
-							MediaPath = filePath,
-							MediaName=image.FileName,
-							MediaType=image.ContentType
-
-                            
-						};
-
-						_ciPlatformContext.MissionMedia.Add(missionMedia);
+						fileStream.CopyTo(memoryStream);
+						imageData = memoryStream.ToArray();
 					}
 				}
+				var base64String = Convert.ToBase64String(imageData);
+				var missionMedia = new MissionMedium
+				{
+					MissionId = mission.MissionId,
+					MediaPath = $"data:{fileType};base64,{base64String}",
+					MediaName = fileName,
+					MediaType = fileType
+				};
 
+				_ciPlatformContext.MissionMedia.Add(missionMedia);
 			}
 
-			foreach(var documents in missionVM.Documents)
+			foreach (var document in missionVM.Documents)
 			{
-                var fileName = documents.FileName;
-                var fileType = documents.ContentType;
+				var fileName = document.FileName;
+				var fileType = document.ContentType;
 
-                using (var fileStream = documents.OpenReadStream())
-                {
-                    var filePath = Path.Combine("MissionImgDcouments", fileName);
-                    using (var fStream = new FileStream(Path.Combine("wwwroot", "MissionImgDcouments", fileName), FileMode.Create))
-                    {
-                        documents.CopyToAsync(fStream);
-                        var missiondocuments = new MissionDocument
-                        {
-                            MissionId = mission.MissionId,
-                            DocumentName = documents.FileName,
-                            DocumentType = fileType,
-							DocumentPath=filePath,
-							CreatedAt=DateTime.Now,
-                        };
+				using (var stream = document.OpenReadStream())
+				{
+					byte[] fileBytes;
+					using (var ms = new MemoryStream())
+					{
+						stream.CopyTo(ms);
+						fileBytes = ms.ToArray();
+					}
 
-                        _ciPlatformContext.MissionDocuments.Add(missiondocuments);
-                    }
-                }
-            }
+					var base64String = Convert.ToBase64String(fileBytes);
+					var missionDocument = new MissionDocument
+					{
+						MissionId = mission.MissionId,
+						DocumentName = fileName,
+						DocumentType = fileType,
+						DocumentPath = "data:" + fileType + ";base64," + base64String,
+						CreatedAt = DateTime.Now
+					};
+					_ciPlatformContext.MissionDocuments.Add(missionDocument);
+				}
+			}
 
-			foreach(var skillAdd in listOfSkill)
+
+
+
+			foreach (var skillAdd in listOfSkill)
 			{
 				var missionSkill = new MissionSkill
 				{
@@ -329,31 +385,54 @@ namespace CIPlatform_Main.Repository.Repository
             return true;
 
 		}
-		// Method for Add Mission Data
-		//public bool SavedMissionData(string mTitle, string mType, DateTime SDate, DateTime EDate, string msts)
+		
+
+		//public MissionVMAdmin singleMissionForEdit(long missionId)
 		//{
-		//	Mission mission = new Mission()
+		//	var thisMission = _ciPlatformContext.Missions.FirstOrDefault(mission => mission.MissionId == missionId);
+		//	var missionImages=_ciPlatformContext.MissionMedia.Where(img=>img.MissionId== missionId).ToList();	
+		//	var missionDocs=_ciPlatformContext.MissionDocuments.Where(doc=>doc.MissionId== missionId).ToList();
+
+		//	MissionVMAdmin missionVM = new MissionVMAdmin()
 		//	{
-		//		Title = mTitle,
-		//		MissionType = mType,
-		//		StartDate = SDate,
-		//		EndDate = EDate,
-		//		Status=msts,
-		//		CityId=2,
-		//		CountryId=1,
-		//		ThemeId=1 // by default we should take theme_id as some value otherwise it will throw ans error		
-				
+
+		//		title=thisMission.Title,
+		//		shortDescription=thisMission.ShortDescription,
+		//		description =thisMission.Description,
+		//		cityId = thisMission.CityId,
+		//		countryId = thisMission.CountryId,
+		//		themeId = thisMission.ThemeId,
+		//		organizationName = thisMission.OrganizationName,
+		//		organizationDetail = thisMission.OrganizationDetail,
+		//		startDate = thisMission.StartDate,
+		//		endDate = thisMission.EndDate,
+		//		missionType = thisMission.MissionType,	
+		//		availability = thisMission.Availability,	
+		//		MissionList=getMissionList(),
+		//		MissionThemeList=getMissionThemeList(),
+		//		SkillList=getSkillsList()
+
+
+
 		//	};
-		//	_ciPlatformContext.Missions.Add(mission);
-		//	_ciPlatformContext.SaveChanges();
-		//	return true;
+		//	return missionVM;
+
 		//}
 
-		// Method for Get Data for Edit Mission 
+
+
+
+
 		public Mission getDataForMissionEdit(long mId)
 		{
             //var mission = _ciPlatformContext.Missions.Where(x => x.MissionId == mId).FirstOrDefault();
             var mission = _ciPlatformContext.Missions.Include(m => m.MissionMedia).FirstOrDefault(m => m.MissionId == mId);
+            return mission;
+		}	
+		public Mission getDataforDocEdit(long mId)
+		{
+            //var mission = _ciPlatformContext.Missions.Where(x => x.MissionId == mId).FirstOrDefault();
+            var mission = _ciPlatformContext.Missions.Include(m => m.MissionDocuments).FirstOrDefault(m => m.MissionId == mId);
             return mission;
 		}
 

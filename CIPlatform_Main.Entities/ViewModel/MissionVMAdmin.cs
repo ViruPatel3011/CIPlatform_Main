@@ -59,7 +59,7 @@ namespace CIPlatform_Main.Entities.ViewModel
 		public string? status { get; set; }
 
 		[Required(ErrorMessage = "Status Is Required")]
-		public string missionType { get; set; }
+		public string missionType { get; set; }	
 
 		[Required(ErrorMessage = "Please Select Images")]
 

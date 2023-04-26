@@ -117,8 +117,9 @@ namespace CIPlatform_Main.Controllers
 		}
 
 		// Method for CMS Page Edit Section
-		public IActionResult MissionEdit()
+		public IActionResult MissionEdit(long missionId)
 		{
+			//var singleMission = _admin.singleMissionForEdit(missionId);
 			var missionData = _admin.getMissionList();
 			var missionTheme = _admin.getMissionThemeList();
 			var skill = _admin.getSkillsList();
@@ -386,7 +387,7 @@ namespace CIPlatform_Main.Controllers
 		//}
 
 		// Second 
-		public IActionResult AddMissionPageData(MissionVMAdmin missionVM,List<long> listOfSkill)
+		public IActionResult AddMissionPageData(MissionVMAdmin missionVM, List<long> listOfSkill)
 		{
 			var dataAdd = _admin.AddMissionPagedata(missionVM, listOfSkill);
 			if (dataAdd)
@@ -406,7 +407,9 @@ namespace CIPlatform_Main.Controllers
 		public IActionResult getDataForEditMission(long mId)
 		{
 			var data = _admin.getDataForMissionEdit(mId);
+			var docData = _admin.getDataforDocEdit(mId);
             var imageUrl = data.MissionMedia.Select(m => m.MediaPath).ToArray();
+			var docsurl = docData.MissionDocuments.Select(m => m.DocumentPath).ToArray();
             return Json(new
 			{
 				mText = data.Title,
@@ -422,7 +425,9 @@ namespace CIPlatform_Main.Controllers
 				mTheme = data.ThemeId,
 				mAvailability = data.Availability,
                 imageUrls = imageUrl,
+				documentUrls = docsurl,
                 mEditid = mId
+
 
 			});
 		}

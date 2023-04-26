@@ -74,8 +74,17 @@ namespace CIPlatform_Main.Repository.Repository
 			var userData = _ciPlatformContext.Users.ToList();
 			mrv.UserData = userData;
 
+			
 			var missionrate = _ciPlatformContext.MissionRatings.Where(x => x.MissionId == missionId).Select(x=>x.Rating).ToList();
+			try
+			{
+
 			mrv.missionRate = (int)missionrate.Average();
+			}
+			catch
+			{
+				mrv.missionRate = 0;
+            }
 
 			MissionRating? rateofUser = _ciPlatformContext.MissionRatings.Where(x => x.UserId == Convert.ToInt32(uid) && x.MissionId == missionId).FirstOrDefault();
 			if (rateofUser != null)

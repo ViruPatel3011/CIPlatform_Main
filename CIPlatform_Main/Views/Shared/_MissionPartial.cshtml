@@ -15,6 +15,7 @@
 		margin-top: 20px
 	}
 </style>
+
 <!-- Right Part Div for Tables -->
 <div class="col-12 col-xl-11 col-lg-9 col-md-11 ">
 
@@ -73,8 +74,12 @@
 
 								<td class="p-0 pt-2 px-1 d-flex">
 									<div class="mb-2">
-										<button type="button" 
-												 class="border-0 bg-transparent" onclick="loadMissionData(@mission.MissionId)">
+										@*<button asp-asp-controller="Admin" asp-action="MissionEdit" asp-route-missionId="@mission.MissionId"
+				class="border-0 bg-transparent" >
+											<i class="bi bi-pencil-square text-warning"></i>
+										</button>*@
+										<button type="button"
+												class="border-0 bg-transparent" onclick="loadMissionData(@mission.MissionId)">
 											<i class="bi bi-pencil-square text-warning"></i>
 										</button>
 
@@ -228,14 +233,29 @@
 				//$('#documentInput').val(data.mdocument);
 				$('#missionEId').val(data.mEditid);
 
-				// Display images in the image-preview div
-				var imageUrls = data.imageUrls;
-				var imagePreview = $('#image-preview');
-				for (var i = 0; i < imageUrls.length; i++) {
-					var imageUrl = imageUrls[i];
-					var imageElement = $('<img>').attr('src', imageUrl);
-					imagePreview.append(imageElement);
+
+				// Below code is for load Documents
+				var documentPreview = $('.document-preview');
+				documentPreview.empty(); // clear any previously displayed documents
+
+				for (var i = 0; i < data.documentUrls.length; i++) {
+					var documentUrl = "/"+data.documentUrls[i];
+					var documentElement = $('<a>').attr('href', documentUrl).text('Document ' + (i + 1));
+					documentPreview.append(documentElement); // Append the document element to the document-preview div
 				}
+
+
+				// Below code is for load images
+				var imagePreview = $('.image-preview');
+				imagePreview.empty(); // clear any previously displayed images
+
+				for (var j = 0; j < data.imageUrls.length; j++) {
+					var imageUrl = "/"+data.imageUrls[j];
+					var imageElement = $('<img>').attr('src', imageUrl);
+					imagePreview.append(imageElement); // Append the image element to the image-preview div
+				}
+
+				
 			},
 			error: function (xhr, status, error) {
 				// Handle errors
