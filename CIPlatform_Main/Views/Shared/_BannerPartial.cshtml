@@ -117,74 +117,114 @@
 						</tr>
 					</thead>
 					<tbody>
-						@foreach (var banner in Model.BannerList)
+						@foreach (var banner in Model.BannerList.OrderBy(banner=>banner.SortOrder))
 						{
 							<tr>
 								<td scope="row">@banner.BannerId</td>
-								<td scope="row">@banner.Image</td>
+								<td scope="row text-center"><img src="data:image/png;base64,@banner.Image" style="width:100px;height:100px;" /></td>
 								<td scope="row">@banner.Text</td>
 								<td scope="row">@banner.SortOrder</td>
 								<td scope="row">@banner.CreatedAt</td>
 
 
 
-								<td class="p-0 pt-2 px-1 d-flex">
+								<td class="">
+									<div class="p-0 pt-2 px-1 d-flex">
+										<div class="mb-2">
+											<button type="button" data-bs-toggle="modal"
+													data-bs-target="#bannerModel" class="border-0 bg-transparent" onclick="loadBannerData(@banner.BannerId)">
+												<i class="bi bi-pencil-square text-warning"></i>
+											</button>
 
-									<div class="mb-2">
-										<button type="button" data-bs-toggle="modal"
-												data-bs-target="#bannerModel" class="border-0 bg-transparent" onclick="loadBannerData(@banner.BannerId)">
-											<i class="bi bi-pencil-square text-warning"></i>
-										</button>
+											<div class="modal fade" id="bannerModel" tabindex="-1"
+												 aria-labelledby="exampleModalLabel" aria-hidden="true">
+												<div class="modal-dialog modal-dialog-centered">
+													<div class="modal-content">
+														<div class="modal-header">
+															<h5 class="modal-title" id="exampleModalLabel">
+																Please Input for Mission Edit
+															</h5>
+															<button type="button" class="btn-close"
+																	data-bs-dismiss="modal" aria-label="Close"></button>
+														</div>
+														<form method="post" asp-controller="Admin" asp-action="EditBannerData" enctype="multipart/form-data">
+															@*missionid is for Data Edit post method and mid is for getdata for Edit*@
+															<input hidden name="bannerId" id="bid">
+															<div class="modal-body">
+																@*value="@goalMission.MissionId"*@
 
-										<div class="modal fade" id="bannerModel" tabindex="-1"
-											 aria-labelledby="exampleModalLabel" aria-hidden="true">
-											<div class="modal-dialog modal-dialog-centered">
-												<div class="modal-content">
-													<div class="modal-header">
-														<h5 class="modal-title" id="exampleModalLabel">
-															Please Input for Mission Edit
-														</h5>
-														<button type="button" class="btn-close"
-																data-bs-dismiss="modal" aria-label="Close"></button>
-													</div>
-													<form method="post" asp-controller="Admin" asp-action="EditBannerData" enctype="multipart/form-data">
-														@*missionid is for Data Edit post method and mid is for getdata for Edit*@
-														<input hidden name="bannerId" id="bid">
-														<div class="modal-body">
-															@*value="@goalMission.MissionId"*@
 
-															
-															
-															<div class="mb-3">
-																<label for="exampleFormControlInput1"
-																	   class="form-label">Banner text</label>
-																<input type="text" class="form-control " id="bannertTextE" asp-for="bannerText">
-																<span asp-validation-for="bannerText" class="text-danger"></span>
-															</div>
-															<div class="mb-3">
-																<label for="exampleFormControlInput1"
-																	   class="form-label">Sort Order</label>
-																<input type="text" class="form-control " id="sortOrderE" asp-for="sortOrder">
-																<span asp-validation-for="sortOrder" class="text-danger"></span>
-															</div>
-															<div class="mb-3">
-																<label for="exampleFormControlInput1"
-																	   class="form-label">Created at</label>
-																<input type="text" class="form-control " id="CreateDateE" asp-for="CreatedAt" disabled>
-																<span asp-validation-for="CreatedAt" class="text-danger"></span>
-															</div>
 
-															<div class="mb-3">
-																<label for="exampleFormControlInput1"
-																	   class="form-label">Banner Image</label>
-																<input type="file" class="form-control" id="banImageE" asp-for="bannerImage">
-																<span asp-validation-for="bannerImage" class="text-danger"></span>
-															</div>
-															<div class="mb-3">
-																<label for="exampleFormControlInput1"
-																	   class="form-label">Banner Image</label>
-																<div id="img_priview_edit">
+																<div class="mb-3">
+																	<label for="exampleFormControlInput1"
+																		   class="form-label">Banner text</label>
+																	<input type="text" class="form-control " id="bannertTextE" asp-for="bannerText">
+																	<span asp-validation-for="bannerText" class="text-danger"></span>
 																</div>
+																<div class="mb-3">
+																	<label for="exampleFormControlInput1"
+																		   class="form-label">Sort Order</label>
+																	<input type="text" class="form-control " id="sortOrderE" asp-for="sortOrder">
+																	<span asp-validation-for="sortOrder" class="text-danger"></span>
+																</div>
+																<div class="mb-3">
+																	<label for="exampleFormControlInput1"
+																		   class="form-label">Created at</label>
+																	<input type="text" class="form-control " id="CreateDateE" asp-for="CreatedAt" disabled>
+																	<span asp-validation-for="CreatedAt" class="text-danger"></span>
+																</div>
+
+																<div class="mb-3">
+																	<label for="exampleFormControlInput1"
+																		   class="form-label">Banner Image</label>
+																	<input type="file" class="form-control" id="banImageE" asp-for="bannerImage">
+																	<span asp-validation-for="bannerImage" class="text-danger"></span>
+																</div>
+																<div class="mb-3">
+																	<label for="exampleFormControlInput1"
+																		   class="form-label">Banner Image</label>
+																	<div id="img_priview_edit">
+																	</div>
+																</div>
+
+															</div>
+															<div class="modal-footer">
+																<button type="button" class="btn btn-outline-dark"
+																		style="border-radius:50px"
+																		data-bs-dismiss="modal">
+																	Cancel
+																</button>
+																<button type="submit" class="btn btn-outline-warning"
+																		style="border-radius:50px">
+																	Edit
+																</button>
+															</div>
+														</form>
+													</div>
+												</div>
+											</div>
+
+										</div>
+										<div>
+											<button type="button" data-bs-toggle="modal"
+													data-bs-target="#exampleModalGoalForDecline"
+													class="border-0 bg-transparent" onclick="getidForBanner(@banner.BannerId)">
+												<i class="bi bi-trash3 text-dark"></i>
+											</button>
+											<div class="modal fade" id="exampleModalGoalForDecline" tabindex="-1"
+												 aria-labelledby="exampleModalLabel" aria-hidden="true">
+												<div class="modal-dialog modal-dialog-centered">
+													<div class="modal-content">
+														<div class="modal-header">
+															<h5 class="modal-title" id="exampleModalLabel">Confirm Delete</h5>
+															<button type="button" class="btn-close"
+																	data-bs-dismiss="modal" aria-label="Close"></button>
+														</div>
+														<div class="modal-body">
+
+															<div class="mb-3">
+																<label for="exampleFormControlInput1"
+																	   class="form-label">Are you sure you want to Delete Banner??</label>
 															</div>
 
 														</div>
@@ -194,55 +234,18 @@
 																	data-bs-dismiss="modal">
 																Cancel
 															</button>
-															<button type="submit" class="btn btn-outline-warning"
-																	style="border-radius:50px">
-																Edit
+															<button type="button" class="btn btn-outline-warning"
+																	style="border-radius:50px" data-bs-dismiss="modal" onclick="deleteBanner()">
+																Delete
 															</button>
 														</div>
-													</form>
-												</div>
-											</div>
-										</div>
-
-									</div>
-									<div>
-										<button type="button" data-bs-toggle="modal"
-												data-bs-target="#exampleModalGoalForDecline"
-												class="border-0 bg-transparent" onclick="getidForBanner(@banner.BannerId)">
-											<i class="bi bi-trash3 text-dark"></i>
-										</button>
-										<div class="modal fade" id="exampleModalGoalForDecline" tabindex="-1"
-											 aria-labelledby="exampleModalLabel" aria-hidden="true">
-											<div class="modal-dialog modal-dialog-centered">
-												<div class="modal-content">
-													<div class="modal-header">
-														<h5 class="modal-title" id="exampleModalLabel">Confirm Delete</h5>
-														<button type="button" class="btn-close"
-																data-bs-dismiss="modal" aria-label="Close"></button>
-													</div>
-													<div class="modal-body">
-
-														<div class="mb-3">
-															<label for="exampleFormControlInput1"
-																   class="form-label">Are you sure you want to Delete Banner??</label>
-														</div>
-
-													</div>
-													<div class="modal-footer">
-														<button type="button" class="btn btn-outline-dark"
-																style="border-radius:50px"
-																data-bs-dismiss="modal">
-															Cancel
-														</button>
-														<button type="button" class="btn btn-outline-warning"
-																style="border-radius:50px" data-bs-dismiss="modal" onclick="deleteBanner()">
-															Delete
-														</button>
 													</div>
 												</div>
 											</div>
 										</div>
 									</div>
+
+									
 
 
 								</td>
@@ -346,7 +349,7 @@
 			},
 			success: function (data) {
 				console.log(data);
-				var imageUrl = data.image;
+				var imageUrl = "data:image/png;base64," + data.image;
 				//alert(imageUrl);
 				var img = $('<img>').attr('src', imageUrl).width(70).height(70).css('margin-right', '10px');
 				console.log(imageUrl);

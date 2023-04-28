@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
+using Microsoft.VisualBasic.FileIO;
 using System.Diagnostics.Contracts;
 using System.Diagnostics.Eventing.Reader;
 using System.Reflection;
@@ -943,6 +944,7 @@ namespace CIPlatform_Main.Repository.Repository
 		{
 			byte[] imageData;
 			string base64ImageString = null;
+			string fileType = null;
 			if (banner.bannerImage != null && banner.bannerImage.Length > 0)
 			{
 				// Read the image data into a byte array
@@ -952,13 +954,15 @@ namespace CIPlatform_Main.Repository.Repository
 					imageData = ms.ToArray();
 				}
 
+				// Get the file type from the content type of the uploaded file
+				fileType = banner.bannerImage.ContentType;
+
 				// Encode the image data as a base64 string
 				base64ImageString = Convert.ToBase64String(imageData);
 			}
-
 			Banner ban = new Banner()
 			{
-				Image = base64ImageString, // Use the base64 string instead of the file path
+				Image = base64ImageString, // Use the "data:{fileType};base64,{base64String}" format
 				Text = banner.bannerText,
 				SortOrder = banner.sortOrder,
 				CreatedAt = DateTime.Now,
@@ -969,9 +973,12 @@ namespace CIPlatform_Main.Repository.Repository
 				return false; // Return false if sortOrder already exists
 			}
 
+			// Save the banner object to the database
 			_ciPlatformContext.Banners.Add(ban);
 			_ciPlatformContext.SaveChanges();
+
 			return true;
+
 		}
 
 		//public bool AddBanneData(string textB, string imageB, int sOrderB, DateTime dateB)
@@ -1004,34 +1011,38 @@ namespace CIPlatform_Main.Repository.Repository
 		public bool EditBannerPageData(AdminViewModel banner, long bannerId)
 		{
 			var bannerPageId = _ciPlatformContext.Banners.Where(x => x.BannerId == bannerId).FirstOrDefault();
-			var fileName = banner.bannerImage?.FileName;
-			//var fileType = advm.bannerImage.ContentType;
-
-			using (var fileStream = banner.bannerImage.OpenReadStream())
+			if (banner.bannerImage == null)
 			{
-				var filePath = Path.Combine("\\MissionImgDcouments", fileName);
-				using (var fStream = new FileStream(Path.Combine("wwwroot", "MissionImgDcouments", fileName), FileMode.Create))
-				{
-					banner.bannerImage.CopyTo(fStream);
-					if (bannerPageId != null)
-					{
+                bannerPageId.Text = banner.bannerText;
+                bannerPageId.Image = bannerPageId.Image;
+                bannerPageId.SortOrder = banner.sortOrder;
+                bannerPageId.UpdatedAt = DateTime.Now;
+                _ciPlatformContext.Banners.Update(bannerPageId);
+                _ciPlatformContext.SaveChanges();
+                return true;
+            }
+            using (var memoryStream = new MemoryStream())
+            {
+                banner.bannerImage.CopyTo(memoryStream);
+                var imageBytes = memoryStream.ToArray();
+                var base64String = Convert.ToBase64String(imageBytes);
 
-						bannerPageId.Text = banner.bannerText;
-						bannerPageId.Image = filePath;
-						bannerPageId.SortOrder = banner.sortOrder;
-						bannerPageId.CreatedAt = banner.CreatedAt;
-						_ciPlatformContext.Banners.Update(bannerPageId);
-						_ciPlatformContext.SaveChanges();
-						return true;
-					}
-					else
-					{
-						return false;
-
-					}
-				}
-			}
-		}
+                if (bannerPageId != null)
+                {
+                    bannerPageId.Text = banner.bannerText;
+                    bannerPageId.Image = base64String;
+                    bannerPageId.SortOrder = banner.sortOrder;
+                    bannerPageId.UpdatedAt= DateTime.Now;
+                    _ciPlatformContext.Banners.Update(bannerPageId);
+                    _ciPlatformContext.SaveChanges();
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+        }
 
 		public bool deleteBannerPageData(long bannerPageId)
 		{

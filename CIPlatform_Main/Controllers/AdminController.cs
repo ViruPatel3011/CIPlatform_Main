@@ -220,12 +220,12 @@ namespace CIPlatform_Main.Controllers
 			if (userDataAdded)
 			{
 				TempData["Success Message"] = "User Added Successfully";
-				return RedirectToAction("User", "Admin");
+				return RedirectToAction("UserPage", "Admin");
 			}
 			else
 			{
 				TempData["Error Message"] = "User already Exist!";
-				return RedirectToAction("User", "Admin");
+				return RedirectToAction("UserPage", "Admin");
 
 			}
 			
@@ -260,13 +260,13 @@ namespace CIPlatform_Main.Controllers
 			{
 
 				TempData["Success Message"] = "Data Edited Successfully";
-                return Json(new { redirectUrl = Url.Action("User", "Admin") });
+                return Json(new { redirectUrl = Url.Action("UserPage", "Admin") });
 
             }
 			else
 			{
                 TempData["Error Message"] = "Data Not Edited ";
-                return Json(new { redirectUrl = Url.Action("User", "Admin") });
+                return Json(new { redirectUrl = Url.Action("UserPage", "Admin") });
             }
 		}
 		public IActionResult EditUserPageData(AdminViewModel adminView,long userId)
@@ -276,13 +276,13 @@ namespace CIPlatform_Main.Controllers
 			{
 
 				TempData["Success Message"] = "Data Edited Successfully";
-				return RedirectToAction("User", "Admin");
+				return RedirectToAction("UserPage", "Admin");
 
 			}
 			else
 			{
 				TempData["Error Message"] = "Data Not Edited ";
-				return RedirectToAction("User", "Admin");
+				return RedirectToAction("UserPage", "Admin");
 			}
 		}
 
@@ -293,12 +293,12 @@ namespace CIPlatform_Main.Controllers
             if (removeUserData)
             {
                 TempData["Success Message"] = "User Deleted Successfully";
-                return Json(new { redirectUrl = Url.Action("User", "Admin") });
+                return Json(new { redirectUrl = Url.Action("UserPage", "Admin") });
             }
             else
             {
                 TempData["Error Message"] = "Can't Able to delete Because User already used SomeWhere";
-                return Json(new { redirectUrl = Url.Action("User", "Admin") });
+                return Json(new { redirectUrl = Url.Action("UserPage", "Admin") });
             }
         }
 
@@ -365,7 +365,7 @@ namespace CIPlatform_Main.Controllers
 		{
 			_admin.EditCMSPageData(adminView, cmsPageid);
 			TempData["Success Message"] = "Data edited successfully";
-			return RedirectToAction("User", "Admin");
+			return RedirectToAction("CMSPage", "Admin");
 
 		}
 
@@ -397,12 +397,12 @@ namespace CIPlatform_Main.Controllers
 			if (dataAdd)
 			{
                 TempData["Success Message"] = "Data  Added Successfully";
-                return RedirectToAction("User", "Admin");
+                return RedirectToAction("MissionPage", "Admin");
             }
             else
             {
                 TempData["Error Message"] = "Data not Added Successfully";
-                return RedirectToAction("User", "Admin");
+                return RedirectToAction("MissionPage", "Admin");
             }
         }
 
@@ -459,7 +459,7 @@ namespace CIPlatform_Main.Controllers
 		{
 			_admin.editMissionPageData(missionVM, mPageEditId);
             TempData["Success Message"] = "Mission Deleted Successfully";
-            return Json(new { redirectUrl = Url.Action("User", "Admin") });
+            return Json(new { redirectUrl = Url.Action("MissionPage", "Admin") });
 
         }
 
@@ -471,12 +471,12 @@ namespace CIPlatform_Main.Controllers
 			if (removeMissionData)
 			{
 				TempData["Success Message"] = "Mission Deleted Successfully";
-				return Json(new { redirectUrl = Url.Action("User", "Admin") });
+				return Json(new { redirectUrl = Url.Action("MissionPage", "Admin") });
 			}
 			else
 			{
 				TempData["Error Message"] = "Can't Able to delete Mission";
-				return Json(new { redirectUrl = Url.Action("User", "Admin") });
+				return Json(new { redirectUrl = Url.Action("MissionPage", "Admin") });
 			}
 
 		}
@@ -494,12 +494,12 @@ namespace CIPlatform_Main.Controllers
 			if (missionThemeAdded)
 			{
 				TempData["Success Message"] = "MissionTheme Added Successfully";
-				return Json(new { redirectUrl = Url.Action("User", "Admin") });
+				return Json(new { redirectUrl = Url.Action("MissionThemePage", "Admin") });
 			}
 			else
 			{
 				TempData["Error Message"] = "MissionTheme can't Add ";
-				return Json(new { redirectUrl = Url.Action("User", "Admin") });
+				return Json(new { redirectUrl = Url.Action("MissionThemePage", "Admin") });
 			}
 		}
 
@@ -527,7 +527,7 @@ namespace CIPlatform_Main.Controllers
 		{
 			_admin.EditDataForMissionTheme(adminView, missionThemeid);
 			TempData["Success Message"] = "Data edited successfully";
-			return RedirectToAction("User", "Admin");
+			return RedirectToAction("MissionThemePage", "Admin");
 
 		}
 
@@ -538,12 +538,12 @@ namespace CIPlatform_Main.Controllers
 			if (removeMissionThemeData)
 			{
 				TempData["Success Message"] = "MissionTheme Deleted Successfully";
-				return Json(new { redirectUrl = Url.Action("User", "Admin") });
+				return Json(new { redirectUrl = Url.Action("MissionThemePage", "Admin") });
 			}
 			else
 			{
 				TempData["Error Message"] = "Can't Able to delete MissionTheme";
-				return Json(new { redirectUrl = Url.Action("User", "Admin") });
+				return Json(new { redirectUrl = Url.Action("MissionThemePage", "Admin") });
 			}
 		}
 		//**************   MissionTheme Page Methods END    ***************///
@@ -559,12 +559,12 @@ namespace CIPlatform_Main.Controllers
 			if (missionappAdded)
 			{
 				TempData["Success Message"] = "MissionApplication Added Successfully";
-				return Json(new { redirectUrl = Url.Action("User", "Admin") });
+				return Json(new { redirectUrl = Url.Action("MissionApplicationPage", "Admin") });
 			}
 			else
 			{
 				TempData["Error Message"] = "MissionApplication can't Add ";
-				return Json(new { redirectUrl = Url.Action("User", "Admin") });
+				return Json(new { redirectUrl = Url.Action("MissionApplicationPage", "Admin") });
 			}
 		}
 
@@ -577,12 +577,12 @@ namespace CIPlatform_Main.Controllers
 			if (approved)
 			{
 				TempData["Success Message"] = "User Approved Successfully";
-				return Json(new { redirectUrl = Url.Action("User", "Admin") });
+				return Json(new { redirectUrl = Url.Action("MissionApplicationPage", "Admin") });
 			}
 			else
 			{
 				TempData["Error Message"] = "User not approved";
-				return Json(new { redirectUrl = Url.Action("User", "Admin") });
+				return Json(new { redirectUrl = Url.Action("MissionApplicationPage", "Admin") });
 			}
 		}
 
@@ -594,12 +594,12 @@ namespace CIPlatform_Main.Controllers
 			if (rejected)
 			{
 				TempData["Success Message"] = "User Approved Successfully";
-				return Json(new { redirectUrl = Url.Action("User", "Admin") });
+				return Json(new { redirectUrl = Url.Action("MissionApplicationPage", "Admin") });
 			}
 			else
 			{
 				TempData["Error Message"] = "User not approved";
-				return Json(new { redirectUrl = Url.Action("User", "Admin") });
+				return Json(new { redirectUrl = Url.Action("MissionApplicationPage", "Admin") });
 			}
 		}
 		//**************   MissionApplication Page Methods END    ***************///
@@ -618,12 +618,12 @@ namespace CIPlatform_Main.Controllers
 			if (skillAdd)
 			{
 				TempData["Success Message"] = "Skill Added Successfully";
-				return Json(new { redirectUrl = Url.Action("User", "Admin") });
+				return Json(new { redirectUrl = Url.Action("MissionSkillsPage", "Admin") });
 			}
 			else
 			{
 				TempData["Error Message"] = "Skill not Added";
-				return Json(new { redirectUrl = Url.Action("User", "Admin") });
+				return Json(new { redirectUrl = Url.Action("MissionSkillsPage", "Admin") });
 			}
 		}
 
@@ -647,7 +647,7 @@ namespace CIPlatform_Main.Controllers
 		{
 			_admin.EditSkillPageData(skillName, missionSkillid);
 			TempData["Success Message"] = "Data edited successfully";
-			return RedirectToAction("User", "Admin");
+			return RedirectToAction("MissionSkillsPage", "Admin");
 		}
 
 		// Method for Delete Skills data
@@ -657,12 +657,12 @@ namespace CIPlatform_Main.Controllers
 			if (deleteSkill)
 			{
 				TempData["Success Message"] = "Skill Deleted Successfully";
-				return Json(new { redirectUrl = Url.Action("User", "Admin") });
+				return Json(new { redirectUrl = Url.Action("MissionSkillsPage", "Admin") });
 			}
 			else
 			{
 				TempData["Error Message"] = "Skill not Deleted";
-				return Json(new { redirectUrl = Url.Action("User", "Admin") });
+				return Json(new { redirectUrl = Url.Action("MissionSkillsPage", "Admin") });
 			}
 		}
 		//**************   MissionSkill Page Methods END    ***************///
@@ -677,7 +677,7 @@ namespace CIPlatform_Main.Controllers
 		{
 			_admin.StoryApprovedByAdmin(stId);
 			TempData["Success Message"] = "Story Approved";
-			return Json(new { redirectUrl = Url.Action("User", "Admin") });
+			return Json(new { redirectUrl = Url.Action("StoryPage", "Admin") });
 
 		}
 		
@@ -685,14 +685,14 @@ namespace CIPlatform_Main.Controllers
 		{
 			_admin.StoryDeclinedByAdmin(storyid);
 			TempData["Success Message"] = "Story Declined";
-			return Json(new { redirectUrl = Url.Action("User", "Admin") });
+			return Json(new { redirectUrl = Url.Action("StoryPage", "Admin") });
 
 		}
 		public IActionResult AdminDeleteStory(long dSId)
 		{
 			_admin.StoryDeletedByAdmin(dSId);
 			TempData["Success Message"] = "Story Deleted";
-			return Json(new { redirectUrl = Url.Action("User", "Admin") });
+			return Json(new { redirectUrl = Url.Action("StoryPage", "Admin") });
 
 		}
 
@@ -710,12 +710,12 @@ namespace CIPlatform_Main.Controllers
 			{
 
 			TempData["Success Message"] = "Banner Added";
-			return RedirectToAction("User", "Admin");
+			return RedirectToAction("BannerPage", "Admin");
 			}
 			else
 			{
 				TempData["Error Message"] = "Sort order already Exist!";
-				return RedirectToAction("User", "Admin");
+				return RedirectToAction("BannerPage", "Admin");
 			}
 		}
 		
@@ -747,7 +747,7 @@ namespace CIPlatform_Main.Controllers
 		{
 			_admin.EditBannerPageData(banner, bannerId);
 			TempData["Success Message"] = "Banner Edited";
-			return RedirectToAction("User", "Admin");
+			return RedirectToAction("BannerPage", "Admin");
 		}
 
 		public IActionResult deleteBannerData(long bannerPageId)
@@ -756,12 +756,12 @@ namespace CIPlatform_Main.Controllers
 			if(delete)
 			{
 				TempData["Success Message"] = "Banner Deleted";
-				return RedirectToAction("User", "Admin");
+				return RedirectToAction("BannerPage", "Admin");
 			}
 			else
 			{
 				TempData["Error Message"] = "Banner not Deleted";
-				return RedirectToAction("User", "Admin");
+				return RedirectToAction("BannerPage", "Admin");
 			}
 		}
 	}
