@@ -27,7 +27,7 @@ namespace CIPlatform_Main.Repository.Repository
 		{
 			storyListingVM tsm = new storyListingVM()
 			{
-				stories = _ciPlatformContext.Stories.ToList(),
+				stories = _ciPlatformContext.Stories.Where(story=>story.Status=="Approved").ToList(),
 				users = _ciPlatformContext.Users.ToList(),
 				missionTheme = _ciPlatformContext.MissionThemes.ToList(),
 				allCities = _ciPlatformContext.Cities.ToList(),

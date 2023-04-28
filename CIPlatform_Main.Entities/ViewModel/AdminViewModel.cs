@@ -23,8 +23,8 @@ namespace CIPlatform_Main.Entities.ViewModel
 
 		[Required(ErrorMessage = "Password is required")]
 		[DataType(DataType.Password)]
-		[StringLength(10, MinimumLength = 6)]
-		[RegularExpression("([a-z]|[A-Z]|[0-9]|[\\W]){4}[a-zA-Z0-9\\W]{3,11}", ErrorMessage = "Invalid password format")]
+		[StringLength(20, MinimumLength = 8, ErrorMessage = "Password must be at least 8 characters")]
+		[RegularExpression(@"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_])[a-zA-Z\d\W_]{8,}$", ErrorMessage = "Password must contain at least one uppercase letter, one lowercase letter, one digit, and one special character")]
 		public string UPassword { get; set; } = null!;
 
 		[RegularExpression("^([0-9]{10})$", ErrorMessage = "Invalid Mobile Number.")]

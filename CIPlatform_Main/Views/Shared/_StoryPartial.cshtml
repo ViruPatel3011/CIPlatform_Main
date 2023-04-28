@@ -71,7 +71,7 @@
 								<td scope="row">@story.Title</td>
 								<td scope="row">@username</td>
 								<td scope="row">@missionTitle</td>
-								@if (story.Status == "Published")
+								@if (story.Status == "Approved")
 								{
 									<td class="text-success" scope="row">@story.Status</td>
 								}
@@ -88,7 +88,7 @@
 
 
 								<td class="p-0 pt-2 px-1 d-flex">
-									<div class="mb-2" style="border: 2px solid #ffb100;border-radius: 44%;width: 30%;">
+									<div class="mb-2" style="border: 2px solid #F88634;border-radius: 44%;width: 30%;">
 										<input hidden name="userId" id="userId" />
 										<input hidden name="missionId" id="missionId" />
 										<input hidden name="view" id="views" />

@@ -416,7 +416,7 @@ namespace CIPlatform_Main.Controllers
 				mDesc = data.Description,
 				mSdesc = data.ShortDescription,
 				country = data.CountryId,
-				city = data.CityId,
+				city = data.CityId,	
 				mOrgN = data.OrganizationName,
 				mOrgD = data.OrganizationDetail,
 				mSDate = data.StartDate,
@@ -686,9 +686,18 @@ namespace CIPlatform_Main.Controllers
 		//**************   Banner Page Methods START***************///
 		public IActionResult AddBannerData(BannerVM banner)
 		{
-			_admin.AddbannerPageData(banner);
+			var bannerAdd=_admin.AddbannerPageData(banner);
+			if (bannerAdd)
+			{
+
 			TempData["Success Message"] = "Banner Added";
 			return RedirectToAction("User", "Admin");
+			}
+			else
+			{
+				TempData["Error Message"] = "Sort order already Exist!";
+				return RedirectToAction("User", "Admin");
+			}
 		}
 		
 

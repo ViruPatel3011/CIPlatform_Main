@@ -45,11 +45,11 @@ namespace CIPlatform_Main.Repository.Repository
             return adminList;
         }
 
-        //public List<Banner> getBannerList()
-        //{
-        //    List<Banner> bannerList = _ciPlatformContext.Banners.ToList();
-        //    return bannerList;
-        //}
+        public List<Banner> getBannerList()
+        {
+            List<Banner> bannerList = _ciPlatformContext.Banners.ToList();
+            return bannerList;
+        }
 
     }
 }

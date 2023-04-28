@@ -35,9 +35,11 @@ namespace CIPlatform_Main.Entities.ViewModel
 		[Required(ErrorMessage = "Old Password is Required")]
 		public string? OldPassword { get; set; }
 
-		[Required(ErrorMessage = "Password is Required")]
+		
+		[Required(ErrorMessage = "Password is required")]
 		[DataType(DataType.Password)]
-		[StringLength(10,MinimumLength =5)]
+		[StringLength(100, MinimumLength = 8)]
+		[RegularExpression(@"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$", ErrorMessage = "Password must contain at least one uppercase letter, one lowercase letter, one digit, and one special character.")]
 		public string? Password { get; set; }
 
 		[Required(ErrorMessage = "Confirm Password is Required")]

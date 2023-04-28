@@ -469,8 +469,7 @@ public partial class CiPlatformContext : DbContext
                 .IsUnicode(false)
                 .HasColumnName("document_name");
             entity.Property(e => e.DocumentPath)
-                .HasMaxLength(255)
-                .IsUnicode(false)
+                .HasColumnType("text")
                 .HasColumnName("document_path");
             entity.Property(e => e.DocumentType)
                 .HasMaxLength(255)
@@ -546,7 +545,7 @@ public partial class CiPlatformContext : DbContext
                 .HasMaxLength(255)
                 .HasColumnName("media_name");
             entity.Property(e => e.MediaPath)
-                .HasMaxLength(255)
+                .HasColumnType("text")
                 .HasColumnName("media_path");
             entity.Property(e => e.MediaType)
                 .HasMaxLength(255)

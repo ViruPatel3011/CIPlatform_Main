@@ -692,7 +692,7 @@ namespace CIPlatform_Main.Repository.Repository
 			var storyid=_ciPlatformContext.Stories.Where(x=>x.StoryId==stId).FirstOrDefault();
 			if(storyid != null)
 			{
-				storyid.Status = "Published";
+				storyid.Status = "Approved";
 				_ciPlatformContext.Stories.Update(storyid);
 				_ciPlatformContext.SaveChanges();
 				return true;
@@ -726,6 +726,7 @@ namespace CIPlatform_Main.Repository.Repository
 			if (storyId != null)
 			{
 				storyId.Status = "Deleted";
+				storyId.DeletedAt = DateTime.Now;
 				_ciPlatformContext.Stories.Update(storyId);
 				_ciPlatformContext.SaveChanges();
 				return true;
@@ -754,6 +755,12 @@ namespace CIPlatform_Main.Repository.Repository
 				CreatedAt = DateTime.Now,
 
 			};
+
+			if (_ciPlatformContext.Banners.Any(b => b.SortOrder == banner.sortOrder))
+			{
+				return false; // Return false if sortOrder already exists
+			}
+
 			_ciPlatformContext.Banners.Add(ban);
 			_ciPlatformContext.SaveChanges();
 			return true;

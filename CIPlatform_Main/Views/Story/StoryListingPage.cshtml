@@ -172,7 +172,9 @@
 		<div class="row">
 
 			<!-- Card 1 -->
-			@foreach (var story in Model.stories)
+			@{
+				var storyList = Model.stories.Where(x => x.Status == "Approved").ToList();
+				@foreach (var story in storyList)
 			{
 				<div class="col-12 col-md-6 col-lg-4">
 					<div class="card ">
@@ -245,6 +247,7 @@
 						</div>
 					</div>
 				</div>
+			}
 			}
 
 

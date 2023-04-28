@@ -40,11 +40,10 @@ namespace CIPlatform_Main.Controllers
         public IActionResult Admin(LoginVM loginVM)
         {
             List<Admin> adminList = _loginRepository.getValidAdmin();
-            var validAdmin = adminList.Where(x => x.Email == loginVM.Email);
+            var validAdmin = adminList.FirstOrDefault(x => x.Email == loginVM.Email);
             if (validAdmin != null)
             {
-                if (ModelState.IsValid)
-                {
+               
 
                     var status = _ciPlatformContext.Admins.Where(x => x.Email == loginVM.Email && x.Password == loginVM.Password ).FirstOrDefault();
                     if (status != null)
@@ -71,7 +70,7 @@ namespace CIPlatform_Main.Controllers
 
 
 
-                }
+                
             }
 
 
@@ -83,7 +82,13 @@ namespace CIPlatform_Main.Controllers
         [HttpGet]
         public IActionResult Login()
         {
-            return View();
+            var bannerlist = _loginRepository.getBannerList();
+            LoginVM login = new LoginVM() { 
+            
+             BannerList= bannerlist
+			};
+
+            return View(login);
         }
 
         [HttpPost]
@@ -91,11 +96,12 @@ namespace CIPlatform_Main.Controllers
         {
 
             List<User> userList = _loginRepository.GetUser();
-            var validUser = userList.Where(x => x.Email == loginVM.Email);
-            if (validUser != null)
+            List<Banner> banners = _loginRepository.getBannerList();
+            loginVM.BannerList = banners;
+			var validUser = userList.FirstOrDefault(x => x.Email == loginVM.Email);
+			if (validUser != null)
             {
-                if (ModelState.IsValid)
-                {
+               
                     var status = _ciPlatformContext.Users.Where(x => x.Email == loginVM.Email && x.Password == loginVM.Password && x.Status!= "Deactive").FirstOrDefault();
                     if (status != null)
                     {
@@ -120,12 +126,12 @@ namespace CIPlatform_Main.Controllers
                     }
 
 
-                }
+                
             }
 
 
             TempData["Error Message"] = "Enter Valid username Or Password!";
-            return View();
+            return View(loginVM);
         }
 
         public IActionResult Logout()

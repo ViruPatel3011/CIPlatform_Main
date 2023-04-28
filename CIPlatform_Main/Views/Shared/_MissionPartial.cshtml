@@ -21,7 +21,7 @@
 		  margin-right: 50px; /* add some space between images */
 }
 
-.cancel-icon {
+	.cancel-icon {
 	 position: absolute;
 		top: -9px;
 		right: -69px;
@@ -250,15 +250,53 @@
 				$('#missionEId').val(data.mEditid);
 
 
-				// Below code is for load Documents
+				//// Below code is for load Documents
+				//var documentPreview = $('.document-preview');
+				//documentPreview.empty(); // clear any previously displayed documents
+
+				//for (var i = 0; i < data.documentUrls.length; i++) {
+				//	var documentUrl = data.documentUrls[i];
+				//	var documentElement = $('<a>').attr('href', documentUrl).text('Document ' + (i + 1));
+				//	documentPreview.append(documentElement); // Append the document element to the document-preview div
+				//}
+
 				var documentPreview = $('.document-preview');
 				documentPreview.empty(); // clear any previously displayed documents
 
 				for (var i = 0; i < data.documentUrls.length; i++) {
 					var documentUrl = data.documentUrls[i];
 					var documentElement = $('<a>').attr('href', documentUrl).text('Document ' + (i + 1));
-					documentPreview.append(documentElement); // Append the document element to the document-preview div
+					documentElement.css({
+						'text-decoration': 'none',
+					     'color': 'black',
+					});
+
+					var cancelIcon = $('<span>').addClass('cancel-icon').html('&#10005;'); // create cancel icon element
+					cancelIcon.css({
+						'position': 'absolute',
+						'top': '-18px',
+						'right': '-4px',
+						'padding': ' 5px',
+						'cursor': 'pointer',
+						'width': '20px',
+						'height': '20px',
+					});
+					cancelIcon.click(function () {
+						$(this).parent().remove(); // remove the document container when the cancel icon is clicked
+					});
+
+					var documentContainer = $('<div>').addClass('document-container').append(documentElement, cancelIcon); // wrap document and cancel icon in container
+					documentContainer.css({
+						'position': 'relative',
+						'display': 'inline-block',
+						'margin-right': '50px',
+						'border': '2px solid black',
+						'border-radius': '50px',
+						'padding': '4px',
+					});
+					documentPreview.append(documentContainer); // Append the document container to the document-preview div
 				}
+
 
 
 				// Below code is for load images
@@ -268,8 +306,25 @@
 				for (var j = 0; j < data.imageUrls.length; j++) {
 					var imageUrl = data.imageUrls[j];
 					var imageElement = $('<img>').attr('src', imageUrl);
-					var cancelIcon = $('<span>').addClass('cancel-icon').html('&#10005;'); // create cancel icon element
+					var cancelIcon = $('<span>').addClass('cancel-icon').html('&#10005;') // create cancel icon element
+					 cancelIcon.css({
+						'position': 'absolute',
+							'top': '-9px',
+							'right': '-69px',
+							'padding':' 5px',
+							'cursor': 'pointer',
+							'width': '20px',
+							'height': '20px',
+					});
 					var imageContainer = $('<div>').addClass('image-container').append(imageElement, cancelIcon); // wrap image and cancel icon in container
+					imageContainer.css({
+						'position': 'relative',
+						'display': 'inline-block',
+						'margin-right': '80px',
+						'margin-bottom': '50px',
+						
+					});
+
 					imagePreview.append(imageContainer); // Append the image container to the image-preview div
 				}
 

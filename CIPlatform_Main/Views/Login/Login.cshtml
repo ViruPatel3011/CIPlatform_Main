@@ -50,7 +50,7 @@
             <div class="col-lg-8 col-md-12 col-sm-12 mt-2 mb-2 pe-0">
                 <div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="carousel">
                     <div class="carousel-indicators">
-                       @* @{
+                        @{
                             for (var i = 0; i < @Model.BannerList.Count(); i++)
                             {
                                 <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="@i"
@@ -59,16 +59,16 @@
                                         aria-label="Slide @(i+1)"></button>
 
                             }
-                        }*@
-                        <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0"
+                        }
+                       @* <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0"
                                 class="active" aria-current="true" aria-label="Slide 1"></button>
                         <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="1"
                                 aria-label="Slide 2"></button>
                         <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="2"
-                                aria-label="Slide 3"></button>
+                                aria-label="Slide 3"></button>*@
                     </div>
                     <div class="carousel-inner">
-                       @* @{
+                        @{
                             var isActive = 0;
                             @foreach (var banner in Model.BannerList.OrderBy(img => img.SortOrder))
                             {
@@ -109,8 +109,8 @@
                                     isActive = 1;
                                 }
                             }
-                        }*@
-                        <div class="carousel-item active">
+                        }
+                      @*  <div class="carousel-item active">
                             <img src="~/Assets/Grow-Trees-On-the-path-to-environment-sustainability-login.png"
                                  class="d-block w-100 img-fluid" alt="Image can't loaded">
                             <div class="carousel-caption d-none d-md-block">
@@ -151,7 +151,7 @@
                                     pariatur.
                                 </p>
                             </div>
-                        </div>
+                        </div>*@
                     </div>
 
 
