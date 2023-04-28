@@ -1,4 +1,4 @@
-﻿@model BannerVM
+﻿@model AdminViewModel
 
 
 <style>
@@ -17,6 +17,9 @@
 
 
 </style>
+@{
+	Layout = "~/Views/Admin/User.cshtml";
+}
 
 <!-- Right Part Div for Tables -->
 <div class="col-12 col-xl-11 col-lg-9 col-md-11 ">
@@ -167,7 +170,7 @@
 															<div class="mb-3">
 																<label for="exampleFormControlInput1"
 																	   class="form-label">Created at</label>
-																<input type="text" class="form-control " id="CreateDateE" asp-for="CreatedAt">
+																<input type="text" class="form-control " id="CreateDateE" asp-for="CreatedAt" disabled>
 																<span asp-validation-for="CreatedAt" class="text-danger"></span>
 															</div>
 

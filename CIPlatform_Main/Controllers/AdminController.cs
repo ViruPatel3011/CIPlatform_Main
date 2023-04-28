@@ -39,6 +39,7 @@ namespace CIPlatform_Main.Controllers
 
 
 		// Method for UserPage
+		[Authorize(Roles ="Admin")]
 		public IActionResult UserPage()
 		{
 			var userData = _admin.getUserList();
@@ -93,7 +94,7 @@ namespace CIPlatform_Main.Controllers
 		public IActionResult MissionPage()
 		{
 			var missions = _admin.getMissionList();
-			MissionVMAdmin missionModel = new MissionVMAdmin()
+			AdminViewModel missionModel = new AdminViewModel()
 			{
 				MissionList = missions,
 			};
@@ -107,7 +108,7 @@ namespace CIPlatform_Main.Controllers
 			var missionData = _admin.getMissionList();
 			var missionTheme = _admin.getMissionThemeList();
 			var skill = _admin.getSkillsList();
-			MissionVMAdmin missionModel1 = new MissionVMAdmin()
+			AdminViewModel missionModel1 = new AdminViewModel()
 			{
 				MissionList = missionData,
                 MissionThemeList= missionTheme,
@@ -117,23 +118,25 @@ namespace CIPlatform_Main.Controllers
 		}
 
 		// Method for CMS Page Edit Section
-		public IActionResult MissionEdit(long missionId)
+		public IActionResult MissionEdit(long mId)
 		{
 			//var singleMission = _admin.singleMissionForEdit(missionId);
-			var missionData = _admin.getMissionList();
-			var missionTheme = _admin.getMissionThemeList();
-			var skill = _admin.getSkillsList();
-			var country = _admin.getCountryList();
-			MissionVMAdmin missionEditModel = new MissionVMAdmin()
-			{
-				MissionList = missionData,
-				MissionThemeList = missionTheme,
-				SkillList = skill,
-				CountryList = country
-			};
-			return PartialView("_MissionPageEditRight", missionEditModel);
+			//var missionData = _admin.getMissionList();
+			//var missionTheme = _admin.getMissionThemeList();
+			//var skill = _admin.getSkillsList();
+			//var country = _admin.getCountryList();
+			//AdminViewModel missionEditModel = new AdminViewModel()
+			//{
+			//	MissionList = missionData,
+			//	MissionThemeList = missionTheme,
+			//	SkillList = skill,
+			//	CountryList = country
+			//};
+			var singleMission=_admin.getMissionData(mId);
+			return PartialView("_MissionPageEditRight", singleMission);
 		}
 
+	
 		// Method for MissionTheme Page
 		public IActionResult MissionThemePage()
 		{
@@ -198,7 +201,7 @@ namespace CIPlatform_Main.Controllers
 		public IActionResult BannerPage()
 		{
 			var bannerData = _admin.getBannerList();
-			BannerVM bannerModel = new BannerVM()
+			AdminViewModel bannerModel = new AdminViewModel()
 			{
 				BannerList = bannerData
 			};
@@ -338,6 +341,7 @@ namespace CIPlatform_Main.Controllers
 				return Json(new { redirectUrl = Url.Action("CMSPage", "Admin") });
 			}
 		}
+
 		[HttpGet]
 		public IActionResult getCMSDataForEdit(long cmsid)
 		{
@@ -387,7 +391,7 @@ namespace CIPlatform_Main.Controllers
 		//}
 
 		// Second 
-		public IActionResult AddMissionPageData(MissionVMAdmin missionVM, List<long> listOfSkill)
+		public IActionResult AddMissionPageData(AdminViewModel missionVM, List<long> listOfSkill)
 		{
 			var dataAdd = _admin.AddMissionPagedata(missionVM, listOfSkill);
 			if (dataAdd)
@@ -432,11 +436,26 @@ namespace CIPlatform_Main.Controllers
 			});
 		}
 
+		[HttpPost]
+		public IActionResult addEditedData(AdminViewModel adm,List<long> listOfSkill,long mId,List<IFormFile> images,List<IFormFile> Documents)
+		{
+			var dataEdit = _admin.EditMissionPageDatainDB(adm, listOfSkill, mId,images,Documents);
+			if (dataEdit)
+			{
+				TempData["Success Message"] = "Mission Edited Successfully";
+				return RedirectToAction("MissionPage", "Admin");
+			}
+			else
+			{
+				TempData["Success Message"] = "Mission Can't Edited Successfully";
+				return RedirectToAction("MissionPage", "Admin");
+			}
+		}
 
 		// Method for Edit Mission Data 
 
 		[HttpPost]
-		public IActionResult EditMissionPageData(MissionVMAdmin missionVM,long mPageEditId)
+		public IActionResult EditMissionPageData(AdminViewModel missionVM,long mPageEditId)
 		{
 			_admin.editMissionPageData(missionVM, mPageEditId);
             TempData["Success Message"] = "Mission Deleted Successfully";
@@ -684,7 +703,7 @@ namespace CIPlatform_Main.Controllers
 
 
 		//**************   Banner Page Methods START***************///
-		public IActionResult AddBannerData(BannerVM banner)
+		public IActionResult AddBannerData(AdminViewModel banner)
 		{
 			var bannerAdd=_admin.AddbannerPageData(banner);
 			if (bannerAdd)
@@ -724,7 +743,7 @@ namespace CIPlatform_Main.Controllers
 		}
 		
 
-		public IActionResult EditBannerData(BannerVM banner,long bannerId)
+		public IActionResult EditBannerData(AdminViewModel banner,long bannerId)
 		{
 			_admin.EditBannerPageData(banner, bannerId);
 			TempData["Success Message"] = "Banner Edited";

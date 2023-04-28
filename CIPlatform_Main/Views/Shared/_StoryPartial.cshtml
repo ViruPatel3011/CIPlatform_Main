@@ -14,6 +14,10 @@
 		margin-top: 20px
 	}
 </style>
+@{
+	Layout = "~/Views/Admin/User.cshtml";
+}
+
 
 <!-- Right Part Div for Tables -->
 <div class="col-12 col-xl-11 col-lg-9 col-md-11 ">
@@ -92,7 +96,7 @@
 										<input hidden name="userId" id="userId" />
 										<input hidden name="missionId" id="missionId" />
 										<input hidden name="view" id="views" />
-										<a class="text-warning mx-2" type="button" asp-controller="Story" asp-action="storyDetail" asp-route-storyId="@story.StoryId" asp-route-missionId="@story.MissionId" asp-route-userId ="@story.UserId" asp-route-views="@story.Viewscount">
+										<a class=" mx-2" type="button" asp-controller="Story" asp-action="storyDetail" asp-route-storyId="@story.StoryId" asp-route-missionId="@story.MissionId" asp-route-userId ="@story.UserId" asp-route-views="@story.Viewscount" style="color:#F88634;text-decoration:none;">
 											view
 										</a>
 									</div>

@@ -1,4 +1,5 @@
 ﻿using CIPlatform_Main.Entities.Models;
+using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -59,17 +60,13 @@ namespace CIPlatform_Main.Entities.ViewModel
 		public string CMSDescrition { get;set; }	
 		public string CMSSlug { get;set; }	
 		public string CMSStatus { get;set; }	
+		public long cmsId { get;set; }
 
 
 
 		public long storyId { get; set; }
 		// below field is for mission page
-		public string title { get; set; }
-		public string? status { get; set; }
-		public string missionType { get; set; }
 
-		public DateTime? startDate { get; set; }
-		public DateTime? endDate { get; set; }
 
 
 
@@ -127,5 +124,93 @@ namespace CIPlatform_Main.Entities.ViewModel
 
 
 
+		// banner Page Field
+		public long BannerId { get; set; }
+
+		[Required(ErrorMessage = "Image Is Required")]
+		public IFormFile? bannerImage { get; set; }
+
+		[Required(ErrorMessage = "BannerText Is Required")]
+		public string? bannerText { get; set; }
+
+		[Required(ErrorMessage = "SortOrder Is Required")]
+		public int? sortOrder { get; set; }
+
+		[Required(ErrorMessage = "CreatedAt Is Required")]
+		public DateTime CreatedAt { get; set; }
+
+		public IFormFile? bannerImageE { get; set; }
+
+
+
+
+		// below field is for mission page
+
+		//public long missionId { get; set; }
+		public long mId { get; set; }
+		public string title { get; set; }
+		public string? status { get; set; }
+		public string missionType { get; set; }
+
+		public DateTime? startDate { get; set; }
+		public DateTime? endDate { get; set; }
+
+	
+
+		[Required(ErrorMessage = "MissionShortDescription Is Required")]
+		public string? shortDescription { get; set; }
+
+		[Required(ErrorMessage = "MissionDescription Is Required")]
+		public string? description { get; set; }
+
+		//[Required(ErrorMessage = "City Is Required")]
+		public long cityId { get; set; }
+
+		//[Required(ErrorMessage = "Country Is Required")]
+		public long countryId { get; set; }
+
+		[Required(ErrorMessage = "MissionTheme Is Required")]
+		public long themeId { get; set; }
+
+		[Required(ErrorMessage = "Organizatiion Name Is Required")]
+		public string? organizationName { get; set; }
+
+		[Required(ErrorMessage = "Organization Detail Is Required")]
+
+		public string? organizationDetail { get; set; }
+
+	
+
+		//[Required(ErrorMessage = "Deadline Is Required")]
+		public DateTime? deadline { get; set; }
+
+		//[Required(ErrorMessage = "Total Seats Is Required")]
+
+		public long totalSeats { get; set; }
+
+		[Required(ErrorMessage = "Availability Is Required")]
+		public string? availability { get; set; }
+
+		
+	
+
+		[Required(ErrorMessage = "Please Select Images")]
+
+		public List<IFormFile> images { get; set; }
+		public List<string> editMissionImages { get; set; }
+
+		[Required(ErrorMessage = "Please Select Documents")]
+		public List<IFormFile> Documents { get; set; }
+		public List<string> editMissionDocuments { get; set; }
+
+		public List<string> imagepaths { get; set; }
+
+	
+		public List<MissionMedium> MissionMediaList { get; set; }
+	
+		public List<Skill> SkillList { get; set; }
+		public List<MissionSkill> MissionSkillList { get; set; }
+		public List<Country> CountryList { get; set; }
+		public List<City> CityList { get; set; }
 	}
 }

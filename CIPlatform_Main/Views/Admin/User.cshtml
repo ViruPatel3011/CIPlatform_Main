@@ -67,14 +67,14 @@
 				<ul class="nav nav-pills flex-column mb-auto mt-4 mt-lg-4 mt-md-5">
 
 					<li class="nav-item">
-						<a href="@Url.Action("UserPage","Admin")" class="nav-link sidebarcontent " aria-current="page" id="userSelectedBg">
+						<a asp-controller="Admin" asp-action="UserPage"  class="nav-link sidebarcontent " aria-current="page" id="userSelectedBg">
 
 							<i class="bi bi-person-fill sidebar-img "></i>
 							<lable class="d-block d-lg-block d-md-none">User</lable>
 						</a>
 					</li>
 					<li>
-						<a href="@Url.Action("CMSPage","Admin")" class="nav-link sidebarcontent ">
+						<a asp-controller="Admin" asp-action="CMSPage" class="nav-link sidebarcontent ">
 
 							<i class="bi bi-file-earmark-text-fill sidebar-img me-2"></i>
 
@@ -82,7 +82,7 @@
 						</a>
 					</li>
 					<li>
-						<a href="@Url.Action("MissionPage","Admin")" class="nav-link sidebarcontent">
+						<a asp-controller="Admin" asp-action="MissionPage" class="nav-link sidebarcontent">
 
 							<i class="bi bi-bullseye sidebar-img me-2"></i>
 
@@ -90,7 +90,7 @@
 						</a>
 					</li>
 					<li>
-						<a href="@Url.Action("MissionThemePage","Admin")" class="nav-link sidebarcontent">
+						<a asp-controller="Admin" asp-action="MissionThemePage" class="nav-link sidebarcontent">
 
 
 							<i class="bi bi-grid-1x2-fill sidebar-img me-2"></i>
@@ -99,7 +99,7 @@
 						</a>
 					</li>
 					<li>
-						<a href="@Url.Action("MissionSkillsPage","Admin")" class="nav-link sidebarcontent">
+						<a asp-controller="Admin" asp-action="MissionSkillsPage" class="nav-link sidebarcontent">
 
 							<i class="bi bi-tools sidebar-img me-2"></i>
 
@@ -107,7 +107,7 @@
 						</a>
 					</li>
 					<li>
-						<a href="@Url.Action("MissionApplicationPage","Admin")" class="nav-link sidebarcontent ">
+						<a asp-controller="Admin" asp-action="MissionApplicationPage" class="nav-link sidebarcontent ">
 
 							<i class="bi bi-folder-fill sidebar-img me-2"></i>
 
@@ -115,7 +115,7 @@
 						</a>
 					</li>
 					<li>
-						<a href="@Url.Action("StoryPage","Admin")" class="nav-link sidebarcontent">
+						<a asp-controller="Admin" asp-action="StoryPage" class="nav-link sidebarcontent">
 
 							<i class="bi bi-book-half sidebar-img me-2"></i>
 
@@ -123,7 +123,7 @@
 						</a>
 					</li>
 					<li>
-						<a href="@Url.Action("BannerPage","Admin")" class="nav-link sidebarcontent">
+						<a asp-controller="Admin" asp-action="BannerPage" class="nav-link sidebarcontent">
 
 							<i class="bi bi-border-style sidebar-img me-2"></i>
 
@@ -157,11 +157,11 @@
 							<div class="dropdown d-flex justify-content-end ">
 								<a class="btn btn-secondary  bg-transparent text-dark border-0 pt-0 policyDropdown p-0"
 								    role="button" data-bs-toggle="dropdown" aria-expanded="false">
-									@{
+									@*@{
 
 										<img src="@Model.UserList.Where(z=>z.UserId == Convert.ToUInt32(uid)).Select(x=>x.Avatar).FirstOrDefault()"
 											 class="rounded-circle mt-1 me-2" width="40px" height="40px" alt="">
-									}
+									}*@
 								</a>
 								<span class="mt-2 me-3">@name @surname</span>
 								<ul class="dropdown-menu">
@@ -173,7 +173,8 @@
 				</div>
 				<div class="row" id="loadSideBar">
 
-					@await Html.PartialAsync("~/Views/Shared/_UserPartial.cshtml")
+					@*@await Html.PartialAsync("~/Views/Shared/_UserPartial.cshtml")*@
+					@RenderBody();
 				</div>
 
 
@@ -211,14 +212,14 @@
 					<ul class="nav nav-pills flex-column mb-auto mt-3">
 
 						<li class="nav-item">
-							<a href="#1" class="nav-link sidebarcontent  " aria-current="page">
+							<a asp-controller="Admin" asp-action="UserPage" class="nav-link sidebarcontent  " aria-current="page">
 
 								<i class="bi bi-person-fill sidebar-img "></i>
 								<lable class="d-block d-lg-block d-md-none">User</lable>
 							</a>
 						</li>
 						<li>
-							<a href="#2" class="nav-link sidebarcontent ">
+							<a asp-controller="Admin" asp-action="CMSPage" class="nav-link sidebarcontent ">
 
 								<i class="bi bi-file-earmark-text-fill sidebar-img me-2"></i>
 
@@ -226,7 +227,7 @@
 							</a>
 						</li>
 						<li>
-							<a href="#3" class="nav-link sidebarcontent">
+							<a asp-controller="Admin" asp-action="MissionPage" class="nav-link sidebarcontent">
 
 								<i class="bi bi-bullseye sidebar-img me-2"></i>
 
@@ -234,7 +235,7 @@
 							</a>
 						</li>
 						<li>
-							<a href="#4" class="nav-link sidebarcontent">
+							<a asp-controller="Admin" asp-action="MissionThemePage" class="nav-link sidebarcontent">
 
 
 								<i class="bi bi-grid-1x2-fill sidebar-img me-2"></i>
@@ -243,7 +244,7 @@
 							</a>
 						</li>
 						<li>
-							<a href="#5" class="nav-link sidebarcontent">
+							<a asp-controller="Admin" asp-action="MissionSkillsPage" class="nav-link sidebarcontent">
 
 								<i class="bi bi-tools sidebar-img me-2"></i>
 
@@ -251,7 +252,7 @@
 							</a>
 						</li>
 						<li>
-							<a href="#6" class="nav-link sidebarcontent ">
+							<a asp-controller="Admin" asp-action="MissionApplicationPage" class="nav-link sidebarcontent ">
 
 								<i class="bi bi-folder-fill sidebar-img me-2"></i>
 
@@ -259,7 +260,7 @@
 							</a>
 						</li>
 						<li>
-							<a href="#7" class="nav-link sidebarcontent">
+							<a asp-controller="Admin" asp-action="StoryPage" class="nav-link sidebarcontent">
 
 								<i class="bi bi-book-half sidebar-img me-2"></i>
 
@@ -267,7 +268,7 @@
 							</a>
 						</li>
 						<li>
-							<a href="#8" class="nav-link sidebarcontent">
+							<a asp-controller="Admin" asp-action="BannerPage" class="nav-link sidebarcontent">
 
 								<i class="bi bi-border-style sidebar-img me-2"></i>
 
@@ -287,6 +288,7 @@
 
 
 	@*Main Jquery CDN Link*@
+	    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
 	<script src="~/lib/jquery/dist/jquery.min.js"></script>
 	<script src="~/lib/jquery/dist/jquery.js"></script>
 	<script type="text/javascript" src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.js"></script>
@@ -320,16 +322,16 @@
 			//});
 
 
-		// Below code is for side bar Active on click
-		$('#userSelectedBg').addClass('active');
-		$('.nav-link').on('click', function (event) {
-			$('.nav-link').removeClass('active');
-			$('#userHighlight').removeClass('active');
-			$(this).addClass('active');
-			event.preventDefault();
-			var url = $(this).attr('href');
-			$('#loadSideBar').load(url);
-		});
+		//// Below code is for side bar Active on click
+		//$('#userSelectedBg').addClass('active');
+		//$('.nav-link').on('click', function (event) {
+		//	$('.nav-link').removeClass('active');
+		//	$('#userHighlight').removeClass('active');
+		//	$(this).addClass('active');
+		//	event.preventDefault();
+		//	var url = $(this).attr('href');
+		//	$('#loadSideBar').load(url);
+		//});
 
 
 		var userid = 0;

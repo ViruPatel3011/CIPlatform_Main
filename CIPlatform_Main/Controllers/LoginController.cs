@@ -116,7 +116,13 @@ namespace CIPlatform_Main.Controllers
                         identity.AddClaim(new Claim(ClaimTypes.Surname, status.LastName));
                         identity.AddClaim(new Claim(ClaimTypes.Email, status.Email));
                         identity.AddClaim(new Claim(ClaimTypes.Sid, Convert.ToString(status.UserId)));
-                        var principal = new ClaimsPrincipal(identity);
+					var admin = _loginRepository.getValidAdmin().Select(a => a.Email).ToList();
+					if (admin.Contains(status.Email))
+					{
+						identity.AddClaim(new Claim(ClaimTypes.Role, "Admin"));
+					}
+					identity.AddClaim(new Claim(ClaimTypes.Email, Convert.ToString(status.Email)));
+					var principal = new ClaimsPrincipal(identity);
                         HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, principal);
                         HttpContext.Session.SetString("EmailId", status.Email);
 

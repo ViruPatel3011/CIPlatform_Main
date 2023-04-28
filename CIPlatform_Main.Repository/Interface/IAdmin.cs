@@ -58,6 +58,7 @@ namespace CIPlatform_Main.Repository.Interface
 
 		public CmsPage getCMSPageDataforEdit(long cmsid);
 
+		public AdminViewModel getSingleCMsData(long cmsId);
 		public void EditCMSPageData(AdminViewModel adminView, long cmsPageid);
 
 		// Method for Delete CMS Page Data
@@ -74,7 +75,7 @@ namespace CIPlatform_Main.Repository.Interface
 
 		// Method for Add Mission Data
 
-		public bool AddMissionPagedata(MissionVMAdmin missionVM, List<long> listOfSkill);
+		public bool AddMissionPagedata(AdminViewModel missionVM, List<long> listOfSkill);
 
         //public bool SavedMissionData(string mTitle, string mType, DateTime SDate, DateTime EDate, string msts);
 
@@ -82,10 +83,13 @@ namespace CIPlatform_Main.Repository.Interface
 		public Mission getDataForMissionEdit(long mId);
 		public Mission getDataforDocEdit(long mId);
 
-		// Method for Edit Mission Data 
+		// Method for Get Edit Mission Data 
+		public AdminViewModel getMissionData(long mId);
+
+		public bool EditMissionPageDatainDB(AdminViewModel adm, List<long> listOfSkill, long mId, List<IFormFile> images, List<IFormFile> Documents);
 
 		//public MissionVMAdmin singleMissionForEdit(long missionId);
-		public void editMissionPageData(MissionVMAdmin missionVM, long mPageEditId);
+		public void editMissionPageData(AdminViewModel missionVM, long mPageEditId);
 
         // Method for Delete Mission Data 
         public bool removeMissionsData(long missionId);
@@ -157,14 +161,14 @@ namespace CIPlatform_Main.Repository.Interface
 
 
 		//**************   Banner Page Methods START    ***************///
-		public bool AddbannerPageData(BannerVM banner);
+		public bool AddbannerPageData(AdminViewModel banner);
 		//public bool AddBanneData(string textB, string imageB, int sOrderB, DateTime dateB);
 
 		public Banner getDataForEditBannerPage(long bId);
 
 		//get banner
 		public Banner getBanner(long bId);
-		public bool EditBannerPageData(BannerVM banner, long bannerId);
+		public bool EditBannerPageData(AdminViewModel banner, long bannerId);
 
 		public bool deleteBannerPageData(long bannerPageId);
       

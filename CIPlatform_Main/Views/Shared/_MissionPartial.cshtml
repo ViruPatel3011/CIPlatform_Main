@@ -1,5 +1,4 @@
-﻿@model MissionVMAdmin
-
+﻿@model AdminViewModel
 
 <style>
 	#mission-table_filter {
@@ -31,7 +30,9 @@
 		height: 20px;
 }
 </style>
-
+@{
+	Layout = "~/Views/Admin/User.cshtml";
+}
 <!-- Right Part Div for Tables -->
 <div class="col-12 col-xl-11 col-lg-9 col-md-11 ">
 
@@ -94,10 +95,10 @@
 				class="border-0 bg-transparent" >
 											<i class="bi bi-pencil-square text-warning"></i>
 										</button>*@
-										<button type="button"
-												class="border-0 bg-transparent" onclick="loadMissionData(@mission.MissionId)">
+										<a type="button"
+				class="border-0 bg-transparent" asp-controller="Admin" asp-action="MissionEdit" asp-route-mId="@mission.MissionId">
 											<i class="bi bi-pencil-square text-warning"></i>
-										</button>
+										</a>
 
 										
 
