@@ -58,7 +58,7 @@ namespace CIPlatform_Main.Repository.Interface
 
 		public CmsPage getCMSPageDataforEdit(long cmsid);
 
-		public AdminViewModel getSingleCMsData(long cmsId);
+		public AdminViewModel getSingleCMsData(long loadCMsid);
 		public void EditCMSPageData(AdminViewModel adminView, long cmsPageid);
 
 		// Method for Delete CMS Page Data

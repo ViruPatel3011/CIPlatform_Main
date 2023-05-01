@@ -6,7 +6,7 @@
 	  integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
 <link rel="stylesheet" href="~/css/User.css">
 
-
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
 <style>
 	#cms-table_filter {
 		margin-right: 77%;
@@ -76,12 +76,12 @@
 						}
 						<td class="p-0 pt-2 px-1 d-flex">
 								<div class="mb-2">
-									
 
-									<button type="button" data-bs-toggle="modal"
-											data-bs-target="#exampleModalGoalEdit" class="border-0 bg-transparent" onclick="loadCMSpageData(@cms.CmsPageId)">
+
+									<a href="/Admin/CMSEdit?loadCMsid=@cms.CmsPageId" class="border-0 bg-transparent">
 										<i class="bi bi-pencil-square text-warning"></i>
-									</button>
+									</a>
+
 
 									
 

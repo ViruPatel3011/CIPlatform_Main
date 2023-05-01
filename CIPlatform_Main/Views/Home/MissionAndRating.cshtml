@@ -581,7 +581,7 @@
 							{
 								if (documents.MissionId == Model.MissionDetail.MissionId)
 								{
-									if (documents.DocumentType == "pdf")
+									if (documents.DocumentType == "application/pdf")
 									{
 										<div class="d-flex justify-content-center mt-2">
 											<a class="btn btn-outline-dark rounded-pill py-2" href="@documents.DocumentPath" target="_blank" download="@documents.DocumentPath">
@@ -757,7 +757,7 @@
 								@{
 									var userApplied1 = @Model.MissionDetail.MissionId;
 
-									foreach (var volunteer in Model.missionApplications.Where(x => x.MissionId == userApplied1))
+									foreach (var volunteer in Model.missionApplications.Where(x => x.MissionId == userApplied1 && x.ApprovalStatus=="Approved"))
 									{
 										<div class="text-center volunteer">
 											@*
@@ -788,7 +788,7 @@
 							</div>
 
 							<nav aria-label="Page navigation example">
-								<ul class="pagination d-flex justify-content-between">
+								<ul class="pagination d-flex justify-content-evenly">
 								</ul>
 							</nav>
 						</div>
@@ -1368,7 +1368,7 @@
 
 
 		var currentPage = 1;
-		var volunteersPerPage = 3;
+		var volunteersPerPage = 2;
 		var volunteers = document.querySelectorAll(".volunteer");
 
 		function showVolunteers(page) {

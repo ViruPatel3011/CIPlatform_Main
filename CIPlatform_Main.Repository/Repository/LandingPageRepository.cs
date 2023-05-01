@@ -106,7 +106,7 @@ namespace CIPlatform_Main.Repository.Repository
 			landingPage.MissionMedia = missionMedia;
 			
 			List<Timesheet> missionTimsheet = GetTimesheetData();
-			landingPage.AchievedGoals = missionTimsheet;
+			landingPage.TimeSheetList = missionTimsheet;
 			
 
 			

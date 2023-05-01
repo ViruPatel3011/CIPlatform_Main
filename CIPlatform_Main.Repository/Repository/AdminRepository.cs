@@ -204,15 +204,17 @@ namespace CIPlatform_Main.Repository.Repository
 			return cmspage;
 		}
 
-		public AdminViewModel getSingleCMsData(long cmsId)
+		public AdminViewModel getSingleCMsData(long loadCMsid)
 		{
-			var cmsPage = _ciPlatformContext.CmsPages.Where(cms => cms.CmsPageId == cmsId).FirstOrDefault();
+			var cmsPage = _ciPlatformContext.CmsPages.Where(cms => cms.CmsPageId == loadCMsid).FirstOrDefault();
+			var listOfUser = _ciPlatformContext.Users.ToList();
 			AdminViewModel admin = new AdminViewModel()
 			{
 				CMSTitle = cmsPage.Title,
 				CMSDescrition = cmsPage.Description,
 				CMSSlug = cmsPage.Slug,
-				CMSStatus = cmsPage.Status
+				CMSStatus = cmsPage.Status,
+				UserList=listOfUser
 			};
 			return admin;
 

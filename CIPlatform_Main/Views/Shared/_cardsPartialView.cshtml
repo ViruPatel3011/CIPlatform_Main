@@ -69,11 +69,12 @@
 						Sort By
 					</a>
 					<ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1" id="sort-div">
-					@if(User.Identity.IsAuthenticated){
+						@if (User.Identity.IsAuthenticated)
+						{
 							<li>
 								<a class="dropdown-item" onclick="loadMissions(1,'Favourite')">Sort by Favourite</a>
 							</li>
-					}
+						}
 						<li>
 							<a class="dropdown-item" onclick="loadMissions(1,'Newest')">Newest</a>
 						</li>
@@ -133,280 +134,280 @@
 								<div class="card mb-4">
 
 
-								<!-- Time based mission  Upper Body  -->
-								<div class="position-relative card-image"  >
-									@{
-										var cardsImage = item.MissionMedia.FirstOrDefault();
+									<!-- Time based mission  Upper Body  -->
+									<div class="position-relative card-image">
+										@{
+											var cardsImage = item.MissionMedia.FirstOrDefault();
 											<img src="@Url.Content(cardsImage.MediaPath)" class="card-img-top" alt="..." style="max-height:197px;">
-									}
-
-									@if (User.Identity.IsAuthenticated)
-									{
-										var currentDate = DateTime.Now;
-										if (currentDate > item.EndDate)
-										{
-											<div class="position-absolute py-1 px-4 rounded-end" style="top: 1rem;background-color: red; color:white;">
-												Closed
-											</div>
 										}
-										else if (Model.missionApplications.Where(x => x.MissionId == item.MissionId && x.UserId == long.Parse(uid)).Count() == 1)
-										{
-											<div class="position-absolute py-1 px-4 rounded-end" style="top: 1rem;background-color: green; color:white;">
-												Applied
-											</div>
-										}
-										else if (currentDate < item.EndDate)
-										{
-											<div class="position-absolute py-1 px-4 rounded-end" style="top: 1rem;background-color: #FF6600; color:white;">
-												Ongoing Mission
-											</div>
-										}
-									}
 
-									<div class="position-absolute c1-location px-2 py-1">
-										<img src="~/Assets/pin.png" alt="">
-										@foreach (var city in Model.Cities.Where(x => x.CityId == item.CityId))
+										@if (User.Identity.IsAuthenticated)
 										{
-											@city.Name
-										}
-									</div>
-
-									@if (uid != null)
-									{
-										var currentDate = DateTime.Now;
-										if (currentDate > item.EndDate)
-										{
-
-											var favMissionId = item.MissionId;
-											var FavouriteMission = Model.FavoriteMissionList.Where(m => m.UserId == Convert.ToInt32(uid) && m.MissionId == favMissionId).FirstOrDefault();
-											@if (FavouriteMission != null)
+											var currentDate = DateTime.Now;
+											if (currentDate > item.EndDate)
 											{
-												<button class="position-absolute c1-heart favorite added" onclick="missionClosed();">
-													<img src="~/Assets/favourite.png" alt="" class="" style="width: 30px;height: 30px;">
-												</button>
+												<div class="position-absolute py-1 px-4 rounded-end" style="top: 1rem;background-color: red; color:white;">
+													Closed
+												</div>
+											}
+											else if (Model.missionApplications.Where(x => x.MissionId == item.MissionId && x.UserId == long.Parse(uid)).Count() == 1)
+											{
+												<div class="position-absolute py-1 px-4 rounded-end" style="top: 1rem;background-color: green; color:white;">
+													Applied
+												</div>
+											}
+											else if (currentDate < item.EndDate)
+											{
+												<div class="position-absolute py-1 px-4 rounded-end" style="top: 1rem;background-color: #FF6600; color:white;">
+													Ongoing Mission
+												</div>
+											}
+										}
+
+										<div class="position-absolute c1-location px-2 py-1">
+											<img src="~/Assets/pin.png" alt="">
+											@foreach (var city in Model.Cities.Where(x => x.CityId == item.CityId))
+											{
+												@city.Name
+											}
+										</div>
+
+										@if (uid != null)
+										{
+											var currentDate = DateTime.Now;
+											if (currentDate > item.EndDate)
+											{
+
+												var favMissionId = item.MissionId;
+												var FavouriteMission = Model.FavoriteMissionList.Where(m => m.UserId == Convert.ToInt32(uid) && m.MissionId == favMissionId).FirstOrDefault();
+												@if (FavouriteMission != null)
+												{
+													<button class="position-absolute c1-heart favorite added" onclick="missionClosed();">
+														<img src="~/Assets/favourite.png" alt="" class="" style="width: 30px;height: 30px;">
+													</button>
+												}
+												else
+												{
+
+													<button class="position-absolute c1-heart  favorite added" onclick="missionClosed();">
+														<img src="~/Assets/heart.png" alt="" class="" style="width: 24px; height: 23px;">
+													</button>
+												}
 											}
 											else
 											{
 
-												<button class="position-absolute c1-heart  favorite added" onclick="missionClosed();">
-													<img src="~/Assets/heart.png" alt="" class="" style="width: 24px; height: 23px;">
-												</button>
+
+												var favMissionId = item.MissionId;
+												var FavouriteMission = Model.FavoriteMissionList.Where(m => m.UserId == Convert.ToInt32(uid) && m.MissionId == favMissionId).FirstOrDefault();
+
+												@if (FavouriteMission != null)
+												{
+													<button class="position-absolute c1-heart favorite added" onclick="addFavourite(@item.MissionId,@pager.CurrentPage,1);">
+														<img src="~/Assets/favourite.png" alt="" class="" style="width: 30px;height: 30px;">
+													</button>
+												}
+												else
+												{
+													<button class="position-absolute c1-heart  favorite added" onclick="addFavourite(@item.MissionId,@pager.CurrentPage,1);">
+														<img src="~/Assets/heart.png" alt="" class="" style="width: 24px; height: 23px;">
+													</button>
+												}
+
 											}
 										}
 										else
 										{
+											<button class="position-absolute c1-heart  favorite added" onclick="notloggedin();">
+												<img src="~/Assets/heart.png" alt="" class="" style="width: 24px; height: 23px;">
+											</button>
+										}
 
 
-											var favMissionId = item.MissionId;
-											var FavouriteMission = Model.FavoriteMissionList.Where(m => m.UserId == Convert.ToInt32(uid) && m.MissionId == favMissionId).FirstOrDefault();
 
-											@if (FavouriteMission != null)
+										@if (User.Identity.IsAuthenticated)
+										{
+											var currentDate = DateTime.Now;
+											if (currentDate > item.EndDate)
 											{
-												<button class="position-absolute c1-heart favorite added" onclick="addFavourite(@item.MissionId,@pager.CurrentPage,1);">
-													<img src="~/Assets/favourite.png" alt="" class="" style="width: 30px;height: 30px;">
-												</button>
+												<div class="position-absolute c1-person px-2 py-1">
+													<button type="button" class="btn btn-Secondary" onclick="missionClosed();">
+
+														<img src="~/Assets/user.png" alt="" style="margin-bottom: 10px;margin-left: -12px;">
+													</button>
+												</div>
 											}
 											else
 											{
-												<button class="position-absolute c1-heart  favorite added" onclick="addFavourite(@item.MissionId,@pager.CurrentPage,1);">
-													<img src="~/Assets/heart.png" alt="" class="" style="width: 24px; height: 23px;">
-												</button>
-											}
+												<div class="position-absolute c1-person px-2 py-1">
+													<button type="button" class="btn btn-Secondary" data-bs-toggle="modal" data-bs-target="#staticBackdrop" onclick="getUser();">
 
-										}
-									}
-									else
-									{
-										<button class="position-absolute c1-heart  favorite added" onclick="notloggedin();">
-											<img src="~/Assets/heart.png" alt="" class="" style="width: 24px; height: 23px;">
-										</button>
-									}
+														<img src="~/Assets/user.png" alt="" style="margin-bottom: 10px;margin-left: -12px;">
+													</button>
+													<!-- Modal -->
+													<div class="modal fade " id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+														<div class="modal-dialog">
+															<div class="modal-content">
+																<div id="model-content">
 
-
-
-									@if (User.Identity.IsAuthenticated)
-									{
-										var currentDate = DateTime.Now;
-										if (currentDate > item.EndDate)
-										{
-											<div class="position-absolute c1-person px-2 py-1">
-												<button type="button" class="btn btn-Secondary" onclick="missionClosed();">
-
-													<img src="~/Assets/user.png" alt="" style="margin-bottom: 10px;margin-left: -12px;">
-												</button>
-											</div>
-										}
-										else
-										{
-											<div class="position-absolute c1-person px-2 py-1">
-												<button type="button" class="btn btn-Secondary" data-bs-toggle="modal" data-bs-target="#staticBackdrop" onclick="getUser();">
-
-													<img src="~/Assets/user.png" alt="" style="margin-bottom: 10px;margin-left: -12px;">
-												</button>
-												<!-- Modal -->
-												<div class="modal fade " id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-													<div class="modal-dialog">
-														<div class="modal-content">
-															<div id="model-content">
-
-																<div class="modal-header">
-																	<h1 class="modal-title fs-5" id="staticBackdropLabel">Modal title</h1>
-																	<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" onclick="getUser();"></button>
+																	<div class="modal-header">
+																		<h1 class="modal-title fs-5" id="staticBackdropLabel">Modal title</h1>
+																		<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" onclick="getUser();"></button>
+																	</div>
+																	<div class="modal-body" style="overflow:scroll; height:400px;">
+																	</div>
+																	<div class="modal-footer">
+																		<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+																		<button type="button" class="btn btn-primary" onclick="senduser(@item.MissionId)">Send Mail</button>
+																	</div>
 																</div>
-																<div class="modal-body" style="overflow:scroll; height:400px;">
+																<div class="d-none w-100 text-center" id="volPageLoader">
+																	<div class="spinner-border text-warning" role="status">
+																	</div>
+																	<p>Sending Mail...</p>
 																</div>
-																<div class="modal-footer">
-																	<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-																	<button type="button" class="btn btn-primary" onclick="senduser(@item.MissionId)">Send Mail</button>
-																</div>
-															</div>
-															<div class="d-none w-100 text-center" id="volPageLoader">
-																<div class="spinner-border text-warning" role="status">
-																</div>
-																<p>Sending Mail...</p>
 															</div>
 														</div>
 													</div>
-												</div>
 
+												</div>
+											}
+										}
+										else
+										{
+
+											<div class="position-absolute c1-person px-2 py-1" onclick="notloggedin();">
+												<img src="~/Assets/user.png" alt="">
 											</div>
 										}
-									}
-									else
-									{
 
-										<div class="position-absolute c1-person px-2 py-1" onclick="notloggedin();">
-											<img src="~/Assets/user.png" alt="">
-										</div>
-									}
-
-									<div class="text-center position-absolute" id="mission-theme">
-										<p class="ps-1 pe-1 mb-0" style="border-radius: 20px; background-color: white; font-size: 12px;">
-											@foreach (var theme in Model.MissionThemes.Where(x => x.MissionThemeId == item.ThemeId))
-											{
-												@theme.Title
-											}
-										</p>
-									</div>
-								</div>
-
-
-								<!-- Time based mission  Body-->
-								<div class="card-body">
-									<h5 class="card-title">@item.Title</h5>
-									<p class="card-text" style="display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical;overflow: hidden;">
-										@Html.Raw(@item.ShortDescription)
-									</p>
-									<div class="d-flex justify-content-between mb-3">
-
-										<div class="mt-1">
-											<p class="rateData ms-3 mb-0">@item.OrganizationName</p>
-										</div>
-
-										<div class="d-flex  align-items-center">
-
-											@{
-
-												var NumberOfPerson = Model.MissionRatings.Where(x => x.MissionId == item.MissionId).Select(x => x.Rating);
-
-												if (NumberOfPerson.Count() != 0)
+										<div class="text-center position-absolute" id="mission-theme">
+											<p class="ps-1 pe-1 mb-0" style="border-radius: 20px; background-color: white; font-size: 12px;">
+												@foreach (var theme in Model.MissionThemes.Where(x => x.MissionThemeId == item.ThemeId))
 												{
-													var rate_star = (int)Model.MissionRatings.Average(m => m.Rating);
+													@theme.Title
+												}
+											</p>
+										</div>
+									</div>
 
-													for (int i = 1; i <= 5; i++)
+
+									<!-- Time based mission  Body-->
+									<div class="card-body">
+										<h5 class="card-title">@item.Title</h5>
+										<p class="card-text" style="display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical;overflow: hidden;">
+											@Html.Raw(@item.ShortDescription)
+										</p>
+										<div class="d-flex justify-content-between mb-3">
+
+											<div class="mt-1">
+												<p class="rateData ms-3 mb-0">@item.OrganizationName</p>
+											</div>
+
+											<div class="d-flex  align-items-center">
+
+												@{
+
+													var NumberOfPerson = Model.MissionRatings.Where(x => x.MissionId == item.MissionId).Select(x => x.Rating);
+
+													if (NumberOfPerson.Count() != 0)
 													{
-														if (i <= rate_star)
+														var rate_star = (int)Model.MissionRatings.Average(m => m.Rating);
+
+														for (int i = 1; i <= 5; i++)
 														{
-															<img src="~/Assets/selected-star.png" alt="">
+															if (i <= rate_star)
+															{
+																<img src="~/Assets/selected-star.png" alt="">
+															}
+															else
+															{
+																<img src="~/Assets/star-empty.png" alt="" style="width:25px">
+															}
 														}
-														else
+													}
+
+													else
+													{
+														for (int i = 1; i <= 5; i++)
 														{
 															<img src="~/Assets/star-empty.png" alt="" style="width:25px">
 														}
 													}
+
 												}
+											</div>
 
-												else
-												{
-													for (int i = 1; i <= 5; i++)
-													{
-														<img src="~/Assets/star-empty.png" alt="" style="width:25px">
-													}
-												}
+											@*
+							<span class="text-warning">
+							<i class="ratingStar fa-regular fa-star"></i>
+							<i class="ratingStar fa-regular fa-star"></i>
+							<i class="ratingStar fa-regular fa-star"></i>
+							<i class="ratingStar fa-regular fa-star"></i>
+							<i class="ratingStar fa-regular fa-star"></i>
 
-											}
+							</span>
+
+
+							<div class="d-flex  align-items-center">
+							<img src="~/Assets/selected-star.png" class="star" alt="">
+							<img src="~/Assets/selected-star.png" class="star" alt="">
+							<img src="~/Assets/selected-star.png" class="star" alt="">
+							<img src="~/Assets/star.png" class="star" alt="">
+							<img src="~/Assets/star.png" class="star" alt="">
+							</div>
+							*@
+										</div>
+										<div class="d-flex justify-content-between position-relative border-top border-bottom py-4">
+											<div class="text-center position-absolute" id="mission-deadline">
+												<p style="border: 1px solid gray;border-radius: 20px; font-size:12px" class="ps-1 pe-1">
+													@item.StartDate.Value.ToShortDateString() to @item.EndDate.Value.ToShortDateString()
+												</p>
+											</div>
+											<div class="d-flex align-items-center">
+												<div class=" mt-1 me-2 mx-auto">
+													<img src="~/Assets/Seats-left.png" width="25px" height="25px" alt="">
+												</div>
+												<div class=" px-0">
+													<h6 class="mb-0 mt-1">@seatsLeft</h6>
+													<p class="mb-0">Seats left</p>
+												</div>
+											</div>@*
+							<div class="d-flex align-items-center " id="skillList" style="display:none">
+							<div class="mt-1 pe-0 me-2">
+							<img src="~/Assets/Seats-left.png" alt="" width="25px" height="25px">
+							</div>
+							<div class="px-0 ">
+							<h6 class="mb-0 mt-1">Skills</h6>
+							<p class="mb-0">
+							@foreach (var skillsList in Model.MissionSkills.Where(x => x.MissionId == item.MissionId))
+							{
+							<span>@skillsList.Skill.SkillName</span>
+							}
+							</p>
+							</div>
+							</div>*@
+											<div class="d-flex align-items-center">
+												<div class=" mt-1 me-2 mx-auto">
+													<img src="~/Assets/deadline.png" width="25px" height="25px" alt="">
+												</div>
+												<div class=" px-0">
+													<h6 class="mb-0 mt-1">@item.Deadline.Value.ToShortDateString()</h6>
+													<p class="mb-0">Deadline</p>
+												</div>
+											</div>
 										</div>
 
-										@*
-						<span class="text-warning">
-						<i class="ratingStar fa-regular fa-star"></i>
-						<i class="ratingStar fa-regular fa-star"></i>
-						<i class="ratingStar fa-regular fa-star"></i>
-						<i class="ratingStar fa-regular fa-star"></i>
-						<i class="ratingStar fa-regular fa-star"></i>
+										<!-- Time based mission button-->
+										<div class="card-footer text-center">
 
-						</span>
+											<a asp-controller="Home" asp-action="MissionAndRating" asp-route-id="@item.MissionId" class="btn  rounded-pill explore" style="border: 2px solid #F88634;
+													  	color: #F88634;">
+												Explore Now <img src="~/Assets/right-arrow.png" alt="">
+											</a>
 
-
-						<div class="d-flex  align-items-center">
-						<img src="~/Assets/selected-star.png" class="star" alt="">
-						<img src="~/Assets/selected-star.png" class="star" alt="">
-						<img src="~/Assets/selected-star.png" class="star" alt="">
-						<img src="~/Assets/star.png" class="star" alt="">
-						<img src="~/Assets/star.png" class="star" alt="">
-						</div>
-						*@
-									</div>
-									<div class="d-flex justify-content-between position-relative border-top border-bottom py-4">
-										<div class="text-center position-absolute" id="mission-deadline">
-											<p style="border: 1px solid gray;border-radius: 20px; font-size:12px" class="ps-1 pe-1">
-												@item.StartDate.Value.ToShortDateString() to @item.EndDate.Value.ToShortDateString()
-											</p>
-										</div>
-										<div class="d-flex align-items-center">
-											<div class=" mt-1 me-2 mx-auto">
-												<img src="~/Assets/Seats-left.png" width="25px" height="25px" alt="">
-											</div>
-											<div class=" px-0">
-												<h6 class="mb-0 mt-1">@seatsLeft</h6>
-												<p class="mb-0">Seats left</p>
-											</div>
-										</div>@*
-						<div class="d-flex align-items-center " id="skillList" style="display:none">
-						<div class="mt-1 pe-0 me-2">
-						<img src="~/Assets/Seats-left.png" alt="" width="25px" height="25px">
-						</div>
-						<div class="px-0 ">
-						<h6 class="mb-0 mt-1">Skills</h6>
-						<p class="mb-0">
-						@foreach (var skillsList in Model.MissionSkills.Where(x => x.MissionId == item.MissionId))
-						{
-						<span>@skillsList.Skill.SkillName</span>
-						}
-						</p>
-						</div>
-						</div>*@
-										<div class="d-flex align-items-center">
-											<div class=" mt-1 me-2 mx-auto">
-												<img src="~/Assets/deadline.png" width="25px" height="25px" alt="">
-											</div>
-											<div class=" px-0">
-												<h6 class="mb-0 mt-1">@item.Deadline.Value.ToShortDateString()</h6>
-												<p class="mb-0">Deadline</p>
-											</div>
 										</div>
 									</div>
-
-									<!-- Time based mission button-->
-									<div class="card-footer text-center">
-
-										<a asp-controller="Home" asp-action="MissionAndRating" asp-route-id="@item.MissionId" class="btn  rounded-pill explore" style="border: 2px solid #F88634;
-												  	color: #F88634;">
-											Explore Now <img src="~/Assets/right-arrow.png" alt="">
-										</a>
-
-									</div>
-								</div>
 								</div>
 							</div>
 						}
@@ -414,13 +415,15 @@
 						{
 
 							var totalGoal = Model.GoalMissions.Where(goal => goal.MissionId == item.MissionId).FirstOrDefault();
-							var achievedGoal = Model.AchievedGoals.Where(data => data.MissionId == item.MissionId).ToList();
+							var achievedGoal = Model.TimeSheetList.Where(data => data.MissionId == item.MissionId).ToList();
 							int? goalAchieved = 0;
 
-							@foreach(var goals in achievedGoal){
-								goalAchieved = goalAchieved + goals.Action;
-							}
+							//@foreach(var goals in achievedGoal){
+							//	goalAchieved = goalAchieved + goals.Action;
+							//}
 							int? goalValue = totalGoal?.GoalValue;
+
+							goalAchieved = achievedGoal.Sum(g => g.Action);
 
 
 							decimal? progressBar = ((decimal)goalAchieved / (decimal)goalValue) * 100;
@@ -429,280 +432,281 @@
 							<div class="col-12 col-md-6 col-lg-4 ">
 								<div class="card mb-4">
 
-								<!-- Goal based Mission Upper Body  -->
-								<div class="position-relative card-image" >
-									@{
-										var cardsImage = item.MissionMedia.FirstOrDefault();
-										<img src="@Url.Content(cardsImage.MediaPath)" class="card-img-top" alt="..." style="max-height:197px;">
-									}
+									<!-- Goal based Mission Upper Body  -->
+									<div class="position-relative card-image">
+										@{
+											var cardsImage = item.MissionMedia.FirstOrDefault();
+											<img src="@Url.Content(cardsImage.MediaPath)" class="card-img-top" alt="..." style="max-height:197px;">
+										}
 
-									@if (User.Identity.IsAuthenticated)
-									{
-										var currentDate = DateTime.Now;
-										if (currentDate > item.EndDate)
+										@if (User.Identity.IsAuthenticated)
 										{
-											<div class="position-absolute py-1 px-4 rounded-end" style="top: 1rem;background-color: red; color:white;">
-												Closed
-											</div>
-										}
-										else if (Model.missionApplications.Where(x => x.MissionId == item.MissionId && x.UserId == long.Parse(uid)).Count() == 1)
-										{
-											<div class="position-absolute py-1 px-4 rounded-end" style="top: 1rem;background-color: green; color:white;">
-												Applied
-											</div>
-										}
-										else if (currentDate < item.EndDate)
-										{
-											<div class="position-absolute py-1 px-4 rounded-end" style="top: 1rem;background-color: #FF6600; color:white;">
-												Ongoing Mission
-											</div>
-										}
-									}
-									<div class="position-absolute c1-location px-2 py-1">
-										<img src="~/Assets/pin.png" alt="">
-										@foreach (var city in Model.Cities.Where(x => x.CityId == item.CityId))
-										{
-											@city.Name
-										}
-									</div>
-									@if (uid != null)
-									{
-										var currentDate = DateTime.Now;
-										if (currentDate > item.EndDate)
-										{
-
-											var favMissionId = item.MissionId;
-											var FavouriteMission = Model.FavoriteMissionList.Where(m => m.UserId == Convert.ToInt32(uid) && m.MissionId == favMissionId).FirstOrDefault();
-											@if (FavouriteMission != null)
+											var currentDate = DateTime.Now;
+											if (currentDate > item.EndDate)
 											{
-												<button class="position-absolute c1-heart favorite added" onclick="missionClosed();">
-													<img src="~/Assets/favourite.png" alt="" class="" style="width: 30px;height: 30px;">
-												</button>
+												<div class="position-absolute py-1 px-4 rounded-end" style="top: 1rem;background-color: red; color:white;">
+													Closed
+												</div>
+											}
+											else if (Model.missionApplications.Where(x => x.MissionId == item.MissionId && x.UserId == long.Parse(uid)).Count() == 1)
+											{
+												<div class="position-absolute py-1 px-4 rounded-end" style="top: 1rem;background-color: green; color:white;">
+													Applied
+												</div>
+											}
+											else if (currentDate < item.EndDate)
+											{
+												<div class="position-absolute py-1 px-4 rounded-end" style="top: 1rem;background-color: #FF6600; color:white;">
+													Ongoing Mission
+												</div>
+											}
+										}
+										<div class="position-absolute c1-location px-2 py-1">
+											<img src="~/Assets/pin.png" alt="">
+											@foreach (var city in Model.Cities.Where(x => x.CityId == item.CityId))
+											{
+												@city.Name
+											}
+										</div>
+										@if (uid != null)
+										{
+											var currentDate = DateTime.Now;
+											if (currentDate > item.EndDate)
+											{
+
+												var favMissionId = item.MissionId;
+												var FavouriteMission = Model.FavoriteMissionList.Where(m => m.UserId == Convert.ToInt32(uid) && m.MissionId == favMissionId).FirstOrDefault();
+												@if (FavouriteMission != null)
+												{
+													<button class="position-absolute c1-heart favorite added" onclick="missionClosed();">
+														<img src="~/Assets/favourite.png" alt="" class="" style="width: 30px;height: 30px;">
+													</button>
+												}
+												else
+												{
+
+													<button class="position-absolute c1-heart  favorite added" onclick="missionClosed();">
+														<img src="~/Assets/heart.png" alt="" class="" style="width: 24px; height: 23px;">
+													</button>
+												}
 											}
 											else
 											{
 
-												<button class="position-absolute c1-heart  favorite added" onclick="missionClosed();">
-													<img src="~/Assets/heart.png" alt="" class="" style="width: 24px; height: 23px;">
-												</button>
+
+												var favMissionId = item.MissionId;
+												var FavouriteMission = Model.FavoriteMissionList.Where(m => m.UserId == Convert.ToInt32(uid) && m.MissionId == favMissionId).FirstOrDefault();
+
+												@if (FavouriteMission != null)
+												{
+													<button class="position-absolute c1-heart favorite added" onclick="addFavourite(@item.MissionId,@pager.CurrentPage,1);">
+														<img src="~/Assets/favourite.png" alt="" class="" style="width: 30px;height: 30px;">
+													</button>
+												}
+												else
+												{
+													<button class="position-absolute c1-heart  favorite added" onclick="addFavourite(@item.MissionId,@pager.CurrentPage,1);">
+														<img src="~/Assets/heart.png" alt="" class="" style="width: 24px; height: 23px;">
+													</button>
+												}
+
 											}
 										}
 										else
 										{
+											<button class="position-absolute c1-heart  favorite added" onclick="notloggedin();">
+												<img src="~/Assets/heart.png" alt="" class="" style="width: 24px; height: 23px;">
+											</button>
+										}
 
-
-											var favMissionId = item.MissionId;
-											var FavouriteMission = Model.FavoriteMissionList.Where(m => m.UserId == Convert.ToInt32(uid) && m.MissionId == favMissionId).FirstOrDefault();
-
-											@if (FavouriteMission != null)
+										@if (User.Identity.IsAuthenticated)
+										{
+											var currentDate = DateTime.Now;
+											if (currentDate > item.EndDate)
 											{
-												<button class="position-absolute c1-heart favorite added" onclick="addFavourite(@item.MissionId,@pager.CurrentPage,1);">
-													<img src="~/Assets/favourite.png" alt="" class="" style="width: 30px;height: 30px;">
-												</button>
+												<div class="position-absolute c1-person px-2 py-1">
+													<button type="button" class="btn btn-Secondary" onclick="missionClosed();">
+
+														<img src="~/Assets/user.png" alt="" style="margin-bottom: 10px;margin-left: -12px;">
+													</button>
+												</div>
 											}
 											else
 											{
-												<button class="position-absolute c1-heart  favorite added" onclick="addFavourite(@item.MissionId,@pager.CurrentPage,1);">
-													<img src="~/Assets/heart.png" alt="" class="" style="width: 24px; height: 23px;">
-												</button>
-											}
+												<div class="position-absolute c1-person px-2 py-1">
+													<button type="button" class="btn btn-Secondary" data-bs-toggle="modal" data-bs-target="#staticBackdrop" onclick="getUser();">
 
-										}
-									}
-									else
-									{
-										<button class="position-absolute c1-heart  favorite added" onclick="notloggedin();">
-											<img src="~/Assets/heart.png" alt="" class="" style="width: 24px; height: 23px;">
-										</button>
-									}
+														<img src="~/Assets/user.png" alt="" style="margin-bottom: 10px;margin-left: -12px;">
+													</button>
+													<!-- Modal -->
+													<div class="modal fade " id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+														<div class="modal-dialog">
+															<div class="modal-content">
+																<div id="model-content">
 
-									@if (User.Identity.IsAuthenticated)
-									{
-										var currentDate = DateTime.Now;
-										if (currentDate > item.EndDate)
-										{
-											<div class="position-absolute c1-person px-2 py-1">
-												<button type="button" class="btn btn-Secondary" onclick="missionClosed();">
-
-													<img src="~/Assets/user.png" alt="" style="margin-bottom: 10px;margin-left: -12px;">
-												</button>
-											</div>
-										}
-										else
-										{
-											<div class="position-absolute c1-person px-2 py-1">
-												<button type="button" class="btn btn-Secondary" data-bs-toggle="modal" data-bs-target="#staticBackdrop" onclick="getUser();">
-
-													<img src="~/Assets/user.png" alt="" style="margin-bottom: 10px;margin-left: -12px;">
-												</button>
-												<!-- Modal -->
-												<div class="modal fade " id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-													<div class="modal-dialog">
-														<div class="modal-content">
-															<div id="model-content">
-
-																<div class="modal-header">
-																	<h1 class="modal-title fs-5" id="staticBackdropLabel">Modal title</h1>
-																	<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" onclick="getUser();"></button>
+																	<div class="modal-header">
+																		<h1 class="modal-title fs-5" id="staticBackdropLabel">Modal title</h1>
+																		<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" onclick="getUser();"></button>
+																	</div>
+																	<div class="modal-body" style="overflow:scroll; height:400px;">
+																	</div>
+																	<div class="modal-footer">
+																		<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+																		<button type="button" class="btn btn-primary" onclick="senduser(@item.MissionId)">Send Mail</button>
+																	</div>
 																</div>
-																<div class="modal-body" style="overflow:scroll; height:400px;">
+																<div class="d-none w-100 text-center" id="volPageLoader">
+																	<div class="spinner-border text-warning" role="status">
+																	</div>
+																	<p>Sending Mail...</p>
 																</div>
-																<div class="modal-footer">
-																	<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-																	<button type="button" class="btn btn-primary" onclick="senduser(@item.MissionId)">Send Mail</button>
-																</div>
-															</div>
-															<div class="d-none w-100 text-center" id="volPageLoader">
-																<div class="spinner-border text-warning" role="status">
-																</div>
-																<p>Sending Mail...</p>
 															</div>
 														</div>
 													</div>
-												</div>
 
+												</div>
+											}
+										}
+										else
+										{
+
+											<div class="position-absolute c1-person px-2 py-1" onclick="notloggedin();">
+												<img src="~/Assets/user.png" alt="">
 											</div>
 										}
-									}
-									else
-									{
-
-										<div class="position-absolute c1-person px-2 py-1" onclick="notloggedin();">
-											<img src="~/Assets/user.png" alt="">
-										</div>
-									}
 
 
-									<div class="text-center position-absolute" id="mission-theme">
-										<p class="ps-1 pe-1 mb-0" style="border-radius: 20px; background-color: white;font-size: 12px;">
-											@foreach (var theme in Model.MissionThemes.Where(x => x.MissionThemeId == item.ThemeId))
-											{
-												@theme.Title
-											}
-										</p>
-									</div>
-								</div>
-
-
-								<!--  Goal based Mission Body-->
-								<div class="card-body">
-									<h5 class="card-title">@item.Title</h5>
-									<p class="card-text" style="display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical;overflow: hidden;">
-										@Html.Raw(@item.ShortDescription)
-									</p>
-									<div class="d-flex justify-content-between mb-3">
-
-										<div class="mt-1">
-											<p class="rateData ms-3 mb-0">@item.OrganizationName</p>
-										</div>
-
-										<div class="d-flex  align-items-center">
-
-											@{
-												var NumberOfPerson = Model.MissionRatings.Where(x => x.MissionId == item.MissionId).Select(x => x.Rating);
-
-												if (NumberOfPerson.Count() != 0)
+										<div class="text-center position-absolute" id="mission-theme">
+											<p class="ps-1 pe-1 mb-0" style="border-radius: 20px; background-color: white;font-size: 12px;">
+												@foreach (var theme in Model.MissionThemes.Where(x => x.MissionThemeId == item.ThemeId))
 												{
-													var rate_star = Convert.ToInt32(Queryable.Average(NumberOfPerson.AsQueryable()));
+													@theme.Title
+												}
+											</p>
+										</div>
+									</div>
 
-													for (int i = 1; i <= 5; i++)
+
+									<!--  Goal based Mission Body-->
+									<div class="card-body">
+										<h5 class="card-title">@item.Title</h5>
+										<p class="card-text" style="display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical;overflow: hidden;">
+											@Html.Raw(@item.ShortDescription)
+										</p>
+										<div class="d-flex justify-content-between mb-3">
+
+											<div class="mt-1">
+												<p class="rateData ms-3 mb-0">@item.OrganizationName</p>
+											</div>
+
+											<div class="d-flex  align-items-center">
+
+												@{
+													var NumberOfPerson = Model.MissionRatings.Where(x => x.MissionId == item.MissionId).Select(x => x.Rating);
+
+													if (NumberOfPerson.Count() != 0)
 													{
-														if (i <= rate_star)
+														var rate_star = Convert.ToInt32(Queryable.Average(NumberOfPerson.AsQueryable()));
+
+														for (int i = 1; i <= 5; i++)
 														{
-															<img src="~/Assets/selected-star.png" class="star" alt="">
+															if (i <= rate_star)
+															{
+																<img src="~/Assets/selected-star.png" class="star" alt="">
+															}
+															else
+															{
+																<img src="~/Assets/star-empty.png" class="star" alt="" style="width:25px">
+															}
 														}
-														else
+													}
+
+													else
+													{
+														for (int i = 1; i <= 5; i++)
 														{
 															<img src="~/Assets/star-empty.png" class="star" alt="" style="width:25px">
 														}
 													}
+
 												}
-
-												else
-												{
-													for (int i = 1; i <= 5; i++)
-													{
-														<img src="~/Assets/star-empty.png" class="star" alt="" style="width:25px">
-													}
-												}
-
-											}
-										</div>
-
-
-
-									</div>
-									<div class="d-flex justify-content-between position-relative border-top border-bottom py-4">
-										<div class="text-center position-absolute" id="mission-deadline">
-											<p style="border: 1px solid gray;border-radius: 20px;font-size:12px; class="ps-1 pe-1">
-												@totalGoal?.GoalObjectiveText
-											</p>
-										</div>
-										<div class="d-flex align-items-center">
-											<div class=" mt-1 me-2 mx-auto">
-												<img src="~/Assets/Seats-left.png" width="25px" height="25px" alt="">
 											</div>
-											<div class=" px-0">
-												<h6 class="mb-0 mt-1">@totalVolunteerforGoal</h6>
-												<p class="mb-0">Volunteered</p>
-											</div>
+
+
+
 										</div>
-										@*
-						<div class="d-flex align-items-center " id="skillList" style="display:none">
-						<div class="mt-1 pe-0 me-2">
-						<img src="~/Assets/Seats-left.png"
-						alt="" width="25px" height="25px">
-						</div>
-						<div class="px-0 ">
-						<h6 class="mb-0 mt-1">Skills</h6>
-						<p class="mb-0">
-						@foreach (var skillsList in Model.MissionSkills.Where(x => x.MissionId == item.MissionId))
-						{
-						<span>@skillsList.Skill.SkillName</span>
-						}
-						</p>
-						</div>
-						</div>
-						*@
-										<div class="d-flex align-items-center">
-											<div class=" mt-1 me-2 mx-auto">
-
-
-												<img src="~/Assets/achieved.png" width="25px" height="25px" alt="">
+										<div class="d-flex justify-content-between position-relative border-top border-bottom py-4">
+											<div class="text-center position-absolute" id="mission-deadline">
+												<p style="border: 1px solid gray;border-radius: 20px;font-size:12px; class="ps-1 pe-1">
+													@totalGoal?.GoalObjectiveText
+												</p>
 											</div>
-											<div class=" px-0">
-												<div class="progress">
-
-													<div class="progress-bar" role="progressbar" style="width: @progressBar%" aria-valuenow="@progressBar"
-														 aria-valuemin="0" aria-valuemax="100" style="background-color: #F88634 !important;"></div>
-
-
+											<div class="d-flex align-items-center">
+												<div class=" mt-1 me-2 mx-auto">
+													<img src="~/Assets/Seats-left.png" width="25px" height="25px" alt="">
 												</div>
-												@if(goalAchieved>=goalValue){
+												<div class=" px-0">
+													<h6 class="mb-0 mt-1">@totalVolunteerforGoal</h6>
+													<p class="mb-0">Volunteered</p>
+												</div>
+											</div>
+											@*
+							<div class="d-flex align-items-center " id="skillList" style="display:none">
+							<div class="mt-1 pe-0 me-2">
+							<img src="~/Assets/Seats-left.png"
+							alt="" width="25px" height="25px">
+							</div>
+							<div class="px-0 ">
+							<h6 class="mb-0 mt-1">Skills</h6>
+							<p class="mb-0">
+							@foreach (var skillsList in Model.MissionSkills.Where(x => x.MissionId == item.MissionId))
+							{
+							<span>@skillsList.Skill.SkillName</span>
+							}
+							</p>
+							</div>
+							</div>
+							*@
+											<div class="d-flex align-items-center">
+												<div class=" mt-1 me-2 mx-auto">
 
-													<p class="mb-0">Fully achieved</p>
-												}
-												else
-												{
-													<p class="mb-0">@goalAchieved achieved</p>
-													
-												}
+
+													<img src="~/Assets/achieved.png" width="25px" height="25px" alt="">
+												</div>
+												<div class=" px-0">
+													<div class="progress">
+
+														<div class="progress-bar" role="progressbar" style="width: @progressBar%" aria-valuenow="@progressBar"
+															 aria-valuemin="0" aria-valuemax="100" style="background-color: #F88634 !important;"></div>
+
+
+													</div>
+													@if (goalAchieved >= goalValue)
+													{
+
+														<p class="mb-0">Fully achieved</p>
+													}
+													else
+													{
+														<p class="mb-0">@goalAchieved achieved</p>
+
+													}
+												</div>
 											</div>
 										</div>
+
+
+										<!--  Goal based Mission Button-->
+										<div class="card-footer text-center">
+
+
+											<a asp-controller="Home" asp-action="MissionAndRating" asp-route-id="@item.MissionId" class="btn  rounded-pill explore" style="border: 2px solid #F88634;
+													  	color: #F88634;">
+												Explore Now <img src="~/Assets/right-arrow.png" alt="">
+											</a>
+
+										</div>
 									</div>
-
-
-									<!--  Goal based Mission Button-->
-									<div class="card-footer text-center">
-
-
-										<a asp-controller="Home" asp-action="MissionAndRating" asp-route-id="@item.MissionId" class="btn  rounded-pill explore" style="border: 2px solid #F88634;
-												  	color: #F88634;">
-											Explore Now <img src="~/Assets/right-arrow.png" alt="">
-										</a>
-
-									</div>
-								</div>
 								</div>
 
 							</div>
@@ -783,7 +787,8 @@
 
 
 
-	<script>
+
+ <script>
 
 
 	if (localStorage.getItem('vp') === 'list') {
@@ -796,7 +801,8 @@
 		localStorage.setItem('vp', 'list');
 		var $gridCont = $(".grid-container");
 		$gridCont.addClass("list-view");
-		   $(".card-image").css("max-height", "331px");
+		$(".card-image").css("max-height", "331px");
+		$(".card-img-top").css("max-height", "331px");
 	}
 	function gridList() {
 		localStorage.setItem('vp', 'grid');

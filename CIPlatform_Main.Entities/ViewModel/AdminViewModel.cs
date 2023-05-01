@@ -62,6 +62,8 @@ namespace CIPlatform_Main.Entities.ViewModel
 		public string CMSStatus { get;set; }	
 		public long cmsId { get;set; }
 
+		public long loadCMsid { get; set; }
+
 
 
 		public long storyId { get; set; }

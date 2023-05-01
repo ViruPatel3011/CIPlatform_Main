@@ -14,7 +14,7 @@
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" />
     <title>Registration</title>
 
-
+@*
     @if (TempData["EmailAlreadyExist"] != null)
     {
         <script src="~/lib/jquery/dist/jquery.min.js"></script>
@@ -22,12 +22,12 @@
         <script type="text/javascript">
             toastr.error('@TempData["EmailAlreadyExist"]')
         </script>
-    }
+    }*@
 
 </head>
 
 <body>
-      <div style="background-color:red !important;">
+    <div style="background-color:red !important;">
         @if (TempData["Success Message"] != null)
         {
             <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css" />
@@ -43,11 +43,9 @@
             <script src="~/lib/jquery/dist/jquery.min.js"></script>
             <script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
             <script type="text/javascript">
-                toastr.error('@TempData["Error"]');
+                toastr.error('@TempData["Error Message"]');
             </script>
         }
-
-     
     </div>
 
     <form method="post" asp-controller="Registration" asp-action="Registration">
@@ -127,13 +125,13 @@
 
                         <div class="mb-2">
                             <label for="exampleInputiFrstName" class="form-label">First Name</label>
-                            <input type="text" class="form-control" asp-for="FirstName" placeholder="evan"  maxlength="10">
+                            <input type="text" class="form-control" asp-for="FirstName" placeholder="Enter First Name"  maxlength="10">
                             <span asp-validation-for="FirstName" class="text-danger"></span>
 
                         </div>
                         <div class="mb-2">
                             <label for="exampleInputLastName" class="form-label">Last Name</label>
-                            <input type="text" class="form-control" asp-for="LastName" placeholder="donohue"  maxlength="10">
+                            <input type="text" class="form-control" asp-for="LastName" placeholder="Enter Last "  maxlength="10">
                             <span asp-validation-for="LastName" class="text-danger"></span>
 
                         </div>
@@ -145,8 +143,9 @@
                         </div>
                         <div class="mb-2">
                             <label for="exampleInputEmail1" class="form-label">Email Address</label>
+                             <span class="text-danger">*</span>
                             <input type="email" class="form-control" asp-for="Email" placeholder="evan.donohue@gmail.com" >
-                            <span asp-validation-for="Email" class="text-danger" id="requieredfiledemail"></span>
+                            <span asp-validation-for="Email" class="text-danger" ></span>
 
                         </div>
                         <div class="mb-2">

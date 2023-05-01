@@ -82,16 +82,17 @@ namespace CIPlatform_Main.Controllers
 		}
 
 		// Method for CMS Page Edit Section
-		public IActionResult CMSEdit()
+		public IActionResult CMSEdit(long loadCMsid)
 		{
-			var cmsData = _admin.cmsList();
-            var userData = _admin.getUserList();
-            AdminViewModel cmsModel2 = new AdminViewModel()
-			{
-				CMSPageList = cmsData,
-				UserList= userData
-			};
-			return PartialView("_CMSPageEditRight", cmsModel2);
+			//var cmsData = _admin.cmsList();
+			//         var userData = _admin.getUserList();
+			//         AdminViewModel cmsModel2 = new AdminViewModel()
+			//{
+			//	CMSPageList = cmsData,
+			//	UserList= userData
+			//};
+			var cmsEdit = _admin.getSingleCMsData(loadCMsid);
+			return PartialView("_CMSPageEditRight",cmsEdit);
 		}
 
 

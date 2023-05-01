@@ -6,6 +6,9 @@
 
 @model AdminViewModel
 
+@{
+	Layout = "~/Views/Admin/User.cshtml";
+}
 
 <h2 class="ps-3 mt-4 ms-2">Edit</h2>
 <form method="post" asp-controller="Admin" asp-action="EditCMSPageData">
@@ -15,25 +18,25 @@
 	<div class="row mx-2 mt-1">
 		<div class="col-12">
 			<label for="inputEmail4 ">Title</label>
-				<input class="form-control mt-1" id="title" type="text" placeholder="" value="title" asp-for="CMSTitle">
+				<input class="form-control mt-1" id="title" type="text" placeholder="Enter CMS Page Title" asp-for="CMSTitle">
 		</div>
 	</div>
 	<div class="row mx-2 mt-2">
 		<div class="col-12 my-3">
 			<label for="inputEmail4">Description</label>
-				<textarea id="CMStext" value="CMStext" class="w-100  mt-2 form form-control" placeholder="" rows="5" asp-for="CMSDescrition"></textarea>
+				<textarea id="CMStext" value="CMStext" class="w-100  mt-2 form form-control" placeholder="Enter CMS Description" rows="5" asp-for="CMSDescrition"></textarea>
 		</div>
 	</div>
 	<div class="row mx-2 mt-1">
 		<div class="col-12">
 			<label for="inputEmail4 ">Slug</label>
-				<input class="form-control mt-1" id="slug" type="text" placeholder="" value="slug" asp-for="CMSSlug">
+				<input class="form-control mt-1" id="slug" type="text" placeholder="Enter CMS Slug"  asp-for="CMSSlug">
 		</div>
 	</div>
 	<div class="row mx-2 mt-1">
 		<div class="col-12">
 			<label for="inputEmail4 ">Status</label>
-				<input class="form-control mt-1" id="status" type="text" placeholder="" value="status" asp-for="CMSStatus">
+				<input class="form-control mt-1" id="status" type="text" placeholder="Enter CMS Status" asp-for="CMSStatus">
 		</div>
 	</div>
 </div>

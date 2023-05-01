@@ -52,7 +52,7 @@ namespace CIPlatform_Main.Controllers
 				Cities=landingPageData.Cities,
 				MissionMedia=landingPageData.MissionMedia,
 				missionApplications=landingPageData.missionApplications,
-				AchievedGoals=landingPageData.AchievedGoals
+				TimeSheetList = landingPageData.TimeSheetList
 
 
 

@@ -54,7 +54,6 @@
     <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
     <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js"
             integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
             crossorigin="anonymous" asp-append-version="true"></script>
@@ -80,26 +79,7 @@
 
         function missionClosed(){
            
-            //let timerInterval
-            //Swal.fire({
-            //    title: 'Mission closed!',
-            //    timer: 2000,
-            //    timerProgressBar: true,
-            //    didOpen: () => {
-            //        Swal.showLoading()
-            //        const b = Swal.getHtmlContainer().querySelector('b')
-            //        timerInterval = setInterval(() => {
-            //            b.textContent = Swal.getTimerLeft()
-            //        }, 100)
-            //    },
-            //    willClose: () => {
-            //        clearInterval(timerInterval)
-            //    }
-            //}).then((result) => {
-            //    /* Read more about handling dismissals below */
-               
-            //})
-            Swal.fire({
+                Swal.fire({
                 title: "Mission Closed",
                 text: "You are too late mission was already closed.",
                 icon: "warning",
@@ -107,6 +87,20 @@
 
             });
 
+        }
+
+        function password() {
+            var icon = $('.bi')
+            var pass = $('#loginPassword')
+            if (icon.hasClass('bi-eye')) {
+                icon.removeClass('bi-eye')
+                icon.addClass('bi-eye-slash')
+                pass.attr('type', 'text')
+            } else {
+                icon.addClass('bi-eye')
+                icon.removeClass('bi-eye-slash')
+                pass.attr('type', 'password')
+            }
         }
     </script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>

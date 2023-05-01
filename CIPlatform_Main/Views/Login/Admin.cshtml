@@ -24,23 +24,31 @@
 </head>
 
 <body>
-    <div style="background-color:red !important;">
+    <div>
         @if (TempData["Success Message"] != null)
         {
-            <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css" />
-            <script src="~/lib/jquery/dist/jquery.min.js"></script>
-            <script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
-            <script type="text/javascript">
-                toastr.success('@TempData["Success Message"]');
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/11.1.5/sweetalert2.min.css" />
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/11.1.5/sweetalert2.min.js"></script>
+            <script>
+                Swal.fire({
+                    icon: 'success',
+                    title: "@TempData["Success Message"]",
+                    showConfirmButton: false,
+                    timer: 1500
+                })
             </script>
         }
         @if (TempData["Error Message"] != null)
         {
-            <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css" />
-            <script src="~/lib/jquery/dist/jquery.min.js"></script>
-            <script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
-            <script type="text/javascript">
-                toastr.error('@TempData["Error Message"]');
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/11.1.5/sweetalert2.min.css" />
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/11.1.5/sweetalert2.min.js"></script>
+            <script>
+                Swal.fire({
+                    icon: 'success',
+                    title: "@TempData["Error Message"]",
+                    showConfirmButton: false,
+                    timer: 1500
+                })
             </script>
         }
     </div>
