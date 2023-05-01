@@ -41,6 +41,10 @@ public partial class Mission
 
     public string? Challange { get; set; }
 
+    public DateTime? Deadline { get; set; }
+
+    public int? TotalSeats { get; set; }
+
     public virtual City City { get; set; } = null!;
 
     public virtual ICollection<Comment> Comments { get; } = new List<Comment>();

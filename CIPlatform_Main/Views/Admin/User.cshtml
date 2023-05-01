@@ -26,12 +26,12 @@
 		  integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
 
-@*
+	@*
 	<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.25/css/jquery.dataTables.css">*@
 
 
 	<link rel="stylesheet" href="~/css/datatables.css">
-	
+
 	<link rel="stylesheet" href="~/css/User.css">
 	<title>User</title>
 </head>
@@ -67,7 +67,7 @@
 				<ul class="nav nav-pills flex-column mb-auto mt-4 mt-lg-4 mt-md-5">
 
 					<li class="nav-item">
-						<a asp-controller="Admin" asp-action="UserPage"  class="nav-link sidebarcontent " aria-current="page" id="userSelectedBg">
+						<a asp-controller="Admin" asp-action="UserPage" class="nav-link sidebarcontent " aria-current="page" id="userSelectedBg">
 
 							<i class="bi bi-person-fill sidebar-img "></i>
 							<lable class="d-block d-lg-block d-md-none">User</lable>
@@ -156,12 +156,12 @@
 						<div class="col-6 d-none d-md-block">
 							<div class="dropdown d-flex justify-content-end ">
 								<a class="btn btn-secondary  bg-transparent text-dark border-0 pt-0 policyDropdown p-0"
-								    role="button" data-bs-toggle="dropdown" aria-expanded="false">
-									@*@{
+								   role="button" data-bs-toggle="dropdown" aria-expanded="false">
+									@{
 
 										<img src="@Model.UserList.Where(z=>z.UserId == Convert.ToUInt32(uid)).Select(x=>x.Avatar).FirstOrDefault()"
 											 class="rounded-circle mt-1 me-2" width="40px" height="40px" alt="">
-									}*@
+									}
 								</a>
 								<span class="mt-2 me-3">@name @surname</span>
 								<ul class="dropdown-menu">
@@ -288,7 +288,7 @@
 
 
 	@*Main Jquery CDN Link*@
-	    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+	<script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
 	<script src="~/lib/jquery/dist/jquery.min.js"></script>
 	<script src="~/lib/jquery/dist/jquery.js"></script>
 	<script type="text/javascript" src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.js"></script>
@@ -305,21 +305,28 @@
 	<script>
 
 
-	
+		$(document).ready(function () {
+			$(".nav-link").click(function () {
+				$(".nav-link").removeClass("active");
+				$(this).addClass("active");
+			});
+		});
+
+
 		// Below code is for Search bar and pagination
-			//$.noConflict();
+		//$.noConflict();
 
-			//jQuery(document).ready(function ($) {
+		//jQuery(document).ready(function ($) {
 
-			//$('#mission-table').DataTable({
-			//		"pageLength": 5
-			//	});
+		//$('#mission-table').DataTable({
+		//		"pageLength": 5
+		//	});
 
-			//	$('#myTable_filter label input').attr('placeholder', 'Search...').attr('value', '');
-			//	$('#myTable_filter label').contents().filter(function () {
-			//		return this.nodeType === 3;
-			//	}).remove();
-			//});
+		//	$('#myTable_filter label input').attr('placeholder', 'Search...').attr('value', '');
+		//	$('#myTable_filter label').contents().filter(function () {
+		//		return this.nodeType === 3;
+		//	}).remove();
+		//});
 
 
 		//// Below code is for side bar Active on click
@@ -427,54 +434,54 @@
 				return;
 			}
 			else {
-			var firstName = $("#addFName").val();
-			var lastName = $("#addLName").val();
-			var email = $("#addEmail").val();
-			var password = $("#addPassword").val();
-			var phnNumber = $("#addPhnNumber").val();
-			var avtar = $("#addAvatar").val();
-			var empid = $("#addEmpId").val();
-			var dept = $("#addDeptName").val();
-			var uStatus = $("#addStatus").val();
+				var firstName = $("#addFName").val();
+				var lastName = $("#addLName").val();
+				var email = $("#addEmail").val();
+				var password = $("#addPassword").val();
+				var phnNumber = $("#addPhnNumber").val();
+				var avtar = $("#addAvatar").val();
+				var empid = $("#addEmpId").val();
+				var dept = $("#addDeptName").val();
+				var uStatus = $("#addStatus").val();
 
-			$.ajax({
-				url: "/Admin/addUserData",
-				type: "POST",
-				data: {
-					"Ufname": firstName,
-					"Ulname": lastName,
-					"Uemail": email,
-					"Upwd": password,
-					"UphnNumber": phnNumber,
-					"Uavtar": avtar,
-					"Uempid": empid,
-					"UDept": dept,
-					"Usts": uStatus,
-				},
-				success: function (result) {
-					location.reload();
-				},
-				error: function (result) {
-					alert("error occur in add");
-				}
-			});
-		}
+				$.ajax({
+					url: "/Admin/addUserData",
+					type: "POST",
+					data: {
+						"Ufname": firstName,
+						"Ulname": lastName,
+						"Uemail": email,
+						"Upwd": password,
+						"UphnNumber": phnNumber,
+						"Uavtar": avtar,
+						"Uempid": empid,
+						"UDept": dept,
+						"Usts": uStatus,
+					},
+					success: function (result) {
+						location.reload();
+					},
+					error: function (result) {
+						alert("error occur in add");
+					}
+				});
+			}
 
-	
+
 		}
 
 	</script>
-	
+
 
 	@*<script type="text/javascript">
-		$(document).ready(function () {
-			var dataTable = $('#user-table').DataTable({
-				"pageLength": 4,
-			});
-			$('#search-bar').keyup(function () {
-				dataTable.search(this.value).draw();
-			});
-		});
+	$(document).ready(function () {
+	var dataTable = $('#user-table').DataTable({
+	"pageLength": 4,
+	});
+	$('#search-bar').keyup(function () {
+	dataTable.search(this.value).draw();
+	});
+	});
 	</script>*@
 </body>
 </html>

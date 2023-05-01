@@ -31,7 +31,19 @@ a:hover {
     flex-direction: row;
     align-items: center;
 }
+    .sidebarcontent:hover {
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+        transform: translateX(5px);
+        transition: all 0.2s ease-in-out;
+        background-color: antiquewhite;
+        color: rgb(248 134 52) !important;
+    }
 
+.nav-link.active {
+    background-color: white !important;
+    color:#F88634 !important;
+
+}
 .sidebar-img {
     width: 18px;
     height: 23px;

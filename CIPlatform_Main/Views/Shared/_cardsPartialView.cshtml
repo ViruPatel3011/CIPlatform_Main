@@ -69,6 +69,11 @@
 						Sort By
 					</a>
 					<ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1" id="sort-div">
+					@if(User.Identity.IsAuthenticated){
+							<li>
+								<a class="dropdown-item" onclick="loadMissions(1,'Favourite')">Sort by Favourite</a>
+							</li>
+					}
 						<li>
 							<a class="dropdown-item" onclick="loadMissions(1,'Newest')">Newest</a>
 						</li>
@@ -121,16 +126,18 @@
 					{
 						if (item.MissionType == "Time")
 						{
+							var totalVolunteerforTime = Model.missionApplications.Count(mission => mission.MissionId == item.MissionId && mission.Mission.MissionType == "Time" && mission.ApprovalStatus == "Approved");
+							var seatsLeft = item.TotalSeats - totalVolunteerforTime;
 							<!-- Time based mission  -->
-							<div class="col-12 col-md-6 col-lg-4 card ">
-								@*<div class="card">*@
+							<div class="col-12 col-md-6 col-lg-4  ">
+								<div class="card mb-4">
 
 
 								<!-- Time based mission  Upper Body  -->
-								<div class="position-relative card-image"  style="max-height:200px">
+								<div class="position-relative card-image"  >
 									@{
 										var cardsImage = item.MissionMedia.FirstOrDefault();
-										<img src="@Url.Content(cardsImage.MediaPath)" class="card-img-top" alt="...">
+											<img src="@Url.Content(cardsImage.MediaPath)" class="card-img-top" alt="..." style="max-height:197px;">
 									}
 
 									@if (User.Identity.IsAuthenticated)
@@ -163,6 +170,7 @@
 											@city.Name
 										}
 									</div>
+
 									@if (uid != null)
 									{
 										var currentDate = DateTime.Now;
@@ -360,7 +368,7 @@
 												<img src="~/Assets/Seats-left.png" width="25px" height="25px" alt="">
 											</div>
 											<div class=" px-0">
-												<h6 class="mb-0 mt-1">@item.Availability</h6>
+												<h6 class="mb-0 mt-1">@seatsLeft</h6>
 												<p class="mb-0">Seats left</p>
 											</div>
 										</div>@*
@@ -383,7 +391,7 @@
 												<img src="~/Assets/deadline.png" width="25px" height="25px" alt="">
 											</div>
 											<div class=" px-0">
-												<h6 class="mb-0 mt-1">@item.EndDate.Value.ToShortDateString()</h6>
+												<h6 class="mb-0 mt-1">@item.Deadline.Value.ToShortDateString()</h6>
 												<p class="mb-0">Deadline</p>
 											</div>
 										</div>
@@ -399,20 +407,33 @@
 
 									</div>
 								</div>
-								@*</div>*@
+								</div>
 							</div>
 						}
 						else if (item.MissionType == "Goal")
 						{
+
+							var totalGoal = Model.GoalMissions.Where(goal => goal.MissionId == item.MissionId).FirstOrDefault();
+							var achievedGoal = Model.AchievedGoals.Where(data => data.MissionId == item.MissionId).ToList();
+							int? goalAchieved = 0;
+
+							@foreach(var goals in achievedGoal){
+								goalAchieved = goalAchieved + goals.Action;
+							}
+							int? goalValue = totalGoal?.GoalValue;
+
+
+							decimal? progressBar = ((decimal)goalAchieved / (decimal)goalValue) * 100;
+							var totalVolunteerforGoal = Model.missionApplications.Count(mission => mission.MissionId == item.MissionId && mission.Mission.MissionType == "Goal" && mission.ApprovalStatus == "Approved");
 							<!-- Goal based Mission -->
-							<div class="col-12 col-md-6 col-lg-4 card">
-								@*<div class="card">*@
+							<div class="col-12 col-md-6 col-lg-4 ">
+								<div class="card mb-4">
 
 								<!-- Goal based Mission Upper Body  -->
-								<div class="position-relative card-image" style="max-height:200px">
+								<div class="position-relative card-image" >
 									@{
 										var cardsImage = item.MissionMedia.FirstOrDefault();
-										<img src="@Url.Content(cardsImage.MediaPath)" class="card-img-top" alt="...">
+										<img src="@Url.Content(cardsImage.MediaPath)" class="card-img-top" alt="..." style="max-height:197px;">
 									}
 
 									@if (User.Identity.IsAuthenticated)
@@ -613,11 +634,8 @@
 									</div>
 									<div class="d-flex justify-content-between position-relative border-top border-bottom py-4">
 										<div class="text-center position-absolute" id="mission-deadline">
-											<p style="border: 1px solid gray;border-radius: 20px;" class="ps-1 pe-1">
-												@foreach (var goal in Model.GoalMissions.Where(x => x.MissionId == item.MissionId))
-												{
-													@goal.GoalValue
-												}
+											<p style="border: 1px solid gray;border-radius: 20px;font-size:12px; class="ps-1 pe-1">
+												@totalGoal?.GoalObjectiveText
 											</p>
 										</div>
 										<div class="d-flex align-items-center">
@@ -625,8 +643,8 @@
 												<img src="~/Assets/Seats-left.png" width="25px" height="25px" alt="">
 											</div>
 											<div class=" px-0">
-												<h6 class="mb-0 mt-1">@item.Availability</h6>
-												<p class="mb-0">Seats left</p>
+												<h6 class="mb-0 mt-1">@totalVolunteerforGoal</h6>
+												<p class="mb-0">Volunteered</p>
 											</div>
 										</div>
 										@*
@@ -655,12 +673,20 @@
 											<div class=" px-0">
 												<div class="progress">
 
-													<div class="progress-bar" role="progressbar" style="width: 75%" aria-valuenow="75"
+													<div class="progress-bar" role="progressbar" style="width: @progressBar%" aria-valuenow="@progressBar"
 														 aria-valuemin="0" aria-valuemax="100" style="background-color: #F88634 !important;"></div>
 
 
 												</div>
-												<p class="mb-0">8000 achieved</p>
+												@if(goalAchieved>=goalValue){
+
+													<p class="mb-0">Fully achieved</p>
+												}
+												else
+												{
+													<p class="mb-0">@goalAchieved achieved</p>
+													
+												}
 											</div>
 										</div>
 									</div>
@@ -677,7 +703,7 @@
 
 									</div>
 								</div>
-								@*</div>*@
+								</div>
 
 							</div>
 						}
@@ -770,11 +796,13 @@
 		localStorage.setItem('vp', 'list');
 		var $gridCont = $(".grid-container");
 		$gridCont.addClass("list-view");
+		   $(".card-image").css("max-height", "331px");
 	}
 	function gridList() {
 		localStorage.setItem('vp', 'grid');
 		var $gridCont = $(".grid-container");
 		$gridCont.removeClass("list-view");
+		$(".card-image").css("max-height", "197px");
 	}
 	$(document).on('click', '.btn-grid', gridList);
 	$(document).on('click', '.btn-list', showList);

@@ -273,6 +273,7 @@ namespace CIPlatform_Main.Repository.Repository
 				MissionType = missionVM.missionType,
 				Availability = missionVM.availability,
 				ThemeId = missionVM.themeId,
+				Status="Active"
 
 
 			};
@@ -280,7 +281,7 @@ namespace CIPlatform_Main.Repository.Repository
 			_ciPlatformContext.SaveChanges();
 
 			var lastMissionId = _ciPlatformContext.Missions.OrderByDescending(m => m.MissionId).Select(m => m.MissionId).FirstOrDefault();
-			//         foreach (var image in missionVM.images)
+			//  foreach (var image in missionVM.images)
 			//         {
 			//	var fileName = image.FileName;
 			//	var fileType = image.ContentType;

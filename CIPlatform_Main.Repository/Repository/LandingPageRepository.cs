@@ -104,6 +104,10 @@ namespace CIPlatform_Main.Repository.Repository
 			
 			List<MissionMedium> missionMedia = GetMissionMedia();
 			landingPage.MissionMedia = missionMedia;
+			
+			List<Timesheet> missionTimsheet = GetTimesheetData();
+			landingPage.AchievedGoals = missionTimsheet;
+			
 
 			
 
@@ -194,6 +198,12 @@ namespace CIPlatform_Main.Repository.Repository
 		{
 			List<Admin> getAdmin = _ciPlatformContext.Admins.ToList();
 			return getAdmin;
+		}
+		
+		public List<Timesheet> GetTimesheetData()
+		{
+			List<Timesheet> timeSheet = _ciPlatformContext.Timesheets.ToList();
+			return timeSheet;
 		}
 	}
 }

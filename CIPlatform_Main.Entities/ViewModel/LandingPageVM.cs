@@ -56,5 +56,7 @@ namespace CIPlatform_Main.Entities.ViewModel
         public IEnumerable<Story>? Story { get; set; }
         public IEnumerable<StoryMedium>? storyMedia { get; set; }
         public IEnumerable<Admin>? AdminList{ get; set; }
+        public IEnumerable<GoalMission>? TotalGoalActionList{ get; set; }
+        public IEnumerable<Timesheet>? AchievedGoals{ get; set; }
     }
 }

@@ -57,9 +57,11 @@ namespace CIPlatform_Main.Controllers
 		public IActionResult CMSPage()
 		{
 			var cmsData = _admin.cmsList();
-			AdminViewModel cmsModel = new AdminViewModel()
+            var userData = _admin.getUserList();
+            AdminViewModel cmsModel = new AdminViewModel()
 			{
 				CMSPageList = cmsData,
+				UserList=userData
 			};
 			return PartialView("_CMSPartial", cmsModel);
 		}
@@ -70,9 +72,11 @@ namespace CIPlatform_Main.Controllers
 		public IActionResult CMSAdd()
 		{
 			var cmsData = _admin.cmsList();
-			AdminViewModel cmsModel1 = new AdminViewModel()
+            var userData = _admin.getUserList();
+            AdminViewModel cmsModel1 = new AdminViewModel()
 			{
 				CMSPageList = cmsData,
+				UserList=userData
 			};
 			return PartialView("_CMSPageAddRight", cmsModel1);
 		}
@@ -81,9 +85,11 @@ namespace CIPlatform_Main.Controllers
 		public IActionResult CMSEdit()
 		{
 			var cmsData = _admin.cmsList();
-			AdminViewModel cmsModel2 = new AdminViewModel()
+            var userData = _admin.getUserList();
+            AdminViewModel cmsModel2 = new AdminViewModel()
 			{
 				CMSPageList = cmsData,
+				UserList= userData
 			};
 			return PartialView("_CMSPageEditRight", cmsModel2);
 		}
@@ -94,9 +100,11 @@ namespace CIPlatform_Main.Controllers
 		public IActionResult MissionPage()
 		{
 			var missions = _admin.getMissionList();
-			AdminViewModel missionModel = new AdminViewModel()
+            var userData = _admin.getUserList();
+            AdminViewModel missionModel = new AdminViewModel()
 			{
 				MissionList = missions,
+				UserList=userData
 			};
 
 			return PartialView("_MissionPartial", missionModel);
@@ -105,14 +113,16 @@ namespace CIPlatform_Main.Controllers
 		// Method for Mission Page Add Section
 		public IActionResult MissionAdd()
 		{
-			var missionData = _admin.getMissionList();
+            var userData = _admin.getUserList();
+            var missionData = _admin.getMissionList();
 			var missionTheme = _admin.getMissionThemeList();
 			var skill = _admin.getSkillsList();
 			AdminViewModel missionModel1 = new AdminViewModel()
 			{
 				MissionList = missionData,
                 MissionThemeList= missionTheme,
-                SkillList= skill
+                SkillList= skill,
+				UserList=userData
             };
 			return PartialView("_MissionPageAddRight", missionModel1);
 		}
@@ -140,11 +150,12 @@ namespace CIPlatform_Main.Controllers
 		// Method for MissionTheme Page
 		public IActionResult MissionThemePage()
 		{
-
-			var missionTheme = _admin.getMissionThemeList();
+            var userData = _admin.getUserList();
+            var missionTheme = _admin.getMissionThemeList();
 			AdminViewModel missionThemeModel = new AdminViewModel()
 			{ 
 				MissionThemeList= missionTheme,
+				UserList=userData
 			};
 
 			return PartialView("_MissionThemePartial", missionThemeModel);
@@ -154,10 +165,12 @@ namespace CIPlatform_Main.Controllers
 		// Method for MissionSkill Page
 		public IActionResult MissionSkillsPage()
 		{
-			var skillsData = _admin.getSkillsList();
+            var userData = _admin.getUserList();
+            var skillsData = _admin.getSkillsList();
 			AdminViewModel skillModel = new AdminViewModel()
 			{
 				SkillsList = skillsData,
+				UserList=userData
 			};
 			return PartialView("_MissionSkillsPartial", skillModel);
 		}
@@ -200,10 +213,12 @@ namespace CIPlatform_Main.Controllers
 		// Method for Banner Page
 		public IActionResult BannerPage()
 		{
-			var bannerData = _admin.getBannerList();
+            var userData = _admin.getUserList();
+            var bannerData = _admin.getBannerList();
 			AdminViewModel bannerModel = new AdminViewModel()
 			{
-				BannerList = bannerData
+				BannerList = bannerData,
+				UserList=userData
 			};
 
 			return PartialView("_BannerPartial", bannerModel);

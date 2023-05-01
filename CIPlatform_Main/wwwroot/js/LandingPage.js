@@ -9,11 +9,14 @@ function showList() {
     localStorage.setItem('vp', 'list');
     var $gridCont = $(".grid-container");
     $gridCont.addClass("list-view");
+    $(".card-image").css("max-height", "331px");
+
 }
 function gridList() {
     localStorage.setItem('vp', 'grid');
     var $gridCont = $(".grid-container");
     $gridCont.removeClass("list-view");
+    $(".card-image").css("max-height", "221px");
 }
 
 
@@ -48,7 +51,7 @@ for (var checkbox of checkboxes) {
 
             removeElement(this.value);
             console.log("unchecked");
-            /*loadMissions();*/
+          
         }
     })
 }

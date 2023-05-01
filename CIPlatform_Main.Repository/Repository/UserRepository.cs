@@ -345,6 +345,7 @@ namespace CIPlatform_Main.Repository.Repository
 		public void editDataForGoalMission(VolTimeSheetVM vtvm, long timeSheetId, long uid)
 		{
 			var data = _ciPlatformContext.Timesheets.Where(x => x.TimesheetId == timeSheetId && x.UserId == uid).FirstOrDefault();
+			data.Action = vtvm.action;
 			data.Notes = vtvm.missionDetail;
 			_ciPlatformContext.SaveChanges();
 		}

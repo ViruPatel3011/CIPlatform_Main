@@ -67,16 +67,16 @@
                         <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="2"
                                 aria-label="Slide 3"></button>*@
                     </div>
-                    <div class="carousel-inner">
+                    <div class="carousel-inner" style="height:95vh;">
                         @{
                             var isActive = 0;
                             @foreach (var banner in Model.BannerList.OrderBy(img => img.SortOrder))
                             {
                                 if (isActive == 0)
                                 {
-                                    <div class="carousel-item active">
+                                    <div class="carousel-item active" style="height:95vh;">
                                         <img src="data:image/png;base64,@banner.Image"
-                                             class="d-block w-100 img-fluid" alt="..." style="height:607px">
+                                             class="d-block w-100 img-fluid mt-3" alt="..." style="height:90vh;object-fit:cover;">
                                         <div class="carousel-caption d-none d-md-block">
                                             <h5>Sed ut perspiciatis unde omnis iste natus voluptatem.</h5>
                                             <p>
@@ -92,9 +92,9 @@
                                 }
                                 else
                                 {
-                                    <div class="carousel-item ">
+                                    <div class="carousel-item " style="height:95vh;">
                                         <img src="data:image/png;base64,@banner.Image"
-                                             class="d-block w-100 img-fluid" alt="...">
+                                             class="d-block w-100 img-fluid mt-3" alt="..." style="height:90vh;object-fit:cover;">
                                         <div class="carousel-caption d-none d-md-block">
                                             <h5>Sed ut perspiciatis unde omnis iste natus voluptatem.</h5>
                                             <p>

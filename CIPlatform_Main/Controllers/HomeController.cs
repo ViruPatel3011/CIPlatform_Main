@@ -35,6 +35,7 @@ namespace CIPlatform_Main.Controllers
         public IActionResult LandingPage(string[]? country, string[]? city, string[]? themes, string[]? skills, string? sortVal, string? search, int pg = 1)
 		{
 
+		
 			var landingPageData=_landingPage.LandingPage(country,city,themes,skills,sortVal,search,pg);
 
 			LandingPageVM landVM = new()
@@ -51,8 +52,9 @@ namespace CIPlatform_Main.Controllers
 				Cities=landingPageData.Cities,
 				MissionMedia=landingPageData.MissionMedia,
 				missionApplications=landingPageData.missionApplications,
-				
-				
+				AchievedGoals=landingPageData.AchievedGoals
+
+
 
 			};
 
@@ -99,20 +101,25 @@ namespace CIPlatform_Main.Controllers
 		// Function for sorting Mission-cards on input dropdown
 		public List<Mission> SortingData(string sortVal, List<Mission> missions)
 		{
+			var identity = User.Identity as ClaimsIdentity;
+			var uid = identity?.FindFirst(ClaimTypes.Sid)?.Value;
 			switch (sortVal)
 			{
+
 				case "Newest":
 					return missions.OrderByDescending(p => p.StartDate).ToList();
 				case "Oldest":
 					return missions.OrderBy(p => p.StartDate).ToList();
 				case "LAS":
-					return missions.OrderBy(p => p.Availability).ToList();
+					return missions.OrderBy(p => p.TotalSeats).ToList();
 				case "HAS":
-					return missions.OrderByDescending(p => p.Availability).ToList();
+					return missions.OrderByDescending(p => p.TotalSeats).ToList();
 				case "Goal":
 					return missions.Where(m => m.MissionType.Equals("Goal")).ToList();
 				case "Time":
 					return missions.Where(m => m.MissionType.Equals("Time")).ToList();
+				//case "Favourite":
+				//	return missions.OrderByDescending(mission=>mission.FavoriteMissions).Any()
 				default:
 					return missions.ToList();
 			}
