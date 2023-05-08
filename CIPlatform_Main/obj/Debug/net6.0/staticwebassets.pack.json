@@ -5,8 +5,36 @@
       "PackagePath": "staticwebassets\\CIPlatform_Main.bundle.scp.css"
     },
     {
+      "Id": "E:\\CIPlatform_Main\\CIPlatform_Main\\wwwroot\\Assets\\1488-1024x518.jpg",
+      "PackagePath": "staticwebassets\\Assets\\1488-1024x518.jpg"
+    },
+    {
+      "Id": "E:\\CIPlatform_Main\\CIPlatform_Main\\wwwroot\\Assets\\310087-landscape-nature-blue-water-sunrise-lake-Italy-mountain-clouds-trees-city-calm-748x421.jpg",
+      "PackagePath": "staticwebassets\\Assets\\310087-landscape-nature-blue-water-sunrise-lake-Italy-mountain-clouds-trees-city-calm-748x421.jpg"
+    },
+    {
+      "Id": "E:\\CIPlatform_Main\\CIPlatform_Main\\wwwroot\\Assets\\31242.jpg",
+      "PackagePath": "staticwebassets\\Assets\\31242.jpg"
+    },
+    {
+      "Id": "E:\\CIPlatform_Main\\CIPlatform_Main\\wwwroot\\Assets\\360_F_479807570_36u9WukcnCjOx28MmPODDMttocRyYtyP.jpg",
+      "PackagePath": "staticwebassets\\Assets\\360_F_479807570_36u9WukcnCjOx28MmPODDMttocRyYtyP.jpg"
+    },
+    {
       "Id": "E:\\CIPlatform_Main\\CIPlatform_Main\\wwwroot\\Assets\\404-Page-image.png",
       "PackagePath": "staticwebassets\\Assets\\404-Page-image.png"
+    },
+    {
+      "Id": "E:\\CIPlatform_Main\\CIPlatform_Main\\wwwroot\\Assets\\436481.jpg",
+      "PackagePath": "staticwebassets\\Assets\\436481.jpg"
+    },
+    {
+      "Id": "E:\\CIPlatform_Main\\CIPlatform_Main\\wwwroot\\Assets\\64115481_605.jpg",
+      "PackagePath": "staticwebassets\\Assets\\64115481_605.jpg"
+    },
+    {
+      "Id": "E:\\CIPlatform_Main\\CIPlatform_Main\\wwwroot\\Assets\\7ya4qrHsoArDh8nFxzB87U.jpg",
+      "PackagePath": "staticwebassets\\Assets\\7ya4qrHsoArDh8nFxzB87U.jpg"
     },
     {
       "Id": "E:\\CIPlatform_Main\\CIPlatform_Main\\wwwroot\\Assets\\Already-volunteered.png",
@@ -49,6 +77,10 @@
       "PackagePath": "staticwebassets\\Assets\\CSR-initiative-stands-for-Coffee--and-Farmer-Equity.png"
     },
     {
+      "Id": "E:\\CIPlatform_Main\\CIPlatform_Main\\wwwroot\\Assets\\Chariot-Green-Energy-blog-min-scaled.jpeg",
+      "PackagePath": "staticwebassets\\Assets\\Chariot-Green-Energy-blog-min-scaled.jpeg"
+    },
+    {
       "Id": "E:\\CIPlatform_Main\\CIPlatform_Main\\wwwroot\\Assets\\Education-Supplies-for-Every--Pair-of-Shoes-Sold-1.png",
       "PackagePath": "staticwebassets\\Assets\\Education-Supplies-for-Every--Pair-of-Shoes-Sold-1.png"
     },
@@ -89,6 +121,10 @@
       "PackagePath": "staticwebassets\\Assets\\Grow-Trees-On-the-path-to-environment-sustainability.png"
     },
     {
+      "Id": "E:\\CIPlatform_Main\\CIPlatform_Main\\wwwroot\\Assets\\M16SHO.jpeg",
+      "PackagePath": "staticwebassets\\Assets\\M16SHO.jpeg"
+    },
+    {
       "Id": "E:\\CIPlatform_Main\\CIPlatform_Main\\wwwroot\\Assets\\Nourish-the-Children-in--African-country-1.png",
       "PackagePath": "staticwebassets\\Assets\\Nourish-the-Children-in--African-country-1.png"
     },
@@ -119,6 +155,10 @@
     {
       "Id": "E:\\CIPlatform_Main\\CIPlatform_Main\\wwwroot\\Assets\\Voted-Missions.png",
       "PackagePath": "staticwebassets\\Assets\\Voted-Missions.png"
+    },
+    {
+      "Id": "E:\\CIPlatform_Main\\CIPlatform_Main\\wwwroot\\Assets\\Zc_PGwrj43KmG0Z51MPAtFfIgVdhbrVXGp6PQ7VYvw4.jpg",
+      "PackagePath": "staticwebassets\\Assets\\Zc_PGwrj43KmG0Z51MPAtFfIgVdhbrVXGp6PQ7VYvw4.jpg"
     },
     {
       "Id": "E:\\CIPlatform_Main\\CIPlatform_Main\\wwwroot\\Assets\\achieved.png",
@@ -329,6 +369,18 @@
       "PackagePath": "staticwebassets\\Assets\\pdf.png"
     },
     {
+      "Id": "E:\\CIPlatform_Main\\CIPlatform_Main\\wwwroot\\Assets\\pexels-pixabay-247502.jpg",
+      "PackagePath": "staticwebassets\\Assets\\pexels-pixabay-247502.jpg"
+    },
+    {
+      "Id": "E:\\CIPlatform_Main\\CIPlatform_Main\\wwwroot\\Assets\\photo-1444703686981-a3abbc4d4fe3 (1).jpg",
+      "PackagePath": "staticwebassets\\Assets\\photo-1444703686981-a3abbc4d4fe3 (1).jpg"
+    },
+    {
+      "Id": "E:\\CIPlatform_Main\\CIPlatform_Main\\wwwroot\\Assets\\photo-1625246333195-78d9c38ad449.jpg",
+      "PackagePath": "staticwebassets\\Assets\\photo-1625246333195-78d9c38ad449.jpg"
+    },
+    {
       "Id": "E:\\CIPlatform_Main\\CIPlatform_Main\\wwwroot\\Assets\\photo.png",
       "PackagePath": "staticwebassets\\Assets\\photo.png"
     },
@@ -377,12 +429,28 @@
       "PackagePath": "staticwebassets\\Assets\\settings.png"
     },
     {
+      "Id": "E:\\CIPlatform_Main\\CIPlatform_Main\\wwwroot\\Assets\\spaceship-4828098__340.jpg",
+      "PackagePath": "staticwebassets\\Assets\\spaceship-4828098__340.jpg"
+    },
+    {
       "Id": "E:\\CIPlatform_Main\\CIPlatform_Main\\wwwroot\\Assets\\star-empty.png",
       "PackagePath": "staticwebassets\\Assets\\star-empty.png"
     },
     {
       "Id": "E:\\CIPlatform_Main\\CIPlatform_Main\\wwwroot\\Assets\\star.png",
       "PackagePath": "staticwebassets\\Assets\\star.png"
+    },
+    {
+      "Id": "E:\\CIPlatform_Main\\CIPlatform_Main\\wwwroot\\Assets\\storm-area-51.jpg",
+      "PackagePath": "staticwebassets\\Assets\\storm-area-51.jpg"
+    },
+    {
+      "Id": "E:\\CIPlatform_Main\\CIPlatform_Main\\wwwroot\\Assets\\tdy_news_fryer_area51_190716_1920x1080.jpg",
+      "PackagePath": "staticwebassets\\Assets\\tdy_news_fryer_area51_190716_1920x1080.jpg"
+    },
+    {
+      "Id": "E:\\CIPlatform_Main\\CIPlatform_Main\\wwwroot\\Assets\\tree-736885__480.jpg",
+      "PackagePath": "staticwebassets\\Assets\\tree-736885__480.jpg"
     },
     {
       "Id": "E:\\CIPlatform_Main\\CIPlatform_Main\\wwwroot\\Assets\\twitter.png",
@@ -447,6 +515,10 @@
     {
       "Id": "E:\\CIPlatform_Main\\CIPlatform_Main\\wwwroot\\Assets\\web.png",
       "PackagePath": "staticwebassets\\Assets\\web.png"
+    },
+    {
+      "Id": "E:\\CIPlatform_Main\\CIPlatform_Main\\wwwroot\\Assets\\wp2665205.jpg",
+      "PackagePath": "staticwebassets\\Assets\\wp2665205.jpg"
     },
     {
       "Id": "E:\\CIPlatform_Main\\CIPlatform_Main\\wwwroot\\Assets\\xlsx.png",
@@ -559,6 +631,10 @@
     {
       "Id": "E:\\CIPlatform_Main\\CIPlatform_Main\\wwwroot\\StoryMedia\\0pexels-kien-virak-7197266.jpg",
       "PackagePath": "staticwebassets\\StoryMedia\\0pexels-kien-virak-7197266.jpg"
+    },
+    {
+      "Id": "E:\\CIPlatform_Main\\CIPlatform_Main\\wwwroot\\css\\AccessDenied.css",
+      "PackagePath": "staticwebassets\\css\\AccessDenied.css"
     },
     {
       "Id": "E:\\CIPlatform_Main\\CIPlatform_Main\\wwwroot\\css\\LandingPage.css",
@@ -763,6 +839,10 @@
     {
       "Id": "E:\\CIPlatform_Main\\CIPlatform_Main\\wwwroot\\js\\UserProfile.js",
       "PackagePath": "staticwebassets\\js\\UserProfile.js"
+    },
+    {
+      "Id": "E:\\CIPlatform_Main\\CIPlatform_Main\\wwwroot\\js\\VolTimeSheet.js",
+      "PackagePath": "staticwebassets\\js\\VolTimeSheet.js"
     },
     {
       "Id": "E:\\CIPlatform_Main\\CIPlatform_Main\\wwwroot\\js\\cascade.js",

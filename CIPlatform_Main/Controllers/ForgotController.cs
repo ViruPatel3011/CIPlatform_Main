@@ -36,12 +36,12 @@ namespace CIPlatform_Main.Controllers
         {
             if (ModelState.IsValid)
             {
-                var emailIsValid = _forgotRepository.checkUser(forgotVM);
+                var emailIsValid = _forgotRepository.CheckUser(forgotVM);
                 //var validEmail = _ciPlatformContext.Users.FirstOrDefault(u => u.Email == tempForgotPassword.Email);
                 if (emailIsValid)
                 {
                     string url = Url.Action("ResetPassword", "ResetPassword", new { email = forgotVM.Email, token = "{token}" }, Request.Scheme);
-                    var sendEmail = _forgotRepository.sendMail(forgotVM, url);
+                    var sendEmail = _forgotRepository.SendMail(forgotVM, url);
 
                     if (sendEmail)
                     {

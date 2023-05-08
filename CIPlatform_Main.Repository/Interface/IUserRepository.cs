@@ -10,7 +10,7 @@ namespace CIPlatform_Main.Repository.Interface
 {
 	public interface IUserRepository
 	{
-		public UserViewModel getUserData(int uid);
+		public UserViewModel GetUserData(int uid);
 
 		// Method for Save User Profile Data
 		public void SaveUserProfile(UserViewModel userView,int uid);
@@ -23,15 +23,15 @@ namespace CIPlatform_Main.Repository.Interface
 		public int ChangeUserPassword(int uid, UserViewModel userViewModel);
 
 		// Method for change user Profile image
-		public string changeAvatar(string image, int uid);
+		public string ChangeUserAvatar(string image, int uid);
 
 
 		// Method for Getting List of Country for UserProfile
-		public List<Country> GetCountryList();
+		public List<Country> GetCountryListData();
 
 
 		// Method for Getting List of City for UserProfile
-		public List<City> GetCityList(int id);
+		public List<City> GetCityListData(int id);
 
 
 
@@ -40,34 +40,34 @@ namespace CIPlatform_Main.Repository.Interface
 		public void AddGoalBaseData(VolTimeSheetVM volTime, int uid);
 
 		// Below method is for Get List of TimeSheet for Time Based mission
-		public List<Timesheet> getTimeBasedSheet(int uid);
+		public List<Timesheet> GetTimeBasedSheet(int uid);
 
 		// Below method is for Get List of TimeSheet for Goal Based mission
-		public List<Timesheet> getGoalBasedSheet(int uid);
+		public List<Timesheet> GetGoalBasedSheet(int uid);
 
 		// Below method is for Get List of Time Based mission
-		public List<Mission> getTimeBaseMission(int uid);
+		public List<Mission> GetTimeBaseMission(int uid);
 
 		// Below method is for Get List of Goal Based mission
-		public List<Mission> getGoalBaseMission(int uid);
+		public List<Mission> GetGoalBaseMission(int uid);
 		
 
 
 		// Get Data for Edit TimeBased Mission
-		public Timesheet getDataForEditSectionForTimeBase(long tId, long uid);
+		public Timesheet GetDataForEditForTimeBase(long tId, long uid);
 
-		public Timesheet getDataForEditSectionForGoalBase(long goalBasedId, long uid);
-
-
-		public string getMissionNameForEditSection(long tId);
+		public Timesheet GetDataForEditForGoalBase(long goalBasedId, long uid);
 
 
-		public void editDataForTimeMission(VolTimeSheetVM vtvm, int tId, long uid);
-		public void editDataForGoalMission(VolTimeSheetVM vtvm, long timeSheetId, long uid);
+		public string GetMissionNameForEditSection(long tId);
+
+
+		public void EditDataForTimeMission(VolTimeSheetVM vtvm, int tId, long uid);
+		public void EditDataForGoalMission(VolTimeSheetVM vtvm, long timeSheetId, long uid);
 
 
 		// Delete data from timesheet
-		public bool removeTimeBasedData(int tId, int uid);
+		public bool RemoveTimeBasedData(int tId, int uid);
 
 
 	}

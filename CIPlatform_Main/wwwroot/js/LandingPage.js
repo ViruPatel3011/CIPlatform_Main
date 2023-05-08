@@ -18,6 +18,11 @@ function gridList() {
     $gridCont.removeClass("list-view");
     $(".card-image").css("max-height", "221px");
 }
+$(window).resize(function () {
+    if ($(window).width() <= 767) {
+        gridList();
+    }
+});
 
 
 $(document).on('click', '.btn-grid', gridList);

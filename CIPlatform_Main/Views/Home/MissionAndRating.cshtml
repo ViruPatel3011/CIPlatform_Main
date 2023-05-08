@@ -26,12 +26,26 @@
 
 	<title>Related Mission & Rating</title>
 	<style>
+		.page-link:hover {
+			color: white !important;
+			background: #F88634 !important;
+			cursor: pointer;
+			transition: 0.5s;
+		}
 
+		.page-link {
+			border: 1px solid #F88634;
+			color: #F88534;
+			text-decoration: none;
+		}
 	</style>
 </head>
 
 <body>
 
+	@{
+		var missionApply = Model.missionApplications.Where(missionapp => missionapp.MissionId == Model.MissionDetail.MissionId && missionapp.UserId == Model.userId && missionapp.ApprovalStatus == "Approved").FirstOrDefault();
+	}
 	<section class="main">
 
 
@@ -86,9 +100,18 @@
 									@name @surname
 								</a>
 								<ul class="dropdown-menu" aria-labelledby="navbarScrollingDropdown">
+
+									@*@foreach (var admin in Model.AdminList)
+									{
+										if (admin.Email == Email)
+										{
+											<li><a class="dropdown-item" asp-controller="Admin" asp-action="UserPage">Admin Panel</a></li>
+
+										}
+									}*@
 									<li><a class="dropdown-item" asp-controller="User" asp-action="UserProfile">Add Profile</a></li>
 									<li><a class="dropdown-item" asp-controller="User" asp-action="VolTimeSheet">Volunteering TimeSheet</a></li>
-									@*	<li><a class="dropdown-item" href="#">Help Center</a></li>*@
+
 									<li><a class="dropdown-item" asp-controller="Login" asp-action="Logout">LogOut</a></li>
 								</ul>
 							</li>
@@ -134,70 +157,59 @@
 			<!-- Column for left part  -->
 			<div class="col-lg-6">
 
-				<!-- Container for the image gallery carousel start -->
-				<div class="container h-100">
+				
+				<!-- Container for the image gallery -->
+				<div style="height: 100%">
 
 					<!-- Full-width images with number text -->
+					<div class="position-relative" style="height: 400px">
+						@foreach (var media in Model.MissionMedia)
+						{
+							if(media ==null){
+								<div class="mySlides h-100">
+									<img class="h-100 slider-images"
+										 src="/Assets/404-Page-image.png"
+										 style="width:100%;">
+								</div>
+							}else{
 
-					<div style="height: 80%;">
-						<div class="mySlides h-100 ">
-							<img src="~/Assets/CSR-initiative-stands-for-Coffee--and-Farmer-Equity-4.png" style="width:100%" class="h-100">
-						</div>
-
-						<div class="mySlides h-100">
-							<img src="~/Assets/img1.png" style="width:100%" class="h-100">
-						</div>
-
-						<div class="mySlides h-100">
-							<img src="~/Assets/Grow-Trees-On-the-path-to-environment-sustainability-login.png" style="width:100%" class="h-100">
-						</div>
-
-						<div class="mySlides  h-100">
-							<img src="~/Assets/img11.png" style="width:100%" class="h-100">
-						</div>
-
-						<div class="mySlides h-100">
-							<img src="~/Assets/img11.png" style="width:100%" class="h-100">
-						</div>
-
-						<div class="mySlides h-100">
-							<img src="~/Assets/image1.png" style="width:100%" class="h-100">
-						</div>
-
+								<div class="mySlides h-100">
+									<img class="h-100 slider-images"
+										 src="@media.MediaPath"
+										 style="width:100%;">
+								</div>
+							}
+						
+							
+						}
 						<!-- Next and previous buttons -->
 						<a class="prev" onclick="plusSlides(-1)">&#10094;</a>
 						<a class="next" onclick="plusSlides(1)">&#10095;</a>
 					</div>
 
+
+
+
 					<!-- Thumbnail images -->
-					<div class="row mt-2 w-100 mx-auto my-auto" style="height: 15%;">
-						<div class="column pe-0 ps-0">
-							<img class="demo cursor h-100" src="~/Assets/CSR-initiative-stands-for-Coffee--and-Farmer-Equity-5.png"
-		 style="width:100%" onclick="currentSlide(1)" alt="The Woods">
-						</div>
-						<div class="column pe-0">
-							<img class="demo cursor h-100" src="~/Assets/img2.png" style="width:100%" onclick="currentSlide(2)"
-		 alt="Cinque Terre">
-						</div>
-						<div class="column pe-0">
-							<img class="demo cursor h-100" src="~/Assets/Grow-Trees-On-the-path-to-environment-sustainability-4.png"
-		 style="width:100%" onclick="currentSlide(3)" alt="Mountains and fjords">
-						</div>
-						<div class="column pe-0">
-							<img class="demo cursor h-100" src="~/Assets/img22.png" style="width:100%" onclick="currentSlide(4)"
-		 alt="Northern Lights">
-						</div>
-						<div class="column pe-0">
-							<img class="demo cursor h-100" src="~/Assets/img.png" style="width:100%" onclick="currentSlide(5)"
-		 alt="Nature and sunrise">
-						</div>
-						<div class="column pe-0">
-							<img class="demo cursor h-100" src="~/Assets/image.png" style="width:100%" onclick="currentSlide(6)"
-		 alt="Snowy Mountains">
+					<div class="row mt-2 w-100 mx-auto position-relative d-flex justify-content-center" style="height: 100px">
+						<div class="thumb-images d-flex">
+							@{
+								var current = 1;
+							}
+							@foreach (var media in Model.MissionMedia)
+							{
+								
+									<div class="column">
+										<img class="demo cursor"
+											 src="@media.MediaPath"
+											 onclick="currentSlide(@current)" alt="">
+									</div>
+								
+								current++;
+							}
 						</div>
 					</div>
 				</div>
-				<!-- Container for the image gallery carousel end -->
 
 			</div>
 
@@ -215,37 +227,92 @@
 				<!--Desrcription  end-->
 				<!--no of seats section inside description start-->
 				<div class="d-flex justify-content-between border-top border-bottom position-relative mt-3">
-					<div class="d-flex align-items-center ps-5 mt-3 mb-2">
-						<div>
-							<img src="~/Assets/Seats-left.png" width="40px" height="40px" alt="">
-						</div>
-						<div class="ps-2">
-							<h5 class="mb-0">@Model.MissionDetail.Availability</h5>
-							<p class="mb-0">Seats left</p>
-						</div>
-					</div>
-					<div class="pe-5">
-						<div class="d-flex align-items-center mt-3 mb-2">
-							<div>
-								<img src="~/Assets/mission.png" alt="">
-							</div>
-							<div class="ps-3">
-								<div class="progress mt-2">
-									<div class="progress-bar" role="progressbar" style="width: 50%" aria-valuenow="50" aria-valuemin="0"
-										 aria-valuemax="100"></div>
-								</div>
-								<div> <span class="text1">8000 achieved</div>
-							</div>
+					@if (Model.MissionDetail.MissionType == "Goal")
+					{
+						var totalGoal = Model.GoalMissions.Where(goal => goal.MissionId == Model.MissionDetail.MissionId).FirstOrDefault();
+						var achievedGoal = Model.TimeSheetList.Where(data => data.MissionId == Model.MissionDetail.MissionId).ToList();
+						int? goalAchieved = 0;
 
+						//@foreach(var goals in achievedGoal){
+						//	goalAchieved = goalAchieved + goals.Action;
+						//}
+						int? goalValue = totalGoal?.GoalValue;
+
+						goalAchieved = achievedGoal.Sum(g => g.Action);
+
+
+						decimal? progressBar = ((decimal)goalAchieved / (decimal)goalValue) * 100;
+						var totalVolunteerforGoal = Model.missionApplications.Count(mission => mission.MissionId == Model.MissionDetail.MissionId && mission.Mission.MissionType == "Goal" && mission.ApprovalStatus == "Approved");
+						<!-- Goal based Mission -->
+						<div class="d-flex align-items-center ps-5 mt-3 mb-2">
+							<div>
+								<img src="~/Assets/Seats-left.png" width="40px" height="40px" alt="">
+							</div>
+							<div class="ps-2">
+								<h5 class="mb-0">@totalVolunteerforGoal</h5>
+								<p class="mb-0">Volunteerd</p>
+							</div>
 						</div>
-					</div>
+						<div class="pe-5">
+							<div class="d-flex align-items-center mt-3 mb-2">
+								<div>
+									<img src="~/Assets/mission.png" alt="">
+								</div>
+								<div class="ps-3">
+									<div class="progress mt-2">
+										<div class="progress-bar" role="progressbar" style="width: @progressBar%" aria-valuenow="@progressBar" aria-valuemin="0"
+											 aria-valuemax="100"></div>
+									</div>
+									<div>
+										@if (goalAchieved >= goalValue)
+										{
+
+											<p class="mb-0">Fully achieved</p>
+										}
+										else
+										{
+											<p class="mb-0">@goalAchieved achieved</p>
+
+										}
+									</div>
+								</div>
+
+							</div>
+						</div>
+					}
+					else
+					{
+						var totalVolunteerforTime = Model.missionApplications.Count(mission => mission.MissionId == Model.MissionDetail.MissionId && mission.Mission.MissionType == "Time" && mission.ApprovalStatus == "Approved");
+						var seatsLeft = Model.MissionDetail.TotalSeats - totalVolunteerforTime;
+						<div class="d-flex align-items-center ps-5 mt-3 mb-2">
+							<div>
+								<img src="~/Assets/Seats-left.png" width="40px" height="40px" alt="">
+							</div>
+							<div class="ps-2">
+								<h5 class="mb-0">@seatsLeft</h5>
+								<p class="mb-0">Seats Left</p>
+							</div>
+						</div>
+						<div class="pe-5">
+							<div class="d-flex align-items-center mt-3 mb-2">
+								<div>
+									<img src="~/Assets/mission.png" alt="">
+								</div>
+								<div class="ps-3">
+									@Model.MissionDetail.Deadline
+								</div>
+
+							</div>
+						</div>
+					}
+
 					<div class="position-absolute" id="cardLable" style=" height:30px">
 
 						@if (Model.MissionDetail.MissionType == "Goal")
 						{
 
-							<p class="mb-0 px-2">
-								@Model.GoalMission.GoalValue
+							<p class="mb-0 px-2" style="font-size:13px;">
+								@Model.GoalMission.GoalObjectiveText
 							</p>
 						}
 						else
@@ -262,31 +329,7 @@
 				<!--Button Section start-->
 				<div class="mt-4 d-flex justify-content-evenly">
 
-					@*@if (uid != null)
-					{
-					<a href="" class="btn  descBtn px-2" style="width:45%; border:2px solid #757575" onclick="AddtoFav(@Model.MissionDetail.MissionId)">
-					@if (Model.FavoriteMissionList.Where(m => m.UserId.ToString() == uid && m.MissionId == Model.MissionDetail.MissionId).Count() == 1)
-					{
-					<i class="bi bi-heart-fill text-danger pe-2"></i>
-					<small class="mb-0 h6">Remove From Favourite</small>
-					}
-					else
-					{
-					<i class="bi bi-heart pe-2"></i>
-					<small class="mb-0 h6">Add to Favourite</small>
-					}
-					</a>
-					}
 
-					else
-					{
-					<a class="btn  descBtn px-2" style="width:45%; border:2px solid #757575" onclick="loginToPage()">
-					<i class="bi bi-heart pe-2"></i>
-					<small class="mb-0 h6">Add to Favourite</small>
-					</a>
-
-
-					}*@
 
 					@if (uid != null)
 					{
@@ -340,9 +383,7 @@
 						</button>
 					}
 
-					@*<a href="" class="btn  descBtn px-2" style="width:45%; border:2px solid #757575">	<img src="~/Assets/add1.png" alt=""> Recommended to
-					Co-Worker
-					</a>*@
+
 					@if (uid != null)
 					{
 						var currentDate = DateTime.Now;
@@ -377,12 +418,7 @@
 												<button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
 												<button type="button" class="btn btn-success" id="sendmail">Send Mail</button>
 											</div>
-											@*</div>*@
-											@*<div class="d-none w-100 text-center" id="volPageLoader">
-									<div class="spinner-border text-warning" role="status">
-									</div>
-									<p>Sending Mail...</p>
-									</div>*@
+
 										</div>
 									</div>
 								</div>
@@ -404,19 +440,6 @@
 
 					<div class=" d-flex position-absolute" id="starPosition">
 
-						@*for(int i = 0; i < Model.missionRate; i++)
-						{
-						<span>
-						<img src="~/Assets/selected-star.png" class="star" alt="">
-						</span>
-						}
-						@for(int i=Model.missionRate; i < 5; i++)
-						{
-						<span>
-						<img src="~/Assets/star.png" class="star" alt="">
-						</span>
-						}
-						*@
 						@if (User.Identity.IsAuthenticated)
 						{
 							var currentDate = DateTime.Now;
@@ -503,7 +526,7 @@
 								if (alreadyAppliedUser == null)
 								{
 									<a href="" class="btn  py-2 px-3 " id="applyBtn" style="border: 2px solid #F88634;
-																				color: #F88634;" onclick="applyMission()">Apply Now <img src="~/Assets/right-arrow.png" class="ps-3" alt=""></a>
+																							color: #F88634;" onclick="applyMission()">Apply Now <img src="~/Assets/right-arrow.png" class="ps-3" alt=""></a>
 								}
 
 								else
@@ -511,12 +534,12 @@
 									if (alreadyAppliedUser.ApprovalStatus == "pending")
 									{
 										<a href="" class="btn  py-2 px-3 text-warning" id="applyBtn" style="border: 2px solid #F88634;
-																				color: #F88634;">Applied Request Pending <img src="~/Assets/right-arrow.png" class="ps-3" alt=""></a>
+																							color: #F88634;">Applied Request Pending <img src="~/Assets/right-arrow.png" class="ps-3" alt=""></a>
 									}
 									else
 									{
 										<a href="" class="btn  py-2 px-3 text-success" id="applyBtn" style="border: 2px solid #F88634;
-																				color: #F88634;">Applied Request Approved <img src="~/Assets/right-arrow.png" class="ps-3" alt=""></a>
+																							color: #F88634;">Applied Request Approved <img src="~/Assets/right-arrow.png" class="ps-3" alt=""></a>
 
 									}
 
@@ -589,15 +612,8 @@
 											</a>
 										</div>
 									}
-									else if (documents.DocumentType == "image")
-									{
-										<div class="d-flex justify-content-center mt-2">
-											<a class="btn btn-outline-dark rounded-pill py-2" href="@documents.DocumentPath" target="_blank" download="@documents.DocumentPath">
-												<img src="~/Assets/pdf.png" alt="like" /> @documents.DocumentName
-											</a>
-										</div>
-									}
-									else if (documents.DocumentType == "docs")
+									
+									else if (documents.DocumentType == "application/vnd.openxmlformats-officedocument.wordprocessingml.document")
 									{
 										<div class="d-flex justify-content-center mt-2">
 											<a class="btn btn-outline-dark rounded-pill py-2" href="@documents.DocumentPath" target="_blank" download="@documents.DocumentPath">
@@ -757,7 +773,8 @@
 								@{
 									var userApplied1 = @Model.MissionDetail.MissionId;
 
-									foreach (var volunteer in Model.missionApplications.Where(x => x.MissionId == userApplied1 && x.ApprovalStatus=="Approved"))
+
+									foreach (var volunteer in Model.missionApplications.Where(x => x.MissionId == userApplied1 && x.ApprovalStatus == "Approved"))
 									{
 										<div class="text-center volunteer">
 											@*
@@ -789,6 +806,7 @@
 
 							<nav aria-label="Page navigation example">
 								<ul class="pagination d-flex justify-content-evenly">
+
 								</ul>
 							</nav>
 						</div>
@@ -825,6 +843,8 @@
 							{
 								if (item.MissionType == "Time")
 								{
+									var totalVolunteerforTime = Model.missionApplications.Count(mission => mission.MissionId == item.MissionId && mission.Mission.MissionType == "Time" && mission.ApprovalStatus == "Approved");
+									var seatsLeft = item.TotalSeats - totalVolunteerforTime;
 									<!-- Time based mission  -->
 									<div class="col-12 col-md-6 col-lg-4 card ">
 										@*<div class="card">*@
@@ -933,7 +953,7 @@
 															<div class="modal fade " id="relatedRecommendGoal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
 																<div class="modal-dialog">
 																	<div class="modal-content">
-																		@*<div id="model-content">*@
+
 
 																		<div class="modal-header">
 																			<h1 class="modal-title fs-5" id="staticBackdropLabel">Modal title</h1>
@@ -945,12 +965,7 @@
 																			<button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
 																			<button type="button" class="btn btn-success" id="sendmail">Send Mail</button>
 																		</div>
-																		@*</div>*@
-																		@*<div class="d-none w-100 text-center" id="volPageLoader">
-												<div class="spinner-border text-warning" role="status">
-												</div>
-												<p>Sending Mail...</p>
-												</div>*@
+
 																	</div>
 																</div>
 															</div>
@@ -966,8 +981,8 @@
 
 													}
 												</div>
-												<div class="text-center position-absolute" id="mission-theme" style=" left: 50%;
-																							transform: translateX(-50%);">
+												<div class="text-center position-absolute" id="mission-theme" style=" left: 50%;font-size:13px;
+																										transform: translateX(-50%);">
 													<p class="ps-1 pe-1 mb-0" style="border-radius: 20px; background-color: white;">
 														@item.Theme.Title
 													</p>
@@ -978,8 +993,8 @@
 											<!-- Time based mission  Body-->
 											<div class="card-body">
 												<h5 class="card-title">@item.Title</h5>
-												<p class="card-text">
-													@item.ShortDescription
+												<p class="card-text" style="display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical;overflow: hidden;">
+													@Html.Raw(@item.ShortDescription)
 												</p>
 												<div class="d-flex justify-content-between mb-3">
 
@@ -1006,32 +1021,17 @@
 															<img src="~/Assets/Seats-left.png" width="25px" height="25px" alt="">
 														</div>
 														<div class=" px-0">
-															<h6 class="mb-0 mt-1">10</h6>
+															<h6 class="mb-0 mt-1">@seatsLeft</h6>
 															<p class="mb-0">Seats left</p>
 														</div>
 													</div>
-													@*
-									<div class="d-flex align-items-center " id="skillList" style="display:none">
-									<div class="mt-1 pe-0 me-2">
-									<img src="~/Assets/Seats-left.png" alt="" width="25px" height="25px">
-									</div>
-									<div class="px-0 ">
-									<h6 class="mb-0 mt-1">Skills</h6>
-									<p class="mb-0">
-									@foreach (var skill in Model.MissionSkills)
-									{
-									<span>@skill.Skill.SkillName</span>
-									}
-									</p>
-									</div>
-									</div>
-									*@
+
 													<div class="d-flex align-items-center">
 														<div class=" mt-1 me-2 mx-auto">
 															<img src="~/Assets/deadline.png" width="25px" height="25px" alt="">
 														</div>
 														<div class=" px-0">
-															<h6 class="mb-0 mt-1">09/01/2019</h6>
+															<h6 class="mb-0 mt-1">@item.Deadline.Value.ToShortDateString()</h6>
 															<p class="mb-0">Deadline</p>
 														</div>
 													</div>
@@ -1041,7 +1041,7 @@
 												<div class="card-footer text-center">
 
 													<a type="submit" asp-controller="Home" asp-action="MissionAndRating" asp-route-id="@item.MissionId" class="btn  rounded-pill" style="border: 2px solid #F88634;
-																						  	color: #F88634;">
+																									  	color: #F88634;">
 														Explore Now <img src="~/Assets/right-arrow.png" alt="">
 													</a>
 
@@ -1053,6 +1053,20 @@
 								}
 								else if (item.MissionType == "Goal")
 								{
+									var totalGoal = Model.GoalMissions.Where(goal => goal.MissionId == item.MissionId).FirstOrDefault();
+									var achievedGoal = Model.TimeSheetList.Where(data => data.MissionId == item.MissionId).ToList();
+									int? goalAchieved = 0;
+
+									//@foreach(var goals in achievedGoal){
+									//	goalAchieved = goalAchieved + goals.Action;
+									//}
+									int? goalValue = totalGoal?.GoalValue;
+
+									goalAchieved = achievedGoal.Sum(g => g.Action);
+
+
+									decimal? progressBar = ((decimal)goalAchieved / (decimal)goalValue) * 100;
+									var totalVolunteerforGoal = Model.missionApplications.Count(mission => mission.MissionId == item.MissionId && mission.Mission.MissionType == "Goal" && mission.ApprovalStatus == "Approved");
 									<!-- Goal based Mission -->
 									<div class="col-12 col-md-6 col-lg-4 card">
 										@*<div class="card">*@
@@ -1183,20 +1197,20 @@
 																</div>
 															</div>
 														}
-													
+
 													}
 													else
 													{
 
-													<button type="button" class="btn btn-Secondary">
-														<img class="pe-2" src="~/Assets/user.png" alt="" onclick="notloggedin();">
-													</button>
+														<button type="button" class="btn btn-Secondary">
+															<img class="pe-2" src="~/Assets/user.png" alt="" onclick="notloggedin();">
+														</button>
 
 													}
 												</div>
 												<div class="text-center position-absolute" id="mission-theme" style=" left: 50%;
-																						transform: translateX(-50%); bottom: -27px;">
-													<p class="ps-1 pe-1" style="border-radius: 20px; background-color: white;">
+																										transform: translateX(-50%); bottom: -13px;font-size:13px;">
+													<p class="ps-1 pe-1 mb-0" style="border-radius: 20px; background-color: white;">
 														@item.Theme.Title
 													</p>
 												</div>
@@ -1206,8 +1220,8 @@
 											<!--  Goal based Mission Body-->
 											<div class="card-body">
 												<h5 class="card-title">@item.Title</h5>
-												<p class="card-text">
-													@item.ShortDescription
+												<p class="card-text" style="display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical;overflow: hidden;">
+													@Html.Raw(@item.ShortDescription)
 												</p>
 												<div class="d-flex justify-content-between mb-3">
 
@@ -1228,10 +1242,10 @@
 												</div>
 												<div class="d-flex justify-content-between position-relative border-top border-bottom py-4">
 													<div class="text-center position-absolute" id="mission-deadline" style=" top: -15px;
-																				left: 50%;
-																				transform: translateX(-50%);">
+																							left: 50%;
+																							transform: translateX(-50%);">
 														<p style="border: 1px solid gray;border-radius: 20px; font-size:15px" class="ps-1 pe-1">
-															Ongoing Oppurtunity
+															@totalGoal.GoalObjectiveText
 														</p>
 													</div>
 													<div class="d-flex align-items-center">
@@ -1239,36 +1253,31 @@
 															<img src="~/Assets/Seats-left.png" width="25px" height="25px" alt="">
 														</div>
 														<div class=" px-0">
-															<h6 class="mb-0 mt-1">@item.Availability</h6>
-															<p class="mb-0">Seats left</p>
+															<h6 class="mb-0 mt-1">@totalVolunteerforGoal</h6>
+															<p class="mb-0">Volunteered</p>
 														</div>
 													</div>
-													@*
-									<div class="d-flex align-items-center " id="skillList" style="display:none">
-									<div class="mt-1 pe-0 me-2">
-									<img src="~/Assets/Seats-left.png" alt="" width="25px" height="25px">
-									</div>
-									<div class="px-0 ">
-									<h6 class="mb-0 mt-1">Skills</h6>
-									<p class="mb-0">
-									@foreach (var skill in Model.MissionSkills)
-									{
-									<span>@skill.Skill.SkillName</span>
-									}
-									</p>
-									</div>
-									</div>
-									*@
+
 													<div class="d-flex align-items-center">
 														<div class=" mt-1 me-2 mx-auto">
 															<img src="~/Assets/achieved.png" width="25px" height="25px" alt="">
 														</div>
 														<div class=" px-0">
 															<div class="progress">
-																<div class="progress-bar bg-warning" role="progressbar" style="width: 75%" aria-valuenow="75"
+																<div class="progress-bar bg-warning" role="progressbar" style="width: @progressBar%" aria-valuenow="@progressBar"
 																	 aria-valuemin="0" aria-valuemax="100"></div>
 															</div>
-															<p class="mb-0">8000 achieved</p>
+															@if (goalAchieved >= goalValue)
+															{
+
+																<p class="mb-0">Fully achieved</p>
+															}
+															else
+															{
+																<p class="mb-0">@goalAchieved achieved</p>
+
+															}
+
 														</div>
 													</div>
 												</div>
@@ -1279,7 +1288,7 @@
 
 
 													<a type="submit" asp-controller="Home" asp-action="MissionAndRating" asp-route-id="@item.MissionId" class="btn  rounded-pill" style="border: 2px solid #F88634;
-																						  	color: #F88634;">
+																									  	color: #F88634;">
 														Explore Now <img src="~/Assets/right-arrow.png" alt="">
 													</a>
 
@@ -1312,24 +1321,17 @@
 	-
 
 	<!--footer satrt-->
-	<div class="copyright mt-5 bg-dark " style=" position: fixed; bottom: 0px; width: 100%;">
+	<div class="copyright mt-5 bg-dark ">
 		<div class="container">
 			<div class="row">
 				<div class="col-md-6">
 					<div class="copyright-menu">
 						<ul>
+						
 							<li>
-								<a href="#" style="color:#acacac">Privacy Policy</a>
+								<a asp-controller="Login" asp-action="PolicyPage" style="color:#acacac">Privacy Policy</a>
 							</li>
-							<li>
-								<a asp-controller="Login" asp-action="PolicyPage" style="color:#acacac">Cookie Policy</a>
-							</li>
-							<li>
-								<a href="" style="color:#acacac">Contact Us</a>
-							</li>
-							<li>
-								<a href="#" style="color:#acacac">Terms of Use</a>
-							</li>
+					
 
 						</ul>
 					</div>
@@ -1367,7 +1369,7 @@
 
 
 
-		var currentPage = 1;
+				var currentPage = 1;
 		var volunteersPerPage = 2;
 		var volunteers = document.querySelectorAll(".volunteer");
 
@@ -1620,7 +1622,7 @@
 		function addFavourite(missionId) {
 
 			$.ajax({
-				url: "/Home/doFavouriteMission",
+				url: "/Home/DoFavouriteMission",
 				type: "POST",
 				data: {
 					mId: missionId
@@ -1640,7 +1642,7 @@
 			// alert('Inside function');
 			$.ajax({
 				type: 'POST',
-				url: '/Home/appliedForMission',
+				url: '/Home/AppliedForMission',
 				data: {
 					mId: @Model.MissionDetail.MissionId,
 
@@ -1653,7 +1655,7 @@
 				}
 			});
 		}
-																																/*function recommendattion(mId){
+																																						/*function recommendattion(mId){
 		var userids = [];
 		$('.modal-body input:checked').each(function () {
 		userids.push($(this).attr("id"));

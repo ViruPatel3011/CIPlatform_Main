@@ -198,7 +198,7 @@
 	function deleteCMSData(){
 		$.ajax({
 			method: 'POST',
-			url: '/Admin/deleteCMSPageData',
+			url: '/Admin/DeleteCMSPageData',
 			data: {
 				cmsId: cmsPageId
 			},
@@ -222,7 +222,7 @@
 
 		$.ajax({
 			method: 'GET',
-			url: '/Admin/getCMSDataForEdit',
+			url: '/Admin/GetCMSDataForEdit',
 			data: {
 				cmsid: cmsId
 			},
@@ -255,5 +255,8 @@
 				dataTable.search(this.value).draw();
 			});
 		});
+
+	$('#cmsPageLink').addClass('bg-white')
+	$('#cmsPageLink').css("color", "orange");
 </script>
 

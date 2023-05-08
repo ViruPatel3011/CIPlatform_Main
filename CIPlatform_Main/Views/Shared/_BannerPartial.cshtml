@@ -117,7 +117,7 @@
 						</tr>
 					</thead>
 					<tbody>
-						@foreach (var banner in Model.BannerList.OrderBy(banner=>banner.SortOrder))
+						@foreach (var banner in Model.BannerList.Where(banner=>banner.DeletedAt==null))
 						{
 							<tr>
 								<td scope="row">@banner.BannerId</td>
@@ -322,7 +322,7 @@
 		$('#img_priview_edit').html("");
 		$.ajax({
 			method: 'GET',
-			url: '/Admin/getDataForEditBanner',
+			url: '/Admin/GetDataForEditBanner',
 			data: {
 				bId: bannerId
 			},
@@ -343,7 +343,7 @@
 
 		$.ajax({
 			method: 'Get',
-			url: '/Admin/getBanner',
+			url: '/Admin/GetBanner',
 			data: {
 				bId: bannerId,
 			},
@@ -396,7 +396,7 @@
 	function deleteBanner() {
 		$.ajax({
 			method: 'POST',
-			url: '/Admin/deleteBannerData',
+			url: '/Admin/DeleteBannerData',
 			data: {
 				bannerPageId: banId
 			},
@@ -416,5 +416,8 @@
 			dataTable.search(this.value).draw();
 		});
 	});
+
+	$('#bannerPageLink').addClass('bg-white')
+	$('#bannerPageLink').css("color", "orange");
 
 </script>

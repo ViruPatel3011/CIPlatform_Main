@@ -32,7 +32,7 @@
 		background-color: #F88634 !important;
 		border-color: #F88634 !important;
 	}
-	
+
 
 	.page-link:hover {
 		color: white !important;
@@ -45,11 +45,11 @@
 		border-color: #F88634;
 		color: #F88634;
 	}
-	.page-item{
-		margin-right:10px;
+
+	.page-item {
+		margin-right: 10px;
 	}
 
-		
 </style>
 <body>
 
@@ -95,12 +95,12 @@
 
 						<li class="nav-item dropdown">
 							<a class="nav-link dropdown-toggle" href="#" id="navbarScrollingDropdown" role="button"
-							data-bs-toggle="dropdown" aria-expanded="false">
+							   data-bs-toggle="dropdown" aria-expanded="false">
 								@{
 									var profilePic = Model.users.Where(x => x.UserId == Convert.ToInt32(uid)).Select(x => x.Avatar).FirstOrDefault();
 								}
 								<img src="@Url.Content(profilePic)" class="rounded-circle" height="35" width="35" alt="Profile pic"
-			 loading="lazy" />
+									 loading="lazy" />
 								@name @surname
 							</a>
 							<ul class="dropdown-menu" aria-labelledby="navbarScrollingDropdown">
@@ -175,79 +175,79 @@
 			@{
 				var storyList = Model.stories.Where(x => x.Status == "Approved").ToList();
 				@foreach (var story in storyList)
-			{
-				<div class="col-12 col-md-6 col-lg-4">
-					<div class="card ">
+				{
+					<div class="col-12 col-md-6 col-lg-4">
+						<div class="card ">
 
-						<div class="box1 position-relative">
+							<div class="box1 position-relative">
 
-							@*@{
-						//var storyImage = Model.storyMedia.FirstOrDefault(m => m.StoryId == story.StoryId);
-						<img class="card-img-top" src="@Model.storyMedia.Where(x=>x.StoryId == story.StoryId).Select(x=>x.StoryPath).FirstOrDefault()" alt="Card image cap">
-						}*@
-							<img class="card-img-top" src="~/Assets/Grow-Trees-On-the-path-to-environment-sustainability-1.png" alt="Card image cap">
-							@{
-
-
-								@if (uid != null)
-								{
-
-									var views = @story.Viewscount ;
-									<div class="details position-absolute">
-										<a asp-controller="Story" asp-action="storyDetail" asp-route-userId="@story.UserId" asp-route-missionId="@story.MissionId" asp-route-views="@views" class="btn btn-outline-light detailsButton">
-											View Details <i class="bi bi-arrow-right"></i>
-										</a>
-									</div>
+								@{
+									var storyImage = Model.storyMedia.FirstOrDefault(st => st.StoryId == story.StoryId && st.StoryType == "image");
+									<img class="card-img-top" src="@Url.Content(storyImage.StoryPath)" alt="Card image cap">
 								}
-								else
-								{
-									<div class="details position-absolute">
-										<button class="btn btn-outline-light detailsButton" onclick="notloggedin();">
-											View Details <i class="bi bi-arrow-right"></i>
-										</button>
-									</div>
-								}
-							}
+								
+								@{
 
 
+									@if (uid != null)
+									{
 
-						</div>
-
-						<div class="card-body  position-relative">
-							<div class="position-absolute text-center" id="theme">
-								<p class="" style="border-radius: 20px; background-color: white;">
-									@{
-										var missionTheme = Model.missionTheme.Where(x => x.MissionThemeId == story.MissionId).Select(x => x.Title).FirstOrDefault();
-										@missionTheme
+										var views = @story.Viewscount;
+										<div class="details position-absolute">
+											<a asp-controller="Story" asp-action="storyDetail" asp-route-userId="@story.UserId" asp-route-missionId="@story.MissionId" asp-route-views="@views" class="btn btn-outline-light detailsButton">
+												View Details <i class="bi bi-arrow-right"></i>
+											</a>
+										</div>
 									}
-								</p>
+									else
+									{
+										<div class="details position-absolute">
+											<button class="btn btn-outline-light detailsButton" onclick="notloggedin();">
+												View Details <i class="bi bi-arrow-right"></i>
+											</button>
+										</div>
+									}
+								}
+
+
+
 							</div>
-							<h5 class="card-title">@story.Title </h5>
-							<p class="card-text story-desc" style="display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical;overflow: hidden;">
-								@Html.Raw(@story.Description)
+
+							<div class="card-body  position-relative">
+								<div class="position-absolute text-center" id="theme">
+									<p class="px-2" style="border-radius: 20px; background-color: white;">
+										@{
+											var missionTheme = Model.missionTheme.Where(x => x.MissionThemeId == story.MissionId).Select(x => x.Title).FirstOrDefault();
+											@missionTheme
+										}
+									</p>
+								</div>
+								<h5 class="card-title">@story.Title </h5>
+								<p class="card-text story-desc" style="display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical;overflow: hidden;">
+									@Html.Raw(@story.Description)
 								</p>
 
-							<div class="footerIMage d-flex">
-								@{
-									var userImage = Model.users.Where(x => x.UserId == story.UserId).Select(x => x.Avatar).FirstOrDefault();
-									<img src="@Url.Content(userImage)" alt="" class="footerProfile">
-								}
+								<div class="footerIMage d-flex">
+									@{
+										var userImage = Model.users.Where(x => x.UserId == story.UserId).Select(x => x.Avatar).FirstOrDefault();
+										<img src="@Url.Content(userImage)" alt="" class="footerProfile">
+									}
 
 
 
-								@{
-									var fName = Model.users.Where(x => x.UserId == story.UserId).Select(x => x.FirstName).FirstOrDefault();
-									var lName = Model.users.Where(x => x.UserId == story.UserId).Select(x => x.LastName).FirstOrDefault();
-									<p class="mb-0 ms-3">
-										@fName @lName
-									</p>
-								}
+									@{
+										var fName = Model.users.Where(x => x.UserId == story.UserId).Select(x => x.FirstName).FirstOrDefault();
+										var lName = Model.users.Where(x => x.UserId == story.UserId).Select(x => x.LastName).FirstOrDefault();
+										<p class="mb-0 ms-3">
+											@fName @lName
+										</p>
+									}
 
+								</div>
 							</div>
 						</div>
 					</div>
-				</div>
-			}
+				}
 			}
 
 
@@ -287,15 +287,7 @@
 							<li>
 								<a asp-controller="Login" asp-action="PolicyPage" class="text-light">Privacy Policy</a>
 							</li>
-							<li>
-								<a href="#" class="text-light">Cookie Policy</a>
-							</li>
-							<li>
-								<a href="#" class="text-light">Contact Us</a>
-							</li>
-							<li>
-								<a href="#" class="text-light">Terms of Use</a>
-							</li>
+						
 
 						</ul>
 					</div>

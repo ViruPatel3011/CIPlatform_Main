@@ -59,5 +59,8 @@ namespace CIPlatform_Main.Entities.ViewModel
 		public IEnumerable<User>? UserForRecommendation { get; set; }
 		public IEnumerable<User>? UserData { get; set; }
 		public IEnumerable<Comment>? comments { get; set; }
+		public List<MissionMedium>? MissionMedia { get; set; }
+		public IEnumerable<Timesheet>? TimeSheetList { get; set; }
+		public IEnumerable<Admin>? AdminList { get; set; }
 	}
 }

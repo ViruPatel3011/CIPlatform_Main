@@ -207,15 +207,7 @@
 							<li>
 								<a asp-controller="Login" asp-action="PolicyPage" class="text-light">Privacy Policy</a>
 							</li>
-							<li>
-								<a href="#" class="text-light">Cookie Policy</a>
-							</li>
-							<li>
-								<a href="#" class="text-light">Contact Us</a>
-							</li>
-							<li>
-								<a href="#" class="text-light">Terms of Use</a>
-							</li>
+							
 
 						</ul>
 					</div>
@@ -314,7 +306,7 @@
 		// Function for getting all data for draft story
 		function getallmissions() {
 			$.ajax({
-				url: '/Story/getAllMissions',
+				url: '/Story/GetAllMissions',
 				success: function (result) {
 					//alert("success");
 					if (result.length === 0) {
@@ -335,7 +327,7 @@
 			const missionid = document.getElementById("mId").value;
 			alert(missionid);
 			$.ajax({
-				url: '/Story/editStory',
+				url: '/Story/EditStory',
 				type: "GET",
 				data: {
 					missionid: missionid,
@@ -354,7 +346,7 @@
 		// Function for submitting story when it was Saved(Draft)
 		function submit(storyid) {
 			$.ajax({
-				url: "/Story/submit",
+				url: "/Story/SubmitStory",
 				type: "POST",
 				data: {
 					storyid: storyid,

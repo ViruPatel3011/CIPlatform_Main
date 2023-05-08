@@ -9,7 +9,7 @@ namespace CIPlatform_Main.Repository.Interface
 {
     public interface ILandingPage
     {
-        public LandingPageVM LandingPage(string[]? country, string[]? city, string[]? themes, string[]? skills, string? sortVal, string? search, int pg = 1);
+        public LandingPageVM LandingPage(string[]? country, string[]? city, string[]? themes, string[]? skills, string? sortVal, string? exploreVal, string? search, int pg = 1);
 
         public LandingPageVM LandingPageList();
     }

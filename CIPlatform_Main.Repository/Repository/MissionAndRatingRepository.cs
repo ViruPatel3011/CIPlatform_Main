@@ -73,6 +73,22 @@ namespace CIPlatform_Main.Repository.Repository
 			
 			var userData = _ciPlatformContext.Users.ToList();
 			mrv.UserData = userData;
+			
+			var timeSheetData = _ciPlatformContext.Timesheets.ToList();
+			mrv.TimeSheetList = timeSheetData;
+
+			var goalMissionList = _ciPlatformContext.GoalMissions.ToList();
+			mrv.GoalMissions = goalMissionList;
+			
+			var adminList = _ciPlatformContext.Admins.ToList();
+			mrv.AdminList = adminList;
+			
+			
+
+			
+			
+			var missionMedia= _ciPlatformContext.MissionMedia.Where(mission=>mission.MissionId==missionId).ToList();
+			mrv.MissionMedia = missionMedia;
 
 			
 			var missionrate = _ciPlatformContext.MissionRatings.Where(x => x.MissionId == missionId).Select(x=>x.Rating).ToList();
@@ -99,7 +115,7 @@ namespace CIPlatform_Main.Repository.Repository
 			
 
 			//the below code is to check that mission is already favourite by user or not
-			var fav = isFavourite(missionId);
+			var fav = IsFavourite(missionId);
 			mrv.Favourite = fav;
 
 			try
@@ -118,7 +134,7 @@ namespace CIPlatform_Main.Repository.Repository
 		}
 		public IEnumerable<Mission> GetRelatedMission(int id)
 		{
-			var relatedmissions = new List<Mission>();
+			var relatedmissions = new List<Mission>();			
 			var thismission = _ciPlatformContext.Missions.Where(m => m.MissionId.Equals(id)).FirstOrDefault();
 			var relatedmissions_by_city = _ciPlatformContext.Missions.Where(m => m.MissionId != thismission.MissionId && m.CityId == thismission.CityId).Take(3).ToList();
 			var relatedmissions_by_country = _ciPlatformContext.Missions.Where(m => m.MissionId != thismission.MissionId && m.CountryId == thismission.CountryId).Take(3).ToList();
@@ -140,7 +156,7 @@ namespace CIPlatform_Main.Repository.Repository
 		}
 
 		//method for second way to add to favourite
-		public bool isFavourite(int id)
+		public bool IsFavourite(int id)
 		{
 			var identity = User.Identity as ClaimsIdentity;
 			var uid = identity?.FindFirst(ClaimTypes.Sid)?.Value;
@@ -192,7 +208,7 @@ namespace CIPlatform_Main.Repository.Repository
 
 
 		// recomendation to co-worker
-		public List<User> getUsersForRecomandateToCoWorker(string uid)
+		public List<User> GetUsersForRecomandateToCoWorker(string uid)
 		{
 			var userId = Convert.ToInt32(uid);
 			List<User> users = _ciPlatformContext.Users.Where(x => x.UserId != userId).ToList();
@@ -200,7 +216,7 @@ namespace CIPlatform_Main.Repository.Repository
 		}
 
 
-		public string userWithId(int[] ids, int missionid, string url)
+		public string UserWithId(int[] ids, int missionid, string url)
 		{
 
 			foreach (var id in ids)
@@ -235,7 +251,7 @@ namespace CIPlatform_Main.Repository.Repository
 		//-------------------- comment ----------------------
 
 	
-		public string commentOnMission(int mId, string commentText1, string uid)
+		public string CommentedOnmission(int mId, string commentText1, string uid)
 		{
 
 
@@ -270,7 +286,7 @@ namespace CIPlatform_Main.Repository.Repository
 		//---------------------------------- favourite--------------------------
 
 
-		public string favouriteMission(int mId, string uid)
+		public string MissionFavourite(int mId, string uid)
 		{
 			var userId = Convert.ToInt32(uid);
 			if (userId != null)
@@ -297,7 +313,7 @@ namespace CIPlatform_Main.Repository.Repository
 
 
 		// applied mission
-		public bool alreadyApplied(int mId, string uid)
+		public bool AlreadyApplied(int mId, string uid)
 		{
 			var userId = Convert.ToInt32(uid);
 			var alreadyApplied = _ciPlatformContext.MissionApplications.Where(x => x.MissionId == mId && x.UserId == userId).FirstOrDefault();

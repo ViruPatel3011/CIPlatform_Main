@@ -177,34 +177,7 @@
 		});
 	});
 
-	//function submitMissionData() {
-	//	var title = $("#mTitle").val();
-	//	var type = $("#mType").val();
-	//	var sdate = $("#SDate").val();
-	//	var edate = $("#EDate").val();
-	//	var mstatus = $("#missionStatus").val();
-
-	//	$.ajax({
-	//		url: "/Admin/SaveMissionData",
-	//		type: "POST",
-	//		data: {
-	//			"mTitle": title,
-	//			"mType": type,
-	//			"SDate": sdate,
-	//			"EDate": edate,
-	//			"msts": mstatus,
-	//		},
-	//		success: function (result) {
-	//			location.reload();
-	//			alert("Mission Add successfully");
-
-
-	//		},
-	//		error: function (result) {
-	//			alert("error occur in Mission");
-	//		}
-	//	});
-	//}
+	
 
 	function loadMissionData(missionId) {
 
@@ -219,7 +192,7 @@
 
 		$.ajax({
 			method: 'GET',
-			url: '/Admin/getDataForEditMission',
+			url: '/Admin/GetDataForEditMission',
 			data: {
 				mId: missionId
 			},
@@ -247,15 +220,6 @@
 				$('#missionEId').val(data.mEditid);
 
 
-				//// Below code is for load Documents
-				//var documentPreview = $('.document-preview');
-				//documentPreview.empty(); // clear any previously displayed documents
-
-				//for (var i = 0; i < data.documentUrls.length; i++) {
-				//	var documentUrl = data.documentUrls[i];
-				//	var documentElement = $('<a>').attr('href', documentUrl).text('Document ' + (i + 1));
-				//	documentPreview.append(documentElement); // Append the document element to the document-preview div
-				//}
 
 				var documentPreview = $('.document-preview');
 				documentPreview.empty(); // clear any previously displayed documents
@@ -345,7 +309,7 @@
 	function deleteMissionData() {
 		$.ajax({
 			method: 'POST',
-			url: '/Admin/deleteMissionData',
+			url: '/Admin/DeleteMissionData',
 			data: {
 				missionId: mid
 			},
@@ -366,4 +330,6 @@
 		});
 	});
 
+	$('#missionPageLink').addClass('bg-white')
+	$('#missionPageLink').css("color", "orange");
 </script>

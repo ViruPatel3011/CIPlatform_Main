@@ -10,30 +10,30 @@ namespace CIPlatform_Main.Repository.Interface
 {
 	public interface IStoryRepository
 	{
-		public storyListingVM getStoryDetail(int pageIndex, int pageSize );
+		public storyListingVM GetStoryDetail(int pageIndex, int pageSize );
 
 		/*public bool getDataForStoryTable(int MissionId, string StoryTitle, string StoryText, DateTime StoryDate, int userId, string[] images, string videourl);*/
 
         public storyDetailVM GetStoryDetail(long userId, int missionId,int count,long storyId);
 
-		public string userWithId(int[] ids, int missionid, string url);
-		public List<User> getUsersForRecomandateToCoWorker(string uid);
+		public string UserWithId(int[] ids, int missionid, string url);
+		public List<User> GetUsersForRecomandateToCoWorker(string uid);
 
-        public shareYourStoryVM getDataForShareYourStory(string missionid, string uid);
+        public shareYourStoryVM GetDataForShareYourStory(string missionid, string uid);
 
 		// Method for Get all Mission List in Dropdown
-		public List<Mission> getMissions(long uid);
+		public List<Mission> GetMissions(long uid);
 
 		// Method for submit new Story in Database
-		public bool getDataForStoryTable(int mid, string sTitle, string sDateAndTime, string sDesc, int userId, string[] images, string videourl);
+		public bool GetDataForStoryTable(int mid, string sTitle, string sDateAndTime, string sDesc, int userId, string[] images, string videourl);
 
 		/*	public bool saveStory(shareYourStoryVM storyVM, long  userId);*/
 
-		public void submit(long storyId);
+		public void Submit(long storyId);
 
 
 		// Method for Edit data for story
-		public void editStory(int mid, string sTitle, string sDesc, int userId, string[] images, string videourl);
+		public void EditSharedStory(int mid, string sTitle, string sDesc, int userId, string[] images, string videourl);
 
 
 

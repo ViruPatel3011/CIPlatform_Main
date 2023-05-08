@@ -3,12 +3,14 @@ using CIPlatform_Main.Entities.Models;
 using CIPlatform_Main.Entities.ViewModel;
 using CIPlatform_Main.Models;
 using CIPlatform_Main.Repository.Interface;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 using System.Security.Claims;
 
 namespace CIPlatform_Main.Controllers
 {
+	//[Authorize(Roles = "User")]
 	public class HomeController : Controller
 	{
 		private readonly ILogger<HomeController> _logger;
@@ -32,11 +34,11 @@ namespace CIPlatform_Main.Controllers
 
 
 		[HttpPost]
-        public IActionResult LandingPage(string[]? country, string[]? city, string[]? themes, string[]? skills, string? sortVal, string? search, int pg = 1)
+        public IActionResult LandingPage(string[]? country, string[]? city, string[]? themes, string[]? skills, string? sortVal,string? exploreVal,string? search, int pg = 1)
 		{
 
 		
-			var landingPageData=_landingPage.LandingPage(country,city,themes,skills,sortVal,search,pg);
+			var landingPageData=_landingPage.LandingPage(country,city,themes,skills,sortVal, exploreVal,search, pg);
 
 			LandingPageVM landVM = new()
 			{
@@ -58,10 +60,33 @@ namespace CIPlatform_Main.Controllers
 
 			};
 
-			List<Mission> missions = (List<Mission>)landingPageData.Missions;
+			IEnumerable<Mission> missions =landingPageData.Missions;
+
+			switch (exploreVal)
+			{
+
+				case "topthemes":
+					missions= missions.GroupBy(mission => mission.ThemeId).OrderByDescending(item => item.Count()).First()
+						.ToList()
+						.Take(5);					
+					break;
+				case "topRanked":
+					missions = missions.Where(mission => mission.MissionRatings.Any()).OrderByDescending(mission => mission.MissionRatings.Average(rating => rating.Rating)).Take(5);
+					break;
+				case "topFavourite":
+					missions = missions.OrderByDescending(mission => mission.FavoriteMissions.Count()).ToList();
+					break;
+				case "RandomMissions":
+					var random = new Random();
+					missions = missions.OrderBy(mission => random.Next()).Take(3);
+					break;
 
 
-			
+
+
+
+			}
+
 
 			if (country.Length > 0 || city.Length > 0 || themes.Length > 0 || skills.Length > 0)
 			{
@@ -79,7 +104,7 @@ namespace CIPlatform_Main.Controllers
 
 			// This code is for Pagination
 			int resCount = missions.Count();
-			const int pageSize = 3;
+			const int pageSize = 6;
 			if (pg < 1)
 				pg = 1;
 			var pager = new Pager(resCount, pg, pageSize);
@@ -99,7 +124,7 @@ namespace CIPlatform_Main.Controllers
 
 
 		// Function for sorting Mission-cards on input dropdown
-		public List<Mission> SortingData(string sortVal, List<Mission> missions)
+		public IEnumerable<Mission> SortingData(string sortVal, IEnumerable<Mission> missions)
 		{
 			var identity = User.Identity as ClaimsIdentity;
 			var uid = identity?.FindFirst(ClaimTypes.Sid)?.Value;
@@ -126,7 +151,7 @@ namespace CIPlatform_Main.Controllers
 		}
 
 
-		public List<Mission> FilterMission(List<Mission> missions, string[]? country, string[]? city, string[]? themes, string[]? skills)
+		public IEnumerable<Mission> FilterMission(IEnumerable<Mission> missions, string[]? country, string[]? city, string[]? themes, string[]? skills)
 		{
 			if (country.Length > 0)
 			{
@@ -170,19 +195,19 @@ namespace CIPlatform_Main.Controllers
 		{
 			var identity = User.Identity as ClaimsIdentity;
 			var uid = identity?.FindFirst(ClaimTypes.Sid)?.Value;
-			var commentOnMission = _missionAndRating.commentOnMission(mId, commentText1, uid);
+			var commentOnMission = _missionAndRating.CommentedOnmission(mId, commentText1, uid);
 			return RedirectToAction("MissionAndRating", new { id = mId });
 		}
 
 		//add to favourite mission
 		[HttpPost]
-		public IActionResult doFavouriteMission(int mId)
+		public IActionResult DoFavouriteMission(int mId)
 		{
 
 			var identity = User.Identity as ClaimsIdentity;
 			var uid = identity?.FindFirst(ClaimTypes.Sid)?.Value;
 
-			var missionRating = _missionAndRating.favouriteMission(mId, uid);
+			var missionRating = _missionAndRating.MissionFavourite(mId, uid);
 			return RedirectToAction("MissionAndRating", new { id = mId });
 		}
 
@@ -192,14 +217,14 @@ namespace CIPlatform_Main.Controllers
 			var identity = User.Identity as ClaimsIdentity;
 			var uid = identity?.FindFirst(ClaimTypes.Sid)?.Value;
 
-			var userData = _missionAndRating.getUsersForRecomandateToCoWorker(uid);
+			var userData = _missionAndRating.GetUsersForRecomandateToCoWorker(uid);
 
 			return Json(userData);
 		}
 		public string SentUserMail(int[] ids, int missionid)
 		{
 			string url = Url.Action("MissionAndRating", "Home", new { id = missionid }, Request.Scheme);
-			var emailForReco = _missionAndRating.userWithId(ids, missionid, url);
+			var emailForReco = _missionAndRating.UserWithId(ids, missionid, url);
 			if (emailForReco != null)
 			{
 				return "success";
@@ -211,13 +236,13 @@ namespace CIPlatform_Main.Controllers
 		}
 
 
-		public IActionResult appliedForMission(int mId)
+		public IActionResult AppliedForMission(int mId)
 		{
 			var identity = User.Identity as ClaimsIdentity;
 			var uid = identity?.FindFirst(ClaimTypes.Sid)?.Value;
 
 			//var alreadyApplied = _ciPlatformContext.MissionApplications.Where(x => x.MissionId == mId && x.UserId == Convert.ToInt32(uid)).FirstOrDefault();
-			var alreadyApplied = _missionAndRating.alreadyApplied(mId, uid);
+			var alreadyApplied = _missionAndRating.AlreadyApplied(mId, uid);
 
 			return RedirectToAction("MissionAndRating", new { id = mId });
 		}

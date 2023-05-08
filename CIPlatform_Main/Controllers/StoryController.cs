@@ -22,7 +22,7 @@ namespace CIPlatform_Main.Controllers
 
 		public IActionResult StoryListingPage(int pageIndex = 1, int pageSize=1)
 		{
-			var allStoryData = _storyRepository.getStoryDetail(pageIndex,pageSize);
+			var allStoryData = _storyRepository.GetStoryDetail(pageIndex,pageSize);
 			return View(allStoryData);
 		}
 
@@ -33,16 +33,16 @@ namespace CIPlatform_Main.Controllers
         {
             var identity = User.Identity as ClaimsIdentity;
             var uid = identity?.FindFirst(ClaimTypes.Sid)?.Value;
-            var detailRelatedStory = _storyRepository.getDataForShareYourStory(missionid, uid);
+            var detailRelatedStory = _storyRepository.GetDataForShareYourStory(missionid, uid);
 			return View(detailRelatedStory);
         }
 
 		// Method for Get all Mission List in Dropdown
-        public JsonResult getAllMissions()
+        public JsonResult GetAllMissions()
         {
             var identity = User.Identity as ClaimsIdentity;
             var uid = identity?.FindFirst(ClaimTypes.Sid)?.Value;
-            var missions = _storyRepository.getMissions(long.Parse(uid));
+            var missions = _storyRepository.GetMissions(long.Parse(uid));
             return Json(missions);
         }
 
@@ -51,7 +51,7 @@ namespace CIPlatform_Main.Controllers
 		[HttpPost]
 		public IActionResult shareYourStoryPage(int mid, string sTitle, string? sDateAndTime, string sDesc, int userId, string[] images, string videoUrl)
 		{
-			var dataToFillStroyTable = _storyRepository.getDataForStoryTable(mid, sTitle, sDateAndTime, sDesc, userId, images, videoUrl);
+			var dataToFillStroyTable = _storyRepository.GetDataForStoryTable(mid, sTitle, sDateAndTime, sDesc, userId, images, videoUrl);
 			
 				return RedirectToAction("StoryListingPage", "Story");
 		
@@ -84,9 +84,9 @@ namespace CIPlatform_Main.Controllers
 
 
 		//press on submit button
-		public IActionResult submit(long storyid)
+		public IActionResult SubmitStory(long storyid)
 		{
-			_storyRepository.submit(storyid);
+			_storyRepository.Submit(storyid);
 			return Json(new { redirectUrl = Url.Action("StoryListingPage", "Story") });
 		}
 
@@ -96,14 +96,14 @@ namespace CIPlatform_Main.Controllers
 		{
 			var mission_id = mid;
 
-			_storyRepository.editStory(mission_id, sTitle, sDesc, userId, images, videoUrl);
+			_storyRepository.EditSharedStory(mission_id, sTitle, sDesc, userId, images, videoUrl);
 
 			return Json(new { redirectUrl = Url.Action("StoryListingPage", "Story") });
 
 		}
 
 		//Edit method called when we select any mission and go to getdataForStory Method
-		public IActionResult editStory(string missionid)
+		public IActionResult EditStory(string missionid)
 		{
 			return Json(new { redirectUrl = Url.Action("shareYourStoryPage", "Story", new { missionid = missionid }) });
 		}
@@ -123,14 +123,14 @@ namespace CIPlatform_Main.Controllers
 			var identity = User.Identity as ClaimsIdentity;
 			var uid = identity?.FindFirst(ClaimTypes.Sid)?.Value;
 
-			var userData = _storyRepository.getUsersForRecomandateToCoWorker(uid);
+			var userData = _storyRepository.GetUsersForRecomandateToCoWorker(uid);
 
 			return Json(userData);
 		}
 		public string SentUserMail(int[] ids, int missionid)
 		{
 			string url = Url.Action("MissionAndRating", "Home", new { id = missionid }, Request.Scheme);
-			var emailForReco = _storyRepository.userWithId(ids, missionid, url);
+			var emailForReco = _storyRepository.UserWithId(ids, missionid, url);
 			if (emailForReco != null)
 			{
 				return "success";

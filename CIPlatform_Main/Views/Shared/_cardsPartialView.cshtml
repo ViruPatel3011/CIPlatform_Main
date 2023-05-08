@@ -138,7 +138,16 @@
 									<div class="position-relative card-image">
 										@{
 											var cardsImage = item.MissionMedia.FirstOrDefault();
-											<img src="@Url.Content(cardsImage.MediaPath)" class="card-img-top" alt="..." style="max-height:197px;">
+											if (cardsImage == null)
+											{
+
+												<img src="/Assets/404-Page-image.png" class="card-img-top" alt="..." style="max-height:197px;">
+											}
+											else
+											{
+
+												<img src="@Url.Content(cardsImage.MediaPath)" class="card-img-top" alt="..." style="max-height:197px;">
+											}
 										}
 
 										@if (User.Identity.IsAuthenticated)
@@ -307,22 +316,21 @@
 											<div class="d-flex  align-items-center">
 
 												@{
-
 													var NumberOfPerson = Model.MissionRatings.Where(x => x.MissionId == item.MissionId).Select(x => x.Rating);
 
 													if (NumberOfPerson.Count() != 0)
 													{
-														var rate_star = (int)Model.MissionRatings.Average(m => m.Rating);
+														var rate_star = Convert.ToInt32(Queryable.Average(NumberOfPerson.AsQueryable()));
 
 														for (int i = 1; i <= 5; i++)
 														{
 															if (i <= rate_star)
 															{
-																<img src="~/Assets/selected-star.png" alt="">
+																<img src="~/Assets/selected-star.png" class="star" alt="">
 															}
 															else
 															{
-																<img src="~/Assets/star-empty.png" alt="" style="width:25px">
+																<img src="~/Assets/star-empty.png" class="star" alt="" style="width:25px">
 															}
 														}
 													}
@@ -331,32 +339,14 @@
 													{
 														for (int i = 1; i <= 5; i++)
 														{
-															<img src="~/Assets/star-empty.png" alt="" style="width:25px">
+															<img src="~/Assets/star-empty.png" class="star" alt="" style="width:25px">
 														}
 													}
 
 												}
 											</div>
 
-											@*
-							<span class="text-warning">
-							<i class="ratingStar fa-regular fa-star"></i>
-							<i class="ratingStar fa-regular fa-star"></i>
-							<i class="ratingStar fa-regular fa-star"></i>
-							<i class="ratingStar fa-regular fa-star"></i>
-							<i class="ratingStar fa-regular fa-star"></i>
 
-							</span>
-
-
-							<div class="d-flex  align-items-center">
-							<img src="~/Assets/selected-star.png" class="star" alt="">
-							<img src="~/Assets/selected-star.png" class="star" alt="">
-							<img src="~/Assets/selected-star.png" class="star" alt="">
-							<img src="~/Assets/star.png" class="star" alt="">
-							<img src="~/Assets/star.png" class="star" alt="">
-							</div>
-							*@
 										</div>
 										<div class="d-flex justify-content-between position-relative border-top border-bottom py-4">
 											<div class="text-center position-absolute" id="mission-deadline">
@@ -372,21 +362,7 @@
 													<h6 class="mb-0 mt-1">@seatsLeft</h6>
 													<p class="mb-0">Seats left</p>
 												</div>
-											</div>@*
-							<div class="d-flex align-items-center " id="skillList" style="display:none">
-							<div class="mt-1 pe-0 me-2">
-							<img src="~/Assets/Seats-left.png" alt="" width="25px" height="25px">
-							</div>
-							<div class="px-0 ">
-							<h6 class="mb-0 mt-1">Skills</h6>
-							<p class="mb-0">
-							@foreach (var skillsList in Model.MissionSkills.Where(x => x.MissionId == item.MissionId))
-							{
-							<span>@skillsList.Skill.SkillName</span>
-							}
-							</p>
-							</div>
-							</div>*@
+											</div>
 											<div class="d-flex align-items-center">
 												<div class=" mt-1 me-2 mx-auto">
 													<img src="~/Assets/deadline.png" width="25px" height="25px" alt="">
@@ -402,7 +378,7 @@
 										<div class="card-footer text-center">
 
 											<a asp-controller="Home" asp-action="MissionAndRating" asp-route-id="@item.MissionId" class="btn  rounded-pill explore" style="border: 2px solid #F88634;
-													  	color: #F88634;">
+															  	color: #F88634;">
 												Explore Now <img src="~/Assets/right-arrow.png" alt="">
 											</a>
 
@@ -436,7 +412,16 @@
 									<div class="position-relative card-image">
 										@{
 											var cardsImage = item.MissionMedia.FirstOrDefault();
-											<img src="@Url.Content(cardsImage.MediaPath)" class="card-img-top" alt="..." style="max-height:197px;">
+											if (cardsImage == null)
+											{
+
+												<img src="/Assets/404-Page-image.png" class="card-img-top" alt="..." style="max-height:197px;">
+											}
+											else
+											{
+
+												<img src="@Url.Content(cardsImage.MediaPath)" class="card-img-top" alt="..." style="max-height:197px;">
+											}
 										}
 
 										@if (User.Identity.IsAuthenticated)
@@ -650,23 +635,7 @@
 													<p class="mb-0">Volunteered</p>
 												</div>
 											</div>
-											@*
-							<div class="d-flex align-items-center " id="skillList" style="display:none">
-							<div class="mt-1 pe-0 me-2">
-							<img src="~/Assets/Seats-left.png"
-							alt="" width="25px" height="25px">
-							</div>
-							<div class="px-0 ">
-							<h6 class="mb-0 mt-1">Skills</h6>
-							<p class="mb-0">
-							@foreach (var skillsList in Model.MissionSkills.Where(x => x.MissionId == item.MissionId))
-							{
-							<span>@skillsList.Skill.SkillName</span>
-							}
-							</p>
-							</div>
-							</div>
-							*@
+
 											<div class="d-flex align-items-center">
 												<div class=" mt-1 me-2 mx-auto">
 
@@ -701,7 +670,7 @@
 
 
 											<a asp-controller="Home" asp-action="MissionAndRating" asp-route-id="@item.MissionId" class="btn  rounded-pill explore" style="border: 2px solid #F88634;
-													  	color: #F88634;">
+															  	color: #F88634;">
 												Explore Now <img src="~/Assets/right-arrow.png" alt="">
 											</a>
 
@@ -788,7 +757,7 @@
 
 
 
- <script>
+	<script>
 
 
 	if (localStorage.getItem('vp') === 'list') {
@@ -812,6 +781,14 @@
 	}
 	$(document).on('click', '.btn-grid', gridList);
 	$(document).on('click', '.btn-list', showList);
+
+	$(window).resize(function () {
+		if ($(window).width() <= 767) {
+			gridList();
+		}
+	});
+
+
 
 	$('#sendmail').click(function () {
 		senduser();
@@ -887,7 +864,7 @@
 	function addFavourite(missionId, pg, flag) {
 		//console.log(missionId);
 		$.ajax({
-			url: "/Home/doFavouriteMission",
+			url: "/Home/DoFavouriteMission",
 			type: "POST",
 			data: {
 				mId: missionId

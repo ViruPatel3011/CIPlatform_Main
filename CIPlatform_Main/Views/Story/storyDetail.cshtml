@@ -71,12 +71,12 @@
 
 						<li class="nav-item dropdown">
 							<a class="nav-link dropdown-toggle" href="#" id="navbarScrollingDropdown" role="button"
-							data-bs-toggle="dropdown" aria-expanded="false">
+							   data-bs-toggle="dropdown" aria-expanded="false">
 								@{
 									var profilePic = Model.UserData.Where(x => x.UserId == Convert.ToInt32(uid)).Select(x => x.Avatar).FirstOrDefault();
 								}
 								<img src="@Url.Content(profilePic)" class="rounded-circle" height="35" width="35" alt="Profile pic"
-			 loading="lazy" />
+									 loading="lazy" />
 								@name @surname
 							</a>
 							<ul class="dropdown-menu" aria-labelledby="navbarScrollingDropdown">
@@ -108,90 +108,86 @@
 			<!-- Column for left part  -->
 			<div class="col-lg-6">
 
-				<!-- Container for the image gallery carousel start -->
-				<div class="container h-100">
 
-					<!-- Full-width images with number text -->
+				<!-- Container for the image gallery -->
+				<div style="height: 100%">
+					@{
+						var selectedStoryId = Model.Stories.Where(x => x.MissionId == Model.MissionId).Select(x => x.StoryId).FirstOrDefault();
+						var slidingMedia = Model.storyMedia.Where(x => x.StoryId == selectedStoryId);
 
-					<div style="height: 80%;">
-
-						@{
-							var selectedStoryId = Model.Stories.Where(x => x.MissionId == Model.MissionId).Select(x => x.StoryId).FirstOrDefault();
-							var slidingImage = Model.storyMedia.Where(x => x.StoryId == selectedStoryId).Select(x => x.StoryPath);
-							
-
-							@foreach (var img in slidingImage)
+						<!-- Full-width images with number text -->
+						<div class="position-relative" style="height: 400px">
+							@foreach (var media in slidingMedia)
 							{
-								<div class="mySlides h-100 ">
-									<img src="@img" style="width:100%" class="h-100">
-								</div>
+								if (media.StoryType == "image")
+								{
+									<div class="mySlides h-100">
+										<img class="h-100 slider-images"
+											 src="@media.StoryPath"
+											 style="width:100%;">
+									</div>
+								}
+								else if (media.StoryType == "video")
+								{
+
+									<div class="mySlides h-100 ">
+										@{
+											string videoId = media.StoryPath.Replace("https://youtu.be/", "");
+											string videoUrl = $"https://www.youtube.com/embed/{videoId}";
+										}
+										<iframe class="h-100  w-100 slider-images" src="@videoUrl"></iframe>
+									</div>
+								}
+
 							}
-						}
 
-
-						@*<div class="mySlides h-100">
-						<img src="~/Assets/img1.png" style="width:100%" class="h-100">
+							<!-- Next and previous buttons -->
+							<a class="prev" onclick="plusSlides(-1)">&#10094;</a>
+							<a class="next" onclick="plusSlides(1)">&#10095;</a>
 						</div>
+					}
 
-						<div class="mySlides h-100">
-						<img src="~/Assets/Grow-Trees-On-the-path-to-environment-sustainability-login.png" style="width:100%" class="h-100">
-						</div>
 
-						<div class="mySlides  h-100">
-						<img src="~/Assets/img11.png" style="width:100%" class="h-100">
-						</div>
-
-						<div class="mySlides h-100">
-						<img src="~/Assets/img11.png" style="width:100%" class="h-100">
-						</div>
-
-						<div class="mySlides h-100">
-						<img src="~/Assets/image1.png" style="width:100%" class="h-100">
-						</div>*@
-
-						<!-- Next and previous buttons -->
-						<a class="prev" onclick="plusSlides(-1)">&#10094;</a>
-						<a class="next" onclick="plusSlides(1)">&#10095;</a>
-					</div>
 
 					<!-- Thumbnail images -->
-					<div class="row mt-2 w-100 mx-auto my-auto" style="height: 15%;">
-
-
+					<div class="row mt-2 w-100 mx-auto position-relative d-flex justify-content-center" style="height: 100px">
 						@{
 							var smallImageId = Model.Stories.Where(x => x.MissionId == Model.MissionId).Select(x => x.StoryId).FirstOrDefault();
-							var LowerSlider = Model.storyMedia.Where(x => x.StoryId == smallImageId).Select(x => x.StoryPath);
+							var LowerSlider = Model.storyMedia.Where(x => x.StoryId == smallImageId);
+							<div class="thumb-images d-flex" style="height:100%;">
+								@{
+									var current = 1;
+								}
+								@foreach (var image in LowerSlider)
+								{
 
-							@foreach (var image in LowerSlider)
-							{
-								<div class="column pe-0 ps-0">
-									<img class="demo cursor h-100" src="@image" style="width:100%" onclick="currentSlide(1)" alt="The Woods">
-								</div>
-							}
+									if (image.StoryType == "image")
+									{
+										<div class="column">
+											<img class="demo cursor"
+												 src="@image.StoryPath"
+												 onclick="currentSlide(@current)" alt="">
+										</div>
+									}
+									else if (image.StoryType == "video")
+									{
 
+										<div class="column ">
+											@{
+												string videoId = image.StoryPath.Replace("https://youtu.be/", "");
+												string videoUrl = $"https://www.youtube.com/embed/{videoId}";
+											}
+											<iframe class="demo cursor h-100 " src="@videoUrl"></iframe>
+										</div>
 
+									}
+
+									current++;
+								}
+							</div>
 						}
-						
-
-
-						@*<div class="column pe-0">
-							<img class="demo cursor h-100" src="~/Assets/img2.png" style="width:100%" onclick="currentSlide(2)" alt="Cinque Terre">
-						</div>
-						<div class="column pe-0">
-							<img class="demo cursor h-100" src="~/Assets/Grow-Trees-On-the-path-to-environment-sustainability-4.png" style="width:100%" onclick="currentSlide(3)" alt="Mountains and fjords">
-						</div>
-						<div class="column pe-0">
-							<img class="demo cursor h-100" src="~/Assets/img22.png" style="width:100%" onclick="currentSlide(4)" alt="Northern Lights">
-						</div>
-						<div class="column pe-0">
-							<img class="demo cursor h-100" src="~/Assets/img.png" style="width:100%" onclick="currentSlide(5)" alt="Nature and sunrise">
-						</div>
-						<div class="column pe-0">
-							<img class="demo cursor h-100" src="~/Assets/image.png" style="width:100%" onclick="currentSlide(6)" alt="Snowy Mountains">
-						</div>*@
 					</div>
 				</div>
-				<!-- Container for the image gallery carousel end -->
 
 			</div>
 
@@ -292,7 +288,7 @@
 		</div>
 		<!-- First Row for slider and details part end  -->
 
-		<div>
+		<div class="mt-4">
 			<h5 class="ms-2">@Model.storyTitle</h5>
 			<div>
 				<p class="ms-2">
@@ -316,15 +312,7 @@
 							<li>
 								<a asp-controller="Login" asp-action="PolicyPage" class="text-light">Privacy Policy</a>
 							</li>
-							<li>
-								<a href="#" class="text-light">Cookie Policy</a>
-							</li>
-							<li>
-								<a href="#" class="text-light">Contact Us</a>
-							</li>
-							<li>
-								<a href="#" class="text-light">Terms of Use</a>
-							</li>
+
 
 						</ul>
 					</div>

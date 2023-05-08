@@ -54,13 +54,7 @@
 							</div>
 							<form id="missionThemeForm">
 								<div class="modal-body">
-									@*<div class="mb-3">
-									<label for="exampleFormControlInput1"
-									class="form-label">Mission Id</label>
-									<input type="text" class="form-control " id="themeId"
-									placeholder="Enter your MissionTheme Id">
-
-									</div>*@
+								
 									<div class="mb-3">
 										<label for="exampleFormControlInput1"
 											   class="form-label">Mission Title</label>
@@ -309,7 +303,7 @@
 	function loadMissionThemeData(themeid) {
 		$.ajax({
 			method: 'GET',
-			url: '/Admin/getDataForEditMissionTheme',
+			url: '/Admin/GetDataForEditMissionTheme',
 			data: {
 				mthemeId: themeid
 			},
@@ -338,7 +332,7 @@
 	function deleteMissionThemeData() {
 		$.ajax({
 			method: 'POST',
-			url: '/Admin/deleteMissionThemeData',
+			url: '/Admin/DeleteMissionThemeData',
 			data: {
 				ThId: themeid
 			},
@@ -358,4 +352,7 @@
 			dataTable.search(this.value).draw();
 		});
 	});
+
+	$('#missionThemePageLink').addClass('bg-white')
+	$('#missionThemePageLink').css("color", "orange");
 </script>

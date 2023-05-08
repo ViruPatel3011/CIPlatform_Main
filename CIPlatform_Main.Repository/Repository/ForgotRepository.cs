@@ -24,7 +24,7 @@ namespace CIPlatform_Main.Repository.Repository
      
         }
 
-        public bool checkUser(ForgotVM forgotVM)
+        public bool CheckUser(ForgotVM forgotVM)
         {
             var isValidEmail=_ciPlatformContext.Users.FirstOrDefault(x=>x.Email == forgotVM.Email);
             if(isValidEmail == null)
@@ -37,7 +37,7 @@ namespace CIPlatform_Main.Repository.Repository
             }
         }
 
-        public bool sendMail(ForgotVM forgotVM, string url)
+        public bool SendMail(ForgotVM forgotVM, string url)
         {
 
             // Generate a password reset token for the user

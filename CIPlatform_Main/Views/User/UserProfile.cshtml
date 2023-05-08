@@ -100,9 +100,17 @@
 								@name @surname
 							</a>
 							<ul class="dropdown-menu" aria-labelledby="navbarScrollingDropdown">
+
+								@*@foreach (var admin in Model.AdminList)
+								{
+									if (admin.Email == Email)
+									{
+										<li><a class="dropdown-item" asp-controller="Admin" asp-action="UserPage">Admin Panel</a></li>
+
+									}
+								}*@
 								<li><a class="dropdown-item" asp-controller="User" asp-action="UserProfile">Add Profile</a></li>
 								<li><a class="dropdown-item" asp-controller="User" asp-action="VolTimeSheet">Volunteering TimeSheet</a></li>
-								@*	<li><a class="dropdown-item" href="#">Help Center</a></li>*@
 								<li><a class="dropdown-item" asp-controller="Login" asp-action="Logout">LogOut</a></li>
 							</ul>
 						</li>
@@ -152,7 +160,7 @@
 					<h3>@Model.FirstName @Model.LastName</h3>
 				</div>
 				<div>
-					<form method="post" asp-controller="User" asp-action="changePassword">
+					<form method="post" asp-controller="User" asp-action="ChangePassword">
 						<button type="button" class="btn btn-outline-warning" data-bs-toggle="modal" data-bs-target="#exampleModal" style="border-radius: 50px;">
 							Change Password
 						</button>
@@ -454,9 +462,7 @@
 							<li>
 								<a asp-controller="Login" asp-action="PolicyPage" style="color:#acacac">Privacy Policy</a>
 							</li>
-							<li>
-								<a href="#" style="color:#acacac">Cookie Policy</a>
-							</li>
+							
 							<li>
 
 								<button type="button" class="btn " data-bs-toggle="modal" data-bs-target="#exampleModalContactUs" style="border-radius: 50px;color: #acacac;margin-bottom: 4px;">
@@ -481,7 +487,7 @@
 													</div>
 													<div class="row">
 														<div class="col">
-															<label for="exampleFormControlInput1" class="form-label">Minutes</label>
+															<label for="exampleFormControlInput1" class="form-label">Email</label>
 															<input type="email" class="form-control" value="@Email" aria-label="Email Address" disabled>
 														</div>
 													</div>
@@ -512,9 +518,7 @@
 								</div>
 							</li>
 
-							<li>
-								<a href="#" style="color:#acacac">Terms of Use</a>
-							</li>
+							
 
 						</ul>
 					</div>
@@ -544,7 +548,7 @@
 			//	$('#City').attr('disabled', false);
 			var countryId = $('#Country	').val();
 			$.ajax({
-				url: '/User/getCityList',
+				url: '/User/GetCityList',
 				data: {
 					id: countryId,
 				},
@@ -560,7 +564,7 @@
 
 		function getCountry() {
 			$.ajax({
-				url: '/User/getCountryList',
+				url: '/User/GetCountryList',
 				type: 'POST',
 				success: function (result) {
 					$.each(result, function (i, data) {
@@ -588,7 +592,7 @@
 			}
 
 			$.ajax({
-				url: "/User/changeProfile",
+				url: "/User/ChangeProfile",
 				type: "POST",
 				data: {
 					image: imagePaths

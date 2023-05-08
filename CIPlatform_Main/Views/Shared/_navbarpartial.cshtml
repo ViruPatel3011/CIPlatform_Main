@@ -1,5 +1,5 @@
 ﻿@*@model IEnumerable<CIPlatformWeb.Entities.DataModels.Mission>*@
-@model LandingPageVM	
+@model LandingPageVM
 
 @{
 	ViewData["Title"] = "Home Page";
@@ -14,25 +14,25 @@
 	var email = identity?.FindFirst(ClaimTypes.Email)?.Value;
 }
 <div style="background-color:red !important;">
-		@if (TempData["Success Message"] != null)
-		{
-			<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css" />
-			<script src="~/lib/jquery/dist/jquery.min.js"></script>
-			<script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
-			<script type="text/javascript">
-				toastr.success('@TempData["Success Message"]');
-			</script>
-		}
-		@if (TempData["Error Message"] != null)
-		{
-			<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css" />
-			<script src="~/lib/jquery/dist/jquery.min.js"></script>
-			<script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
-			<script type="text/javascript">
-				toastr.warning('@TempData["Error"]');
-			</script>
-		}
-	</div>
+	@if (TempData["Success Message"] != null)
+	{
+		<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css" />
+		<script src="~/lib/jquery/dist/jquery.min.js"></script>
+		<script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+		<script type="text/javascript">
+			toastr.success('@TempData["Success Message"]');
+		</script>
+	}
+	@if (TempData["Error Message"] != null)
+	{
+		<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css" />
+		<script src="~/lib/jquery/dist/jquery.min.js"></script>
+		<script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+		<script type="text/javascript">
+			toastr.warning('@TempData["Error"]');
+		</script>
+	}
+</div>
 <!-- First navbar  -->
 <nav class="navbar navbar-expand-md navbar-light bg-light">
 	<div class="container">
@@ -48,54 +48,115 @@
 					<button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
 				</div>
 				<div class="offcanvas-body">
-					<li class="navbar-nav nav-item">
-						<a class="nav-link" aria-current="page" asp-controller="Story" asp-action="StoryListingPage">Stories</a>
-					</li>
-					<li class="navbar-nav nav-item dropdown">
-						<a class="nav-link dropdown-toggle" href="#" id="navbarScrollingDropdown" role="button"
-						   data-bs-toggle="dropdown" aria-expanded="false">
-							Privacy
-						</a>
-						<ul class="dropdown-menu" aria-labelledby="navbarScrollingDropdown">
-							<li><a class="dropdown-item" href="#">Volunteering</a></li>
-							<li><a class="dropdown-item" href="#">Sponsered</a></li>
+					<ul>
+						<li class="navbar-nav nav-item dropdown">
+							<a class="nav-link " id="navbarScrollingDropdown" role="button"
+							   data-bs-toggle="dropdown" aria-expanded="false">
+								Explore
+							</a>
+							<ul class="dropdown-menu" aria-labelledby="navbarScrollingDropdown">
+								<li><a class="dropdown-item" onclick="loadMissions(1,'','topthemes')">Top Themes</a></li>
+								<li><a class="dropdown-item" onclick="loadMissions(1,'','topRanked')">Most Ranked</a></li>
+								<li><a class="dropdown-item" onclick="loadMissions(1,'','topFavourite')">Top Favourite</a></li>
+								<li><a class="dropdown-item" onclick="loadMissions(1,'','RandomMissions')">Random</a></li>
 
-						</ul>
-					</li>
+							</ul>
+						</li>
+					</ul>
+					<ul>
+						<li class="navbar-nav nav-item">
+							<a class="nav-link" aria-current="page" asp-controller="Story" asp-action="StoryListingPage">Stories</a>
+						</li>
+					</ul>
+					<ul>
+						<li class="navbar-nav nav-item dropdown">
+							<a class="nav-link " href="#" id="navbarScrollingDropdown" role="button"
+							   data-bs-toggle="dropdown" aria-expanded="false">
+								Privacy
+							</a>
+							<ul class="dropdown-menu" aria-labelledby="navbarScrollingDropdown">
+								<li><a class="dropdown-item" href="#">Volunteering</a></li>
+								<li><a class="dropdown-item" href="#">Sponsered</a></li>
+
+							</ul>
+						</li>
+					</ul>
 				</div>
 			</div>
-			</ul>
+
 		</div>
 
-		<div id="navigation-bar">
+		<div id="navigation-bar1">
 			<ul class="navbar-nav d-flex">
 				@if (User.Identity.IsAuthenticated)
 				{
 
 
+					<div class="navbar-nav dropdown">
+						<a class="nav-link" href="#" id="navbarScrollingDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+							<img src="~/Assets/bell.png" />
+						</a>
+						<div class="dropdown-menu " aria-labelledby="navbarScrollingDropdown" style="left: auto; right: 0;width:400px;">
+							<div class="d-flex justify-content-between">
+								<div><i class="bi bi-gear ms-1" id="gear-icon"></i></div>
+								<div>Notification</div>
+								<div class="me-1">Clear All</div>
+							</div>
+							   <div class="dropdown-divider"></div>
+							<div class="dropdown_body">
+								<div class="main_body ">
+									<div class="d-flex">
+										<div class="mx-1"><i class="bi bi-plus-circle"></i></div>
+										<div class="mx-2"><p class="mx-2">New Mission Is Added Like Viral Patel And Himansu Gami</p></div>
+										
+									</div>
+								</div>
+								<div class="setting_body d-none">
+									<div class="form-check">
+										<input class="form-check-input" type="checkbox" id="option1" value="option1">
+										<label class="form-check-label" for="option1">
+											Option 1
+										</label>
+									</div>
+									<div class="form-check">
+										<input class="form-check-input" type="checkbox" id="option2" value="option2">
+										<label class="form-check-label" for="option2">
+											Option 2
+										</label>
+									</div>
+									<div class="text-end">
+										<button type="button" class="btn btn-secondary" id="cancel-button">Cancel</button>
+										<button type="button" class="btn btn-primary" id="save-button">Save</button>
+									</div>
+								</div>
+							</div>
+
+							
+						
+
+						</div>
+					</div>
+
+
+
+
+
 					<li class="nav-item dropdown">
-						<a class="nav-link dropdown-toggle userName" href="#" id="navbarScrollingDropdown" role="button"
-						data-bs-toggle="dropdown" aria-expanded="false">
+						<a class="nav-link  userName" href="#" id="navbarScrollingDropdown" role="button"
+						   data-bs-toggle="dropdown" aria-expanded="false">
 							@{
 								var profilePic = Model.UserData.Where(x => x.UserId == Convert.ToInt32(uid)).Select(x => x.Avatar).FirstOrDefault();
 							}
 							<img src="@Url.Content(profilePic)" class="rounded-circle" height="35" width="35" alt="Profile pic"
-			loading="lazy" />
+								 loading="lazy" />
 							@name @surname
 						</a>
 						<ul class="dropdown-menu" aria-labelledby="navbarScrollingDropdown">
-							
-							@foreach(var admin in Model.AdminList)
-							{
-								if (admin.Email == email)
-								{
-									<li><a class="dropdown-item" asp-controller="Admin" asp-action="UserPage">Admin Panel</a></li>
-									
-								}
-							}
-						
+
+
+
 							<li><a class="dropdown-item" asp-controller="User" asp-action="UserProfile">Add Profile</a></li>
-							<li><a class="dropdown-item" asp-controller="User" asp-action="VolTimeSheet">Volunteering TimeSheet</a></li>					
+							<li><a class="dropdown-item" asp-controller="User" asp-action="VolTimeSheet">Volunteering TimeSheet</a></li>
 							<li><a class="dropdown-item" asp-controller="Login" asp-action="Logout">LogOut</a></li>
 						</ul>
 					</li>
@@ -172,7 +233,7 @@
 
 							<div class="dropdown">
 								<a class="btn btn-secondary dropdown-toggle bg-transparent text-dark border-0 "
-								    role="button" data-bs-toggle="dropdown" aria-expanded="false">
+								   role="button" data-bs-toggle="dropdown" aria-expanded="false">
 									City Name
 								</a>
 								<ul class="dropdown-menu scrollable-menu ps-2" id="cityDropdown">
@@ -200,7 +261,7 @@
 				<div class="col-auto py-2 px-2 mx-auto searchByFilter">
 					<ul class="navbar-nav" style="--bs-scroll-height: 100px;">
 						<li class="nav-item ">
-							<a class="nav-link dropdown-toggle"  id="navbarScrollingDropdown" role="button"
+							<a class="nav-link dropdown-toggle" id="navbarScrollingDropdown" role="button"
 							   data-bs-toggle="dropdown" aria-expanded="false">
 								Theme
 							</a>
@@ -226,7 +287,7 @@
 				<div class="col-auto py-2 px-2 mx-auto searchByFilter">
 					<ul class="navbar-nav" style="--bs-scroll-height: 100px;">
 						<li class="nav-item ">
-							<a class="nav-link dropdown-toggle"  id="navbarScrollingDropdown" role="button"
+							<a class="nav-link dropdown-toggle" id="navbarScrollingDropdown" role="button"
 							   data-bs-toggle="dropdown" aria-expanded="false">
 								Skills
 							</a>
@@ -261,7 +322,7 @@
 
 @*This is for Cards Partial View showing*@
 
-@*If This Link is enabled , dropdown not work in landing page*@
+@*If This Link is disabled , dropdown not work in landing page*@
 <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
 <script src="~/lib/jquery/dist/jquery.js"></script>
 
@@ -273,22 +334,23 @@
 
 	let missionToSearch = "";
 	let sortBy = "";
+	let exploreBy = ""
 
 
 	$(document).ready(function () {
-		loadMissions(pg=1);
+		loadMissions(pg = 1);
 
 	});
 
 	$("#search-field").on("keyup", function (e) {
 		missionToSearch = $("#search-field").val().toLowerCase();
 		console.log(missionToSearch);
-		loadMissions(pg=1);
+		loadMissions(pg = 1);
 	});
 
 
 
-	function loadMissions(pg,sortVal) {
+	function loadMissions(pg, sortVal, exploreVal) {
 		var country = [];
 		$('#countryDropdown').find("input:checked").each(function (i, ob) {
 			country.push($(ob).val());
@@ -313,6 +375,9 @@
 		if (sortVal != null) {
 			sortBy = sortVal;
 		}
+		if (exploreVal != null) {
+			exploreBy = exploreVal;
+		}
 
 
 		$("#missionSpinner").removeClass("d-none");
@@ -322,9 +387,10 @@
 			url: "/Home/LandingPage",
 			method: "POST",
 			dataType: "html",
-			data: { "sortVal": sortBy, "search": missionToSearch, "pg": pg, "country": country, "city": city, "themes": themes, "skills": skills },
+			data: { "sortVal": sortBy, "search": missionToSearch, "pg": pg, "country": country, "city": city, "themes": themes, "skills": skills, "exploreVal": exploreBy },
 			success: function (data) {
 				// console.log(data);
+				//debugger;
 				$("#missionSpinner").addClass("d-none");
 				$('#missions-list').html("");
 				$('#missions-list').html(data);
@@ -336,6 +402,40 @@
 		});
 	}
 
-			// <!--Search Script Start Ends-->
+							// <!--Search Script Start Ends-->
+
+	var mainBody = document.querySelector(".main_body");
+	var settingBody = document.querySelector(".setting_body");
+	var gearIcon = document.querySelector("#gear-icon");
+	var cancelButton = document.querySelector("#cancel-button");
+	var saveButton = document.querySelector("#save-button");
+
+	gearIcon.addEventListener("click", function (event) {
+		event.stopPropagation();
+		mainBody.classList.toggle("d-none");
+		settingBody.classList.toggle("d-none");
+	});
+
+	cancelButton.addEventListener("click", function (event) {
+		event.stopPropagation();
+		mainBody.classList.toggle("d-none");
+		settingBody.classList.toggle("d-none");
+	});
+
+	saveButton.addEventListener("click", function (event) {
+		// Add code to save the settings here
+		event.stopPropagation();
+		mainBody.classList.toggle("d-none");
+		settingBody.classList.toggle("d-none");
+	});
+
+	// Close the setting body when clicking outside of it
+	document.addEventListener("click", function (event) {
+		if (!event.target.closest(".navbar-nav.dropdown")) {
+			mainBody.classList.remove("d-none");
+			settingBody.classList.add("d-none");
+		}
+	});
+
 
 </script>

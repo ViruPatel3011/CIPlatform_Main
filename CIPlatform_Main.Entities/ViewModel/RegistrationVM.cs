@@ -17,7 +17,8 @@ namespace CIPlatform_Main.Entities.ViewModel
         public string LastName { get; set; }
 
         [Required(ErrorMessage = "Email is required")]
-        public string Email { get; set; } = null!;
+		[RegularExpression(@"^[^@\s]+@[^@\s]+\.[^@\s]{2,}$", ErrorMessage = "Invalid Email Address")]
+		public string Email { get; set; } = null!;
 
 
 

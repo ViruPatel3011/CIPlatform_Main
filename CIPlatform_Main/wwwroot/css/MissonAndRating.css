@@ -41,19 +41,19 @@
 }
 
 /* Position the image container (needed to position the left and right arrows) */
-.container {
+/*.container {
   position: relative;
-}
+}*/
 
 /* Hide the images by default */
-.mySlides {
+/*.mySlides {
   display: none;
   
 }
 
 .mySlides img{
   object-fit: cover;
- }
+ }*/
 
 /* Add a pointer when hovering over the thumbnail images */
 .cursor {
@@ -340,10 +340,10 @@
 
  }
 
-
+/*
  .mySlides img{
   object-fit: cover;
- }
+ }*/
 
  
 
@@ -366,3 +366,39 @@
     border-radius: 50%;
     object-fit: cover;
 }
+
+
+
+/*Carousel CSS */
+::-webkit-scrollbar {
+    height: 10px;
+    width: 0.45rem;
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: rgba(27, 27, 27, .4);
+    border-radius: 3px;
+}
+
+::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.thumb-images {
+    overflow-x: scroll;
+    width: fit-content;
+}
+
+    .thumb-images .column {
+        width: 150px;
+        padding: 0 10px;
+    }
+
+        .thumb-images .column img {
+            width: 130px;
+            height: 80px;
+        }
+        .thumb-images .column iframe {
+            width: 130px;
+            height: 80px !important;
+        }

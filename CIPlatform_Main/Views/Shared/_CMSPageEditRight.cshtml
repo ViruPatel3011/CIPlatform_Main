@@ -13,7 +13,7 @@
 <h2 class="ps-3 mt-4 ms-2">Edit</h2>
 <form method="post" asp-controller="Admin" asp-action="EditCMSPageData">
 	@*cmsPageid is for Data Edit post method and cmsId is for getdata for Edit*@
-	<input hidden name="cmsPageid" id="cmsId">
+	<input hidden name="cmsPageid" id="cmsId" asp-for="loadCMsid">
 <div class="col-12 col-xl-10 col-lg-9 col-md-11 ">
 	<div class="row mx-2 mt-1">
 		<div class="col-12">
@@ -36,7 +36,7 @@
 	<div class="row mx-2 mt-1">
 		<div class="col-12">
 			<label for="inputEmail4 ">Status</label>
-				<input class="form-control mt-1" id="status" type="text" placeholder="Enter CMS Status" asp-for="CMSStatus">
+				<input class="form-control mt-1" id="status" type="text" placeholder="Active/Deactive" asp-for="CMSStatus">
 		</div>
 	</div>
 </div>

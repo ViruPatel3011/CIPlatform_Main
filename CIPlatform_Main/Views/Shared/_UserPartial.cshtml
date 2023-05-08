@@ -59,40 +59,29 @@
 								<div class="mb-3">
 									<label for="exampleFormControlInput1"
 										   class="form-label">First Name</label>
-									<input type="text" class="form-control "
-			  placeholder="Enter your first name" id="addFName" asp-for="FirstName">
+									<input type="text" class="form-control " placeholder="Enter your first name" id="addFName" asp-for="FirstName">
 										<span asp-validation-for="FirstName" class="text-danger"></span>
 								</div>
 								<div class="mb-3">
 									<label for="exampleFormControlInput1"
 										   class="form-label">Last Name</label>
-									<input type="text" class="form-control "
-			  placeholder="Enter your last name" id="addLName" asp-for="LastName">
+									<input type="text" class="form-control "placeholder="Enter your last name" id="addLName" asp-for="LastName">
 										<span asp-validation-for="LastName" class="text-danger"></span>
 								</div>
 								<div class="mb-3">
-									<label for="exampleFormControlInput1"
-										   class="form-label">Email</label>
-									<input type="email"
-										   class="form-control "
-			  placeholder="Enter Email address" id="addEmail" asp-for="UEmail">
+									<label for="exampleFormControlInput1"class="form-label">Email</label>
+									<input type="email" class="form-control " placeholder="Enter Email address" id="addEmail" asp-for="UEmail">
 										<span asp-validation-for="UEmail" class="text-danger"></span>
 								</div>
 								<div class="mb-3">
-									<label for="exampleFormControlInput1"
-										   class="form-label">Password</label>
-
-									<input type="password"
-										   class="form-control "
-			  placeholder="Enter password" id="addPassword" asp-for="UPassword">
+									<label for="exampleFormControlInput1"class="form-label">Password</label>
+									<input type="password" class="form-control " placeholder="Enter password" id="addPassword" asp-for="UPassword">
 										<span asp-validation-for="UPassword" class="text-danger"></span>
 								</div>
 								<div class="mb-3">
 									<label for="exampleFormControlInput1"
 										   class="form-label">Phone Number</label>
-									<input type="text"
-										   class="form-control "
-			  placeholder="Enter phone number" id="addPhnNumber" asp-for="PhoneNumber">
+									<input type="text" class="form-control " placeholder="Enter phone number" id="addPhnNumber" asp-for="PhoneNumber">
 										<span asp-validation-for="PhoneNumber" class="text-danger"></span>
 								</div>
 								<div class="mb-3">
@@ -109,7 +98,19 @@
 									<input class="form-control "
 			  rows="3" placeholder="Enter employeeid" id="addEmpId " asp-for="EmployeeId">
 										<span asp-validation-for="EmployeeId" class="text-danger"></span>
-								@*	<span class="text-danger"></span>*@
+								
+								</div>
+								<div class="mb-3">
+									<label for="exampleFormControlInput1"
+										   class="form-label">Country</label>
+										<select id="Country" class="form-select" asp-for="countryId">Select Country</select>
+										<span asp-validation-for="countryId" class="text-danger"></span>
+								</div>
+								<div class="mb-3">
+									<label for="exampleFormControlInput1"
+										   class="form-label">City</label>
+										<select id="City" class="form-select" asp-for="cityId">Select City</select>
+										<span asp-validation-for="cityId" class="text-danger"></span>
 								</div>
 								<div class="mb-3">
 									<label for="exampleFormControlInput1"
@@ -125,6 +126,7 @@
 			  placeholder="Enter your status" id="addStatus" asp-for="Status">
 										<span asp-validation-for="Status" class="text-danger"></span>
 								</div>
+								
 							</div>
 							<div class="modal-footer">
 								<button type="button" class="btn btn-outline-dark"
@@ -262,7 +264,7 @@
 								</div>
 								<div>
 									<button type="button" data-bs-toggle="modal"
-											data-bs-target="#exampleModalGoal"
+											data-bs-target="#exampleModalGoal" data-bs-toggle="tooltip" data-bs-placement="right" title="Delete"
 											class="border-0 bg-transparent" onclick="getUserId(@user.UserId)">
 										<i class="bi bi-trash3 text-dark"></i>
 									</button>
@@ -310,31 +312,7 @@
 		</div>
 	</div>
 
-	@*<div class="row float-end">
-	<div class="col-12 ">
-	<nav aria-label="Page navigation example">
-	<ul class="pagination pagination-circle pg-blue">
-	<li class="page-item disabled"><a class="page-link">First</a></li>
-	<li class="page-item disabled">
-	<a class="page-link" aria-label="Previous">
-	<span aria-hidden="true">&laquo;</span>
-	</a>
-	</li>
-	<li class="page-item active"><a class="page-link">1</a></li>
-	<li class="page-item"><a class="page-link">2</a></li>
-	<li class="page-item"><a class="page-link">3</a></li>
-	<li class="page-item"><a class="page-link">4</a></li>
-	<li class="page-item"><a class="page-link">5</a></li>
-	<li class="page-item">
-	<a class="page-link" aria-label="Next">
-	<span aria-hidden="true">&raquo;</span>
-	</a>
-	</li>
-	<li class="page-item"><a class="page-link">Last</a></li>
-	</ul>
-	</nav>
-	</div>
-	</div>*@
+
 </div>
 
 
@@ -354,4 +332,8 @@
 			dataTable.search(this.value).draw();
 		});
 	});
+
+	//white background
+	$('#userPageLink').addClass('bg-white')
+	$('#userPageLink').css("color", "orange");
 </script>

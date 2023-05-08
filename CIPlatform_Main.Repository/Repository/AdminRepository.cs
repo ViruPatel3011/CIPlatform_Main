@@ -28,44 +28,44 @@ namespace CIPlatform_Main.Repository.Repository
 		// All below Method for getting List
 
 		// ************** List Section start    **********//
-		public List<User> getUserList()
+		public List<User> GetUserList()
 		{
 			var list = _ciPlatformContext.Users.OrderBy(x => x.Status).ToList();
 			return list;
 		}
-		public List<CmsPage> cmsList()
+		public List<CmsPage> CmsList()
 		{
 			var list = _ciPlatformContext.CmsPages.OrderBy(x => x.Status).ToList();
 			return list;
 		}
-		public List<Mission> getMissionList()
+		public List<Mission> GetMissionList()
 		{
 			var list = _ciPlatformContext.Missions.OrderBy(x => x.Status).ToList();
 			return list;
 		}
 
-		public List<MissionTheme> getMissionThemeList()
+		public List<MissionTheme> GetMissionThemeList()
 		{
 			var list = _ciPlatformContext.MissionThemes.ToList();
 			return list;
 		}
-		public List<MissionApplication> getMissionAppList()
+		public List<MissionApplication> GetMissionAppList()
 		{
 			var list = _ciPlatformContext.MissionApplications.Where(x => x.ApprovalStatus != "Rejected").OrderBy(x => x.ApprovalStatus).ToList();
 			//var list = _ciPlatformContext.MissionApplications.OrderBy(x=>x.ApprovalStatus).ToList();
 			return list;
 		}
-		public List<Skill> getSkillsList()
+		public List<Skill> GetSkillsList()
 		{
 			var list = _ciPlatformContext.Skills.ToList();
 			return list;
 		}
-		public List<Story> getStoryList()
+		public List<Story> GetStoryList()
 		{
 			var list = _ciPlatformContext.Stories.ToList();
 			return list;
 		}
-		public List<Banner> getBannerList()
+		public List<Banner> GetBannerList()
 		{
 			var list = _ciPlatformContext.Banners.ToList();
 			return list;
@@ -84,7 +84,7 @@ namespace CIPlatform_Main.Repository.Repository
 		//**************   User Page Methods START    ***************///
 
 		// Method for Add User data
-		public bool AddUserDetails(string Ufname, string Ulname, string Uemail, string Upwd, string UphnNumber, string Uavtar, string Uempid, string UDept, string Usts)
+		public bool AddUserDetails(string Ufname, string Ulname, string Uemail, string Upwd, string UphnNumber, string Uavtar, string Uempid, string UDept, string Usts, int Ucountry, int Ucity)
 		{
 			var checkUser = _ciPlatformContext.Users.Where(x => x.Email == Uemail).FirstOrDefault();
 			if (checkUser != null)
@@ -104,8 +104,8 @@ namespace CIPlatform_Main.Repository.Repository
 					EmployeeId = Uempid,
 					Department = UDept,
 					Status = Usts,
-					CountryId = 1,
-					CityId = 2
+					CountryId = Ucountry,
+					CityId = Ucity
 
 				};
 				_ciPlatformContext.Users.Add(user);
@@ -117,7 +117,7 @@ namespace CIPlatform_Main.Repository.Repository
 		}
 
 		// Method for get UserData for Edit
-		public User getDataForUserPanel(long uId)
+		public User GetDataForUserPanel(long uId)
 		{
 			var checkUser = _ciPlatformContext.Users.Where(x => x.UserId == uId).FirstOrDefault();
 			return checkUser;
@@ -154,7 +154,7 @@ namespace CIPlatform_Main.Repository.Repository
 		}
 
 		// Method for Remove User data
-		public bool removeUserData(long uId)
+		public bool RemoveUserData(long uId)
 		{
 			var isValidUser = _ciPlatformContext.Users.Where(x => x.UserId == uId).FirstOrDefault();
 			isValidUser.Status = "Deactive";
@@ -198,13 +198,13 @@ namespace CIPlatform_Main.Repository.Repository
 			return true;
 		}
 
-		public CmsPage getCMSPageDataforEdit(long cmsid)
+		public CmsPage GetCMSPageDataforEdit(long cmsid)
 		{
 			var cmspage = _ciPlatformContext.CmsPages.Where(x => x.CmsPageId == cmsid).FirstOrDefault();
 			return cmspage;
 		}
 
-		public AdminViewModel getSingleCMsData(long loadCMsid)
+		public AdminViewModel GetSingleCMsData(long loadCMsid)
 		{
 			var cmsPage = _ciPlatformContext.CmsPages.Where(cms => cms.CmsPageId == loadCMsid).FirstOrDefault();
 			var listOfUser = _ciPlatformContext.Users.ToList();
@@ -214,7 +214,8 @@ namespace CIPlatform_Main.Repository.Repository
 				CMSDescrition = cmsPage.Description,
 				CMSSlug = cmsPage.Slug,
 				CMSStatus = cmsPage.Status,
-				UserList=listOfUser
+				UserList=listOfUser,
+				loadCMsid=loadCMsid
 			};
 			return admin;
 
@@ -232,7 +233,7 @@ namespace CIPlatform_Main.Repository.Repository
 		}
 
 		// Method for Delete CMS Page Data
-		public bool removeCMSData(long cmsId)
+		public bool RemoveCMSData(long cmsId)
 		{
 			var cmsDataExist = _ciPlatformContext.CmsPages.Where(x => x.CmsPageId == cmsId).FirstOrDefault();
 			if (cmsDataExist != null)
@@ -279,10 +280,22 @@ namespace CIPlatform_Main.Repository.Repository
 
 
 			};
+			// Set Deadline and TotalSeats only when MissionType is "Time"
+			if (missionVM.missionType == "Time")
+			{
+				mission.EndDate = missionVM.endDate;
+				mission.TotalSeats = missionVM.totalSeats;
+			}
+
 			_ciPlatformContext.Missions.Add(mission);
 			_ciPlatformContext.SaveChanges();
 
 			var lastMissionId = _ciPlatformContext.Missions.OrderByDescending(m => m.MissionId).Select(m => m.MissionId).FirstOrDefault();
+
+
+
+			// Below code is to store Mission images in Folders
+
 			//  foreach (var image in missionVM.images)
 			//         {
 			//	var fileName = image.FileName;
@@ -335,6 +348,8 @@ namespace CIPlatform_Main.Repository.Repository
 			//	}
 			//}
 
+
+			// Below code is to store Mission images in Base64 format
 			foreach (var image in missionVM.images)
 			{
 				var fileName = image.FileName;
@@ -445,23 +460,23 @@ namespace CIPlatform_Main.Repository.Repository
 
 
 
-		public Mission getDataForMissionEdit(long mId)
+		public Mission GetDataForMissionEdit(long mId)
 		{
 			//var mission = _ciPlatformContext.Missions.Where(x => x.MissionId == mId).FirstOrDefault();
 			var mission = _ciPlatformContext.Missions.Include(m => m.MissionMedia).FirstOrDefault(m => m.MissionId == mId);
 			return mission;
 		}
-		public Mission getDataforDocEdit(long mId)
+		public Mission GetDataforDocEdit(long mId)
 		{
 			//var mission = _ciPlatformContext.Missions.Where(x => x.MissionId == mId).FirstOrDefault();
 			var mission = _ciPlatformContext.Missions.Include(m => m.MissionDocuments).FirstOrDefault(m => m.MissionId == mId);
 			return mission;
 		}
 
-		public AdminViewModel getMissionData(long mId)
+		public AdminViewModel GetMissionData(long mId)
 		{
 			var currentMission = _ciPlatformContext.Missions.Where(m => m.MissionId == mId).FirstOrDefault();
-			var missionDoc = _ciPlatformContext.MissionDocuments.Where(md => md.MissionId == mId).Select(md => md.DocumentPath).ToList();
+			var missionDoc = _ciPlatformContext.MissionDocuments.Where(md => md.MissionId == mId).Select(md => md.DocumentName).ToList();
 			var missionImages = _ciPlatformContext.MissionMedia.Where(md => md.MissionId == mId).Select(mi => mi.MediaPath).ToList();
 			var missionSkill = _ciPlatformContext.MissionSkills.Where(ms => ms.MissionId == mId).ToList();
 			var listOfUser = _ciPlatformContext.Users.ToList();
@@ -480,6 +495,8 @@ namespace CIPlatform_Main.Repository.Repository
 				cityId = currentMission.CityId,
 				themeId = currentMission.ThemeId,
 				availability = currentMission.Availability,
+				deadline=currentMission.Deadline,
+				totalSeats=currentMission.TotalSeats,
 				editMissionImages = missionImages.ToList(),
 				editMissionDocuments = missionDoc.ToList(),
 				MissionThemeList = listOfTheme(),
@@ -496,6 +513,23 @@ namespace CIPlatform_Main.Repository.Repository
 		public bool EditMissionPageDatainDB(AdminViewModel adm, List<long> listOfSkill, long mId, List<IFormFile> images, List<IFormFile> Documents)
 		{
 			var dataEdit = _ciPlatformContext.Missions.Where(mission => mission.MissionId == mId).FirstOrDefault();
+			if(adm.countryId==0 && adm.cityId == 0)
+			{
+				dataEdit.Title = adm.title;
+				dataEdit.ShortDescription = adm.shortDescription;
+				dataEdit.Description = adm.description;
+				dataEdit.OrganizationName = adm.organizationName;
+				dataEdit.MissionType = adm.missionType;
+				dataEdit.OrganizationDetail = adm.organizationDetail;
+				dataEdit.StartDate = adm.startDate;
+				dataEdit.EndDate = adm.endDate;
+				dataEdit.ThemeId = adm.themeId;
+				dataEdit.Availability = adm.availability;
+			}
+			else
+			{
+
+		
 			dataEdit.Title = adm.title;
 			dataEdit.ShortDescription = adm.shortDescription;
 			dataEdit.Description = adm.description;
@@ -508,7 +542,7 @@ namespace CIPlatform_Main.Repository.Repository
 			dataEdit.CityId = adm.cityId;
 			dataEdit.ThemeId = adm.themeId;
 			dataEdit.Availability = adm.availability;
-
+			}
 			_ciPlatformContext.Missions.Update(dataEdit);
 			_ciPlatformContext.SaveChanges();
 
@@ -637,7 +671,7 @@ namespace CIPlatform_Main.Repository.Repository
 		}
 
 		// Method for Edit Mission Data 
-		public void editMissionPageData(AdminViewModel missionVM, long mPageEditId)
+		public void EditMissionPageData(AdminViewModel missionVM, long mPageEditId)
 		{
 			var editMissionId = _ciPlatformContext.Missions.Where(x => x.MissionId == mPageEditId).FirstOrDefault();
 			editMissionId.Title = missionVM.title;
@@ -660,7 +694,7 @@ namespace CIPlatform_Main.Repository.Repository
 		}
 
 		// Method for Delete Mission Data 
-		public bool removeMissionsData(long missionId)
+		public bool RemoveMissionsData(long missionId)
 		{
 			var validMission = _ciPlatformContext.Missions.Where(x => x.MissionId == missionId).FirstOrDefault();
 			if (validMission != null)
@@ -706,7 +740,7 @@ namespace CIPlatform_Main.Repository.Repository
 		}
 
 		// Method for Get Data for Missiontheme 
-		public MissionTheme getDataForMissionThemeEdit(long mthemeId)
+		public MissionTheme GetDataForMissionThemeEdit(long mthemeId)
 		{
 			var missionTheme = _ciPlatformContext.MissionThemes.Where(x => x.MissionThemeId == mthemeId).FirstOrDefault();
 			return missionTheme;
@@ -725,7 +759,7 @@ namespace CIPlatform_Main.Repository.Repository
 		}
 
 		// Method for Delete Missiontheme Data
-		public bool removeMissionThemeData(long ThId)
+		public bool RemoveMissionThemeData(long ThId)
 		{
 			var themeId = _ciPlatformContext.MissionThemes.Where(x => x.MissionThemeId == ThId).FirstOrDefault();
 			var missionList = _ciPlatformContext.Missions.ToList();
@@ -836,7 +870,7 @@ namespace CIPlatform_Main.Repository.Repository
 
 		}
 
-		public Skill getDataForMissionSkillEdit(long mSkillid)
+		public Skill GetDataForMissionSkillEdit(long mSkillid)
 		{
 			var skillid = _ciPlatformContext.Skills.Where(skill => skill.SkillId == mSkillid).FirstOrDefault();
 			return skillid;
@@ -1001,11 +1035,11 @@ namespace CIPlatform_Main.Repository.Repository
 		//}
 
 		//get banner
-		public Banner getBanner(long bId)
+		public Banner GetBanner(long bId)
 		{
 			return _ciPlatformContext.Banners.FirstOrDefault(bnr => bnr.BannerId == bId);
 		}
-		public Banner getDataForEditBannerPage(long bId)
+		public Banner GetDataForEditBannerPage(long bId)
 		{
 			var bannerList = _ciPlatformContext.Banners.Where(x => x.BannerId == bId).FirstOrDefault();
 			return bannerList;
@@ -1047,7 +1081,7 @@ namespace CIPlatform_Main.Repository.Repository
             }
         }
 
-		public bool deleteBannerPageData(long bannerPageId)
+		public bool DeleteBannerPageData(long bannerPageId)
 		{
 			var bid = _ciPlatformContext.Banners.Where(x => x.BannerId == bannerPageId).FirstOrDefault();
 			if (bid != null)

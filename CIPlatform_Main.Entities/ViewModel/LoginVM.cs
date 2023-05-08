@@ -11,7 +11,8 @@ namespace CIPlatform_Main.Entities.ViewModel
     public class LoginVM
     {
         [Required(ErrorMessage = "Email is Required")]
-        public string Email { get; set; }
+	
+		public string Email { get; set; }
 
         [Required(ErrorMessage = "Password is Required")]
         public string Password { get; set; }

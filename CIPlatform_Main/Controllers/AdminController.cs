@@ -9,6 +9,7 @@ using System.Xml;
 
 namespace CIPlatform_Main.Controllers
 {
+	[Authorize(Roles = "Admin")]
 	public class AdminController : Controller
 	{
 
@@ -28,7 +29,7 @@ namespace CIPlatform_Main.Controllers
 		// Default User Page
 		public IActionResult User()
 		{
-			var userData=_admin.getUserList();
+			var userData=_admin.GetUserList();
 			AdminViewModel model = new AdminViewModel()
 			{
 				UserList = userData,
@@ -39,10 +40,10 @@ namespace CIPlatform_Main.Controllers
 
 
 		// Method for UserPage
-		[Authorize(Roles ="Admin")]
+		
 		public IActionResult UserPage()
 		{
-			var userData = _admin.getUserList();
+			var userData = _admin.GetUserList();
 			AdminViewModel model = new AdminViewModel()
 			{
 				UserList = userData,
@@ -54,10 +55,11 @@ namespace CIPlatform_Main.Controllers
 
 
 		// Method for CMSPage
+		
 		public IActionResult CMSPage()
 		{
-			var cmsData = _admin.cmsList();
-            var userData = _admin.getUserList();
+			var cmsData = _admin.CmsList();
+            var userData = _admin.GetUserList();
             AdminViewModel cmsModel = new AdminViewModel()
 			{
 				CMSPageList = cmsData,
@@ -69,10 +71,11 @@ namespace CIPlatform_Main.Controllers
 
 
 		// Method for CMS Page Add Section
+		
 		public IActionResult CMSAdd()
 		{
-			var cmsData = _admin.cmsList();
-            var userData = _admin.getUserList();
+			var cmsData = _admin.CmsList();
+            var userData = _admin.GetUserList();
             AdminViewModel cmsModel1 = new AdminViewModel()
 			{
 				CMSPageList = cmsData,
@@ -82,6 +85,7 @@ namespace CIPlatform_Main.Controllers
 		}
 
 		// Method for CMS Page Edit Section
+		
 		public IActionResult CMSEdit(long loadCMsid)
 		{
 			//var cmsData = _admin.cmsList();
@@ -91,17 +95,18 @@ namespace CIPlatform_Main.Controllers
 			//	CMSPageList = cmsData,
 			//	UserList= userData
 			//};
-			var cmsEdit = _admin.getSingleCMsData(loadCMsid);
+			var cmsEdit = _admin.GetSingleCMsData(loadCMsid);
 			return PartialView("_CMSPageEditRight",cmsEdit);
 		}
 
 
 
 		// Method for Mission Page
+	
 		public IActionResult MissionPage()
 		{
-			var missions = _admin.getMissionList();
-            var userData = _admin.getUserList();
+			var missions = _admin.GetMissionList();
+            var userData = _admin.GetUserList();
             AdminViewModel missionModel = new AdminViewModel()
 			{
 				MissionList = missions,
@@ -114,10 +119,10 @@ namespace CIPlatform_Main.Controllers
 		// Method for Mission Page Add Section
 		public IActionResult MissionAdd()
 		{
-            var userData = _admin.getUserList();
-            var missionData = _admin.getMissionList();
-			var missionTheme = _admin.getMissionThemeList();
-			var skill = _admin.getSkillsList();
+            var userData = _admin.GetUserList();
+            var missionData = _admin.GetMissionList();
+			var missionTheme = _admin.GetMissionThemeList();
+			var skill = _admin.GetSkillsList();
 			AdminViewModel missionModel1 = new AdminViewModel()
 			{
 				MissionList = missionData,
@@ -143,7 +148,7 @@ namespace CIPlatform_Main.Controllers
 			//	SkillList = skill,
 			//	CountryList = country
 			//};
-			var singleMission=_admin.getMissionData(mId);
+			var singleMission=_admin.GetMissionData(mId);
 			return PartialView("_MissionPageEditRight", singleMission);
 		}
 
@@ -151,8 +156,8 @@ namespace CIPlatform_Main.Controllers
 		// Method for MissionTheme Page
 		public IActionResult MissionThemePage()
 		{
-            var userData = _admin.getUserList();
-            var missionTheme = _admin.getMissionThemeList();
+            var userData = _admin.GetUserList();
+            var missionTheme = _admin.GetMissionThemeList();
 			AdminViewModel missionThemeModel = new AdminViewModel()
 			{ 
 				MissionThemeList= missionTheme,
@@ -166,8 +171,8 @@ namespace CIPlatform_Main.Controllers
 		// Method for MissionSkill Page
 		public IActionResult MissionSkillsPage()
 		{
-            var userData = _admin.getUserList();
-            var skillsData = _admin.getSkillsList();
+            var userData = _admin.GetUserList();
+            var skillsData = _admin.GetSkillsList();
 			AdminViewModel skillModel = new AdminViewModel()
 			{
 				SkillsList = skillsData,
@@ -181,9 +186,9 @@ namespace CIPlatform_Main.Controllers
 		// Method for MissionApplication Page
 		public IActionResult MissionApplicationPage()
 		{
-			var missionApp = _admin.getMissionAppList();
-			var mission = _admin.getMissionList();
-			var user = _admin.getUserList();
+			var missionApp = _admin.GetMissionAppList();
+			var mission = _admin.GetMissionList();
+			var user = _admin.GetUserList();
 			AdminViewModel missionAppModel = new AdminViewModel()
 			{
 				MissionApplicationList = missionApp,
@@ -197,9 +202,9 @@ namespace CIPlatform_Main.Controllers
 		// Method for Story Page
 		public IActionResult StoryPage()
 		{
-			var storyList = _admin.getStoryList();
-			var userList = _admin.getUserList();
-			var missionList = _admin.getMissionList();
+			var storyList = _admin.GetStoryList();
+			var userList = _admin.GetUserList();
+			var missionList = _admin.GetMissionList();
 			AdminViewModel storyModel = new AdminViewModel() {
 
 				StoryList = storyList,
@@ -214,8 +219,8 @@ namespace CIPlatform_Main.Controllers
 		// Method for Banner Page
 		public IActionResult BannerPage()
 		{
-            var userData = _admin.getUserList();
-            var bannerData = _admin.getBannerList();
+            var userData = _admin.GetUserList();
+            var bannerData = _admin.GetBannerList();
 			AdminViewModel bannerModel = new AdminViewModel()
 			{
 				BannerList = bannerData,
@@ -230,9 +235,9 @@ namespace CIPlatform_Main.Controllers
 
 		// Method for Add User data 
 		[HttpPost]
-		public IActionResult addUserData(string Ufname, string Ulname, string Uemail,string Upwd,string UphnNumber, string Uavtar, string Uempid, string UDept,  string Usts)
+		public IActionResult AddUserData(string Ufname, string Ulname, string Uemail,string Upwd,string UphnNumber, string Uavtar, string Uempid, string UDept,  string Usts,int Ucountry,int Ucity)
 		{
-			var userDataAdded = _admin.AddUserDetails(Ufname,Ulname,Uemail,Upwd,UphnNumber,Uavtar,Uempid,UDept,Usts);
+			var userDataAdded = _admin.AddUserDetails(Ufname,Ulname,Uemail,Upwd,UphnNumber,Uavtar,Uempid,UDept,Usts, Ucountry, Ucity);
 			if (userDataAdded)
 			{
 				TempData["Success Message"] = "User Added Successfully";
@@ -250,10 +255,10 @@ namespace CIPlatform_Main.Controllers
 
 		// Method for get UserData for Edit
 		[HttpGet]
-		public IActionResult getDataForUser(long uId)
+		public IActionResult GetDataForUser(long uId)
 		{
            
-			var data = _admin.getDataForUserPanel(uId);
+			var data = _admin.GetDataForUserPanel(uId);
             return Json(new
             {
                 firstName = data.FirstName,
@@ -303,9 +308,9 @@ namespace CIPlatform_Main.Controllers
 		}
 
 		// Method for Delete User Data
-		public IActionResult deleteUserData(long uId)
+		public IActionResult DeleteUserData(long uId)
 		{
-            var removeUserData = _admin.removeUserData(uId);
+            var removeUserData = _admin.RemoveUserData(uId);
             if (removeUserData)
             {
                 TempData["Success Message"] = "User Deleted Successfully";
@@ -343,9 +348,9 @@ namespace CIPlatform_Main.Controllers
 
 
 		// Method for Delete CMS Page Data
-		public IActionResult deleteCMSPageData(long cmsId)
+		public IActionResult DeleteCMSPageData(long cmsId)
 		{
-			var removeCMSData = _admin.removeCMSData(cmsId);
+			var removeCMSData = _admin.RemoveCMSData(cmsId);
 			if (removeCMSData)
 			{
 				TempData["Success Message"] = "CMS Data Deleted Successfully";
@@ -359,9 +364,9 @@ namespace CIPlatform_Main.Controllers
 		}
 
 		[HttpGet]
-		public IActionResult getCMSDataForEdit(long cmsid)
+		public IActionResult GetCMSDataForEdit(long cmsid)
 		{
-			var cmsData = _admin.getCMSPageDataforEdit(cmsid);
+			var cmsData = _admin.GetCMSPageDataforEdit(cmsid);
 			return Json(new
 			{
 
@@ -384,8 +389,6 @@ namespace CIPlatform_Main.Controllers
 			return RedirectToAction("CMSPage", "Admin");
 
 		}
-
-
 
 		//**************   Mission Page Methods START    ***************///
 
@@ -424,10 +427,10 @@ namespace CIPlatform_Main.Controllers
 
         // Method for Get Data for Edit Mission 
         [HttpGet]
-		public IActionResult getDataForEditMission(long mId)
+		public IActionResult GetDataForEditMission(long mId)
 		{
-			var data = _admin.getDataForMissionEdit(mId);
-			var docData = _admin.getDataforDocEdit(mId);
+			var data = _admin.GetDataForMissionEdit(mId);
+			var docData = _admin.GetDataforDocEdit(mId);
             var imageUrl = data.MissionMedia.Select(m => m.MediaPath).ToArray();
 			var docsurl = docData.MissionDocuments.Select(m => m.DocumentPath).ToArray();
             return Json(new
@@ -453,7 +456,7 @@ namespace CIPlatform_Main.Controllers
 		}
 
 		[HttpPost]
-		public IActionResult addEditedData(AdminViewModel adm,List<long> listOfSkill,long mId,List<IFormFile> images,List<IFormFile> Documents)
+		public IActionResult AddEditedData(AdminViewModel adm,List<long> listOfSkill,long mId,List<IFormFile> images,List<IFormFile> Documents)
 		{
 			var dataEdit = _admin.EditMissionPageDatainDB(adm, listOfSkill, mId,images,Documents);
 			if (dataEdit)
@@ -473,7 +476,7 @@ namespace CIPlatform_Main.Controllers
 		[HttpPost]
 		public IActionResult EditMissionPageData(AdminViewModel missionVM,long mPageEditId)
 		{
-			_admin.editMissionPageData(missionVM, mPageEditId);
+			_admin.EditMissionPageData(missionVM, mPageEditId);
             TempData["Success Message"] = "Mission Deleted Successfully";
             return Json(new { redirectUrl = Url.Action("MissionPage", "Admin") });
 
@@ -481,9 +484,9 @@ namespace CIPlatform_Main.Controllers
 
 
         // Method for Delete Mission Data 
-        public IActionResult deleteMissionData(long missionId)
+        public IActionResult DeleteMissionData(long missionId)
 		{
-			var removeMissionData = _admin.removeMissionsData(missionId);
+			var removeMissionData = _admin.RemoveMissionsData(missionId);
 			if (removeMissionData)
 			{
 				TempData["Success Message"] = "Mission Deleted Successfully";
@@ -523,9 +526,9 @@ namespace CIPlatform_Main.Controllers
 
 		// Method for Get Data for Missiontheme 
 		[HttpGet]
-		public IActionResult getDataForEditMissionTheme(long mthemeId)
+		public IActionResult GetDataForEditMissionTheme(long mthemeId)
 		{
-			var themedata = _admin.getDataForMissionThemeEdit(mthemeId);
+			var themedata = _admin.GetDataForMissionThemeEdit(mthemeId);
 			return Json(new
 			{
 				themeTitle = themedata.Title,
@@ -548,9 +551,9 @@ namespace CIPlatform_Main.Controllers
 		}
 
 		// Method for Delete Missiontheme Data
-		public IActionResult deleteMissionThemeData(long ThId)
+		public IActionResult DeleteMissionThemeData(long ThId)
 		{
-			var removeMissionThemeData = _admin.removeMissionThemeData(ThId);
+			var removeMissionThemeData = _admin.RemoveMissionThemeData(ThId);
 			if (removeMissionThemeData)
 			{
 				TempData["Success Message"] = "MissionTheme Deleted Successfully";
@@ -645,9 +648,9 @@ namespace CIPlatform_Main.Controllers
 
 		// Method for Get Data for Missiontheme 
 		[HttpGet]
-		public IActionResult getDataForEditMissionSkill(long mSkillid)
+		public IActionResult GetDataForEditMissionSkill(long mSkillid)
 		{
-			var skilldata = _admin.getDataForMissionSkillEdit(mSkillid);
+			var skilldata = _admin.GetDataForMissionSkillEdit(mSkillid);
 			return Json(new
 			{
 
@@ -667,7 +670,7 @@ namespace CIPlatform_Main.Controllers
 		}
 
 		// Method for Delete Skills data
-		public IActionResult deleteUserSkill(long SkillsId)
+		public IActionResult DeleteUserSkill(long SkillsId)
 		{
 			var deleteSkill = _admin.DeleteSkillByAdmin(SkillsId);
 			if (deleteSkill)
@@ -736,9 +739,9 @@ namespace CIPlatform_Main.Controllers
 		}
 		
 
-		public IActionResult getDataForEditBanner(long bId)
+		public IActionResult GetDataForEditBanner(long bId)
 			{
-			var editbanner = _admin.getDataForEditBannerPage(bId);
+			var editbanner = _admin.GetDataForEditBannerPage(bId);
 			return Json(new {
 
 				//bImage=editbanner.Image,
@@ -752,9 +755,9 @@ namespace CIPlatform_Main.Controllers
 		}
 
 		//get Banner
-		public IActionResult getBanner(long bId)
+		public IActionResult GetBanner(long bId)
 		{
-			var storyMedia = _admin.getBanner(bId);
+			var storyMedia = _admin.GetBanner(bId);
 			return Json(storyMedia);
 		}
 		
@@ -766,9 +769,9 @@ namespace CIPlatform_Main.Controllers
 			return RedirectToAction("BannerPage", "Admin");
 		}
 
-		public IActionResult deleteBannerData(long bannerPageId)
+		public IActionResult DeleteBannerData(long bannerPageId)
 		{
-			var delete = _admin.deleteBannerPageData(bannerPageId);
+			var delete = _admin.DeleteBannerPageData(bannerPageId);
 			if(delete)
 			{
 				TempData["Success Message"] = "Banner Deleted";

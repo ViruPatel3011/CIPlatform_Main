@@ -294,7 +294,7 @@
 	function loadMissionSkillData(skilid) {
 		$.ajax({
 			method: 'GET',
-			url: '/Admin/getDataForEditMissionSkill',
+			url: '/Admin/GetDataForEditMissionSkill',
 			data: {
 				mSkillid: skilid
 			},
@@ -323,7 +323,7 @@
 	}
 	function deleteSkills() {
 		$.ajax({
-			url: "/Admin/deleteUserSkill",
+			url: "/Admin/DeleteUserSkill",
 			type: "POST",
 			data: {
 				SkillsId: skillid
@@ -346,4 +346,8 @@
 			dataTable.search(this.value).draw();
 		});
 	});
+
+	//white background
+	$('#missionSkillPageLink').addClass('bg-white')
+	$('#missionSkillPageLink ').css("color", "orange");
 </script>

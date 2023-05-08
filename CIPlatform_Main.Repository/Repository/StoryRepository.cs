@@ -23,7 +23,7 @@ namespace CIPlatform_Main.Repository.Repository
 			_ciPlatformContext = ciPlatformContext;
 		}
 
-		public storyListingVM getStoryDetail(int pageIndex = 1, int pageSize = 1)
+		public storyListingVM GetStoryDetail(int pageIndex = 1, int pageSize = 1)
 		{
 			storyListingVM tsm = new storyListingVM()
 			{
@@ -131,7 +131,7 @@ namespace CIPlatform_Main.Repository.Repository
 
 
 		// recomendation to co-worker
-		public List<User> getUsersForRecomandateToCoWorker(string uid)
+		public List<User> GetUsersForRecomandateToCoWorker(string uid)
 		{
 			var userId = Convert.ToInt32(uid);
 			List<User> users = _ciPlatformContext.Users.Where(x => x.UserId != userId).ToList();
@@ -139,7 +139,7 @@ namespace CIPlatform_Main.Repository.Repository
 		}
 
 	
-		public string userWithId(int[] ids, int missionid, string url)
+		public string UserWithId(int[] ids, int missionid, string url)
 		{
 
 			foreach (var id in ids)
@@ -175,14 +175,14 @@ namespace CIPlatform_Main.Repository.Repository
 		//below 2 method is for edit story
 
 		// Method for Get all Mission List in Dropdown
-		public List<Mission> getMissions(long userid)
+		public List<Mission> GetMissions(long userid)
         {
             var missionApplication = _ciPlatformContext.MissionApplications.Where(u => u.UserId == userid).Select(u => u.MissionId);
             return _ciPlatformContext.Missions.Where(u => missionApplication.Contains(u.MissionId)).OrderBy(m => m.Title).ToList();
         }
 
 		// Method Get all the data saved in database for Edit
-		public shareYourStoryVM getDataForShareYourStory(string missionid, string uid)
+		public shareYourStoryVM GetDataForShareYourStory(string missionid, string uid)
 		{
 				
 
@@ -231,7 +231,7 @@ namespace CIPlatform_Main.Repository.Repository
 
 
 		// Method for submit new Story in Database
-		public bool getDataForStoryTable(int mid, string sTitle, string sDateAndTime, string sDesc, int userId, string[] images, string videourl)
+		public bool GetDataForStoryTable(int mid, string sTitle, string sDateAndTime, string sDesc, int userId, string[] images, string videourl)
         {
            /* var alreadyPosteStory = _ciPlatformContext.Stories.Where(x => x.UserId == userId && x.MissionId == mid).FirstOrDefault();
             if (alreadyPosteStory != null)
@@ -283,7 +283,7 @@ namespace CIPlatform_Main.Repository.Repository
 
 
 		//press on submit button to change status in the databases;
-		public void submit(long storyId)
+		public void Submit(long storyId)
 		{
 			var story = _ciPlatformContext.Stories.SingleOrDefault(m => m.StoryId == storyId);
 			story.Status = "Published";
@@ -294,7 +294,7 @@ namespace CIPlatform_Main.Repository.Repository
 
 
 		// Method for Edit data for story
-		public void editStory(int mid, string sTitle, string sDesc, int userId, string[] images, string videourl)
+		public void EditSharedStory(int mid, string sTitle, string sDesc, int userId, string[] images, string videourl)
 		{
 			var entity = _ciPlatformContext.Stories.SingleOrDefault(m => m.UserId == userId && m.MissionId == mid);
 			entity.UserId = userId;

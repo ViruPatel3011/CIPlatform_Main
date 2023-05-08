@@ -67,14 +67,14 @@
 				<ul class="nav nav-pills flex-column mb-auto mt-4 mt-lg-4 mt-md-5">
 
 					<li class="nav-item">
-						<a asp-controller="Admin" asp-action="UserPage" class="nav-link sidebarcontent " aria-current="page" id="userSelectedBg">
+						<a asp-controller="Admin" asp-action="UserPage" class="nav-link sidebarcontent " aria-current="page" id="userPageLink">
 
 							<i class="bi bi-person-fill sidebar-img "></i>
 							<lable class="d-block d-lg-block d-md-none">User</lable>
 						</a>
 					</li>
 					<li>
-						<a asp-controller="Admin" asp-action="CMSPage" class="nav-link sidebarcontent ">
+						<a asp-controller="Admin" asp-action="CMSPage" class="nav-link sidebarcontent " id="cmsPageLink">
 
 							<i class="bi bi-file-earmark-text-fill sidebar-img me-2"></i>
 
@@ -82,7 +82,7 @@
 						</a>
 					</li>
 					<li>
-						<a asp-controller="Admin" asp-action="MissionPage" class="nav-link sidebarcontent">
+						<a asp-controller="Admin" asp-action="MissionPage" class="nav-link sidebarcontent" id="missionPageLink">
 
 							<i class="bi bi-bullseye sidebar-img me-2"></i>
 
@@ -90,7 +90,7 @@
 						</a>
 					</li>
 					<li>
-						<a asp-controller="Admin" asp-action="MissionThemePage" class="nav-link sidebarcontent">
+						<a asp-controller="Admin" asp-action="MissionThemePage" class="nav-link sidebarcontent" id="missionThemePageLink">
 
 
 							<i class="bi bi-grid-1x2-fill sidebar-img me-2"></i>
@@ -99,7 +99,7 @@
 						</a>
 					</li>
 					<li>
-						<a asp-controller="Admin" asp-action="MissionSkillsPage" class="nav-link sidebarcontent">
+						<a asp-controller="Admin" asp-action="MissionSkillsPage" class="nav-link sidebarcontent" id="missionSkillPageLink">
 
 							<i class="bi bi-tools sidebar-img me-2"></i>
 
@@ -107,7 +107,7 @@
 						</a>
 					</li>
 					<li>
-						<a asp-controller="Admin" asp-action="MissionApplicationPage" class="nav-link sidebarcontent ">
+						<a asp-controller="Admin" asp-action="MissionApplicationPage" class="nav-link sidebarcontent " id="missionAppPageLink">
 
 							<i class="bi bi-folder-fill sidebar-img me-2"></i>
 
@@ -115,7 +115,7 @@
 						</a>
 					</li>
 					<li>
-						<a asp-controller="Admin" asp-action="StoryPage" class="nav-link sidebarcontent">
+						<a asp-controller="Admin" asp-action="StoryPage" class="nav-link sidebarcontent" id="storyPageLink">
 
 							<i class="bi bi-book-half sidebar-img me-2"></i>
 
@@ -123,7 +123,7 @@
 						</a>
 					</li>
 					<li>
-						<a asp-controller="Admin" asp-action="BannerPage" class="nav-link sidebarcontent">
+						<a asp-controller="Admin" asp-action="BannerPage" class="nav-link sidebarcontent" id="bannerPageLink">
 
 							<i class="bi bi-border-style sidebar-img me-2"></i>
 
@@ -157,11 +157,12 @@
 							<div class="dropdown d-flex justify-content-end ">
 								<a class="btn btn-secondary  bg-transparent text-dark border-0 pt-0 policyDropdown p-0"
 								   role="button" data-bs-toggle="dropdown" aria-expanded="false">
-									@{
+									@*@{
 
 										<img src="@Model.UserList.Where(z=>z.UserId == Convert.ToUInt32(uid)).Select(x=>x.Avatar).FirstOrDefault()"
 											 class="rounded-circle mt-1 me-2" width="40px" height="40px" alt="">
-									}
+									}*@
+									<img src="/Assets/volunteer1.png" class="rounded-circle mt-1 me-2" width="40px" height="40px" alt="">
 								</a>
 								<span class="mt-2 me-3">@name @surname</span>
 								<ul class="dropdown-menu">
@@ -345,7 +346,7 @@
 		function loadUserData(userId) {
 			$.ajax({
 				method: 'GET',
-				url: '/Admin/getDataForUser',
+				url: '/Admin/GetDataForUser',
 				data: {
 					uId: userId
 				},
@@ -410,7 +411,7 @@
 		function deleteUserData() {
 			$.ajax({
 				method: 'POST',
-				url: '/Admin/deleteUserData',
+				url: '/Admin/DeleteUserData',
 				data: {
 					uId: userid
 				},
@@ -443,9 +444,11 @@
 				var empid = $("#addEmpId").val();
 				var dept = $("#addDeptName").val();
 				var uStatus = $("#addStatus").val();
+				var uCountry = $("#Country").val();
+				var uCity = $("#City").val();
 
 				$.ajax({
-					url: "/Admin/addUserData",
+					url: "/Admin/AddUserData",
 					type: "POST",
 					data: {
 						"Ufname": firstName,
@@ -457,6 +460,9 @@
 						"Uempid": empid,
 						"UDept": dept,
 						"Usts": uStatus,
+						"Ucountry": uCountry,
+						"Ucity": uCity,
+
 					},
 					success: function (result) {
 						location.reload();
@@ -468,6 +474,40 @@
 			}
 
 
+		}
+
+		getCountry();
+		//$('#City').attr('disabled', true);
+		$('#Country').change(function () {
+			$('#City').empty();
+			$('#City').append('<option>Select City</option>')
+			//	$('#City').attr('disabled', false);
+			var countryId = $('#Country').val();
+			$.ajax({
+				url: '/User/GetCityList',
+				data: {
+					id: countryId,
+				},
+				type: "POST",
+				success: function (result) {
+					$.each(result, function (i, data) {
+						$('#City').append('<option value=' + data.cityId + '>' + data.name + '</option>')
+					})
+
+				}
+			})
+		})
+
+		function getCountry() {
+			$.ajax({
+				url: '/User/GetCountryList',
+				type: 'POST',
+				success: function (result) {
+					$.each(result, function (i, data) {
+						$('#Country').append('<option value=' + data.countryId + '>' + data.name + '</option>');
+					})
+				},
+			})
 		}
 
 	</script>

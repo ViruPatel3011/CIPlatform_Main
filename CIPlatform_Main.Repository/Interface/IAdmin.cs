@@ -16,14 +16,14 @@ namespace CIPlatform_Main.Repository.Interface
 		// All below Method for getting List
 
 		// ************** List Section start    **********//
-		public List<User> getUserList();
-		public List<CmsPage> cmsList();
-		public List<Mission> getMissionList();
-		public List<MissionTheme> getMissionThemeList();
-		public List<MissionApplication> getMissionAppList();
-		public List<Skill> getSkillsList();
-		public List<Story> getStoryList();
-		public List<Banner> getBannerList();
+		public List<User> GetUserList();
+		public List<CmsPage> CmsList();
+		public List<Mission> GetMissionList();
+		public List<MissionTheme> GetMissionThemeList();
+		public List<MissionApplication> GetMissionAppList();
+		public List<Skill> GetSkillsList();
+		public List<Story> GetStoryList();
+		public List<Banner> GetBannerList();
 		public List<Country> getCountryList();
 
 
@@ -34,10 +34,10 @@ namespace CIPlatform_Main.Repository.Interface
 		//***********     User Page Method Start   **************///
 
 		// Method for Add User data 
-		public bool AddUserDetails(string Ufname, string Ulname, string Uemail, string Upwd, string UphnNumber, string Uavtar, string Uempid, string UDept, string Usts);
+		public bool AddUserDetails(string Ufname, string Ulname, string Uemail, string Upwd, string UphnNumber, string Uavtar, string Uempid, string UDept, string Usts, int Ucountry, int Ucity);
 
 		// Method for get UserData for Edit
-		public User getDataForUserPanel(long uId);
+		public User GetDataForUserPanel(long uId);
 
 		// Method for Edit User data
 		public bool EditDataForUser(string Name, string Surname, string email, string EmployeeId, long userid, string DeptName, string Ustatus);
@@ -45,7 +45,7 @@ namespace CIPlatform_Main.Repository.Interface
 		public bool EditDataForUserPage(AdminViewModel adminView,long userId);
 
 		// Method for Delete User Data
-		public bool removeUserData(long  uId);
+		public bool RemoveUserData(long  uId);
 
 		//**************   User Page MethodS End    ***************///
 
@@ -56,13 +56,13 @@ namespace CIPlatform_Main.Repository.Interface
 		// Method for Add CMS Page Data
 		public bool AddCMSpageData(string Title, string Description, string Slug, string Status);
 
-		public CmsPage getCMSPageDataforEdit(long cmsid);
+		public CmsPage GetCMSPageDataforEdit(long cmsid);
 
-		public AdminViewModel getSingleCMsData(long loadCMsid);
+		public AdminViewModel GetSingleCMsData(long loadCMsid);
 		public void EditCMSPageData(AdminViewModel adminView, long cmsPageid);
 
 		// Method for Delete CMS Page Data
-		public bool removeCMSData(long cmsId);
+		public bool RemoveCMSData(long cmsId);
 
 		//**************   CMS Page Methods END    ***************///
 
@@ -80,19 +80,19 @@ namespace CIPlatform_Main.Repository.Interface
         //public bool SavedMissionData(string mTitle, string mType, DateTime SDate, DateTime EDate, string msts);
 
 		// Method for Get Data for Edit Mission 
-		public Mission getDataForMissionEdit(long mId);
-		public Mission getDataforDocEdit(long mId);
+		public Mission GetDataForMissionEdit(long mId);
+		public Mission GetDataforDocEdit(long mId);
 
 		// Method for Get Edit Mission Data 
-		public AdminViewModel getMissionData(long mId);
+		public AdminViewModel GetMissionData(long mId);
 
 		public bool EditMissionPageDatainDB(AdminViewModel adm, List<long> listOfSkill, long mId, List<IFormFile> images, List<IFormFile> Documents);
 
 		//public MissionVMAdmin singleMissionForEdit(long missionId);
-		public void editMissionPageData(AdminViewModel missionVM, long mPageEditId);
+		public void EditMissionPageData(AdminViewModel missionVM, long mPageEditId);
 
         // Method for Delete Mission Data 
-        public bool removeMissionsData(long missionId);
+        public bool RemoveMissionsData(long missionId);
 
 		//**************   Mission Page Methods END    ***************///
 
@@ -105,13 +105,13 @@ namespace CIPlatform_Main.Repository.Interface
 		public bool SaveMisionThemeData(string titleT, DateTime createT, int statusT);
 
 		// Method for Get Data for Missiontheme 
-		public MissionTheme getDataForMissionThemeEdit(long mthemeId);
+		public MissionTheme GetDataForMissionThemeEdit(long mthemeId);
 
 		// Method for Edit Missiontheme Data
 		public void EditDataForMissionTheme(AdminViewModel adminView, long missionThemeid);
 
 		// Method for Delete Missiontheme Data
-		public bool removeMissionThemeData(long ThId);
+		public bool RemoveMissionThemeData(long ThId);
 
 		//**************   MissionTheme Page Methods END    ***************///
 
@@ -139,7 +139,7 @@ namespace CIPlatform_Main.Repository.Interface
 		// Method for Add Skills data
 		public bool SaveSkillsData(string SName, DateTime SDate /*,string SStatus*/);
 
-		public Skill getDataForMissionSkillEdit(long mSkillid);
+		public Skill GetDataForMissionSkillEdit(long mSkillid);
 
 		public void EditSkillPageData(string skillName, long missionSkillid);
 		// Method for Delete Skills data
@@ -164,13 +164,13 @@ namespace CIPlatform_Main.Repository.Interface
 		public bool AddbannerPageData(AdminViewModel banner);
 		//public bool AddBanneData(string textB, string imageB, int sOrderB, DateTime dateB);
 
-		public Banner getDataForEditBannerPage(long bId);
+		public Banner GetDataForEditBannerPage(long bId);
 
 		//get banner
-		public Banner getBanner(long bId);
+		public Banner GetBanner(long bId);
 		public bool EditBannerPageData(AdminViewModel banner, long bannerId);
 
-		public bool deleteBannerPageData(long bannerPageId);
+		public bool DeleteBannerPageData(long bannerPageId);
       
     }
 }

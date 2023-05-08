@@ -22,7 +22,7 @@ namespace CIPlatform_Main.Controllers
 		{
 			var identity = User.Identity as ClaimsIdentity;
 			var uid = identity?.FindFirst(ClaimTypes.Sid)?.Value;
-			var userData = _userRepository.getUserData(Convert.ToInt32(uid));
+			var userData = _userRepository.GetUserData(Convert.ToInt32(uid));
 			
 			return View(userData);
 		
@@ -48,7 +48,7 @@ namespace CIPlatform_Main.Controllers
 
 		// Method for change user Password
 		[HttpPost]
-		public IActionResult changePassword(UserViewModel userView)
+		public IActionResult ChangePassword(UserViewModel userView)
 		{
 			var identity = User.Identity as ClaimsIdentity;
 			var uid = identity?.FindFirst(ClaimTypes.Sid)?.Value;
@@ -72,27 +72,27 @@ namespace CIPlatform_Main.Controllers
 
 
 		// Method for change user Profile image
-		public bool changeProfile(string image)
+		public bool ChangeProfile(string image)
 		{
 			var identity = User.Identity as ClaimsIdentity;
 			var uid = identity?.FindFirst(ClaimTypes.Sid)?.Value;
-			var avtar= _userRepository.changeAvatar(image, Convert.ToInt32(uid));
+			var avtar= _userRepository.ChangeUserAvatar(image, Convert.ToInt32(uid));
 			TempData["Success Message"] = "Profile Updated Successfully";
 			return true;
 		}
 
 
 		// Method for Getting List of Country for UserProfile
-		public JsonResult getCountryList()
+		public JsonResult GetCountryList()
 		{
-			var countryList = _userRepository.GetCountryList();
+			var countryList = _userRepository.GetCountryListData();
 			return Json(countryList);
 		}
 
 		// Method for Getting List of City for UserProfile
-		public JsonResult getCityList(int id)
+		public JsonResult GetCityList(int id)
 		{
-			var cityList = _userRepository.GetCityList(id);
+			var cityList = _userRepository.GetCityListData(id);
 			return Json(cityList);
 		}
 
@@ -106,17 +106,17 @@ namespace CIPlatform_Main.Controllers
 			var uid = identity?.FindFirst(ClaimTypes.Sid)?.Value;
 
 			VolTimeSheetVM volTime = new();
-			volTime.TimeBasedSheet = _userRepository.getTimeBasedSheet(Convert.ToInt32(uid));
-			volTime.GoalBasedSheet = _userRepository.getGoalBasedSheet(Convert.ToInt32(uid));
-			volTime.MissionListTime = _userRepository.getTimeBaseMission(Convert.ToInt32(uid));
-			volTime.MissionListGoal = _userRepository.getGoalBaseMission(Convert.ToInt32(uid));
+			volTime.TimeBasedSheet = _userRepository.GetTimeBasedSheet(Convert.ToInt32(uid));
+			volTime.GoalBasedSheet = _userRepository.GetGoalBasedSheet(Convert.ToInt32(uid));
+			volTime.MissionListTime = _userRepository.GetTimeBaseMission(Convert.ToInt32(uid));
+			volTime.MissionListGoal = _userRepository.GetGoalBaseMission(Convert.ToInt32(uid));
 			
 			return View(volTime);
 
 		}
 
 		// Add Time based Data
-		public IActionResult storeTimeSheetData(VolTimeSheetVM volTime)
+		public IActionResult StoreTimeSheetData(VolTimeSheetVM volTime)
 		{
 			var identity = User.Identity as ClaimsIdentity;
 			var uid = identity?.FindFirst(ClaimTypes.Sid)?.Value;
@@ -131,7 +131,7 @@ namespace CIPlatform_Main.Controllers
 		}
 
 		// Add Goal based Data
-		public IActionResult storeGoalData(VolTimeSheetVM volTime)
+		public IActionResult StoreGoalData(VolTimeSheetVM volTime)
 		{
 			var identity = User.Identity as ClaimsIdentity;
 			var uid = identity?.FindFirst(ClaimTypes.Sid)?.Value;
@@ -152,12 +152,12 @@ namespace CIPlatform_Main.Controllers
 		//Method for get data for edit in time base
 
 		[HttpGet]
-		public IActionResult getDataForEditSectionForTimeBase(long tId)
+		public IActionResult GetDataForEditSectionForTimeBase(long tId)
 		{
 			var identity = User.Identity as ClaimsIdentity;
 			var uid = identity?.FindFirst(ClaimTypes.Sid)?.Value;
-			var data = _userRepository.getDataForEditSectionForTimeBase(tId, Convert.ToInt32(uid));
-			var dataForMissionName = _userRepository.getMissionNameForEditSection(tId);
+			var data = _userRepository.GetDataForEditForTimeBase(tId, Convert.ToInt32(uid));
+			var dataForMissionName = _userRepository.GetMissionNameForEditSection(tId);
 			return Json(new
 			{
 				missionName = dataForMissionName,
@@ -172,12 +172,12 @@ namespace CIPlatform_Main.Controllers
 
 		//Method for get data for edit in Goal base
 		[HttpGet]
-		public IActionResult getDataForEditSectionForGoalBase(long goalBasedId)
+		public IActionResult GetDataForEditSectionForGoalBase(long goalBasedId)
 		{
 			var identity = User.Identity as ClaimsIdentity;
 			var uid = identity?.FindFirst(ClaimTypes.Sid)?.Value;
-			var data = _userRepository.getDataForEditSectionForGoalBase(goalBasedId, Convert.ToInt32(uid));
-			var dataForMissionName = _userRepository.getMissionNameForEditSection(goalBasedId);
+			var data = _userRepository.GetDataForEditForGoalBase(goalBasedId, Convert.ToInt32(uid));
+			var dataForMissionName = _userRepository.GetMissionNameForEditSection(goalBasedId);
 
 			return Json(new
 			{
@@ -193,11 +193,11 @@ namespace CIPlatform_Main.Controllers
 
 		// Edit data on Edit button for Time Mission
 		[HttpPost]
-		public IActionResult editDataForTimeBaseTimesheet(VolTimeSheetVM vtvm, int timeSheetId)
+		public IActionResult EditDataForTimeBaseTimesheet(VolTimeSheetVM vtvm, int timeSheetId)
 		{
 			var identity = User.Identity as ClaimsIdentity;
 			var uid = identity?.FindFirst(ClaimTypes.Sid)?.Value;
-			_userRepository.editDataForTimeMission(vtvm, timeSheetId, Convert.ToInt32(uid));
+			_userRepository.EditDataForTimeMission(vtvm, timeSheetId, Convert.ToInt32(uid));
 			TempData["Success Message"] = "data edited successfully";
 			return RedirectToAction("VolTimeSheet", "User");
 		}
@@ -205,12 +205,12 @@ namespace CIPlatform_Main.Controllers
 
 		// Edit data on Edit button for Goal Mission
 		[HttpPost]
-		public IActionResult editDataForGoalBaseTimesheet(VolTimeSheetVM vtvm, long timeSheetId)
+		public IActionResult EditDataForGoalBaseTimesheet(VolTimeSheetVM vtvm, long timeSheetId)
 		{
 			var identity = User.Identity as ClaimsIdentity;
 			var uid = identity?.FindFirst(ClaimTypes.Sid)?.Value;
 
-			_userRepository.editDataForGoalMission(vtvm, timeSheetId, Convert.ToInt32(uid));
+			_userRepository.EditDataForGoalMission(vtvm, timeSheetId, Convert.ToInt32(uid));
 			TempData["Success Message"] = "Data edited successfully";
 			return RedirectToAction("VolTimeSheet", "User");
 		}
@@ -218,12 +218,12 @@ namespace CIPlatform_Main.Controllers
 
 		// Delete method for TimeSheet
 
-		public IActionResult deleteTimeSheetData(int tId)
+		public IActionResult DeleteTimeSheetData(int tId)
 		
 		{
 			var identity = User.Identity as ClaimsIdentity;
 			var uid = identity?.FindFirst(ClaimTypes.Sid)?.Value;
-			var removeData=_userRepository.removeTimeBasedData(tId, Convert.ToInt32(uid));
+			var removeData=_userRepository.RemoveTimeBasedData(tId, Convert.ToInt32(uid));
 			if (removeData)
 			{
 				TempData["Success Message"] = "Data Deleted Successfully";

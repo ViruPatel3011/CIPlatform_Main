@@ -13,17 +13,17 @@ namespace CIPlatform_Main.Repository.Interface
 		public MissionAndRatingVM GetDataForRelatedMission(int missionId,int uid);
 
 		public string UpdateAndRate(int missionid, int rating, string Email);
-		public string commentOnMission(int mId, string commentText1, string uid);
+		public string CommentedOnmission(int mId, string commentText1, string uid);
 
 		//public bool isFavourite(int id);
-		public string favouriteMission(int mId, string uid);
+		public string MissionFavourite(int mId, string uid);
 
 
 		//recomandation to co-worker ;
-		public string userWithId(int[] ids, int missionid, string url);
-		public List<User> getUsersForRecomandateToCoWorker(string uid);
+		public string UserWithId(int[] ids, int missionid, string url);
+		public List<User> GetUsersForRecomandateToCoWorker(string uid);
 
-		public bool alreadyApplied(int mId, string uid);
+		public bool AlreadyApplied(int mId, string uid);
 
 
 	}

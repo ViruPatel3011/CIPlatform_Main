@@ -24,13 +24,14 @@ namespace CIPlatform_Main.Repository.Repository
 			_ciPlatformContext = ciPlatformContext;
 		}
 
-		public UserViewModel getUserData(int uid)
+		public UserViewModel GetUserData(int uid)
 		{
 			var loginUser = _ciPlatformContext.Users.Where(x => x.UserId == uid).FirstOrDefault();
 			var cityList = _ciPlatformContext.Cities.ToList();
 			var countryList = _ciPlatformContext.Countries.ToList();
 			var skiilsList = _ciPlatformContext.Skills.ToList();
 			var userList=_ciPlatformContext.Users.ToList();
+			var adminlist = _ciPlatformContext.Admins.ToList();
 			var usesSkils = _ciPlatformContext.UserSkills.Where(x => x.UserId == uid).ToList();
 			Country countryName= _ciPlatformContext.Countries.Where(c => c.CountryId ==loginUser.CountryId).FirstOrDefault();
 
@@ -53,6 +54,7 @@ namespace CIPlatform_Main.Repository.Repository
 				CountryName = countryName,
 				UserData=userList,
 				UserSkills= usesSkils,
+				AdminList=adminlist
 
 			};
 			return userViewModel;
@@ -135,7 +137,7 @@ namespace CIPlatform_Main.Repository.Repository
 
 
 		// Method for change user Profile image
-		public string changeAvatar(string image, int uid)
+		public string ChangeUserAvatar(string image, int uid)
 		{
 			var userdetail = _ciPlatformContext.Users.Where(x => x.UserId == uid).FirstOrDefault();
 			userdetail.Avatar = image;
@@ -172,7 +174,7 @@ namespace CIPlatform_Main.Repository.Repository
 		}
 
 		// Method for Getting List of Country for UserProfile
-		public List<Country> GetCountryList()
+		public List<Country> GetCountryListData()
 		{
 			var countryList = _ciPlatformContext.Countries.ToList();
 			return countryList;
@@ -180,7 +182,7 @@ namespace CIPlatform_Main.Repository.Repository
 
 
 		// Method for Getting List of City for UserProfile
-		public List<City> GetCityList(int id)
+		public List<City> GetCityListData(int id)
 		{
 			var cityList = _ciPlatformContext.Cities.Where(x => x.CountryId == id).ToList();
 			return cityList;
@@ -190,7 +192,7 @@ namespace CIPlatform_Main.Repository.Repository
 		//*******   Timesheet Section START ********
 
 		// Below method is for Get List of Time Based mission
-		public List<Mission> getTimeBaseMission(int uid)
+		public List<Mission> GetTimeBaseMission(int uid)
 		{
 			var missionApplied = _ciPlatformContext.MissionApplications.Where(x => x.UserId == uid).Select(x => x.MissionId);
 			
@@ -198,7 +200,7 @@ namespace CIPlatform_Main.Repository.Repository
 		}
 
 		// Below method is for Get List of Goal Based mission
-		public List<Mission> getGoalBaseMission(int uid)
+		public List<Mission> GetGoalBaseMission(int uid)
 		{
 
 			var missionApplied = _ciPlatformContext.MissionApplications.Where(x => x.UserId == uid).Select(x => x.MissionId);
@@ -207,7 +209,7 @@ namespace CIPlatform_Main.Repository.Repository
 
 
 		// Below method is for Get List of TimeSheet for Time Based mission
-		public List<Timesheet> getTimeBasedSheet(int uid)
+		public List<Timesheet> GetTimeBasedSheet(int uid)
 		{
 			var sheetList=_ciPlatformContext.Timesheets.Where(x=>x.Mission.MissionType=="Time" && x.UserId == uid).ToList();
 			return sheetList;
@@ -215,7 +217,7 @@ namespace CIPlatform_Main.Repository.Repository
 		}
 
 		// Below method is for Get List of TimeSheet for Goal Based mission
-		public List<Timesheet> getGoalBasedSheet(int uid)
+		public List<Timesheet> GetGoalBasedSheet(int uid)
 		{
 			var sheetList=_ciPlatformContext.Timesheets.Where(x=>x.Mission.MissionType=="Goal" && x.UserId == uid).ToList();
 			return sheetList;
@@ -227,7 +229,7 @@ namespace CIPlatform_Main.Repository.Repository
 		public void AddTimeSheetData(VolTimeSheetVM volTime,int uid)
 		{
 			DateTime dateTime=DateTime.Now;
-			var userVolunteeredDate = _ciPlatformContext.MissionApplications.Where(x => x.UserId == uid && x.MissionId == volTime.MissionId).Select(x => x.AppliedAt).FirstOrDefault();
+			//var userVolunteeredDate = _ciPlatformContext.MissionApplications.Where(x => x.UserId == uid && x.MissionId == volTime.MissionId).Select(x => x.AppliedAt).FirstOrDefault();
 
 			var hour = volTime.hours;
 			var minute = volTime.minutes;
@@ -242,7 +244,7 @@ namespace CIPlatform_Main.Repository.Repository
 				{
 					MissionId = volTime.MissionId,
 					UserId = uid,
-					DateVolunteered = userVolunteeredDate,
+					DateVolunteered = volTime.volunteeringDate,
 					Status = "Pending",
 					CreatedAt = DateTime.Now,
 					TimesheetTime = time,
@@ -268,7 +270,7 @@ namespace CIPlatform_Main.Repository.Repository
 		public void AddGoalBaseData(VolTimeSheetVM volTime,int uid)
 		{
 			DateTime dateTime=DateTime.Now;
-			var userVolunteeredDate = _ciPlatformContext.MissionApplications.Where(x => x.UserId == uid && x.MissionId == volTime.MissionId).Select(x => x.AppliedAt).FirstOrDefault();
+			//var userVolunteeredDate = _ciPlatformContext.MissionApplications.Where(x => x.UserId == uid && x.MissionId == volTime.MissionId).Select(x => x.AppliedAt).FirstOrDefault();
 
 			//var hour = volTime.Hours;
 			//var minute = volTime.Minutes;
@@ -282,7 +284,7 @@ namespace CIPlatform_Main.Repository.Repository
 				{
 					MissionId = volTime.MissionId,
 					UserId = uid,
-					DateVolunteered = userVolunteeredDate,
+					DateVolunteered = volTime.volunteeringDate,
 					Status = "Pending",
 					CreatedAt = DateTime.Now,
 					//TimesheetTime=time,
@@ -307,7 +309,7 @@ namespace CIPlatform_Main.Repository.Repository
 
 
 		// Get Time data for Edit on Icon click
-		public Timesheet getDataForEditSectionForTimeBase(long tId, long uid)
+		public Timesheet GetDataForEditForTimeBase(long tId, long uid)
 		{
 			var data = _ciPlatformContext.Timesheets.FirstOrDefault(x => x.TimesheetId== tId && x.UserId == uid);
 			return data;
@@ -315,21 +317,21 @@ namespace CIPlatform_Main.Repository.Repository
 
 
 		// Get Goal data for Edit on Icon click
-		public Timesheet getDataForEditSectionForGoalBase(long goalBasedId, long uid)
+		public Timesheet GetDataForEditForGoalBase(long goalBasedId, long uid)
 		{
 			var data = _ciPlatformContext.Timesheets.FirstOrDefault(x => x.TimesheetId == goalBasedId && x.UserId == uid);
 			return data;
 		}
 
 
-		public string getMissionNameForEditSection(long tId)
+		public string GetMissionNameForEditSection(long tId)
 		{
 			var missionName=_ciPlatformContext.Timesheets.Where(x=>x.TimesheetId==tId).Select(x=>x.Mission.Title).FirstOrDefault();
 			return missionName;
 		}
 
 		//edit data for Time base mission on Edit Button
-		public void editDataForTimeMission(VolTimeSheetVM vtvm, int tId, long uid)
+		public void EditDataForTimeMission(VolTimeSheetVM vtvm, int tId, long uid)
 		{
 			var data = _ciPlatformContext.Timesheets.Where(x => x.TimesheetId == tId && x.UserId == uid).FirstOrDefault();
 			var hour = vtvm.hours;
@@ -342,7 +344,7 @@ namespace CIPlatform_Main.Repository.Repository
 
 
 		//edit data for goal base mission on Edit Button
-		public void editDataForGoalMission(VolTimeSheetVM vtvm, long timeSheetId, long uid)
+		public void EditDataForGoalMission(VolTimeSheetVM vtvm, long timeSheetId, long uid)
 		{
 			var data = _ciPlatformContext.Timesheets.Where(x => x.TimesheetId == timeSheetId && x.UserId == uid).FirstOrDefault();
 			data.Action = vtvm.action;
@@ -352,7 +354,7 @@ namespace CIPlatform_Main.Repository.Repository
 
 
 		// Delete data from timesheet
-		public bool removeTimeBasedData(int tId, int uid)
+		public bool RemoveTimeBasedData(int tId, int uid)
 		{
 			var entry=_ciPlatformContext.Timesheets.Where(x=>x.TimesheetId==tId && x.UserId == uid).FirstOrDefault();
 			if (entry != null)

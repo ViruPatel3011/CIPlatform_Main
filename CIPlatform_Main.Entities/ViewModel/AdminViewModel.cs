@@ -150,11 +150,20 @@ namespace CIPlatform_Main.Entities.ViewModel
 
 		//public long missionId { get; set; }
 		public long mId { get; set; }
+
+		[Required(ErrorMessage = "Mission Title Is Required")]
 		public string title { get; set; }
+
+		[Required(ErrorMessage = "Mission status Is Required")]
 		public string? status { get; set; }
+
+		[Required(ErrorMessage = "Please select Mission type")]
 		public string missionType { get; set; }
 
+		[Required(ErrorMessage = "Enter start date")]
 		public DateTime? startDate { get; set; }
+
+		[Required(ErrorMessage = "Enter End  date")]
 		public DateTime? endDate { get; set; }
 
 	
@@ -165,10 +174,10 @@ namespace CIPlatform_Main.Entities.ViewModel
 		[Required(ErrorMessage = "MissionDescription Is Required")]
 		public string? description { get; set; }
 
-		//[Required(ErrorMessage = "City Is Required")]
+		[Required(ErrorMessage = "City Is Required")]
 		public long cityId { get; set; }
 
-		//[Required(ErrorMessage = "Country Is Required")]
+		[Required(ErrorMessage = "Country Is Required")]
 		public long countryId { get; set; }
 
 		[Required(ErrorMessage = "MissionTheme Is Required")]
@@ -183,12 +192,12 @@ namespace CIPlatform_Main.Entities.ViewModel
 
 	
 
-		//[Required(ErrorMessage = "Deadline Is Required")]
+		[Required(ErrorMessage = "Deadline Is Required")]
 		public DateTime? deadline { get; set; }
 
-		//[Required(ErrorMessage = "Total Seats Is Required")]
+		[Required(ErrorMessage = "Total Seats Is Required")]
 
-		public long totalSeats { get; set; }
+		public int? totalSeats { get; set; }
 
 		[Required(ErrorMessage = "Availability Is Required")]
 		public string? availability { get; set; }

@@ -135,7 +135,7 @@
 											<h5 class="modal-title" id="exampleModalLabel">Please input below volunteering Hours </h5>
 											<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 										</div>
-										<form method="post" asp-action="storeTimeSheetData" asp-controller="User">
+										<form method="post" asp-action="StoreTimeSheetData" asp-controller="User">
 											<div class="modal-body">
 
 												<div class="mb-3">
@@ -144,16 +144,18 @@
 														<option selected>Select your mission</option>
 														@foreach (var missionList in Model.MissionListTime)
 														{
-															<option value="@missionList.MissionId" id="@missionList.MissionId">@missionList.Title</option>
+															<option value="@missionList.MissionId" id="@missionList.MissionId" data-start-date="@missionList.StartDate" data-end-date="@missionList.EndDate">@missionList.Title</option>
 														}
 
 
 													</select>
 												</div>
 												<div class="mb-3">
+													
 													<label for="exampleFormControlInput1" class="form-label">Date Volunteerd</label>
-													<input type="date" class="form-control" id="exampleFormControlInput1" placeholder="select date" asp-for="volunteeringDate">
+													<input type="date" class="form-control" id="SelctedDateTime" placeholder="select date" asp-for="volunteeringDate">
 													<span asp-validation-for="volunteeringDate" class="text-danger"></span>
+													
 												</div>
 												<div class="row">
 													<div class="col">
@@ -170,7 +172,7 @@
 												</div>
 												<div class="mb-3">
 													<label for="exampleFormControlTextarea1" class="form-label">Message</label>
-													<textarea class="form-control" id="exampleFormControlTextarea1" rows="3" asp-for="missionDetail">Enter your Message</textarea>
+													<textarea class="form-control" id="missionData" rows="3" asp-for="missionDetail">Enter your Message</textarea>
 													<span asp-validation-for="missionDetail" class="text-danger"></span>
 												</div>
 											</div>
@@ -210,7 +212,7 @@
 									}
 									<tr>
 										<th scope="row">@missionName</th>
-										<td>@data.CreatedAt.ToString("d")</td>
+										<td>@data.DateVolunteered.ToString("d")</td>
 										<td>@data.TimesheetTime?.Hour</td>
 										<td>@data.TimesheetTime?.Minute</td>
 										<td class="p-0 pt-2 px-1">
@@ -219,7 +221,7 @@
 											<button type="button" data-bs-toggle="modal" data-bs-target="#exampleModalEdit" class="border-0 bg-transparent" onclick="loadDataForTimeBase(@data.TimesheetId)">
 												<i class="bi bi-pencil-square text-warning"></i>
 											</button>
-											<form method="post" asp-action="editDataForTimeBaseTimesheet" asp-controller="User">
+											<form method="post" asp-action="EditDataForTimeBaseTimesheet" asp-controller="User">
 
 												<div class="modal fade" id="exampleModalEdit" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
 													<div class="modal-dialog modal-dialog">
@@ -301,31 +303,31 @@
 											<h5 class="modal-title" id="exampleModalLabel">Please input below volunteering Goal</h5>
 											<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 										</div>
-										<form method="post" asp-action="storeGoalData" asp-controller="User">
+										<form method="post" asp-action="StoreGoalData" asp-controller="User" id="second-form">
 											<div class="modal-body">
 												<div class="mb-3">
-													<select class="form-control mt-1" asp-for="@Model.MissionId" id="mId">
+													<select class="form-control mt-1" asp-for="@Model.MissionId" id="goalDateId">
 														<option selected>Select your mission</option>
 														@foreach (var missionList in Model.MissionListGoal)
 														{
-															<option value="@missionList.MissionId" id="@missionList.MissionId">@missionList.Title</option>
+															<option value="@missionList.MissionId" id="@missionList.MissionId" data-start-date="@missionList.StartDate" data-end-date="@missionList.EndDate">@missionList.Title</option>
 														}
 													</select>
 												</div>
 												<div class="mb-3">
 													<label for="exampleFormControlInput1" class="form-label">Action</label>
-													<input type="text" class="form-control" id="exampleFormControlInput1" placeholder="Enter your action" asp-for="action">
+													<input type="text" class="form-control" id="goalAction" placeholder="Enter your action" asp-for="action">
 													<span asp-validation-for="action" class="text-danger"></span>
 
 												</div>
 												<div class="mb-3">
 													<label for="exampleFormControlInput1" class="form-label">Date Volunteerd</label>
-													<input type="date" class="form-control" id="exampleFormControlInput1" placeholder="select date" asp-for="volunteeringDate">
+													<input type="date" class="form-control" id="goalSelectedDate" placeholder="select date" asp-for="volunteeringDate">
 													<span asp-validation-for="volunteeringDate" class="text-danger"></span>
 												</div>
 												<div class="mb-3">
 													<label for="exampleFormControlTextarea1" class="form-label">Message</label>
-													<textarea class="form-control" id="exampleFormControlTextarea1" rows="3" asp-for="missionDetail">Enter your Message</textarea>
+													<textarea class="form-control" id="goalmissionData" rows="3" asp-for="missionDetail">Enter your Message</textarea>
 													<span asp-validation-for="missionDetail" class="text-danger"></span>
 												</div>
 											</div>
@@ -361,13 +363,13 @@
 									}
 									<tr>
 										<th scope="row">@missionName</th>
-										<td>@goalMission.CreatedAt.ToString("d")</td>
+										<td>@goalMission.DateVolunteered.ToString("d")</td>
 										<td>@goalMission.Action</td>
 										<td class="p-0 pt-2 px-1">
 											<button type="button" data-bs-toggle="modal" data-bs-target="#exampleModalGoalEdit" class="border-0 bg-transparent" onclick="loadDataForGoalBase(@goalMission.TimesheetId)">
 												<i class="bi bi-pencil-square text-warning"></i>
 											</button>
-											<form method="post" asp-action="editDataForGoalBaseTimesheet" asp-controller="User">
+											<form method="post" asp-action="EditDataForGoalBaseTimesheet" asp-controller="User">
 
 												<div class="modal fade" id="exampleModalGoalEdit" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
 													<div class="modal-dialog modal-dialog">
@@ -434,14 +436,7 @@
 							<li>
 								<a asp-controller="Login" asp-action="PolicyPage" style="color:black">Privacy Policy</a>
 							</li>
-							<li>
-								<a href="#" style="color:black">Cookie Policy</a>
-							</li>
-
-
-							<li>
-								<a href="#" style="color:black">Terms of Use</a>
-							</li>
+							
 
 						</ul>
 					</div>
@@ -462,6 +457,7 @@
 			crossorigin="anonymous"></script>
 
 	<a href="~/lib/jquery/dist/jquery.min.map"></a>
+	<script src="~/js/VolTimeSheet.js" ></script>
 	@*<script src="~/lib/jquery/dist/jquery.min.js"></script>
 	<script src="~/lib/jquery/dist/jquery.js"></script>*@
 	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
@@ -471,7 +467,7 @@
 			//var missionId = missionId;
 			$.ajax({
 				method: 'GET',
-				url: '/User/getDataForEditSectionForGoalBase',
+				url: '/User/GetDataForEditSectionForGoalBase',
 				data: {
 					goalBasedId: timeSheetId
 				},
@@ -498,7 +494,7 @@
 			//var missionId = missionId;
 			$.ajax({
 				method: 'GET',
-				url: '/User/getDataForEditSectionForTimeBase',
+				url: '/User/GetDataForEditSectionForTimeBase',
 				data: {
 					tId: timesheetId
 				},
@@ -552,7 +548,7 @@
 					)
 					$.ajax({
 						method: 'POST',
-						url: '/User/deleteTimeSheetData',
+						url: '/User/DeleteTimeSheetData',
 						data: {
 							tId: timeId
 						},
@@ -567,6 +563,13 @@
 				}
 			})
 		}
+
+
+
+
+		
+
+
 	</script>
 
 </body>

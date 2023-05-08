@@ -59,7 +59,7 @@ namespace CIPlatform_Main.Repository.Repository
 
 			
 		}
-		public LandingPageVM LandingPage(string[]? country, string[]? city, string[]? themes, string[]? skills, string? sortVal, string? search, int pg = 1)
+		public LandingPageVM LandingPage(string[]? country, string[]? city, string[]? themes, string[]? skills, string? sortVal, string? exploreVal, string? search, int pg = 1)
 		{
 			LandingPageVM landingPage = new LandingPageVM();
 
@@ -135,7 +135,7 @@ namespace CIPlatform_Main.Repository.Repository
 
 		public List<Mission> GetMissions()
 		{
-			List<Mission> missions = _ciPlatformContext.Missions.ToList();
+			List<Mission> missions = _ciPlatformContext.Missions.Where(mission => mission.Status == "Active").ToList();
 
 			return missions;
 		}

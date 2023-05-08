@@ -39,13 +39,13 @@ namespace CIPlatform_Main.Repository.Repository
 
         }
 
-        public List<Admin> getValidAdmin()
+        public List<Admin> GetValidAdmin()
         {
             List<Admin> adminList = _ciPlatformContext.Admins.ToList();
             return adminList;
         }
 
-        public List<Banner> getBannerList()
+        public List<Banner> GetBannerList()
         {
             List<Banner> bannerList = _ciPlatformContext.Banners.ToList();
             return bannerList;

@@ -7,7 +7,11 @@ using Microsoft.EntityFrameworkCore;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-builder.Services.AddControllersWithViews();
+//builder.Services.AddControllersWithViews();
+builder.Services.AddControllersWithViews()
+	.AddNewtonsoftJson(options =>
+	options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
+);
 
 builder.Services.AddDbContext<CiPlatformContext>(options => options.UseSqlServer(
 builder.Configuration.GetConnectionString("DefaultConnection")));
@@ -27,7 +31,7 @@ builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationSc
     {
         option.ExpireTimeSpan = TimeSpan.FromMinutes(60 * 1);
         option.LoginPath = "/Login/Login";
-        option.AccessDeniedPath = "/Login/Login";
+        option.AccessDeniedPath = "/Login/AccessDenied";
     });
 builder.Services.AddSession(option =>
 {

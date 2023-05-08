@@ -9,7 +9,7 @@ namespace CIPlatform_Main.Repository.Interface
 {
     public interface IForgotRepository
     {
-        public bool checkUser(ForgotVM forgotVM);
-        public bool sendMail(ForgotVM forgotVM,string url);
+        public bool CheckUser(ForgotVM forgotVM);
+        public bool SendMail(ForgotVM forgotVM,string url);
     }
 }
