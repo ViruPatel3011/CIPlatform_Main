@@ -168,6 +168,39 @@ li > p {
 }
 
 
+/*Notification  CSS*/
+@media screen and (min-width: 360px) and (max-width: 460px) {
+    #notificationModal .modal-dialog.modal-dialog-scrollable {
+        position: fixed !important;
+        top: 6%;
+        right: 0% !important;
+        width: 334px !important;
+        height: 408px !important;
+    }
+    #settingforNotification .modal-dialog.modal-dialog-scrollable {
+        position: fixed !important;
+        top: 6%;
+        right: 0% !important;
+        width: 320px !important;
+        height: 408px !important;
+    }
+}
+@media screen and (min-width: 461px) and (max-width: 620px) {
+    #notificationModal .modal-dialog.modal-dialog-scrollable {
+        position: fixed !important;
+        top: 6%;
+        right: 2% !important;
+        width: 400px !important;
+        height: 408px !important;
+    }
+    #settingforNotification .modal-dialog.modal-dialog-scrollable {
+        position: fixed !important;
+        top: 6%;
+        right: 2% !important;
+        width: 400px !important;
+        height: 408px !important;
+    }
+}
 
 
 

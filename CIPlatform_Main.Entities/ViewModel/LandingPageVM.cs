@@ -58,5 +58,7 @@ namespace CIPlatform_Main.Entities.ViewModel
         public IEnumerable<Admin>? AdminList{ get; set; }
         public IEnumerable<GoalMission>? TotalGoalActionList{ get; set; }
         public IEnumerable<Timesheet>? TimeSheetList{ get; set; }
+      
+
     }
 }

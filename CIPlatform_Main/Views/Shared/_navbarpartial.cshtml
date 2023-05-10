@@ -33,6 +33,19 @@
 		</script>
 	}
 </div>
+
+<style>
+	.modal-backdrop {
+		background-color: rgba(0,0,0,0.2) !important;
+	}
+
+	input[type="checkbox"]:checked {
+		background-color: #F88634;
+	}
+
+	
+</style>
+
 <!-- First navbar  -->
 <nav class="navbar navbar-expand-md navbar-light bg-light">
 	<div class="container">
@@ -48,7 +61,7 @@
 					<button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
 				</div>
 				<div class="offcanvas-body">
-					<ul>
+					<ul >
 						<li class="navbar-nav nav-item dropdown">
 							<a class="nav-link " id="navbarScrollingDropdown" role="button"
 							   data-bs-toggle="dropdown" aria-expanded="false">
@@ -87,55 +100,111 @@
 		</div>
 
 		<div id="navigation-bar1">
-			<ul class="navbar-nav d-flex">
+			<ul class="navbar-nav d-flex flex-row">
 				@if (User.Identity.IsAuthenticated)
 				{
-
-
-					<div class="navbar-nav dropdown">
-						<a class="nav-link" href="#" id="navbarScrollingDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-							<img src="~/Assets/bell.png" />
+					<li class="nav-item d-flex justify-content-center align-items-center me-3">
+						<a class="card-btn position-relative" role="button" id="" data-bs-toggle="modal" data-bs-target="#notificationModal">
+							<i class="bi bi-bell text-black fs-5"></i>
+							<span class="badge rounded-pill badge-notification position-absolute" style="background: #F88634; top: -5px; right: 5px;">5</span>
 						</a>
-						<div class="dropdown-menu " aria-labelledby="navbarScrollingDropdown" style="left: auto; right: 0;width:400px;">
-							<div class="d-flex justify-content-between">
-								<div><i class="bi bi-gear ms-1" id="gear-icon"></i></div>
-								<div>Notification</div>
-								<div class="me-1">Clear All</div>
-							</div>
-							   <div class="dropdown-divider"></div>
-							<div class="dropdown_body">
-								<div class="main_body ">
-									<div class="d-flex">
-										<div class="mx-1"><i class="bi bi-plus-circle"></i></div>
-										<div class="mx-2"><p class="mx-2">New Mission Is Added Like Viral Patel And Himansu Gami</p></div>
-										
+						<div class="modal fade" id="notificationModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+							<div class="modal-dialog  modal-dialog-scrollable" style="position: fixed;top: 3%;right: 17%;">
+								<div class="modal-content">
+									<div class="modal-header d-flex justify-content-between align-items-center">
+										<div>
+											<button class="card-btn border-0 bg-transparent" role="button" id="" data-bs-toggle="modal" data-bs-target="#settingforNotification">
+												<i class="bi bi-gear-fill fs-5"></i>
+											</button>
+											<div class="modal fade" id="settingforNotification" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+												<div class="modal-dialog  modal-dialog-scrollable" style="position: fixed;top: 3%;right: 17%;width: 100%;">
+													<div class="modal-content" style="height: 531px !important;">
+														<div class="modal-header d-flex justify-content-center align-items-center">
+															<h5 class="modal-title" id="exampleModalLabel">Notification Settings</h5>
+														</div>
+														<div class="modal-body">
+															<div class="p-2 mb-2" style="background:#dedede">
+																<p class="mb-0">Get a notification for</p>
+															</div>
+															<ul>
+																<li class="form-check mb-2 d-flex  align-items-center">
+																	<input class="form-check-input" type="checkbox" value="" style="float: right">
+																	<label class="form-check-label ms-2" for="">Recommended missions</label>
+																</li>
+																<li class="form-check mb-2 d-flex  align-items-center">
+																	<input class="form-check-input" type="checkbox" value="">
+																	<label class="form-check-label ms-2" for="">Volunteering Hours</label>
+																</li>
+																<li class="form-check mb-2 d-flex  align-items-center">
+																	<input class="form-check-input" type="checkbox" value="">
+																	<label class="form-check-label ms-2" for="">Volunteering Goals</label>
+																</li>
+																<li class="form-check mb-2 d-flex  align-items-center">
+																	<input class="form-check-input" type="checkbox" value="">
+																	<label class="form-check-label ms-2" for="">My comments</label>
+																</li>
+																<li class="form-check mb-2 d-flex  align-items-center">
+																	<input class="form-check-input" type="checkbox" value="">
+																	<label class="form-check-label ms-2" for="">My stories</label>
+																</li>
+																<li class="form-check mb-2 d-flex  align-items-center">
+																	<input class="form-check-input" type="checkbox" value="">
+																	<label class="form-check-label ms-2" for="">Mission Application</label>
+																</li>
+																<li class="form-check mb-2 d-flex  align-items-center">
+																	<input class="form-check-input" type="checkbox" value="">
+																	<label class="form-check-label ms-2" for="">New missions</label>
+																</li>
+																<li class="form-check mb-2 d-flex  align-items-center">
+																	<input class="form-check-input" type="checkbox" value="">
+																	<label class="form-check-label ms-2" for="">New messages</label>
+																</li>
+															</ul>
+														</div>
+														<div class="modal-footer">
+															<button type="button" class="btn cancel-btn rounded-pill" data-bs-dismiss="modal" style="border: 2px solid #F88634;color: #F88634;">Close</button>
+															<button type="button" class="btn save-btn rounded-pill" data-bs-dismiss="modal" style="border: 2px solid #F88634;color: #F88634;">Save</button>
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+										<div>
+											<h4 class="mb-0">Notifications</h4>
+										</div>
+										<div>
+											<button class="border-0 bg-transparent" role="button"><p class="mb-0">Clear all</p></button>
+										</div>
+									</div>
+									<div class="modal-body">
+
+										<div class="my-4">
+											<table class="table table-borderless w-100">
+												@for (int i = 0; i < 5; i++)
+												{
+													<tr class="border-1 d-flex align-items-center">
+														<td><i class="bi bi-plus-circle fs-5"></i></td>
+														<td><small>message of the day message of the day message of the day message of the day</small></td>
+														<td class="text-end">
+															<button class="border-0 bg-transparent">
+																<i class="bi bi-circle-fill fs-5" style="color: #F88634;"></i>
+															</button>
+														</td>
+													</tr>
+												}
+											</table>
+										</div>
+									</div>
+									<div class="modal-footer">
+										<button type="button" class="btn cancel-btn rounded-pill" data-bs-dismiss="modal" style="border: 2px solid #F88634;color: #F88634;">
+											Close
+										</button>
 									</div>
 								</div>
-								<div class="setting_body d-none">
-									<div class="form-check">
-										<input class="form-check-input" type="checkbox" id="option1" value="option1">
-										<label class="form-check-label" for="option1">
-											Option 1
-										</label>
-									</div>
-									<div class="form-check">
-										<input class="form-check-input" type="checkbox" id="option2" value="option2">
-										<label class="form-check-label" for="option2">
-											Option 2
-										</label>
-									</div>
-									<div class="text-end">
-										<button type="button" class="btn btn-secondary" id="cancel-button">Cancel</button>
-										<button type="button" class="btn btn-primary" id="save-button">Save</button>
-									</div>
-								</div>
 							</div>
-
-							
-						
-
 						</div>
-					</div>
+					</li>
+
 
 
 
@@ -151,7 +220,7 @@
 								 loading="lazy" />
 							@name @surname
 						</a>
-						<ul class="dropdown-menu" aria-labelledby="navbarScrollingDropdown">
+						<ul class="dropdown-menu" aria-labelledby="navbarScrollingDropdown" style="position:absolute;">
 
 
 
@@ -402,40 +471,44 @@
 		});
 	}
 
-							// <!--Search Script Start Ends-->
+	// <!--Search Script  Ends-->
 
-	var mainBody = document.querySelector(".main_body");
-	var settingBody = document.querySelector(".setting_body");
-	var gearIcon = document.querySelector("#gear-icon");
-	var cancelButton = document.querySelector("#cancel-button");
-	var saveButton = document.querySelector("#save-button");
 
-	gearIcon.addEventListener("click", function (event) {
-		event.stopPropagation();
-		mainBody.classList.toggle("d-none");
-		settingBody.classList.toggle("d-none");
-	});
+	// Below code is for Notification Hide and show
+	//var mainBody = document.querySelector(".main_body");
+	//var settingBody = document.querySelector(".setting_body");
+	//var gearIcon = document.querySelector("#gear-icon");
+	//var cancelButton = document.querySelector("#cancel-button");
+	//var saveButton = document.querySelector("#save-button");
 
-	cancelButton.addEventListener("click", function (event) {
-		event.stopPropagation();
-		mainBody.classList.toggle("d-none");
-		settingBody.classList.toggle("d-none");
-	});
+	//gearIcon.addEventListener("click", function (event) {
+	//	event.stopPropagation();
+	//	mainBody.classList.toggle("d-none");
+	//	settingBody.classList.toggle("d-none");
+	//});
 
-	saveButton.addEventListener("click", function (event) {
-		// Add code to save the settings here
-		event.stopPropagation();
-		mainBody.classList.toggle("d-none");
-		settingBody.classList.toggle("d-none");
-	});
+	//cancelButton.addEventListener("click", function (event) {
+	//	event.stopPropagation();
+	//	mainBody.classList.toggle("d-none");
+	//	settingBody.classList.toggle("d-none");
+	//});
 
-	// Close the setting body when clicking outside of it
-	document.addEventListener("click", function (event) {
-		if (!event.target.closest(".navbar-nav.dropdown")) {
-			mainBody.classList.remove("d-none");
-			settingBody.classList.add("d-none");
-		}
-	});
+	//saveButton.addEventListener("click", function (event) {
+	//	// Add code to save the settings here
+	//	event.stopPropagation();
+	//	mainBody.classList.toggle("d-none");
+	//	settingBody.classList.toggle("d-none");
+	//});
+
+	//// Close the setting body when clicking outside of it
+	//document.addEventListener("click", function (event) {
+	//	if (!event.target.closest(".navbar-nav.dropdown")) {
+	//		mainBody.classList.remove("d-none");
+	//		settingBody.classList.add("d-none");
+	//	}
+	//});
+
+	
 
 
 </script>

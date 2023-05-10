@@ -66,12 +66,13 @@ namespace CIPlatform_Main.Controllers
 			{
 
 				case "topthemes":
-					missions= missions.GroupBy(mission => mission.ThemeId).OrderByDescending(item => item.Count()).First()
-						.ToList()
-						.Take(5);					
+					missions = missions.OrderByDescending(mission => mission.ThemeId == missions.GroupBy(item => item.ThemeId).OrderByDescending(group => group.Count()).First().Key)
+					   .ThenByDescending(mission => mission.ThemeId)
+					   .ToList();
+
 					break;
 				case "topRanked":
-					missions = missions.Where(mission => mission.MissionRatings.Any()).OrderByDescending(mission => mission.MissionRatings.Average(rating => rating.Rating)).Take(5);
+					missions = missions.Where(mission => mission.MissionRatings.Any()).OrderByDescending(mission => mission.MissionRatings.Average(rating => rating.Rating));
 					break;
 				case "topFavourite":
 					missions = missions.OrderByDescending(mission => mission.FavoriteMissions.Count()).ToList();
