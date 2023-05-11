@@ -104,7 +104,7 @@
 				@if (User.Identity.IsAuthenticated)
 				{
 					<li class="nav-item d-flex justify-content-center align-items-center me-3">
-						<a class="card-btn position-relative" role="button" id="" data-bs-toggle="modal" data-bs-target="#notificationModal">
+						<a class="card-btn position-relative" role="button" onclick="ShowNotification(@uid)" data-bs-toggle="modal" data-bs-target="#notificationModal">
 							<i class="bi bi-bell text-black fs-5"></i>
 							<span class="badge rounded-pill badge-notification position-absolute" style="background: #F88634; top: -5px; right: 5px;">5</span>
 						</a>
@@ -116,7 +116,7 @@
 											<button class="card-btn border-0 bg-transparent" role="button" id="" data-bs-toggle="modal" data-bs-target="#settingforNotification">
 												<i class="bi bi-gear-fill fs-5"></i>
 											</button>
-											<div class="modal fade" id="settingforNotification" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+											<div class="modal fade " id="settingforNotification" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
 												<div class="modal-dialog  modal-dialog-scrollable" style="position: fixed;top: 3%;right: 17%;width: 100%;">
 													<div class="modal-content" style="height: 531px !important;">
 														<div class="modal-header d-flex justify-content-center align-items-center">
@@ -126,44 +126,31 @@
 															<div class="p-2 mb-2" style="background:#dedede">
 																<p class="mb-0">Get a notification for</p>
 															</div>
-															<ul>
-																<li class="form-check mb-2 d-flex  align-items-center">
-																	<input class="form-check-input" type="checkbox" value="" style="float: right">
-																	<label class="form-check-label ms-2" for="">Recommended missions</label>
-																</li>
-																<li class="form-check mb-2 d-flex  align-items-center">
-																	<input class="form-check-input" type="checkbox" value="">
-																	<label class="form-check-label ms-2" for="">Volunteering Hours</label>
-																</li>
-																<li class="form-check mb-2 d-flex  align-items-center">
-																	<input class="form-check-input" type="checkbox" value="">
-																	<label class="form-check-label ms-2" for="">Volunteering Goals</label>
-																</li>
-																<li class="form-check mb-2 d-flex  align-items-center">
-																	<input class="form-check-input" type="checkbox" value="">
-																	<label class="form-check-label ms-2" for="">My comments</label>
-																</li>
-																<li class="form-check mb-2 d-flex  align-items-center">
-																	<input class="form-check-input" type="checkbox" value="">
-																	<label class="form-check-label ms-2" for="">My stories</label>
-																</li>
-																<li class="form-check mb-2 d-flex  align-items-center">
-																	<input class="form-check-input" type="checkbox" value="">
-																	<label class="form-check-label ms-2" for="">Mission Application</label>
-																</li>
-																<li class="form-check mb-2 d-flex  align-items-center">
-																	<input class="form-check-input" type="checkbox" value="">
-																	<label class="form-check-label ms-2" for="">New missions</label>
-																</li>
-																<li class="form-check mb-2 d-flex  align-items-center">
-																	<input class="form-check-input" type="checkbox" value="">
-																	<label class="form-check-label ms-2" for="">New messages</label>
-																</li>
+															<ul id="userCheckBox">
+																@{
+																	List<long?> userPreferences = new List<long?>();
+																	if (Model.UserPreferencesList != null)
+																	{
+																		userPreferences = Model.UserPreferencesList.Where(p => p.UserId == Convert.ToInt32(uid))
+																		.Select(p => p.NotificationId)
+																		.ToList();
+																	}
+																}
+																@foreach(var notify in Model.NotificationPreferencesList)
+																{
+																	bool isChecked = userPreferences.Contains(notify.NotificationId);
+																	<li class="form-check mb-2 d-flex  align-items-center">
+																		<input class="form-check-input" type="checkbox" value="@notify.NotificationId" style="float: right" @(isChecked ? "checked" : "")>
+																		<label class="form-check-label ms-2" for="">@notify.Title</label>
+																	</li>
+																}
+																
+																
 															</ul>
 														</div>
 														<div class="modal-footer">
 															<button type="button" class="btn cancel-btn rounded-pill" data-bs-dismiss="modal" style="border: 2px solid #F88634;color: #F88634;">Close</button>
-															<button type="button" class="btn save-btn rounded-pill" data-bs-dismiss="modal" style="border: 2px solid #F88634;color: #F88634;">Save</button>
+															<button type="button" class="btn save-btn rounded-pill" data-bs-dismiss="modal" style="border: 2px solid #F88634;color: #F88634;" onclick="saveChckedValues(@uid)">Save</button>
 														</div>
 													</div>
 												</div>
@@ -176,9 +163,9 @@
 											<button class="border-0 bg-transparent" role="button"><p class="mb-0">Clear all</p></button>
 										</div>
 									</div>
-									<div class="modal-body">
+									<div class="modal-body userNotification">
 
-										<div class="my-4">
+										@*<div class="my-4">
 											<table class="table table-borderless w-100">
 												@for (int i = 0; i < 5; i++)
 												{
@@ -193,7 +180,7 @@
 													</tr>
 												}
 											</table>
-										</div>
+										</div>*@
 									</div>
 									<div class="modal-footer">
 										<button type="button" class="btn cancel-btn rounded-pill" data-bs-dismiss="modal" style="border: 2px solid #F88634;color: #F88634;">
@@ -471,44 +458,76 @@
 		});
 	}
 
-	// <!--Search Script  Ends-->
-
-
-	// Below code is for Notification Hide and show
-	//var mainBody = document.querySelector(".main_body");
-	//var settingBody = document.querySelector(".setting_body");
-	//var gearIcon = document.querySelector("#gear-icon");
-	//var cancelButton = document.querySelector("#cancel-button");
-	//var saveButton = document.querySelector("#save-button");
-
-	//gearIcon.addEventListener("click", function (event) {
-	//	event.stopPropagation();
-	//	mainBody.classList.toggle("d-none");
-	//	settingBody.classList.toggle("d-none");
-	//});
-
-	//cancelButton.addEventListener("click", function (event) {
-	//	event.stopPropagation();
-	//	mainBody.classList.toggle("d-none");
-	//	settingBody.classList.toggle("d-none");
-	//});
-
-	//saveButton.addEventListener("click", function (event) {
-	//	// Add code to save the settings here
-	//	event.stopPropagation();
-	//	mainBody.classList.toggle("d-none");
-	//	settingBody.classList.toggle("d-none");
-	//});
-
-	//// Close the setting body when clicking outside of it
-	//document.addEventListener("click", function (event) {
-	//	if (!event.target.closest(".navbar-nav.dropdown")) {
-	//		mainBody.classList.remove("d-none");
-	//		settingBody.classList.add("d-none");
-	//	}
-	//});
-
 	
+	// Below ajax code is for Select checkboxes and send it to controller
+	function saveChckedValues(userId){
+		var selectedCheckboxes = [];
+		$('#userCheckBox li').find("input:checked").each(function (i, obj) {
+			selectedCheckboxes.push(parseInt($(obj).val()));
+		});
+		console.log(selectedCheckboxes);
 
+		$.ajax({
+			method: 'POST',
+			url: '/Notification/AddCheckedUserNotification',
+			data: {
+				selectedUserCheckedValues: selectedCheckboxes,
+				userid: userId,
+			},
+			success: function (data) {
+				location.reload();
+				//alert("deleted Successfully");
+			},
+		});
+	 
+	 }
+
+
+	$(document).ready(function () {
+		$("#notifType li input[type='checkbox']").each(function () {
+			// If the checkbox's value is in the list of IDs, check it
+			if ($.inArray(parseInt($(this).val()), data.userNotifPrefList) !== -1) {
+				$(this).prop("checked", true);
+			}
+		});
+	});
+
+
+
+	// Below ajax code is for showing users notifications when clicking on bell icon
+	function ShowNotification(userid) {
+		$.ajax({
+			type: "POST",
+			url: "/Notification/ShowUserNotification",
+			data: {
+				userId: userid,
+			},
+			success: function (result) {
+				var messages = result;
+				var html = '';
+				for (var i = 0; i < messages.length; i++) {
+					html += '<tr class="border-1 mb-2 d-flex align-items-center">';
+					html += '<td><i class="bi bi-plus-circle fs-5"></i></td>';
+					html += '<td class="ms-1"><small>' + messages[i] + '</small></td>';
+					html += '<td class="text-end">';
+					html += '<button class="border-0 bg-transparent">';
+					html += '<i class="bi bi-circle-fill fs-5 me-0" style="color: #F88634;"></i>';
+					html += '</button>';
+					html += '</td>';
+					html += '</tr>';
+					
+				}
+				if (messages.length === 0) {
+					html += '<tr><td colspan="3" class="text-center text-success fs-5">No notifications to show!</td></tr>';
+				}
+				$('.userNotification').html(html);
+			},
+
+			error: function (response) {
+				alert("error in add to favourite");
+				location.reload();
+			}
+		});
+	}
 
 </script>

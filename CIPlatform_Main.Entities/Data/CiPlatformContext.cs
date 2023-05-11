@@ -30,9 +30,13 @@ public partial class CiPlatformContext : DbContext
 
     public virtual DbSet<Country> Countries { get; set; }
 
+    public virtual DbSet<EnableUserPreference> EnableUserPreferences { get; set; }
+
     public virtual DbSet<FavoriteMission> FavoriteMissions { get; set; }
 
     public virtual DbSet<GoalMission> GoalMissions { get; set; }
+
+    public virtual DbSet<MessageTable> MessageTables { get; set; }
 
     public virtual DbSet<Mission> Missions { get; set; }
 
@@ -49,6 +53,16 @@ public partial class CiPlatformContext : DbContext
     public virtual DbSet<MissionSkill> MissionSkills { get; set; }
 
     public virtual DbSet<MissionTheme> MissionThemes { get; set; }
+
+    public virtual DbSet<NotifAlluser> NotifAllusers { get; set; }
+
+    public virtual DbSet<NotifPreference> NotifPreferences { get; set; }
+
+    public virtual DbSet<NotifSpecuser> NotifSpecusers { get; set; }
+
+    public virtual DbSet<NotificationPreference> NotificationPreferences { get; set; }
+
+    public virtual DbSet<NotificationType> NotificationTypes { get; set; }
 
     public virtual DbSet<PasswordReset> PasswordResets { get; set; }
 
@@ -280,6 +294,32 @@ public partial class CiPlatformContext : DbContext
                 .HasColumnName("updated_at");
         });
 
+        modelBuilder.Entity<EnableUserPreference>(entity =>
+        {
+            entity.HasKey(e => e.Enableuserid).HasName("PK__enable_u__E4421F18D71F9408");
+
+            entity.ToTable("enable_user_preferences");
+
+            entity.Property(e => e.Enableuserid).HasColumnName("enableuserid");
+            entity.Property(e => e.CreatedAt)
+                .HasDefaultValueSql("(getdate())")
+                .HasColumnType("datetime")
+                .HasColumnName("created_at");
+            entity.Property(e => e.NotificationId).HasColumnName("notification_id");
+            entity.Property(e => e.Status)
+                .HasDefaultValueSql("((0))")
+                .HasColumnName("status");
+            entity.Property(e => e.UserId).HasColumnName("user_id");
+
+            entity.HasOne(d => d.Notification).WithMany(p => p.EnableUserPreferences)
+                .HasForeignKey(d => d.NotificationId)
+                .HasConstraintName("FK__enable_us__notif__38EE7070");
+
+            entity.HasOne(d => d.User).WithMany(p => p.EnableUserPreferences)
+                .HasForeignKey(d => d.UserId)
+                .HasConstraintName("FK__enable_us__user___39E294A9");
+        });
+
         modelBuilder.Entity<FavoriteMission>(entity =>
         {
             entity.HasKey(e => e.FavouriteMissionId).HasName("PK__favorite__94E4D8CAB5D9EA84");
@@ -333,6 +373,43 @@ public partial class CiPlatformContext : DbContext
             entity.Property(e => e.UpdatedAt)
                 .HasColumnType("datetime")
                 .HasColumnName("updated_at");
+        });
+
+        modelBuilder.Entity<MessageTable>(entity =>
+        {
+            entity.HasKey(e => e.MessageId).HasName("PK__MessageT__0BBF6EE654342F3C");
+
+            entity.ToTable("MessageTable");
+
+            entity.Property(e => e.MessageId).HasColumnName("message_id");
+            entity.Property(e => e.CreatedAt)
+                .HasDefaultValueSql("(getdate())")
+                .HasColumnType("datetime")
+                .HasColumnName("created_at");
+            entity.Property(e => e.FromUser).HasColumnName("from_user");
+            entity.Property(e => e.Isread).HasColumnName("isread");
+            entity.Property(e => e.Message)
+                .HasMaxLength(255)
+                .IsUnicode(false)
+                .HasColumnName("message");
+            entity.Property(e => e.NotificationId).HasColumnName("notification_id");
+            entity.Property(e => e.ToUser).HasColumnName("to_user");
+            entity.Property(e => e.Url)
+                .HasMaxLength(255)
+                .IsUnicode(false)
+                .HasColumnName("url");
+
+            entity.HasOne(d => d.FromUserNavigation).WithMany(p => p.MessageTableFromUserNavigations)
+                .HasForeignKey(d => d.FromUser)
+                .HasConstraintName("FK__MessageTa__from___473C8FC7");
+
+            entity.HasOne(d => d.Notification).WithMany(p => p.MessageTables)
+                .HasForeignKey(d => d.NotificationId)
+                .HasConstraintName("FK__MessageTa__notif__46486B8E");
+
+            entity.HasOne(d => d.ToUserNavigation).WithMany(p => p.MessageTableToUserNavigations)
+                .HasForeignKey(d => d.ToUser)
+                .HasConstraintName("FK__MessageTa__to_us__4830B400");
         });
 
         modelBuilder.Entity<Mission>(entity =>
@@ -643,6 +720,121 @@ public partial class CiPlatformContext : DbContext
             entity.Property(e => e.Title)
                 .HasMaxLength(255)
                 .HasColumnName("title");
+            entity.Property(e => e.UpdatedAt)
+                .HasColumnType("datetime")
+                .HasColumnName("updated_at");
+        });
+
+        modelBuilder.Entity<NotifAlluser>(entity =>
+        {
+            entity.HasKey(e => e.NotallId).HasName("PK__notif_al__D56BCC96D9CC61F5");
+
+            entity.ToTable("notif_alluser");
+
+            entity.Property(e => e.NotallId).HasColumnName("notall_id");
+            entity.Property(e => e.CreatedAt)
+                .HasDefaultValueSql("(getdate())")
+                .HasColumnType("datetime")
+                .HasColumnName("created_at");
+            entity.Property(e => e.Isread).HasColumnName("isread");
+            entity.Property(e => e.Notification)
+                .HasMaxLength(16)
+                .IsUnicode(false)
+                .HasColumnName("notification");
+            entity.Property(e => e.Url)
+                .HasMaxLength(16)
+                .IsUnicode(false)
+                .HasColumnName("url");
+        });
+
+        modelBuilder.Entity<NotifPreference>(entity =>
+        {
+            entity.HasKey(e => e.NotifprefId).HasName("PK__notif_pr__5ED373B308CC739B");
+
+            entity.ToTable("notif_preference");
+
+            entity.Property(e => e.NotifprefId).HasColumnName("notifpref_id");
+            entity.Property(e => e.CreatedAt)
+                .HasDefaultValueSql("(getdate())")
+                .HasColumnType("datetime")
+                .HasColumnName("created_at");
+            entity.Property(e => e.DeletedAt)
+                .HasColumnType("datetime")
+                .HasColumnName("deleted_at");
+            entity.Property(e => e.NotifytypeId).HasColumnName("notifytype_id");
+            entity.Property(e => e.Userid).HasColumnName("userid");
+
+            entity.HasOne(d => d.Notifytype).WithMany(p => p.NotifPreferences)
+                .HasForeignKey(d => d.NotifytypeId)
+                .HasConstraintName("FK__notif_pre__notif__1A69E950");
+
+            entity.HasOne(d => d.User).WithMany(p => p.NotifPreferences)
+                .HasForeignKey(d => d.Userid)
+                .HasConstraintName("FK__notif_pre__useri__1975C517");
+        });
+
+        modelBuilder.Entity<NotifSpecuser>(entity =>
+        {
+            entity.HasKey(e => e.NotifspecId).HasName("PK__notif_sp__B7A68EF38854552E");
+
+            entity.ToTable("notif_specuser");
+
+            entity.Property(e => e.NotifspecId).HasColumnName("notifspec_id");
+            entity.Property(e => e.CreatedAt)
+                .HasDefaultValueSql("(getdate())")
+                .HasColumnType("datetime")
+                .HasColumnName("created_at");
+            entity.Property(e => e.FromUserid).HasColumnName("from_userid");
+            entity.Property(e => e.Isread).HasColumnName("isread");
+            entity.Property(e => e.Notification)
+                .HasMaxLength(16)
+                .IsUnicode(false)
+                .HasColumnName("notification");
+            entity.Property(e => e.ToUserid).HasColumnName("to_userid");
+            entity.Property(e => e.Url)
+                .HasMaxLength(16)
+                .IsUnicode(false)
+                .HasColumnName("url");
+
+            entity.HasOne(d => d.FromUser).WithMany(p => p.NotifSpecuserFromUsers)
+                .HasForeignKey(d => d.FromUserid)
+                .HasConstraintName("FK__notif_spe__from___2116E6DF");
+
+            entity.HasOne(d => d.ToUser).WithMany(p => p.NotifSpecuserToUsers)
+                .HasForeignKey(d => d.ToUserid)
+                .HasConstraintName("FK__notif_spe__to_us__220B0B18");
+        });
+
+        modelBuilder.Entity<NotificationPreference>(entity =>
+        {
+            entity.HasKey(e => e.NotificationId).HasName("PK__notifica__E059842F7A233744");
+
+            entity.ToTable("notification_preferences");
+
+            entity.Property(e => e.NotificationId).HasColumnName("notification_id");
+            entity.Property(e => e.Title)
+                .HasMaxLength(50)
+                .HasColumnName("title");
+        });
+
+        modelBuilder.Entity<NotificationType>(entity =>
+        {
+            entity.HasKey(e => e.NotifytypeId).HasName("PK__notifica__F03880153432AE8B");
+
+            entity.ToTable("notification_type");
+
+            entity.Property(e => e.NotifytypeId).HasColumnName("notifytype_id");
+            entity.Property(e => e.CreatedAt)
+                .HasDefaultValueSql("(getdate())")
+                .HasColumnType("datetime")
+                .HasColumnName("created_at");
+            entity.Property(e => e.DeletedAt)
+                .HasColumnType("datetime")
+                .HasColumnName("deleted_at");
+            entity.Property(e => e.NotifType)
+                .HasMaxLength(16)
+                .IsUnicode(false)
+                .HasColumnName("notif_type");
             entity.Property(e => e.UpdatedAt)
                 .HasColumnType("datetime")
                 .HasColumnName("updated_at");

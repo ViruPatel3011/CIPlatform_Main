@@ -58,6 +58,10 @@ namespace CIPlatform_Main.Entities.ViewModel
         public IEnumerable<Admin>? AdminList{ get; set; }
         public IEnumerable<GoalMission>? TotalGoalActionList{ get; set; }
         public IEnumerable<Timesheet>? TimeSheetList{ get; set; }
+        public IEnumerable<NotificationPreference>? NotificationPreferencesList{ get; set; }
+        public IEnumerable<EnableUserPreference>? UserPreferencesList{ get; set; }
+        public IEnumerable<MessageTable>? NotificationMessage{ get; set; }
+        
       
 
     }

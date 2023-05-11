@@ -223,5 +223,11 @@ namespace CIPlatform_Main.Entities.ViewModel
 		public List<MissionSkill> MissionSkillList { get; set; }
 		public List<Country> CountryList { get; set; }
 		public List<City> CityList { get; set; }
+
+
+
+		// below field is for Timesheet time Page
+		public List<Timesheet> TimeSheetListTime { get; set; }
+
 	}
 }

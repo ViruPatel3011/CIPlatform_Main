@@ -105,6 +105,7 @@ namespace CIPlatform_Main.Repository.Repository
 			sdv.Avatar = _ciPlatformContext.Users.Where(x => x.UserId == userId).Select(x => x.Avatar).FirstOrDefault();
 			sdv.Stories = _ciPlatformContext.Stories.ToList();
 			sdv.storyMedia = _ciPlatformContext.StoryMedia.ToList();
+			sdv.NotificationMessage = _ciPlatformContext.MessageTables.ToList();
 			sdv.Viewscount = count;
 
 
@@ -139,7 +140,7 @@ namespace CIPlatform_Main.Repository.Repository
 		}
 
 	
-		public string UserWithId(int[] ids, int missionid, string url)
+		public string UserWithId(int[] ids, int missionid, string url,long userId)
 		{
 
 			foreach (var id in ids)
@@ -166,6 +167,22 @@ namespace CIPlatform_Main.Repository.Repository
 					EnableSsl = true
 				};
 				smtpClient.Send(message);
+
+				var missionId= _ciPlatformContext.Missions.Where(m => m.MissionId == missionid).Select(m=>m.MissionId).FirstOrDefault();
+				var story = _ciPlatformContext.Stories.FirstOrDefault(st => st.MissionId == missionId);
+				var thisUser = _ciPlatformContext.Users.Where(m => m.UserId == userId).FirstOrDefault();
+				var userN = thisUser.FirstName + "" + thisUser.LastName;
+				MessageTable newMessage = new()
+				{
+					NotificationId = 9,
+					FromUser = userId,
+					ToUser = id,
+					Message = $"{userN} Recommend This Story, {story.Title}",
+					Url = $"https://localhost:7039/Story/storyDetail?userId={userId}&missionId={missionId}&views={story.Viewscount}",
+					CreatedAt = DateTime.Now
+				};
+				_ciPlatformContext.MessageTables.Add(newMessage);
+				_ciPlatformContext.SaveChanges();
 			}
 
 			return "true";

@@ -53,6 +53,15 @@ namespace CIPlatform_Main.Repository.Repository
 			
 			List<Admin> admin = GetAdminList();
 			landingPageData.AdminList = admin;
+			
+			List<NotificationPreference> notPreference = GetNotiPreferenceList();
+			landingPageData.NotificationPreferencesList = notPreference;
+			
+			List<EnableUserPreference> userPreferences = GetUserPreferenceList();
+			landingPageData.UserPreferencesList = userPreferences;
+			
+			List<MessageTable> notiMsg = GetNotiMessageList();
+			landingPageData.NotificationMessage = notiMsg;
 
 			return landingPageData;
 
@@ -204,6 +213,21 @@ namespace CIPlatform_Main.Repository.Repository
 		{
 			List<Timesheet> timeSheet = _ciPlatformContext.Timesheets.ToList();
 			return timeSheet;
+		}
+		public List<NotificationPreference> GetNotiPreferenceList()
+		{
+			List<NotificationPreference> notifyPreferences = _ciPlatformContext.NotificationPreferences.ToList();
+			return notifyPreferences;
+		}
+		public List<EnableUserPreference> GetUserPreferenceList()
+		{
+			List<EnableUserPreference> userPreference = _ciPlatformContext.EnableUserPreferences.ToList();
+			return userPreference;
+		}
+		public List<MessageTable> GetNotiMessageList()
+		{
+			List<MessageTable> notimessage = _ciPlatformContext.MessageTables.ToList();
+			return notimessage;
 		}
 	}
 }

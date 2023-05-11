@@ -127,10 +127,10 @@ namespace CIPlatform_Main.Controllers
 
 			return Json(userData);
 		}
-		public string SentUserMail(int[] ids, int missionid)
+		public string SentUserMail(int[] ids, int missionid,long userId)
 		{
 			string url = Url.Action("MissionAndRating", "Home", new { id = missionid }, Request.Scheme);
-			var emailForReco = _storyRepository.UserWithId(ids, missionid, url);
+			var emailForReco = _storyRepository.UserWithId(ids, missionid, url, userId);
 			if (emailForReco != null)
 			{
 				return "success";

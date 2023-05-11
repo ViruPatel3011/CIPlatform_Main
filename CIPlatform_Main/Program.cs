@@ -25,6 +25,7 @@ builder.Services.AddScoped<IMissionAndRating, MissionAndRatingRepository> ();
 builder.Services.AddScoped<IStoryRepository, StoryRepository> ();
 builder.Services.AddScoped<IUserRepository, UserRepository> ();
 builder.Services.AddScoped<IAdmin, AdminRepository> ();
+builder.Services.AddScoped<INotification, NotificationRepository> ();
 /*builder.Services.AddCloudscribePagination();*/
 builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).
     AddCookie(option =>

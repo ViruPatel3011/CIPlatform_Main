@@ -55,7 +55,13 @@ public partial class User
 
     public virtual Country Country { get; set; } = null!;
 
+    public virtual ICollection<EnableUserPreference> EnableUserPreferences { get; } = new List<EnableUserPreference>();
+
     public virtual ICollection<FavoriteMission> FavoriteMissions { get; } = new List<FavoriteMission>();
+
+    public virtual ICollection<MessageTable> MessageTableFromUserNavigations { get; } = new List<MessageTable>();
+
+    public virtual ICollection<MessageTable> MessageTableToUserNavigations { get; } = new List<MessageTable>();
 
     public virtual ICollection<MissionApplication> MissionApplications { get; } = new List<MissionApplication>();
 
@@ -64,6 +70,12 @@ public partial class User
     public virtual ICollection<MissionInvite> MissionInviteToUsers { get; } = new List<MissionInvite>();
 
     public virtual ICollection<MissionRating> MissionRatings { get; } = new List<MissionRating>();
+
+    public virtual ICollection<NotifPreference> NotifPreferences { get; } = new List<NotifPreference>();
+
+    public virtual ICollection<NotifSpecuser> NotifSpecuserFromUsers { get; } = new List<NotifSpecuser>();
+
+    public virtual ICollection<NotifSpecuser> NotifSpecuserToUsers { get; } = new List<NotifSpecuser>();
 
     public virtual ICollection<StoryInvite> StoryInviteFromUsers { get; } = new List<StoryInvite>();
 

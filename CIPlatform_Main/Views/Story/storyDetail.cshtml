@@ -346,8 +346,8 @@
 				selecteduserid.push($(this).attr("id"));
 			});
 			console.log(selecteduserid);
-			$('#volPageLoader').removeClass('d-none');
-			$('#model-content').addClass('d-none');
+			//$('#volPageLoader').removeClass('d-none');
+			//$('#model-content').addClass('d-none');
 			if (selecteduserid.length != 0) {
 
 				$.ajax({
@@ -356,12 +356,26 @@
 					data: {
 						ids: selecteduserid,
 						missionid: @Model.MissionId,
+						userId:@uid
 					},
 					traditional: true,
+					beforeSend: function () {
+						swal.fire({
+							html: '<h5>Sending...</h5><div class="spinner-border text-primary" role="status"><span class="visually-hidden">Sending...</span></div>',
+							showConfirmButton: false,
+							onRender: function () {
+								// there will only ever be one sweet alert open.
+								$('.swal2-content').prepend(sweet_loader);
+							}
+						});
+					},
 					success: function (response) {
-						alert('Mail Sent Successfully.. Now you can close Model...');
-						$('#volPageLoader').addClass('d-none');
-						$('#model-content').removeClass('d-none');
+						setTimeout(function () {
+							swal.fire({
+								icon: 'success',
+								html: '<h5>Mail Sent Successfully!</h5>'
+							});
+						}, 500);
 					}
 				});
 			}

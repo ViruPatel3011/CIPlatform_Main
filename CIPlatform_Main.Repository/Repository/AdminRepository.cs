@@ -76,6 +76,12 @@ namespace CIPlatform_Main.Repository.Repository
 			return list;
 		}
 
+		public List<Timesheet> GetTimeSheetTimeList()
+		{
+			var timeList = _ciPlatformContext.Timesheets.Where(time => time.Action == null).ToList();
+			return timeList;
+		}
+
 
 		// ************** List Section ENd    **********//
 
@@ -1089,6 +1095,57 @@ namespace CIPlatform_Main.Repository.Repository
 
 				bid.DeletedAt = DateTime.Now;
 				_ciPlatformContext.Banners.Update(bid);
+				_ciPlatformContext.SaveChanges();
+				return true;
+			}
+			else
+			{
+				return false;
+			}
+		}
+
+
+		/// Timesheet section start
+		public bool ApprovedTimeBasedSheet(long timeId)
+		{
+			var time = _ciPlatformContext.Timesheets.Where(time => time.TimesheetId == timeId).FirstOrDefault();
+			if(time != null)
+			{
+				time.Status = "Approved";
+				_ciPlatformContext.Timesheets.Update(time);
+				_ciPlatformContext.SaveChanges();
+				return true;
+			}
+			else
+			{
+				return false;
+			}
+		}
+		
+		public bool RejectTimeBasedSheet(long rejectTid)
+		{
+			var reject = _ciPlatformContext.Timesheets.Where(time => time.TimesheetId == rejectTid).FirstOrDefault();
+			if(reject != null)
+			{
+				reject.Status = "Rejected";
+				_ciPlatformContext.Timesheets.Update(reject);
+				_ciPlatformContext.SaveChanges();
+				return true;
+			}
+			else
+			{
+				return false;
+			}
+		}
+		
+		public bool DeleteTimeBasedSheet(long deleteTid)
+		{
+			var delete = _ciPlatformContext.Timesheets.Where(time => time.TimesheetId == deleteTid).FirstOrDefault();
+			if(delete != null)
+			{
+				delete.Status = "Deleted";
+				delete.DeletedAt = DateTime.Now;
+				_ciPlatformContext.Timesheets.Update(delete);
 				_ciPlatformContext.SaveChanges();
 				return true;
 			}

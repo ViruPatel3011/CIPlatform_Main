@@ -39,5 +39,7 @@ namespace CIPlatform_Main.Entities.ViewModel
 
 		public string WhyIVolunteered { get; set; }   
         public DateTime dateAndTime { get; set; }
-    }
+
+		public IEnumerable<MessageTable>? NotificationMessage { get; set; }
+	}
 }

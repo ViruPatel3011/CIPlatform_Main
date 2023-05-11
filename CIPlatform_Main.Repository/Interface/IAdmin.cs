@@ -25,6 +25,7 @@ namespace CIPlatform_Main.Repository.Interface
 		public List<Story> GetStoryList();
 		public List<Banner> GetBannerList();
 		public List<Country> getCountryList();
+		public List<Timesheet> GetTimeSheetTimeList();
 
 
 		// ************** List Section ENd    **********//
@@ -171,6 +172,14 @@ namespace CIPlatform_Main.Repository.Interface
 		public bool EditBannerPageData(AdminViewModel banner, long bannerId);
 
 		public bool DeleteBannerPageData(long bannerPageId);
-      
-    }
+
+
+		// Timesheet section start
+		public bool ApprovedTimeBasedSheet(long timeId);
+		public bool RejectTimeBasedSheet(long rejectTid);
+		public bool DeleteTimeBasedSheet(long deleteTid);
+
+
+
+	}
 }

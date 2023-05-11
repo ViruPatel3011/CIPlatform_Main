@@ -16,7 +16,7 @@ namespace CIPlatform_Main.Repository.Interface
 
         public storyDetailVM GetStoryDetail(long userId, int missionId,int count,long storyId);
 
-		public string UserWithId(int[] ids, int missionid, string url);
+		public string UserWithId(int[] ids, int missionid, string url,long userId);
 		public List<User> GetUsersForRecomandateToCoWorker(string uid);
 
         public shareYourStoryVM GetDataForShareYourStory(string missionid, string uid);

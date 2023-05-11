@@ -20,7 +20,7 @@ namespace CIPlatform_Main.Repository.Interface
 
 
 		//recomandation to co-worker ;
-		public string UserWithId(int[] ids, int missionid, string url);
+		public string UserWithId(int[] ids, int missionid, string url,long userId);
 		public List<User> GetUsersForRecomandateToCoWorker(string uid);
 
 		public bool AlreadyApplied(int mId, string uid);

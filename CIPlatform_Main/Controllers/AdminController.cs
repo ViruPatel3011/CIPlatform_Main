@@ -229,6 +229,21 @@ namespace CIPlatform_Main.Controllers
 
 			return PartialView("_BannerPartial", bannerModel);
 		}
+		
+		public IActionResult TimeSheet()
+		{
+            var userData = _admin.GetUserList();
+			var timesheetdata = _admin.GetTimeSheetTimeList();
+			var missionList = _admin.GetMissionList();
+			AdminViewModel timesheetModel = new AdminViewModel()
+			{
+				TimeSheetListTime = timesheetdata,
+				UserList=userData,
+				MissionList = missionList
+			};
+
+			return PartialView("_TimesheetPartial", timesheetModel);
+		}
 
 
 		//***********     User Page Method Start   **************///
@@ -781,6 +796,53 @@ namespace CIPlatform_Main.Controllers
 			{
 				TempData["Error Message"] = "Banner not Deleted";
 				return RedirectToAction("BannerPage", "Admin");
+			}
+		}
+
+
+
+		// Timesheet Section starts
+		public IActionResult ApprovedTimeSheet(long timeId)
+		{
+			var timesheetApproved = _admin.ApprovedTimeBasedSheet(timeId);
+			if (timesheetApproved)
+			{
+				TempData["Success Message"] = "Timesheet Approved Successfully";
+				return Json(new { redirectUrl = Url.Action("TimeSheet", "Admin") });
+			}
+			else
+			{
+				TempData["Error Message"] = "Timesheet Not Approved ";
+				return Json(new { redirectUrl = Url.Action("TimeSheet", "Admin") });
+			}
+		}
+
+		public IActionResult RejectTimeSheet(long rejectTid)
+		{
+			var rejectTime = _admin.RejectTimeBasedSheet(rejectTid);
+			if (rejectTime)
+			{
+				TempData["Success Message"] = "Timesheet Rejected Successfully";
+				return Json(new { redirectUrl = Url.Action("TimeSheet", "Admin") });
+			}
+			else
+			{
+				TempData["Error Message"] = "Timesheet Not  Rejected ";
+				return Json(new { redirectUrl = Url.Action("TimeSheet", "Admin") });
+			}
+		}
+		public IActionResult DeleteTimeSheet(long deleteTid)
+		{
+			var deleteTime = _admin.DeleteTimeBasedSheet(deleteTid);
+			if (deleteTime)
+			{
+				TempData["Success Message"] = "Timesheet Deleted Successfully";
+				return Json(new { redirectUrl = Url.Action("TimeSheet", "Admin") });
+			}
+			else
+			{
+				TempData["Error Message"] = "Timesheet Not  Deleted ";
+				return Json(new { redirectUrl = Url.Action("TimeSheet", "Admin") });
 			}
 		}
 	}

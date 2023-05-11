@@ -216,12 +216,13 @@ namespace CIPlatform_Main.Repository.Repository
 		}
 
 
-		public string UserWithId(int[] ids, int missionid, string url)
+		public string UserWithId(int[] ids, int missionid, string url, long userId)
 		{
+			
 
 			foreach (var id in ids)
 			{
-
+				
 				var user = _ciPlatformContext.Users.SingleOrDefault(m => m.UserId == id);
 				var resetLink = url;
 
@@ -243,6 +244,21 @@ namespace CIPlatform_Main.Repository.Repository
 					EnableSsl = true
 				};
 				smtpClient.Send(message);
+
+				var missionName = _ciPlatformContext.Missions.Where(m => m.MissionId == missionid).FirstOrDefault();
+				var thisUser = _ciPlatformContext.Users.Where(m => m.UserId==userId ).FirstOrDefault();
+				var userN = thisUser.FirstName + "" + thisUser.LastName;
+				MessageTable newMessage = new()
+				{
+					NotificationId = 1,
+					FromUser = userId,
+					ToUser = id,
+					Message=$"{userN} Recommend This mission, {missionName.Title}",
+					Url=$"https://localhost:7039/Home/MissionAndRating/{missionName.MissionId}",
+					CreatedAt=DateTime.Now
+				};
+				_ciPlatformContext.MessageTables.Add(newMessage);
+				_ciPlatformContext.SaveChanges();
 			}
 
 			return "true";
