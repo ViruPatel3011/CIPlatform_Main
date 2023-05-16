@@ -10,6 +10,7 @@ using Microsoft.VisualBasic.FileIO;
 using System.Diagnostics.Contracts;
 using System.Diagnostics.Eventing.Reader;
 using System.Reflection;
+using System.Security.Claims;
 using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 using static System.Net.Mime.MediaTypeNames;
 
@@ -79,6 +80,11 @@ namespace CIPlatform_Main.Repository.Repository
 		public List<Timesheet> GetTimeSheetTimeList()
 		{
 			var timeList = _ciPlatformContext.Timesheets.Where(time => time.Action == null).ToList();
+			return timeList;
+		}
+		public List<Timesheet> GetTimeSheetGoalList()
+		{
+			var timeList = _ciPlatformContext.Timesheets.Where(time => time.Action != null).ToList();
 			return timeList;
 		}
 
@@ -817,13 +823,30 @@ namespace CIPlatform_Main.Repository.Repository
 		}
 
 		// Method for Approved User by Admin
-		public bool ApprovedUserbyAdmin(long mAppId)
+		public bool ApprovedUserbyAdmin(long mAppId,long userId)
 		{
+			
 			var missionAppId = _ciPlatformContext.MissionApplications.Where(x => x.MissionApplicationId == mAppId).FirstOrDefault();
 			if (missionAppId != null)
 			{
 				missionAppId.ApprovalStatus = "Approved";
 				_ciPlatformContext.MissionApplications.Update(missionAppId);
+				_ciPlatformContext.SaveChanges();
+
+				var missionId = _ciPlatformContext.MissionApplications.Where(m => m.MissionApplicationId == mAppId).Select(m=>m.MissionId).FirstOrDefault();
+				var missionName = _ciPlatformContext.Missions.Where(mission => mission.MissionId == missionId).FirstOrDefault();
+
+				MessageTable newMessage = new()
+				{
+					NotificationId = 6,
+					FromUser=20031,
+					ToUser=userId,
+					Message = $"Admin Recommend This mission, {missionName.Title}",
+					Url = $"https://localhost:7039/Home/MissionAndRating/{missionName.MissionId}",
+					CreatedAt = DateTime.Now
+
+				};
+				_ciPlatformContext.MessageTables.Add(newMessage);
 				_ciPlatformContext.SaveChanges();
 				return true;
 			}
@@ -1105,7 +1128,9 @@ namespace CIPlatform_Main.Repository.Repository
 		}
 
 
-		/// Timesheet section start
+		//Timesheet section start
+
+		// Below method is for Approved TimeBased sheet
 		public bool ApprovedTimeBasedSheet(long timeId)
 		{
 			var time = _ciPlatformContext.Timesheets.Where(time => time.TimesheetId == timeId).FirstOrDefault();
@@ -1121,13 +1146,14 @@ namespace CIPlatform_Main.Repository.Repository
 				return false;
 			}
 		}
-		
+
+		// Below method is for Declined TimeBased sheet
 		public bool RejectTimeBasedSheet(long rejectTid)
 		{
 			var reject = _ciPlatformContext.Timesheets.Where(time => time.TimesheetId == rejectTid).FirstOrDefault();
 			if(reject != null)
 			{
-				reject.Status = "Rejected";
+				reject.Status = "Declined";
 				_ciPlatformContext.Timesheets.Update(reject);
 				_ciPlatformContext.SaveChanges();
 				return true;
@@ -1137,7 +1163,8 @@ namespace CIPlatform_Main.Repository.Repository
 				return false;
 			}
 		}
-		
+
+		// Below method is for Delete TimeBased sheet
 		public bool DeleteTimeBasedSheet(long deleteTid)
 		{
 			var delete = _ciPlatformContext.Timesheets.Where(time => time.TimesheetId == deleteTid).FirstOrDefault();
@@ -1154,5 +1181,40 @@ namespace CIPlatform_Main.Repository.Repository
 				return false;
 			}
 		}
+
+		// Below method is for Approved GoalBased sheet
+		public bool ApprovedGoalBasedSheet(long goalId)
+		{
+			var goal = _ciPlatformContext.Timesheets.Where(time => time.TimesheetId == goalId).FirstOrDefault();
+			if (goal != null)
+			{
+				goal.Status = "Approved";
+				_ciPlatformContext.Timesheets.Update(goal);
+				_ciPlatformContext.SaveChanges();
+				return true;
+			}
+			else
+			{
+				return false;
+			}
+		}
+
+		// Below method is for Reject GoalBased sheet
+		public bool RejectGoalBasedSheet(long rejectgid)
+		{
+			var reject = _ciPlatformContext.Timesheets.Where(time => time.TimesheetId == rejectgid).FirstOrDefault();
+			if (reject != null)
+			{
+				reject.Status = "Declined";
+				_ciPlatformContext.Timesheets.Update(reject);
+				_ciPlatformContext.SaveChanges();
+				return true;
+			}
+			else
+			{
+				return false;
+			}
+		}
+
 	}
 }

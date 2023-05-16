@@ -189,6 +189,7 @@ namespace CIPlatform_Main.Controllers
 			var missionApp = _admin.GetMissionAppList();
 			var mission = _admin.GetMissionList();
 			var user = _admin.GetUserList();
+			
 			AdminViewModel missionAppModel = new AdminViewModel()
 			{
 				MissionApplicationList = missionApp,
@@ -243,6 +244,20 @@ namespace CIPlatform_Main.Controllers
 			};
 
 			return PartialView("_TimesheetPartial", timesheetModel);
+		}
+		public IActionResult GoalTimeSheetAdd()
+		{
+            var userData = _admin.GetUserList();
+			var goaldata = _admin.GetTimeSheetGoalList();
+			var missionList = _admin.GetMissionList();
+			AdminViewModel timesheetModel = new AdminViewModel()
+			{
+				TimeSheetListGoal = goaldata,
+				UserList=userData,
+				MissionList = missionList
+			};
+
+			return PartialView("_GoalTimeSheet", timesheetModel);
 		}
 
 
@@ -605,9 +620,9 @@ namespace CIPlatform_Main.Controllers
 
 		// Method for Approved User by Admin
 		[HttpPost]
-		public IActionResult AdminApprovedUser(long mAppId)
+		public IActionResult AdminApprovedUser(long mAppId,long userId)
 		{
-			var approved = _admin.ApprovedUserbyAdmin(mAppId);
+			var approved = _admin.ApprovedUserbyAdmin(mAppId, userId);
 			if (approved)
 			{
 				TempData["Success Message"] = "User Approved Successfully";
@@ -627,7 +642,7 @@ namespace CIPlatform_Main.Controllers
 			var rejected = _admin.RejectedUserbyAdmin(missionAppId);
 			if (rejected)
 			{
-				TempData["Success Message"] = "User Approved Successfully";
+				TempData["Success Message"] = "User Rejected Successfully";
 				return Json(new { redirectUrl = Url.Action("MissionApplicationPage", "Admin") });
 			}
 			else
@@ -802,6 +817,8 @@ namespace CIPlatform_Main.Controllers
 
 
 		// Timesheet Section starts
+
+		// Below method is for Approved TimeBased sheet
 		public IActionResult ApprovedTimeSheet(long timeId)
 		{
 			var timesheetApproved = _admin.ApprovedTimeBasedSheet(timeId);
@@ -817,6 +834,8 @@ namespace CIPlatform_Main.Controllers
 			}
 		}
 
+
+		// Below method is for Declined TimeBased sheet
 		public IActionResult RejectTimeSheet(long rejectTid)
 		{
 			var rejectTime = _admin.RejectTimeBasedSheet(rejectTid);
@@ -831,6 +850,7 @@ namespace CIPlatform_Main.Controllers
 				return Json(new { redirectUrl = Url.Action("TimeSheet", "Admin") });
 			}
 		}
+		// Below method is for Delete TimeBased sheet
 		public IActionResult DeleteTimeSheet(long deleteTid)
 		{
 			var deleteTime = _admin.DeleteTimeBasedSheet(deleteTid);
@@ -842,6 +862,39 @@ namespace CIPlatform_Main.Controllers
 			else
 			{
 				TempData["Error Message"] = "Timesheet Not  Deleted ";
+				return Json(new { redirectUrl = Url.Action("TimeSheet", "Admin") });
+			}
+		}
+
+
+		// Below method is for Approved GoalBased sheet
+		public IActionResult ApprovedTimeSheetGoal(long goalId)
+		{
+			var timesheetApproved = _admin.ApprovedGoalBasedSheet(goalId);
+			if (timesheetApproved)
+			{
+				TempData["Success Message"] = "Timesheet Approved Successfully";
+				return Json(new { redirectUrl = Url.Action("TimeSheet", "Admin") });
+			}
+			else
+			{
+				TempData["Error Message"] = "Timesheet Not Approved ";
+				return Json(new { redirectUrl = Url.Action("TimeSheet", "Admin") });
+			}
+		}
+
+		// Below method is for Reject GoalBased sheet
+		public IActionResult RejectTimeSheetGoal(long rejectgid)
+		{
+			var rejectGoal = _admin.RejectGoalBasedSheet(rejectgid);
+			if (rejectGoal)
+			{
+				TempData["Success Message"] = "Timesheet Rejected Successfully";
+				return Json(new { redirectUrl = Url.Action("TimeSheet", "Admin") });
+			}
+			else
+			{
+				TempData["Error Message"] = "Timesheet Not  Rejected ";
 				return Json(new { redirectUrl = Url.Action("TimeSheet", "Admin") });
 			}
 		}

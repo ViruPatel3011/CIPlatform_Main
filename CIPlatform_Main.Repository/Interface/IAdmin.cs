@@ -26,6 +26,7 @@ namespace CIPlatform_Main.Repository.Interface
 		public List<Banner> GetBannerList();
 		public List<Country> getCountryList();
 		public List<Timesheet> GetTimeSheetTimeList();
+		public List<Timesheet> GetTimeSheetGoalList();
 
 
 		// ************** List Section ENd    **********//
@@ -127,7 +128,7 @@ namespace CIPlatform_Main.Repository.Interface
 		public bool SaveMisionApplicationData(long mappMid, long mappUid, DateTime mappADate, DateTime mappCDate);
 
 		// Method for Approved User by Admin
-		public bool ApprovedUserbyAdmin(long mAppId);
+		public bool ApprovedUserbyAdmin(long mAppId,long userId);
 
 		// Method for Reject User by Admin
 		public bool RejectedUserbyAdmin(long missionAppId);
@@ -179,7 +180,9 @@ namespace CIPlatform_Main.Repository.Interface
 		public bool RejectTimeBasedSheet(long rejectTid);
 		public bool DeleteTimeBasedSheet(long deleteTid);
 
+		public bool ApprovedGoalBasedSheet(long goalId);
 
+		public bool RejectGoalBasedSheet(long rejectgid);
 
 	}
 }

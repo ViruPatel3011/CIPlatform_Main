@@ -267,7 +267,7 @@
 																	</div>
 																	<div class="modal-footer">
 																		<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-																		<button type="button" class="btn btn-primary" onclick="senduser(@item.MissionId)">Send Mail</button>
+																		<button type="button" class="btn btn-primary" onclick="senduser(@item.MissionId,@uid)">Send Mail</button>
 																	</div>
 																</div>
 																<div class="d-none w-100 text-center" id="volPageLoader">
@@ -523,7 +523,7 @@
 
 														<img src="~/Assets/user.png" alt="" style="margin-bottom: 10px;margin-left: -12px;">
 													</button>
-													<!-- Modal -->
+													
 													<div class="modal fade " id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
 														<div class="modal-dialog">
 															<div class="modal-content">
@@ -537,7 +537,7 @@
 																	</div>
 																	<div class="modal-footer">
 																		<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-																		<button type="button" class="btn btn-primary" onclick="senduser(@item.MissionId)">Send Mail</button>
+																		<button type="button" class="btn btn-primary" onclick="senduser(@item.MissionId,@uid)">Send Mail</button>
 																	</div>
 																</div>
 																<div class="d-none w-100 text-center" id="volPageLoader">
@@ -790,11 +790,11 @@
 
 
 
-	$('#sendmail').click(function () {
-		senduser();
-	})
+	//$('#sendmail').click(function () {
+	//	senduser();
+	//})
 
-	function senduser(missionId) {
+	function senduser(missionId,userid) {
 		var selecteduserid = [];
 		$('.modal-body input[type="checkbox"]:checked').each(function () {
 			selecteduserid.push($(this).attr("id"));
@@ -809,7 +809,7 @@
 				data: {
 					ids: selecteduserid,
 					missionid: missionId,
-					userId:@uid
+					userId: userid
 				
 				},
 				traditional: true,

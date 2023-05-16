@@ -106,7 +106,32 @@
 					<li class="nav-item d-flex justify-content-center align-items-center me-3">
 						<a class="card-btn position-relative" role="button" onclick="ShowNotification(@uid)" data-bs-toggle="modal" data-bs-target="#notificationModal">
 							<i class="bi bi-bell text-black fs-5"></i>
-							<span class="badge rounded-pill badge-notification position-absolute" style="background: #F88634; top: -5px; right: 5px;">5</span>
+							
+							@{
+								//var notiCount = Model.NotificationMessage.Count(user => user.ToUser == Convert.ToInt32(uid));
+								var messageList = new List<string>();
+								var notiCount = 0;
+								var takeids = Model.UserPreferencesList.Where(e => e.UserId == Convert.ToInt32(uid)).Select(e => e.NotificationId).ToList();
+								if (takeids == null || !takeids.Any())
+								{
+									// If takeids is null or empty, retrieve all notifications for the user
+									notiCount = Model.NotificationMessage.Count(user => user.ToUser == Convert.ToInt32(uid));
+
+								}
+								else
+								{
+									foreach (var id in takeids)
+									{
+										var matchingNotifications = Model.NotificationMessage
+										.Where(m => m.NotificationId == id && m.ToUser == Convert.ToInt32(uid))
+										.ToList();
+
+										notiCount += matchingNotifications.Count;
+									}
+								}
+							}
+
+							<span class="badge rounded-pill badge-notification position-absolute" style="background: #F88634; top: -5px; right: 5px;">@notiCount</span>
 						</a>
 						<div class="modal fade" id="notificationModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
 							<div class="modal-dialog  modal-dialog-scrollable" style="position: fixed;top: 3%;right: 17%;">
@@ -482,7 +507,7 @@
 	 
 	 }
 
-
+	 
 	$(document).ready(function () {
 		$("#notifType li input[type='checkbox']").each(function () {
 			// If the checkbox's value is in the list of IDs, check it

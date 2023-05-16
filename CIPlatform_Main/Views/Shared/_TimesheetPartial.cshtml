@@ -10,7 +10,7 @@
 
 	<div class="row">
 		<div class="col-12">
-			<h3 class="mt-3 ms-3 mb-0">TimeSheet</h3>
+			<h3 class="mt-3 ms-3 mb-0">Volunteering TimeSheet TimeBase </h3>
 			<hr class="m-0 mt-2">
 		</div>
 	</div>
@@ -25,9 +25,9 @@
 
 		<div class="col-8">
 			<div class="addBtn float-end">
-				<button type="button" class="btn btn-outline-warning px-3" style="border-radius: 50px;" >
+				<a type="button" class="btn btn-outline-warning px-3" style="border-radius: 50px;" asp-controller="Admin" asp-action="GoalTimeSheetAdd">
 					Goal Based Timesheet
-				</button>
+				</a>
 
 			</div>
 		</div>
@@ -83,7 +83,7 @@
 								<td class="p-0 pt-2 px-1 d-flex">
 									
 									<div class="mb-2">
-										@if (timesheet.Status == "Approved")
+										@if (timesheet.Status == "Approved" || timesheet.Status == "Declined")
 										{
 											<button type="button" class="border-0 bg-transparent" disabled>
 												<i class="bi bi-check-circle text-dark"></i>
@@ -135,8 +135,8 @@
 
 									</div>
 
-									<div class="mb-2">	
-										@if (timesheet.Status == "Rejected")
+									<div class="mb-2">
+										@if (timesheet.Status == "Declined" || timesheet.Status == "Approved")
 										{
 											<button type="button" class="border-0 bg-transparent" disabled>
 												<i class="bi bi-x-circle text-dark"></i>
@@ -188,7 +188,7 @@
 
 									</div>
 
-									<div class="mb-2">
+								@*	<div class="mb-2">
 										@if (timesheet.Status == "Deleted")
 										{
 											<button type="button" class="border-0 bg-transparent" disabled>
@@ -239,7 +239,7 @@
 
 
 
-									</div>
+									</div>*@
 
 								</td>
 							</tr>
@@ -269,10 +269,6 @@
 	function getTimeId(tId) {
 		timebaseId = tId
 	}
-
-
-
-
 	function ApproveTimeBasedSheet(){
 		$.ajax({
 			url: "/Admin/ApprovedTimeSheet",
@@ -363,6 +359,7 @@
 
 	$('#timehsheetLink').addClass('bg-white')
 	$('#timehsheetLink').css("color", "orange");
+
 	
 
 </script>

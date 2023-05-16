@@ -55,6 +55,7 @@
 						{
 							var missionTitle = "";
 							var username = "";
+							long userId = 0;
 							@foreach (var mission in Model.MissionList)
 							{
 								if (mission.MissionId == missionApp.MissionId)
@@ -67,6 +68,7 @@
 								if (user.UserId == missionApp.UserId)
 								{
 									username = user.FirstName + " " + user.LastName;
+									userId = user.UserId;
 								}
 							}
 
@@ -134,7 +136,7 @@
 															Cancel
 														</button>
 														<button type="button" class="btn btn-outline-warning"
-																style="border-radius:50px" data-bs-dismiss="modal" onclick="ApproveUser()">
+																style="border-radius:50px" data-bs-dismiss="modal" onclick="ApproveUser(@userId)">
 															Approve
 														</button>
 													</div>
@@ -274,12 +276,13 @@
 		}
 
 
-		function ApproveUser() {
+		function ApproveUser(userid) {
 			$.ajax({
 				url: "/Admin/AdminApprovedUser",
 				type: "POST",
 				data: {
-					mAppId: mappid
+					mAppId: mappid,
+					userId:userid
 
 				},
 				success: function (result) {

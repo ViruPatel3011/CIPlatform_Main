@@ -228,6 +228,9 @@ namespace CIPlatform_Main.Entities.ViewModel
 
 		// below field is for Timesheet time Page
 		public List<Timesheet> TimeSheetListTime { get; set; }
+		public List<Timesheet> TimeSheetListGoal { get; set; }
+	
+		public IEnumerable<MessageTable>? NotificationMessage { get; set; }
 
 	}
 }
