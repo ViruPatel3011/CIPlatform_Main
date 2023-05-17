@@ -249,7 +249,7 @@
 											else
 											{
 												<div class="position-absolute c1-person px-2 py-1">
-													<button type="button" class="btn btn-Secondary" data-bs-toggle="modal" data-bs-target="#staticBackdrop" onclick="getUser();">
+													<button type="button" class="btn btn-Secondary" data-bs-toggle="modal" data-bs-target="#staticBackdrop" onclick="getUser(@item.MissionId);">
 
 														<img src="~/Assets/user.png" alt="" style="margin-bottom: 10px;margin-left: -12px;">
 													</button>
@@ -267,7 +267,7 @@
 																	</div>
 																	<div class="modal-footer">
 																		<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-																		<button type="button" class="btn btn-primary" onclick="senduser(@item.MissionId,@uid)">Send Mail</button>
+																		<button type="button" class="btn btn-primary" onclick="senduser(@uid)">Send Mail</button>
 																	</div>
 																</div>
 																<div class="d-none w-100 text-center" id="volPageLoader">
@@ -519,7 +519,7 @@
 											else
 											{
 												<div class="position-absolute c1-person px-2 py-1">
-													<button type="button" class="btn btn-Secondary" data-bs-toggle="modal" data-bs-target="#staticBackdrop" onclick="getUser();">
+													<button type="button" class="btn btn-Secondary" data-bs-toggle="modal" data-bs-target="#staticBackdrop" onclick="getUser(@item.MissionId);">
 
 														<img src="~/Assets/user.png" alt="" style="margin-bottom: 10px;margin-left: -12px;">
 													</button>
@@ -537,7 +537,7 @@
 																	</div>
 																	<div class="modal-footer">
 																		<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-																		<button type="button" class="btn btn-primary" onclick="senduser(@item.MissionId,@uid)">Send Mail</button>
+																		<button type="button" class="btn btn-primary" onclick="senduser(@uid)">Send Mail</button>
 																	</div>
 																</div>
 																<div class="d-none w-100 text-center" id="volPageLoader">
@@ -794,7 +794,7 @@
 	//	senduser();
 	//})
 
-	function senduser(missionId,userid) {
+	function senduser(userid) {
 		var selecteduserid = [];
 		$('.modal-body input[type="checkbox"]:checked').each(function () {
 			selecteduserid.push($(this).attr("id"));
@@ -841,9 +841,10 @@
 		}
 	}
 
-
-	function getUser() {
+	var missionId;
+	function getUser(mId) {
 		var div = $('.modal-body');
+		missionId = mId;
 		$.ajax({
 			type: "GET",
 			url: "/Home/GetUsers ",

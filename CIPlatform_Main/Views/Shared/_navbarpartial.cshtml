@@ -110,12 +110,12 @@
 							@{
 								//var notiCount = Model.NotificationMessage.Count(user => user.ToUser == Convert.ToInt32(uid));
 								var messageList = new List<string>();
-								var notiCount = 0;
+								var notificationCount = 0;
 								var takeids = Model.UserPreferencesList.Where(e => e.UserId == Convert.ToInt32(uid)).Select(e => e.NotificationId).ToList();
 								if (takeids == null || !takeids.Any())
 								{
 									// If takeids is null or empty, retrieve all notifications for the user
-									notiCount = Model.NotificationMessage.Count(user => user.ToUser == Convert.ToInt32(uid));
+									notificationCount = Model.NotificationMessage.Count(user => user.ToUser == Convert.ToInt32(uid));
 
 								}
 								else
@@ -126,12 +126,12 @@
 										.Where(m => m.NotificationId == id && m.ToUser == Convert.ToInt32(uid))
 										.ToList();
 
-										notiCount += matchingNotifications.Count;
+										notificationCount += matchingNotifications.Count;
 									}
 								}
 							}
 
-							<span class="badge rounded-pill badge-notification position-absolute" style="background: #F88634; top: -5px; right: 5px;">@notiCount</span>
+							<span class="badge rounded-pill badge-notification position-absolute" style="background: #F88634; top: -5px; right: 5px;">@notificationCount</span>
 						</a>
 						<div class="modal fade" id="notificationModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
 							<div class="modal-dialog  modal-dialog-scrollable" style="position: fixed;top: 3%;right: 17%;">
