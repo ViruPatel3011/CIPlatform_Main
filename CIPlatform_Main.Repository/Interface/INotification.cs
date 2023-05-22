@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CIPlatform_Main.Entities.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -11,6 +12,8 @@ namespace CIPlatform_Main.Repository.Interface
 
 		public bool AddCheckedNotification(long[] selectedUserCheckedValues, long userid);
 
-		public List<string> ShowSpecificUserNotification(long userId);
+		public List<MessageTable> ShowSpecificUserNotification(long userId);
+
+		public bool MarkAsRead(long messageid);
 	}
 }

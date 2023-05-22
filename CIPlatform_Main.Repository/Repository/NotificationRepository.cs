@@ -39,16 +39,15 @@ namespace CIPlatform_Main.Repository.Repository
 		}
 
 
-		public List<string> ShowSpecificUserNotification(long userId)
+		public List<MessageTable> ShowSpecificUserNotification(long userId)
 		{
-			var messageList = new List<string>();
+			var messageList = new List<MessageTable>();
 			var takeids = _ciPlatformContext.EnableUserPreferences.Where(e => e.UserId == userId).Select(e => e.NotificationId).ToList();
 			if (takeids == null || !takeids.Any())
 			{
 				// If takeids is null or empty, retrieve all notifications for the user
 				var allMessages = _ciPlatformContext.MessageTables
 				.Where(m => m.ToUser == userId)
-				.Select(m => m.Message)
 				.ToList();
 
 				messageList.AddRange(allMessages);
@@ -63,11 +62,26 @@ namespace CIPlatform_Main.Repository.Repository
 					foreach (var id1 in messageid)
 					{
 						var msg = message.FirstOrDefault(m => m.MessageId == id1);
-						messageList.Add(msg.Message);
+						messageList.Add(msg);
 					}
 				}
 			}
 			return messageList;
+		}
+
+		public bool MarkAsRead(long messageid)
+		{
+			var isMessage = _ciPlatformContext.MessageTables.Where(msg => msg.MessageId == messageid).FirstOrDefault();
+			if (isMessage != null)
+			{
+				isMessage.Isread = 1;
+				_ciPlatformContext.SaveChanges();
+				return true;
+			}
+			else
+			{
+				return false;
+			}
 		}
 
 	}

@@ -1,5 +1,6 @@
 ﻿using CIPlatform_Main.Repository.Interface;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 
 namespace CIPlatform_Main.Controllers
 {
@@ -30,6 +31,12 @@ namespace CIPlatform_Main.Controllers
 		{
 			var getRelatedNotification = _notification.ShowSpecificUserNotification(userId);
 			return Json(getRelatedNotification);
+		}
+
+		public IActionResult ReadNotification(long messageid)
+		{
+			_notification.MarkAsRead(messageid);
+			return RedirectToAction("LandingPage", "Home");
 		}
 	}
 }
